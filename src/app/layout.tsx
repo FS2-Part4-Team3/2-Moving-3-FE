@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@styles/globals.css";
+import { Providers } from "@/store/providers";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -24,7 +25,9 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={pretendard.className}>
-        <div className="min-h-screen">{children}</div>
+        <div className="min-h-screen">
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   );
