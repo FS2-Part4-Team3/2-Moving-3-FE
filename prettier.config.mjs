@@ -22,6 +22,7 @@ export default {
     "^@pages/(.*)$",
     "^@/(.*)$",
     "^.*\\.(svg|jpg|jpeg|png)$",
+    "^../public/(.*)$",
     "^.*\\.css$",
     "^[./]",
   ],

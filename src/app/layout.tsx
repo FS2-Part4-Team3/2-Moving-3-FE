@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@styles/globals.css";
 import { Providers } from "@/store/providers";
+import GNB from "@/components/common/gnb/GNB";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -26,7 +27,10 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <div className="min-h-screen">
-          <Providers>{children}</Providers>
+          <Providers>
+            <GNB />
+            {children}
+          </Providers>
         </div>
       </body>
     </html>
