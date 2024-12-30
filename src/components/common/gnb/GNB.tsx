@@ -97,7 +97,7 @@ export default function GNB() {
             </div>
           )}
           {status !== "LogOut" && (
-            <div className="flex gap-[3.2rem] items-center justify-end">
+            <div className="flex gap-[3.2rem] items-center justify-end w-full">
               <Image
                 src={alarm}
                 alt="alarm"
