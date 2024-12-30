@@ -7,6 +7,9 @@ export interface InputContextType {
 
 export interface ButtonContextType {
   id: string;
-  label: string;
   onClick: () => void;
+}
+
+export interface ModalContextType {
+  onClose: () => void;
 }

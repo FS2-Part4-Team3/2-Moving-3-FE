@@ -6,10 +6,9 @@ const ButtonContext = createContext<ButtonContextType | undefined>(undefined);
 export const ButtonWrapper = ({
   children,
   id,
-  label,
   onClick,
 }: ButtonContextType & { children: React.ReactNode }) => {
-  const contextValue = { id, label, onClick };
+  const contextValue = { id, onClick };
 
   return (
     <ButtonContext.Provider value={contextValue}>
@@ -29,23 +28,25 @@ const useButtonContext = () => {
 const Button = ({
   className,
   disabled = false,
+  children,
   ...props
 }: React.ComponentPropsWithoutRef<"button"> & {
   className?: string;
   disabled?: boolean;
 }) => {
-  const { id, label, onClick } = useButtonContext();
+  const { id, onClick } = useButtonContext();
 
   return (
     <button
       id={id}
-      aria-label={label}
       onClick={disabled ? undefined : onClick}
-      className={`${className} ${disabled ? "cursor-not-allowed" : ""}`}
+      className={`${className} ${
+        disabled ? "cursor-not-allowed bg-gray-100" : "bg-blue-300"
+      }`}
       disabled={disabled}
       {...props}
     >
-      {label}
+      {children}
     </button>
   );
 };

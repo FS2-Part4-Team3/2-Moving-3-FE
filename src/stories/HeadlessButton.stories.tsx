@@ -13,12 +13,8 @@ export default {
 
 export const Default: StoryFn = () => {
   return (
-    <ButtonWrapper
-      id="default-button"
-      label="Click Me"
-      onClick={() => alert("Button Clicked")}
-    >
-      <ButtonWrapper.Button />
+    <ButtonWrapper id="default-button" onClick={() => alert("Button Clicked")}>
+      <ButtonWrapper.Button>Click Me</ButtonWrapper.Button>
     </ButtonWrapper>
   );
 };
@@ -27,10 +23,9 @@ export const Disabled: StoryFn = () => {
   return (
     <ButtonWrapper
       id="disabled-button"
-      label="Disabled Button"
       onClick={() => alert("Disabled Button Clicked")}
     >
-      <ButtonWrapper.Button disabled />
+      <ButtonWrapper.Button disabled>Disabled Button</ButtonWrapper.Button>
     </ButtonWrapper>
   );
 };
