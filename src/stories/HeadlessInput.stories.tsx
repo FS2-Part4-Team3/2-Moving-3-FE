@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { type StoryFn } from "@storybook/react";
 import { InputWrapper } from "@/components/common/headless/Input";
 

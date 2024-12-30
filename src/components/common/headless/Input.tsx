@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import type { InputContextType } from "@/interface/CommonComp/Headless/InputInterface";
+import type { InputContextType } from "@/interface/CommonComp/HeadlessInterface";
 
 const InputContext = createContext<InputContextType | undefined>(undefined);
 

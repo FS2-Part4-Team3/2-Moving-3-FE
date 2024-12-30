@@ -4,3 +4,9 @@ export interface InputContextType {
   type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface ButtonContextType {
+  id: string;
+  label: string;
+  onClick: () => void;
+}
