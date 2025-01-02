@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import close from "@/../public/assets/common/icon_X.svg";
 import Image from "next/image";
-import type { ModalContextType } from "@/interface/CommonComp/HeadlessInterface";
+import type { ModalContextType } from "@/interfaces/CommonComp/HeadlessInterface";
 import { ButtonWrapper } from "./Button";
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
