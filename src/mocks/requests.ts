@@ -15,7 +15,7 @@ export const requests = [
     createdAt: "2025-01-02T12:00:00Z",
     updatedAt: "2025-01-02T12:00:00Z",
     moveInfo: moveInfos[1],
-    status: "CONFIRMED",
+    status: "PENDING",
     driver: drivers[1],
   },
   {
@@ -23,7 +23,7 @@ export const requests = [
     createdAt: "2025-01-03T12:00:00Z",
     updatedAt: "2025-01-03T12:00:00Z",
     moveInfo: moveInfos[2],
-    status: "CANCELED",
+    status: "APPLY",
     driver: drivers[2],
   },
   {
@@ -31,7 +31,7 @@ export const requests = [
     createdAt: "2025-01-04T12:00:00Z",
     updatedAt: "2025-01-04T12:00:00Z",
     moveInfo: moveInfos[3],
-    status: "COMPLETED",
+    status: "PENDING",
     driver: drivers[0],
   },
   {
@@ -55,7 +55,7 @@ export const requests = [
     createdAt: "2025-01-07T12:00:00Z",
     updatedAt: "2025-01-07T12:00:00Z",
     moveInfo: moveInfos[6],
-    status: "PENDING",
+    status: "REJECTED",
     driver: drivers[0],
   },
   {
@@ -63,7 +63,7 @@ export const requests = [
     createdAt: "2025-01-08T12:00:00Z",
     updatedAt: "2025-01-08T12:00:00Z",
     moveInfo: moveInfos[7],
-    status: "CONFIRMED",
+    status: "CANCELED",
     driver: drivers[1],
   },
   {
@@ -71,7 +71,7 @@ export const requests = [
     createdAt: "2025-01-09T12:00:00Z",
     updatedAt: "2025-01-09T12:00:00Z",
     moveInfo: moveInfos[2],
-    status: "CANCELED",
+    status: "PENDING",
     driver: drivers[0],
   },
   {
@@ -79,7 +79,7 @@ export const requests = [
     createdAt: "2025-01-10T12:00:00Z",
     updatedAt: "2025-01-10T12:00:00Z",
     moveInfo: moveInfos[4],
-    status: "COMPLETED",
+    status: "PENDING",
     driver: drivers[2],
   },
 ];
