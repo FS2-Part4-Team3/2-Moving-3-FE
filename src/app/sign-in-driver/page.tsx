@@ -44,7 +44,7 @@ export default function SignIn() {
             <p className="font-normal lg:text-[2rem] sm:text-[1.2rem] lg:leading-[3.2rem] sm:leading-[1.8rem] lg:text-black-200 sm:text-black-100">
               아직 무빙 회원이 아니신가요?
             </p>
-            <Link href="/sign-up">
+            <Link href="/sign-up-driver">
               <p className="font-semibold lg:text-[2rem] sm:text-[1.2rem] leading-[2rem] text-blue-300 underline decoration-blue-300">
                 이메일로 회원가입하기
               </p>
