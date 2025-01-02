@@ -6,21 +6,29 @@ import menu from "@/../public/assets/common/gnb/menu.svg";
 import Link from "next/link";
 import close from "@/../public/assets/common/icon_X.svg";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import alarm from "@/../public/assets/common/gnb/alarm.svg";
 import profile from "@/../public/assets/common/gnb/default_profile.svg";
+import logo_sm from "@/../public/assets/common/gnb/logo-sm.svg";
 
 export default function GNB() {
-  const [modalOpen, isModalOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isRequestQuote = pathname?.includes("request-quote"); // 견적 요청
+  const isMatchDriver = pathname?.includes("match-driver"); // 기사님 찾기
+  const isMyQuotes = pathname?.includes("my-quotes"); // 내 견적 관리
+  const isReceiveQuote = pathname?.includes("receive-quote"); // 받은 요청
+
+  const [modalOpen, isModalOpen] = useState(false);
 
   const handleRouteLanding = () => {
     router.push("/");
   };
 
-  // const status = "LogOut";
-  // const status = "General";
-  const status = "Driver";
+  // const status: string = "LogOut";
+  const status: string = "General";
+  // const status: string = "Driver";
 
   return (
     <>
@@ -37,9 +45,17 @@ export default function GNB() {
           <Image
             src={logo}
             alt="logo"
-            width={80}
+            width={88}
             height={34}
-            className="lg:hidden sm:block cursor-pointer"
+            className="lg:hidden md:block sm:hidden cursor-pointer"
+            onClick={handleRouteLanding}
+          />
+          <Image
+            src={logo_sm}
+            alt="logo"
+            width={28.8}
+            height={32.76}
+            className="md:hidden sm:block cursor-pointer"
             onClick={handleRouteLanding}
           />
           <div className="w-full flex gap-[4rem]">
@@ -48,7 +64,11 @@ export default function GNB() {
                 href="/request-quote"
                 className="lg:block sm:hidden cursor-pointer"
               >
-                <p className="font-bold text-[1.8rem] leading-[2.6rem] font-black-400">
+                <p
+                  className={`font-bold text-[1.8rem] leading-[2.6rem] ${
+                    isRequestQuote ? "text-black-400" : "text-gray-400"
+                  }`}
+                >
                   견적 요청
                 </p>
               </Link>
@@ -58,7 +78,11 @@ export default function GNB() {
                 href="/receive-quote"
                 className="lg:block sm:hidden cursor-pointer"
               >
-                <p className="font-bold text-[1.8rem] leading-[2.6rem] font-black-400">
+                <p
+                  className={`font-bold text-[1.8rem] leading-[2.6rem] ${
+                    isReceiveQuote ? "text-black-400" : "text-gray-400"
+                  }`}
+                >
                   받은 요청
                 </p>
               </Link>
@@ -68,7 +92,11 @@ export default function GNB() {
                 href="/match-driver"
                 className="lg:block sm:hidden cursor-pointer"
               >
-                <p className="font-bold text-[1.8rem] leading-[2.6rem] font-black-400">
+                <p
+                  className={`font-bold text-[1.8rem] leading-[2.6rem] ${
+                    isMatchDriver ? "text-black-400" : "text-gray-400"
+                  }`}
+                >
                   기사님 찾기
                 </p>
               </Link>
@@ -78,7 +106,11 @@ export default function GNB() {
                 href="/my-quotes"
                 className="lg:block sm:hidden cursor-pointer"
               >
-                <p className="font-bold text-[1.8rem] leading-[2.6rem] font-black-400">
+                <p
+                  className={`font-bold text-[1.8rem] leading-[2.6rem] ${
+                    isMyQuotes ? "text-black-400" : "text-gray-400"
+                  }`}
+                >
                   내 견적 관리
                 </p>
               </Link>
@@ -90,7 +122,7 @@ export default function GNB() {
                 href="/sign-in"
                 className="flex items-center justify-center cursor-pointer"
               >
-                <button className="w-[11.6rem] h-[4.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 flex items-center justify-center font-semibold text-[1.8rem] leading-[2.6rem] text-gray-50">
+                <button className="w-[11.6rem] h-[4.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 flex items-center justify-center font-semibold text-[1.8rem] leading-[2.6rem] text-white">
                   로그인
                 </button>
               </Link>
@@ -163,6 +195,8 @@ export default function GNB() {
                     견적 요청
                   </p>
                 </Link>
+              )}
+              {status !== "Driver" && (
                 <Link href="/match-driver" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     기사님 찾기
