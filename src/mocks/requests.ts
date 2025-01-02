@@ -9,6 +9,5 @@ export const requests = [
     moveInfo: moveInfos[0],
     status: "PENDING",
     driver: drivers[0],
-    driverNotifications: [],
   },
 ];

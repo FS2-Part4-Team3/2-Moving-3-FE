@@ -12,7 +12,5 @@ export const moveInfos = [
     progress: "PENDING",
     confirmedEstimation: null,
     owner: users[0],
-    estimations: [],
-    requests: [],
   },
 ];
