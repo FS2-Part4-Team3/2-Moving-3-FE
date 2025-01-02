@@ -76,7 +76,7 @@ export default function SignInClient() {
             </div>
           </InputWrapper>
           {emailError && (
-            <p className="font-medium text-[1.6rem] leading-[2.6rem] text-red-200">
+            <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-red-200">
               {emailError}
             </p>
           )}
@@ -114,7 +114,7 @@ export default function SignInClient() {
             </div>
           </InputWrapper>
           {passwordError && (
-            <p className="font-medium text-[1.6rem] leading-[2.6rem] text-red-200">
+            <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-red-200">
               {passwordError}
             </p>
           )}
