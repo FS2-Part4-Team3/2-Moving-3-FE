@@ -20,7 +20,6 @@ const config: Config = {
       "black-300": "#373737",
       "black-400": "#1F1F1F",
       "black-500": "#040404",
-      "gray-50": "#FFFFFF",
       "gray-100": "#DEDEDE",
       "gray-200": "#C4C4C4",
       "gray-300": "#ABABAB",
@@ -38,6 +37,8 @@ const config: Config = {
       "background-400": "#F4F7FB",
       "line-100": "#F2F2F2",
       "line-200": "#E6E6E6",
+      white: "#FFFFFF",
+      black: "#000000",
     },
     extend: {
       textColor: {
