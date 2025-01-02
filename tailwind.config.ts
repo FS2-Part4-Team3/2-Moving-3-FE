@@ -31,6 +31,8 @@ const config: Config = {
       "blue-300": "#1B92FF",
       "blue-400": "#242945",
       "yellow-100": "#FFC149",
+      "red-100": "#FFEEF0",
+      "red-200": "#FF4F64",
       "background-100": "#FAFAFA",
       "background-200": "#F7F7F7",
       "background-300": "#EFEFEF",
