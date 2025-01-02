@@ -45,6 +45,8 @@ const ModalHeader = ({ children }: { children: React.ReactNode }) => {
         alt="close"
         onClick={onClose}
         className="cursor-pointer"
+        width={32}
+        height={32}
       />
     </div>
   );
