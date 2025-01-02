@@ -1,12 +1,10 @@
-"use client";
-
 import logo from "@/../public/assets/sign/sign-logo.svg";
-import { ButtonWrapper } from "@/components/common/headless/Button";
-import { InputWrapper } from "@/components/common/headless/Input";
 import SignInClient from "@/pages/SignInClient";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import google from "@/../public/assets/sign/ic_google.svg";
+import kakao from "@/../public/assets/sign/ic_kakao.svg";
+import naver from "@/../public/assets/sign/ic_naver.svg";
 
 export default function SignIn() {
   const onSubmit = (email: string, password: string) => {
@@ -41,7 +39,7 @@ export default function SignIn() {
         </div>
         <div className="flex flex-col gap-[2.4rem]">
           <div className="flex flex-col gap-[5.6rem]">
-            <SignInClient onSubmit={onSubmit} />
+            <SignInClient />
           </div>
           <div className="flex gap-[0.8rem] items-center justify-center">
             <p className="font-normal text-[2rem] leading-[3.2rem] text-black-200">
@@ -52,6 +50,16 @@ export default function SignIn() {
                 이메일로 회원가입하기
               </p>
             </Link>
+          </div>
+        </div>
+        <div className="flex flex-col gap-[3.2rem] items-center justify-center">
+          <p className="font-normal text-[2rem] leading-[3.2rem] text-black-200">
+            SNS 계정으로 간편 가입하기
+          </p>
+          <div className="flex gap-[3.2rem]">
+            <Image src={google} alt="google" width={72} height={72} />
+            <Image src={kakao} alt="kakao" width={72} height={72} />
+            <Image src={naver} alt="naver" width={72} height={72} />
           </div>
         </div>
       </div>

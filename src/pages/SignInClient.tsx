@@ -1,9 +1,11 @@
+"use client";
+
 import { ButtonWrapper } from "@/components/common/headless/Button";
 import { InputWrapper } from "@/components/common/headless/Input";
 import type { SignInClientProps } from "@/interfaces/Page/SigninInterface";
 import { useState } from "react";
 
-export default function SignInClient({ onSubmit }: SignInClientProps) {
+export default function SignInClient() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -13,6 +15,11 @@ export default function SignInClient({ onSubmit }: SignInClientProps) {
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    const data = { email, password };
+    console.log(data);
   };
 
   return (
@@ -51,7 +58,7 @@ export default function SignInClient({ onSubmit }: SignInClientProps) {
           </div>
         </InputWrapper>
       </div>
-      <ButtonWrapper id="signin" onClick={() => onSubmit(email, password)}>
+      <ButtonWrapper id="signin" onClick={() => handleSubmit()}>
         <ButtonWrapper.Button className="w-[64rem] h-[6.4rem] rounded-[1.6rem] p-[1.6rem] bg-gray-100 font-semibold text-[2rem] leading-[3.2rem] flex items-center justify-center text-white">
           로그인
         </ButtonWrapper.Button>
