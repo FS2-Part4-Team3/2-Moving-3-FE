@@ -163,8 +163,6 @@ export default function GNB() {
                     견적 요청
                   </p>
                 </Link>
-              )}
-              {status === "General" && (
                 <Link href="/match-driver" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     기사님 찾기
