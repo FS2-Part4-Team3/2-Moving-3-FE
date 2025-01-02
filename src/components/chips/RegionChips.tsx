@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import regions from "../../../constants/regions";
+import regions from "@/constants/regions";
 
 export function RegionChips() {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);

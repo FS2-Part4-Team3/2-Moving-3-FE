@@ -5,6 +5,6 @@ export default {
   component: RegionChips,
 };
 
-const Template = (args: any) => <RegionChips {...args} />;
+const Template = () => <RegionChips />;
 
 export const Default = Template.bind({});
