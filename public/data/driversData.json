@@ -15,7 +15,8 @@
     "availableAreas": ["SEOUL", "INCHEON"],
     "applyCount": 10,
     "favoriteCount": 5,
-    "score": 4.8
+    "score": 4.8,
+    "career": 9
   },
   {
     "id": "driver-2",
@@ -33,7 +34,8 @@
     "availableAreas": ["부산", "울산"],
     "applyCount": 15,
     "favoriteCount": 8,
-    "score": 4.7
+    "score": 4.7,
+    "career": 6
   },
   {
     "id": "driver-3",
@@ -47,10 +49,11 @@
     "phoneNumber": "010-7891-2345",
     "introduce": "정확하고 빠른 서비스로 고객 만족을 실현합니다.",
     "description": "장거리 및 대형 이사에 특화되어 있습니다.",
-    "serviceType": ["LARGE", "LONG_DISTANCE"],
+    "serviceType": ["LARGE"],
     "availableAreas": ["대구", "광주"],
     "applyCount": 20,
     "favoriteCount": 12,
-    "score": 4.9
+    "score": 4.9,
+    "career": 3
   }
 ]
