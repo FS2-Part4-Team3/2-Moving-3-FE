@@ -12,6 +12,24 @@ export default function RegionServiceDropdown() {
   const [serviceDropdownOpen, setServiceDropdownOpen] =
     useState<boolean>(false);
 
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [selectedService, setSelectedService] = useState<string | null>(null);
+
+  const handleResetClick = () => {
+    setSelectedRegion(null);
+    setSelectedService(null);
+  };
+
+  const handleRegionClick = (region: string) => {
+    setSelectedRegion(region);
+    setRegionDropdownOpen(false);
+  };
+
+  const handleServiceClick = (service: string) => {
+    setSelectedService(service);
+    setServiceDropdownOpen(false);
+  };
+
   return (
     <div className="w-[32.8rem] flex lg:flex-col lg:gap-[3.2rem] sm:gap-[1.2rem]">
       <div className="lg:block sm:hidden">
@@ -19,7 +37,10 @@ export default function RegionServiceDropdown() {
           <p className="font-medium text-[2rem] leading-[3.2rem] text-black">
             필터
           </p>
-          <p className="font-medium text-[1.6rem] leading-[2.6rem] text-gray-300 cursor-pointer">
+          <p
+            className="font-medium text-[1.6rem] leading-[2.6rem] text-gray-300 cursor-pointer"
+            onClick={handleResetClick}
+          >
             초기화
           </p>
         </div>
@@ -41,7 +62,7 @@ export default function RegionServiceDropdown() {
               regionDropdownOpen ? "text-blue-300" : "text-black-400"
             }`}
           >
-            지역
+            {selectedRegion || "지역"}
           </p>
           <Image
             src={regionDropdownOpen ? clicked_arrow : arrow_down}
@@ -67,7 +88,8 @@ export default function RegionServiceDropdown() {
                   .map((region, index) => (
                     <div
                       key={index}
-                      className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 border-r border-line-200"
+                      className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 border-r border-line-200 cursor-pointer"
+                      onClick={() => handleRegionClick(region.name)}
                     >
                       {region.name}
                     </div>
@@ -82,7 +104,8 @@ export default function RegionServiceDropdown() {
                   .map((region, index) => (
                     <div
                       key={index}
-                      className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400"
+                      className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 cursor-pointer"
+                      onClick={() => handleRegionClick(region.name)}
                     >
                       {region.name}
                     </div>
@@ -109,7 +132,7 @@ export default function RegionServiceDropdown() {
               serviceDropdownOpen ? "text-blue-300" : "text-black-400"
             }`}
           >
-            서비스
+            {selectedService || "서비스"}
           </p>
           <Image
             src={serviceDropdownOpen ? clicked_arrow : arrow_down}
@@ -132,7 +155,8 @@ export default function RegionServiceDropdown() {
               {movingTypeDropdown.map((movingType, index) => (
                 <div
                   key={index}
-                  className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400"
+                  className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 cursor-pointer"
+                  onClick={() => handleServiceClick(movingType.type)}
                 >
                   {movingType.type}
                 </div>
