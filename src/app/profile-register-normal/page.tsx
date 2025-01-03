@@ -36,17 +36,17 @@ export default function ProfileRegisterNormal() {
   };
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="lg:w-[64rem] border-b border-gray-600 pb-[3.2rem]">
-        <h1 className="text-[3.2rem] font-semibold text-black-400 mb-[3.2rem] mt-[2.4rem]">
+      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b border-gray-600 pb-[3.2rem]">
+        <h1 className="lg:text-[3.2rem] md:text-[1.8rem] sm:text-[1.8rem] font-semibold text-black-400 mb-[3.2rem] mt-[2.4rem]">
           프로필 등록
         </h1>
-        <h3 className="text-[2rem] font-normal text-black-200">
+        <h3 className="lg:text-[2rem] md:text-[1.2rem] sm:text-[1.2rem] font-normal text-black-200">
           추가 정보를 입력하여 회원가입을 완료해주세요.
         </h3>
       </div>
-      <div className="lg:w-[64rem] mt-[6.4rem]">
+      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] mt-[6.4rem]">
         <div className="flex flex-col border-b border-gray-600 pb-[3.2rem]">
-          <h2 className="text-[2rem] font-semibold text-black-300 mb-[2.4rem]">
+          <h2 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-black-300 mb-[2.4rem]">
             프로필 이미지
           </h2>
           <input
@@ -57,20 +57,22 @@ export default function ProfileRegisterNormal() {
             onChange={handleImgChange}
           />
           <button onClick={handleImgClick}>
-            <Image
-              src={previewUrl || profile}
-              alt="프로필 등록 이미지"
-              width={160}
-              height={160}
-              className="cursor-pointer"
-            />
+            <div className="relative lg:w-[16rem] lg:h-[16rem] md:w-[10rem] md:h-[10rem] sm:w-[10rem] sm:h-[10rem]">
+              <Image
+                src={previewUrl || profile}
+                alt="프로필 등록 이미지"
+                fill
+                className="cursor-pointer"
+                priority
+              />
+            </div>
           </button>
         </div>
         <div className="border-b border-gray-600 pb-[3.2rem] mt-[3.2rem]">
-          <h2 className="text-[2rem] font-semibold text-black-300 mb-[0.8rem]">
+          <h2 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-black-300 mb-[0.8rem]">
             이용 서비스
           </h2>
-          <p className="text-[1.6rem] font-normal text-gray-400 mb-[3.2rem]">
+          <p className="lg:text-[1.6rem] md:text-[1.2rem] sm:text-[1.2rem] font-normal text-gray-400 mb-[3.2rem]">
             *이용 서비스는 중복 선택 가능하며, 언제든 수정 가능해요!
           </p>
           <ProfileChips
@@ -80,10 +82,10 @@ export default function ProfileRegisterNormal() {
           />
         </div>
         <div className="mt-[3.2rem]">
-          <h2 className="text-[2rem] font-semibold text-black-300 mb-[0.8rem]">
+          <h2 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-black-300 mb-[0.8rem]">
             내가 사는 지역
           </h2>
-          <p className="text-[1.6rem] font-normal text-gray-400 mb-[3.2rem]">
+          <p className="lg:text-[1.6rem] md:text-[1.2rem] sm:text-[1.2rem] font-normal text-gray-400 mb-[3.2rem]">
             *내가 사는 지역은 언제든 수정 가능해요!
           </p>
           <ProfileChips
@@ -96,7 +98,7 @@ export default function ProfileRegisterNormal() {
       <ButtonWrapper id="profile-register-normal" onClick={handleImgSubmit}>
         <ButtonWrapper.Button
           disabled={!(selectedImg && selectedMovingType && selectedMovingType)}
-          className="w-[64rem] h-[6.4rem] rounded-[1.6rem] text-[2rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"
+          className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"
         >
           시작하기
         </ButtonWrapper.Button>
