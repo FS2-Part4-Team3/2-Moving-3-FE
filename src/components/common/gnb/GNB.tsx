@@ -10,6 +10,7 @@ import { useRouter, usePathname } from "next/navigation";
 import alarm from "@/../public/assets/common/gnb/alarm.svg";
 import profile from "@/../public/assets/common/gnb/default_profile.svg";
 import logo_sm from "@/../public/assets/common/gnb/logo-sm.svg";
+import { ButtonWrapper } from "../headless/Button";
 
 export default function GNB() {
   const router = useRouter();
@@ -26,9 +27,13 @@ export default function GNB() {
     router.push("/");
   };
 
-  // const status: string = "LogOut";
-  const status: string = "General";
+  const status: string = "LogOut";
+  // const status: string = "General";
   // const status: string = "Driver";
+
+  const handleClick = () => {
+    router.push("/sign-in");
+  };
 
   return (
     <>
@@ -122,9 +127,11 @@ export default function GNB() {
                 href="/sign-in"
                 className="flex items-center justify-center cursor-pointer"
               >
-                <button className="w-[11.6rem] h-[4.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 flex items-center justify-center font-semibold text-[1.8rem] leading-[2.6rem] text-white">
-                  로그인
-                </button>
+                <ButtonWrapper id="login-button" onClick={handleClick}>
+                  <ButtonWrapper.Button className="w-[11.6rem] h-[4.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 flex items-center justify-center font-semibold text-[1.8rem] leading-[2.6rem] text-white">
+                    로그인
+                  </ButtonWrapper.Button>
+                </ButtonWrapper>
               </Link>
             </div>
           )}

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { ButtonContextType } from "@/interface/CommonComp/HeadlessInterface";
+import type { ButtonContextType } from "@/interfaces/CommonComp/HeadlessInterface";
 
 const ButtonContext = createContext<ButtonContextType | undefined>(undefined);
 
