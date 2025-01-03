@@ -27,11 +27,11 @@ export default function SignUp() {
           />
           <div className="flex gap-[0.8rem] items-center">
             <p className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.2rem] sm:leading-[1.8rem] text-black-200">
-              기사님이신가요?
+              일반 유저라면?
             </p>
             <Link href="/sign-in-driver">
               <p className="font-semibold lg:text-[2rem] sm:text-[1.2rem] leading-[2rem] text-blue-300 underline decoration-blue-300">
-                기사님 전용 페이지
+                일반 유저 전용 페이지
               </p>
             </Link>
           </div>
