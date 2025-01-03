@@ -10,12 +10,12 @@ import visibility_on from "@/../public/assets/sign/visibility_on.svg";
 export default function SignUpClient() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [number, setNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordChk, setPasswordChk] = useState<string>("");
 
   const [emailError, setEmailError] = useState<string>("");
-  const [phoneNumberError, setPhoneNumberError] = useState<string>("");
+  const [numberError, setNumberError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [passwordChkError, setPasswordChkError] = useState<string>("");
 
@@ -32,13 +32,14 @@ export default function SignUpClient() {
   }, [email]);
 
   useEffect(() => {
-    const phoneNumberRegex = /^\d+$/;
-    if (phoneNumber && !phoneNumberRegex.test(phoneNumber)) {
-      setPhoneNumberError("숫자만 입력해주세요.");
+    const numberRegex =
+      /^(010\d{4}\d{4}|02\d{4}\d{4}|032\d{4}\d{4}|042\d{4}\d{4}|051\d{4}\d{4}|052\d{4}\d{4}|053\d{4}\d{4}|062\d{4}\d{4}|064\d{4}\d{4}|031\d{4}\d{4}|033\d{4}\d{4}|041\d{4}\d{4}|043\d{4}\d{4}|054\d{4}\d{4}|055\d{4}\d{4}|061\d{4}\d{4}|063\d{4}\d{4})$/;
+    if (number && !numberRegex.test(number)) {
+      setNumberError("숫자만 입력해주세요.");
     } else {
-      setPhoneNumberError("");
+      setNumberError("");
     }
-  }, [phoneNumber]);
+  }, [number]);
 
   const handleSubmit = () => {
     const data = { email, password };
@@ -65,11 +66,11 @@ export default function SignUpClient() {
 
   const isButtonDisabled = !(
     email &&
-    phoneNumber &&
+    number &&
     password &&
     passwordChk &&
     !emailError &&
-    !phoneNumberError &&
+    !numberError &&
     !passwordError &&
     !passwordChkError
   );
@@ -122,8 +123,8 @@ export default function SignUpClient() {
           <InputWrapper
             id="signup-phone-number"
             type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
           >
             <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
               <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
@@ -131,17 +132,15 @@ export default function SignUpClient() {
               </InputWrapper.Label>
               <InputWrapper.Input
                 className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 p-[1.4rem] bg-white font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none ${
-                  phoneNumberError
-                    ? "focus:border-red-200"
-                    : "focus:border-blue-300"
+                  numberError ? "focus:border-red-200" : "focus:border-blue-300"
                 }`}
                 placeholder="숫자만 입력해 주세요"
               />
             </div>
           </InputWrapper>
-          {phoneNumberError && (
+          {numberError && (
             <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-red-200">
-              {phoneNumberError}
+              {numberError}
             </p>
           )}
         </div>
