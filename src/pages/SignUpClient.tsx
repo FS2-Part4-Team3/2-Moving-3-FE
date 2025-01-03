@@ -43,7 +43,6 @@ export default function SignUpClient() {
 
   const handleSubmit = () => {
     const data = { email, password };
-    console.log(data);
   };
 
   useEffect(() => {

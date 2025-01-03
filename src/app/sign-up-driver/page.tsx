@@ -55,10 +55,15 @@ export default function SignUp() {
           <p className="font-normal lg:text-[2rem] sm:text-[1.2rem] lg:leading-[3.2rem] sm:leading-[1.8rem] lg:text-black-200 sm:text-black-100">
             SNS 계정으로 간편 가입하기
           </p>
-          <div className="flex lg:gap-[3.2rem] sm:gap-[2.4rem]">
+          <div className="flex lg:gap-[3.2rem] lg:block sm:hidden">
             <Image src={google} alt="google" width={72} height={72} />
             <Image src={kakao} alt="kakao" width={72} height={72} />
             <Image src={naver} alt="naver" width={72} height={72} />
+          </div>
+          <div className="flex lg:hidden sm:block sm:gap-[2.4rem]">
+            <Image src={google} alt="google" width={54} height={54} />
+            <Image src={kakao} alt="kakao" width={54} height={54} />
+            <Image src={naver} alt="naver" width={54} height={54} />
           </div>
         </div>
       </div>
