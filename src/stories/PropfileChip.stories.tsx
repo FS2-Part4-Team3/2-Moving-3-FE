@@ -15,12 +15,10 @@ const Template: StoryFn<ProfileChipProps> = (args) => (
 
 export const NoRegions = Template.bind({});
 NoRegions.args = {
-  regions: [],
   movingTypes,
 };
 
 export const NoMovingType = Template.bind({});
 NoMovingType.args = {
   regions,
-  movingTypes: [],
 };

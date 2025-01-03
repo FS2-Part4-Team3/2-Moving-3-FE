@@ -7,6 +7,6 @@ export interface MovingType {
 }
 
 export interface ProfileChipProps {
-  regions: Region[];
-  movingTypes: MovingType[];
+  regions?: Region[];
+  movingTypes?: MovingType[];
 }
