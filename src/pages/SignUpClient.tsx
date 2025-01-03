@@ -46,7 +46,8 @@ export default function SignUpClient() {
   };
 
   useEffect(() => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[a-zA-Z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
     if (password && !passwordRegex.test(password)) {
       setPasswordError("비밀번호가 올바르지 않습니다.");
     } else {
