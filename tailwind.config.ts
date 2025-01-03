@@ -25,6 +25,7 @@ const config: Config = {
       "gray-300": "#ABABAB",
       "gray-400": "#999999",
       "gray-500": "#808080",
+      "gray-600": "#F2F2F2",
       "blue-50": "#F5FAFF",
       "blue-100": "#E9F4FF",
       "blue-200": "#4DA9FF",

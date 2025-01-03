@@ -1,4 +1,4 @@
-import { ProfileChips } from "@/components/chips/PropileChips";
+import { ProfileChips } from "@/components/chips/ProfileChips";
 import movingTypes from "@/constants/movingType";
 import regions from "@/constants/regions";
 import type { ProfileChipProps } from "@/interface/chip/ProfileChipInterface";
