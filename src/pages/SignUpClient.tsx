@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import visibility_off from "@/../public/assets/sign/visibility_off.svg";
 import visibility_on from "@/../public/assets/sign/visibility_on.svg";
 
-export default function SignInClient() {
+export default function SignUpClient() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -221,7 +221,7 @@ export default function SignInClient() {
           )}
         </div>
       </div>
-      <ButtonWrapper id="signin" onClick={() => handleSubmit()}>
+      <ButtonWrapper id="signup" onClick={() => handleSubmit()}>
         <ButtonWrapper.Button
           className="lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] flex items-center justify-center text-white"
           disabled={isButtonDisabled}
