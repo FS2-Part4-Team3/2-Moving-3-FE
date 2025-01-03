@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import close from "@/../public/assets/common/icon_X.svg";
 import Image from "next/image";
-import type { ModalContextType } from "@/interface/CommonComp/HeadlessInterface";
+import type { ModalContextType } from "@/interfaces/CommonComp/HeadlessInterface";
 import { ButtonWrapper } from "./Button";
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -44,9 +44,17 @@ const ModalHeader = ({ children }: { children: React.ReactNode }) => {
         src={close}
         alt="close"
         onClick={onClose}
-        className="cursor-pointer"
-        width={32}
-        height={32}
+        className="lg:block sm:hidden cursor-pointer"
+        width={36}
+        height={36}
+      />
+      <Image
+        src={close}
+        alt="close"
+        onClick={onClose}
+        className="lg:hidden sm:block cursor-pointer"
+        width={24}
+        height={24}
       />
     </div>
   );
