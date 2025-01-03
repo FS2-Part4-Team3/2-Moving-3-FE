@@ -1,4 +1,4 @@
-import type { Region } from "@/interface/chip/RegionChipInterface";
+import type { Region } from "@/interface/chip/profileChipInterface";
 
 const regions: Region[] = [
   { name: "서울" },
