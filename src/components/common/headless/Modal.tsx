@@ -44,9 +44,17 @@ const ModalHeader = ({ children }: { children: React.ReactNode }) => {
         src={close}
         alt="close"
         onClick={onClose}
-        className="cursor-pointer"
+        className="lg:block sm:hidden cursor-pointer"
         width={32}
         height={32}
+      />
+      <Image
+        src={close}
+        alt="close"
+        onClick={onClose}
+        className="lg:hidden sm:block cursor-pointer"
+        width={24}
+        height={24}
       />
     </div>
   );
