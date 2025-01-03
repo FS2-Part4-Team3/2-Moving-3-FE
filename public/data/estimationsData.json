@@ -1,0 +1,74 @@
+[
+  {
+    "id": "estimation-1",
+    "createdAt": "2025-01-01T12:00:00Z",
+    "updatedAt": "2025-01-01T12:00:00Z",
+    "price": 200000,
+    "comment": "이사 예상 가격입니다.",
+    "moveInfo": "moveinfo-1",
+    "driver": "driver-1"
+  },
+  {
+    "id": "estimation-2",
+    "createdAt": "2025-01-12T12:00:00Z",
+    "updatedAt": "2025-01-12T12:00:00Z",
+    "price": 400000,
+    "comment": "사무실 이사 전문.",
+    "moveInfo": "moveinfo-2",
+    "driver": "driver-2"
+  },
+  {
+    "id": "estimation-3",
+    "createdAt": "2025-01-15T12:00:00Z",
+    "updatedAt": "2025-01-15T12:00:00Z",
+    "price": 1200000,
+    "comment": "장거리 이사 서비스.",
+    "moveInfo": "moveinfo-3",
+    "driver": "driver-3"
+  },
+  {
+    "id": "estimation-4",
+    "createdAt": "2025-01-20T12:00:00Z",
+    "updatedAt": "2025-01-20T12:00:00Z",
+    "price": 180000,
+    "comment": "저렴한 가정 이사 서비스.",
+    "moveInfo": "moveinfo-4",
+    "driver": "driver-1"
+  },
+  {
+    "id": "estimation-5",
+    "createdAt": "2025-01-25T12:00:00Z",
+    "updatedAt": "2025-01-25T12:00:00Z",
+    "price": 500000,
+    "comment": "사무실 이전 전문가.",
+    "moveInfo": "moveinfo-5",
+    "driver": "driver-2"
+  },
+  {
+    "id": "estimation-6",
+    "createdAt": "2025-01-30T12:00:00Z",
+    "updatedAt": "2025-01-30T12:00:00Z",
+    "price": 950000,
+    "comment": "믿을 수 있는 장거리 서비스.",
+    "moveInfo": "moveinfo-6",
+    "driver": "driver-3"
+  },
+  {
+    "id": "estimation-7",
+    "createdAt": "2025-02-05T12:00:00Z",
+    "updatedAt": "2025-02-05T12:00:00Z",
+    "price": 300000,
+    "comment": "간편한 가정 이사.",
+    "moveInfo": "moveinfo-7",
+    "driver": "driver-1"
+  },
+  {
+    "id": "estimation-8",
+    "createdAt": "2025-02-10T12:00:00Z",
+    "updatedAt": "2025-02-10T12:00:00Z",
+    "price": 700000,
+    "comment": "원활한 사무실 이사 과정.",
+    "moveInfo": "moveinfo-8",
+    "driver": "driver-2"
+  }
+]

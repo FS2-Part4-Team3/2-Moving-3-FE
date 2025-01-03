@@ -1,0 +1,98 @@
+[
+  {
+    "id": "moveinfo-1",
+    "createdAt": "2025-01-01T12:00:00Z",
+    "updatedAt": "2025-01-01T12:00:00Z",
+    "type": "HOME",
+    "date": "2025-02-01T12:00:00Z",
+    "fromAddress": "서울 중구 삼일대로 343",
+    "toAddress": "서울 중구 청계천로 100",
+    "progress": "PENDING",
+    "confirmedEstimation": null,
+    "owner": "user-1"
+  },
+  {
+    "id": "moveinfo-2",
+    "createdAt": "2025-01-02T12:00:00Z",
+    "updatedAt": "2025-01-02T12:00:00Z",
+    "type": "OFFICE",
+    "date": "2025-03-01T09:00:00Z",
+    "fromAddress": "경기도 성남시 분당구 탄천로 10",
+    "toAddress": "서울 강남구 테헤란로 25",
+    "progress": "CONFIRMED",
+    "confirmedEstimation": null,
+    "owner": "user-2"
+  },
+  {
+    "id": "moveinfo-3",
+    "createdAt": "2025-01-03T12:00:00Z",
+    "updatedAt": "2025-01-03T12:00:00Z",
+    "type": "LONG_DISTANCE",
+    "date": "2025-04-01T08:00:00Z",
+    "fromAddress": "부산 해운대구 해운대로 50",
+    "toAddress": "서울 송파구 올림픽로 300",
+    "progress": "COMPLETED",
+    "confirmedEstimation": null,
+    "owner": "user-3"
+  },
+  {
+    "id": "moveinfo-4",
+    "createdAt": "2025-01-04T12:00:00Z",
+    "updatedAt": "2025-01-04T12:00:00Z",
+    "type": "HOME",
+    "date": "2025-05-01T14:00:00Z",
+    "fromAddress": "서울 강서구 화곡로 50",
+    "toAddress": "서울 마포구 월드컵북로 200",
+    "progress": "CANCELED",
+    "confirmedEstimation": null,
+    "owner": "user-1"
+  },
+  {
+    "id": "moveinfo-5",
+    "createdAt": "2025-01-05T12:00:00Z",
+    "updatedAt": "2025-01-05T12:00:00Z",
+    "type": "OFFICE",
+    "date": "2025-06-15T10:00:00Z",
+    "fromAddress": "대구 중구 국채보상로 100",
+    "toAddress": "서울 영등포구 여의대로 30",
+    "progress": "EXPIRED",
+    "confirmedEstimation": null,
+    "owner": "user-2"
+  },
+  {
+    "id": "moveinfo-6",
+    "createdAt": "2025-01-06T12:00:00Z",
+    "updatedAt": "2025-01-06T12:00:00Z",
+    "type": "LONG_DISTANCE",
+    "date": "2025-07-20T07:00:00Z",
+    "fromAddress": "인천 연수구 송도국제대로 20",
+    "toAddress": "광주 북구 비엔날레로 10",
+    "progress": "COMPLETED",
+    "confirmedEstimation": null,
+    "owner": "user-3"
+  },
+  {
+    "id": "moveinfo-7",
+    "createdAt": "2025-01-07T12:00:00Z",
+    "updatedAt": "2025-01-07T12:00:00Z",
+    "type": "HOME",
+    "date": "2025-08-10T15:30:00Z",
+    "fromAddress": "부산 동래구 온천천로 100",
+    "toAddress": "경기도 용인시 수지구 성복로 30",
+    "progress": "COMPLETE",
+    "confirmedEstimation": null,
+    "owner": "user-1"
+  },
+  {
+    "id": "moveinfo-8",
+    "createdAt": "2025-01-08T12:00:00Z",
+    "updatedAt": "2025-01-08T12:00:00Z",
+    "type": "OFFICE",
+    "date": "2025-09-05T09:00:00Z",
+    "fromAddress": "전라남도 순천시 장천동 20",
+    "toAddress": "대전 유성구 대학로 50",
+    "progress": "COMPLETED",
+    "confirmedEstimation": null,
+    "owner": "user-2"
+  }
+]
