@@ -11,6 +11,11 @@ import { useRef, useState } from "react";
 export default function ProfileRegisterNormal() {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPrviewUrl] = useState<string | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [selectedMovingType, setSelectedMovingType] = useState<string | null>(
+    null
+  );
+  //toDo: const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +32,7 @@ export default function ProfileRegisterNormal() {
 
   const handleImgSubmit = () => {
     if (selectedImg) return;
+    //toDo: api post 요청 삽입
   };
   return (
     <div className="flex flex-col justify-center items-center">
@@ -67,7 +73,11 @@ export default function ProfileRegisterNormal() {
           <p className="text-[1.6rem] font-normal text-gray-400 mb-[3.2rem]">
             *이용 서비스는 중복 선택 가능하며, 언제든 수정 가능해요!
           </p>
-          <ProfileChips movingTypes={movingTypes} />
+          <ProfileChips
+            movingTypes={movingTypes}
+            selectedMovingType={selectedMovingType}
+            setSelectedMovingType={setSelectedMovingType}
+          />
         </div>
         <div className="mt-[3.2rem]">
           <h2 className="text-[2rem] font-semibold text-black-300 mb-[0.8rem]">
@@ -76,11 +86,18 @@ export default function ProfileRegisterNormal() {
           <p className="text-[1.6rem] font-normal text-gray-400 mb-[3.2rem]">
             *내가 사는 지역은 언제든 수정 가능해요!
           </p>
-          <ProfileChips regions={regions} />
+          <ProfileChips
+            regions={regions}
+            selectedRegion={selectedRegion}
+            setSelectedRegion={setSelectedRegion}
+          />
         </div>
       </div>
       <ButtonWrapper id="profile-register-normal" onClick={handleImgSubmit}>
-        <ButtonWrapper.Button className="w-[64rem] h-[6.4rem] rounded-[1.6rem] text-[2rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]">
+        <ButtonWrapper.Button
+          disabled={!(selectedImg && selectedMovingType && selectedMovingType)}
+          className="w-[64rem] h-[6.4rem] rounded-[1.6rem] text-[2rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"
+        >
           시작하기
         </ButtonWrapper.Button>
       </ButtonWrapper>

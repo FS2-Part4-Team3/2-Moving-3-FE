@@ -1,15 +1,13 @@
-"use client";
-
 import type { ProfileChipProps } from "@/interface/chip/ProfileChipInterface";
-import { useState } from "react";
 
-export function ProfileChips({ regions, movingTypes }: ProfileChipProps) {
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const [selectedMovingType, setSelectedMovingType] = useState<string | null>(
-    null
-  );
-  // const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
-
+export function ProfileChips({
+  regions,
+  movingTypes,
+  selectedRegion,
+  selectedMovingType,
+  setSelectedRegion,
+  setSelectedMovingType,
+}: ProfileChipProps) {
   const handleRegionSelect = (regionName: string) => {
     //toDo: user 정보 넣기
     // if(user.role === driver) {
@@ -19,11 +17,11 @@ export function ProfileChips({ regions, movingTypes }: ProfileChipProps) {
     //     setSelectedRegions([...selectedRegions, regionName])
     //    }
     //   }
-    setSelectedRegion(regionName);
+    setSelectedRegion?.(regionName);
   };
 
   const handleMovingTypeSelect = (movingType: string) => {
-    setSelectedMovingType(movingType);
+    setSelectedMovingType?.(movingType);
   };
 
   return (
