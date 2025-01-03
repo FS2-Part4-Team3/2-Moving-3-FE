@@ -30,7 +30,8 @@
       "@store/*": ["./src/store/*"],
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"],
-      "@pages/*": ["./src/pages/*"]
+      "@pages/*": ["./src/pages/*"],
+      "@constants/*": ["./src/constatns/*"]
     },
     "verbatimModuleSyntax": true,
     "allowSyntheticDefaultImports": true,
