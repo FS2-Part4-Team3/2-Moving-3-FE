@@ -1,7 +1,7 @@
-import { ProfileChips } from "@/components/chips/PropileChips";
+import { ProfileChips } from "@/components/chips/ProfileChips";
 import movingTypes from "@/constants/movingType";
 import regions from "@/constants/regions";
-import type { ProfileChipProps } from "@/interface/chip/ProfileChipInterface";
+import type { ProfileChipProps } from "@/interfaces/chip/ProfileChipInterface";
 import type { StoryFn } from "@storybook/react";
 
 export default {

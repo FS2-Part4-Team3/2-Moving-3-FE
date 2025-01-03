@@ -1,6 +1,6 @@
 "use client";
 
-import type { ProfileChipProps } from "@/interface/chip/ProfileChipInterface";
+import type { ProfileChipProps } from "@/interfaces/chip/ProfileChipInterface";
 import { useState } from "react";
 
 export function ProfileChips({ regions, movingTypes }: ProfileChipProps) {
