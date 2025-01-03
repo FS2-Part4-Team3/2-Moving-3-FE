@@ -108,6 +108,7 @@ export default function SignInClient() {
                   width={24}
                   height={24}
                   onClick={() => setViewPw(!viewPw)}
+                  className="cursor-pointer"
                 />
               </div>
             </div>

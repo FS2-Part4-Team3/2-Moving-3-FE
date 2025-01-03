@@ -171,6 +171,7 @@ export default function SignUpClient() {
                   width={24}
                   height={24}
                   onClick={() => setViewPw(!viewPw)}
+                  className="cursor-pointer"
                 />
               </div>
             </div>
@@ -209,6 +210,7 @@ export default function SignUpClient() {
                   width={24}
                   height={24}
                   onClick={() => setViewPwChk(!viewPwChk)}
+                  className="cursor-pointer"
                 />
               </div>
             </div>
