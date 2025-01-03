@@ -13,7 +13,7 @@ export default function FindDriverCard({ data }: FindDriverCardProps) {
           <MovingTypeChips
             key={index}
             type={
-              item as "small" | "home" | "company" | "appointment" | "waiting"
+              item as "SMALL" | "HOME" | "OFFICE" | "APPOINTMENT" | "WAITING"
             }
           />
         ))}

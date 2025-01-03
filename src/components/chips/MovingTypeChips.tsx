@@ -8,9 +8,9 @@ import Image from "next/image";
 export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
   return (
     <div>
-      {type === "small" && (
+      {type === "SMALL" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] py-[0.4rem] px-[0.5rem] gap-[0.4rem] bg-blue-100">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
             <Image
               src={small_mov}
               alt="logo"
@@ -25,46 +25,85 @@ export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
               height={20}
               className="lg:hidden sm:block"
             />
-            <p className="font-semibold lg:text-[1.6rem] md:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-300 md:block sm:hidden">
+            <p className="font-semibold lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-300">
               소형이사
             </p>
           </div>
         </div>
       )}
-      {type === "home" && (
+      {type === "HOME" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] py-[0.4rem] px-[0.5rem] gap-[0.4rem] bg-blue-100">
-            <Image src={home_mov} alt="logo" width={24} height={24} />
-            <p className="font-semibold lg:text-[1.6rem] md:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-300 md:block sm:hidden">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
+            <Image
+              src={home_mov}
+              alt="logo"
+              width={24}
+              height={24}
+              className="lg:block sm:hidden"
+            />
+            <Image
+              src={home_mov}
+              alt="logo"
+              width={20}
+              height={20}
+              className="lg:hidden sm:block"
+            />
+            <p className="font-semibold lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-300">
               가정이사
             </p>
           </div>
         </div>
       )}
-      {type === "company" && (
+      {type === "OFFICE" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] py-[0.4rem] px-[0.5rem] gap-[0.4rem] bg-blue-100">
-            <Image src={company_mov} alt="logo" width={24} height={24} />
-            <p className="font-semibold lg:text-[1.6rem] md:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-300 md:block sm:hidden">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
+            <Image
+              src={company_mov}
+              alt="logo"
+              width={24}
+              height={24}
+              className="lg:block sm:hidden"
+            />
+            <Image
+              src={company_mov}
+              alt="logo"
+              width={20}
+              height={20}
+              className="lg:hidden sm:block"
+            />
+            <p className="font-semibold lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-300">
               사무실이사
             </p>
           </div>
         </div>
       )}
-      {type === "appointment" && (
+      {type === "APPOINTMENT" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] py-[0.4rem] px-[0.5rem] gap-[0.4rem] bg-red-100">
-            <Image src={appointment} alt="logo" width={24} height={24} />
-            <p className="font-semibold lg:text-[1.6rem] md:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-red-200 md:block sm:hidden">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-red-100">
+            <Image
+              src={appointment}
+              alt="logo"
+              width={24}
+              height={24}
+              className="lg:block sm:hidden"
+            />
+            <Image
+              src={appointment}
+              alt="logo"
+              width={20}
+              height={20}
+              className="lg:hidden sm:block"
+            />
+            <p className="font-semibold lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-red-200">
               지정 견적 요청
             </p>
           </div>
         </div>
       )}
-      {type === "waiting" && (
+      {type === "WAITING" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] py-[0.4rem] px-[0.5rem] gap-[0.4rem] bg-[#F2F3F8]">
-            <p className="font-semibold lg:text-[1.6rem] md:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-400 md:block sm:hidden">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-[#F2F3F8]">
+            <p className="font-semibold lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-400">
               견적 대기
             </p>
           </div>
