@@ -11,4 +11,5 @@ interface FindDriverCardData {
   career: number;
   applyCount: number;
   favoriteCount: number;
+  reviewCount: number;
 }

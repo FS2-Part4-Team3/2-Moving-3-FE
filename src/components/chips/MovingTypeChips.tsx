@@ -10,7 +10,7 @@ export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
     <div>
       {type === "SMALL" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pl-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
             <Image
               src={small_mov}
               alt="logo"
@@ -33,7 +33,7 @@ export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
       )}
       {type === "HOME" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pl-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
             <Image
               src={home_mov}
               alt="logo"
@@ -56,7 +56,7 @@ export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
       )}
       {type === "OFFICE" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pl-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-blue-100">
             <Image
               src={company_mov}
               alt="logo"
@@ -79,7 +79,7 @@ export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
       )}
       {type === "APPOINTMENT" && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pr-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-red-100">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pl-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-red-100">
             <Image
               src={appointment}
               alt="logo"
