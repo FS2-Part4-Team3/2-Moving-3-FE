@@ -6,10 +6,27 @@ import { ProfileChips } from "@/components/chips/ProfileChips";
 import movingTypes from "@/constants/movingType";
 import regions from "@/constants/regions";
 import { ButtonWrapper } from "@/components/common/headless/Button";
+import { useRef, useState } from "react";
 
 export default function ProfileRegisterNormal() {
+  const [selectedImg, setSelectedImg] = useState<File | null>(null);
+  const [previewUrl, setPrviewUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedImg(file);
+      setPrviewUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const handleImgClick = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleImgSubmit = () => {
-    return;
+    if (selectedImg) return;
   };
   return (
     <div className="flex flex-col justify-center items-center">
@@ -22,16 +39,24 @@ export default function ProfileRegisterNormal() {
         </h3>
       </div>
       <div className="lg:w-[64rem] mt-[6.4rem]">
-        <div className="border-b border-gray-600 pb-[3.2rem]">
+        <div className="flex flex-col border-b border-gray-600 pb-[3.2rem]">
           <h2 className="text-[2rem] font-semibold text-black-300 mb-[2.4rem]">
             프로필 이미지
           </h2>
-          <button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleImgChange}
+          />
+          <button onClick={handleImgClick}>
             <Image
-              src={profile}
+              src={previewUrl || profile}
               alt="프로필 등록 이미지"
               width={160}
               height={160}
+              className="cursor-pointer"
             />
           </button>
         </div>
