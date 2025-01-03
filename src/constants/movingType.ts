@@ -1,4 +1,4 @@
-import type { MovingType } from "@/interface/chip/ProfileChipInterface";
+import type { MovingType } from "@/interfaces/chip/ProfileChipInterface";
 
 const movingTypes: MovingType[] = [
   { type: "소형이사" },

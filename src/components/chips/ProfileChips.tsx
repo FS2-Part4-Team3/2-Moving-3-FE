@@ -1,4 +1,4 @@
-import type { ProfileChipProps } from "@/interface/chip/ProfileChipInterface";
+import type { ProfileChipProps } from "@/interfaces/chip/ProfileChipInterface";
 
 export function ProfileChips({
   regions,
