@@ -43,7 +43,6 @@ export default function SignInClient() {
 
   const handleSubmit = () => {
     const data = { email, password };
-    console.log(data);
   };
 
   const isButtonDisabled = !(
