@@ -68,7 +68,7 @@ export default function ProfileRegisterNormal() {
             </div>
           </button>
         </div>
-        <div className="border-b border-gray-600 pb-[3.2rem] mt-[3.2rem]">
+        <div className="border-b border-line-100 pb-[3.2rem] mt-[3.2rem]">
           <h2 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-black-300 mb-[0.8rem]">
             이용 서비스
           </h2>
