@@ -7,7 +7,7 @@ import like from "@/../public/assets/driver/ic_like.svg";
 export default function FindDriverCard({ data }: FindDriverCardProps) {
   return (
     <div
-      className="w-[95.5rem] h-[23rem] rounded-[1.6rem] border-0.5 border-line-100 lg:py-[2rem] sm:py-[1.6rem] lg:px-[2.4rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem]"
+      className="lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] h-[23rem] rounded-[1.6rem] border-0.5 border-line-100 lg:py-[2rem] sm:py-[1.6rem] lg:px-[2.4rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem]"
       style={{ boxShadow: "-2px -2px 10px rgba(220, 220, 220, 0.3)" }}
     >
       <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
@@ -29,13 +29,28 @@ export default function FindDriverCard({ data }: FindDriverCardProps) {
           alt="driver-profile"
           width={56}
           height={56}
-          className="border-2 border-blue-400 rounded-full"
+          className="border-2 border-blue-400 rounded-full lg:block sm:hidden"
+        />
+        <Image
+          src={data.image}
+          alt="driver-profile"
+          width={46}
+          height={46}
+          className="border-2 border-blue-400 rounded-full lg:hidden sm:block"
         />
         <div className="flex flex-col w-full lg:gap-[0.8rem] sm:gap-[1.2rem]">
-          <p className="font-semibold lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-300">
-            {data.name} 기사님
-          </p>
-          <div className="flex items-center w-full lg:gap-[1.6rem] sm:gap-[0.8rem]">
+          <div className="flex w-full justify-between">
+            <p className="font-semibold lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-300">
+              {data.name} 기사님
+            </p>
+            <div className="flex gap-[0.4rem] justify-center items-center">
+              <Image src={like} alt="like" width={24} height={24} />
+              <p className="font-medium  lg:text-[1.8rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-400">
+                {data.favoriteCount}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center w-full justify-between">
             <div className="flex items-center justify-center lg:gap-[0.6rem] sm:gap-[0.2rem]">
               <Image
                 src={star}
@@ -77,12 +92,6 @@ export default function FindDriverCard({ data }: FindDriverCardProps) {
               </p>
             </div>
           </div>
-        </div>
-        <div className="flex gap-[0.4rem] justify-center items-center">
-          <Image src={like} alt="like" width={24} height={24} />
-          <p className="font-medium  lg:text-[1.8rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-400">
-            {data.favoriteCount}
-          </p>
         </div>
       </div>
     </div>

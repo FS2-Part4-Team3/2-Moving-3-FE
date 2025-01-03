@@ -17,7 +17,7 @@
     "favoriteCount": 5,
     "score": 4.8,
     "career": 9,
-    "reviewCount": 2000
+    "reviewCount": 200
   },
   {
     "id": "driver-2",
@@ -37,7 +37,7 @@
     "favoriteCount": 8,
     "score": 4.7,
     "career": 6,
-    "reviewCount": 2030
+    "reviewCount": 230
   },
   {
     "id": "driver-3",
@@ -57,6 +57,6 @@
     "favoriteCount": 12,
     "score": 4.9,
     "career": 3,
-    "reviewCount": 2900
+    "reviewCount": 290
   }
 ]

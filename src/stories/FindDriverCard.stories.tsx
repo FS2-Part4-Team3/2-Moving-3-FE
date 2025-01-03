@@ -22,6 +22,6 @@ Default.args = {
     score: 4.5,
     career: 5,
     applyCount: 10,
-    reviewCount: 2000,
+    reviewCount: 200,
   },
 };
