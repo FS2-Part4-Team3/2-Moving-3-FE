@@ -8,12 +8,18 @@ import visibility_off from "@/../public/assets/sign/visibility_off.svg";
 import visibility_on from "@/../public/assets/sign/visibility_on.svg";
 
 export default function SignInClient() {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [viewPw, setViewPw] = useState<boolean>(false);
+  const [passwordChk, setPasswordChk] = useState<string>("");
 
   const [emailError, setEmailError] = useState<string>("");
+  const [phoneNumberError, setPhoneNumberError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+  const [passwordChkError, SetPasswordChkError] = useState<string>("");
+
+  const [viewPw, setViewPw] = useState<boolean>(false);
 
   useEffect(() => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -33,13 +39,14 @@ export default function SignInClient() {
     }
   }, [password]);
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  useEffect(() => {
+    const phoneNumberRegex = /^\d+$/;
+    if (phoneNumber && !phoneNumberRegex.test(phoneNumber)) {
+      setPhoneNumberError("숫자만 입력해주세요.");
+    } else {
+      setPhoneNumberError("");
+    }
+  }, [phoneNumber]);
 
   const handleSubmit = () => {
     const data = { email, password };
@@ -48,17 +55,35 @@ export default function SignInClient() {
 
   const isButtonDisabled = !(
     email &&
+    phoneNumber &&
     password &&
     !emailError &&
+    !phoneNumberError &&
     !passwordError
   );
 
   return (
     <div className="flex flex-col lg:gap-[5.6rem] sm:gap-[3.2rem]">
       <div className="flex flex-col lg:gap-[3.2rem] sm:gap-[1.6rem]">
+        <InputWrapper
+          id="signup-name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        >
+          <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
+            <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
+              이름
+            </InputWrapper.Label>
+            <InputWrapper.Input
+              className="lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 p-[1.4rem] bg-white font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none"
+              placeholder="이름을 입력해 주세요"
+            />
+          </div>
+        </InputWrapper>
         <div className="flex flex-col gap-[0.8rem] items-end">
           <InputWrapper
-            id="signin-email"
+            id="signup-email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -83,10 +108,37 @@ export default function SignInClient() {
         </div>
         <div className="flex flex-col gap-[0.8rem] items-end">
           <InputWrapper
+            id="signup-phone-number"
+            type="text"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          >
+            <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
+              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
+                전화번호
+              </InputWrapper.Label>
+              <InputWrapper.Input
+                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 p-[1.4rem] bg-white font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none ${
+                  phoneNumberError
+                    ? "focus:border-red-200"
+                    : "focus:border-blue-300"
+                }`}
+                placeholder="숫자만 입력해 주세요"
+              />
+            </div>
+          </InputWrapper>
+          {phoneNumberError && (
+            <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-red-200">
+              {phoneNumberError}
+            </p>
+          )}
+        </div>
+        <div className="flex flex-col gap-[0.8rem] items-end">
+          <InputWrapper
             id="signin-password"
             type={viewPw ? "text" : "password"}
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
           >
             <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
               <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
@@ -125,7 +177,7 @@ export default function SignInClient() {
           className="lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] flex items-center justify-center text-white"
           disabled={isButtonDisabled}
         >
-          로그인
+          시작하기
         </ButtonWrapper.Button>
       </ButtonWrapper>
     </div>
