@@ -17,9 +17,10 @@ export default function SignInClient() {
   const [emailError, setEmailError] = useState<string>("");
   const [phoneNumberError, setPhoneNumberError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
-  const [passwordChkError, SetPasswordChkError] = useState<string>("");
+  const [passwordChkError, setPasswordChkError] = useState<string>("");
 
   const [viewPw, setViewPw] = useState<boolean>(false);
+  const [viewPwChk, setViewPwChk] = useState<boolean>(false);
 
   useEffect(() => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -29,15 +30,6 @@ export default function SignInClient() {
       setEmailError("");
     }
   }, [email]);
-
-  useEffect(() => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    if (password && !passwordRegex.test(password)) {
-      setPasswordError("비밀번호가 올바르지 않습니다.");
-    } else {
-      setPasswordError("");
-    }
-  }, [password]);
 
   useEffect(() => {
     const phoneNumberRegex = /^\d+$/;
@@ -53,13 +45,32 @@ export default function SignInClient() {
     console.log(data);
   };
 
+  useEffect(() => {
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    if (password && !passwordRegex.test(password)) {
+      setPasswordError("비밀번호가 올바르지 않습니다.");
+    } else {
+      setPasswordError("");
+    }
+  }, [password]);
+
+  useEffect(() => {
+    if (passwordChk && password !== passwordChk) {
+      setPasswordChkError("비밀번호가 일치하지 않습니다.");
+    } else {
+      setPasswordChkError("");
+    }
+  }, [passwordChk]);
+
   const isButtonDisabled = !(
     email &&
     phoneNumber &&
     password &&
+    passwordChk &&
     !emailError &&
     !phoneNumberError &&
-    !passwordError
+    !passwordError &&
+    !passwordChkError
   );
 
   return (
@@ -135,7 +146,7 @@ export default function SignInClient() {
         </div>
         <div className="flex flex-col gap-[0.8rem] items-end">
           <InputWrapper
-            id="signin-password"
+            id="signup-password"
             type={viewPw ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -168,6 +179,44 @@ export default function SignInClient() {
           {passwordError && (
             <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-red-200">
               {passwordError}
+            </p>
+          )}
+        </div>
+        <div className="flex flex-col gap-[0.8rem] items-end">
+          <InputWrapper
+            id="signup-password-chk"
+            type={viewPwChk ? "text" : "password"}
+            value={passwordChk}
+            onChange={(e) => setPasswordChk(e.target.value)}
+          >
+            <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
+              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
+                비밀번호 확인
+              </InputWrapper.Label>
+              <div
+                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 focus:outline-none p-[1.4rem] bg-white flex justify-between ${
+                  passwordChkError
+                    ? "focus-within:border-red-200"
+                    : "focus-within:border-blue-300"
+                }`}
+              >
+                <InputWrapper.Input
+                  className="w-full font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none"
+                  placeholder="비밀번호를 다시 한 번 입력해 주세요"
+                />
+                <Image
+                  src={viewPwChk ? visibility_on : visibility_off}
+                  alt="visibility"
+                  width={24}
+                  height={24}
+                  onClick={() => setViewPwChk(!viewPwChk)}
+                />
+              </div>
+            </div>
+          </InputWrapper>
+          {passwordChkError && (
+            <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-red-200">
+              {passwordChkError}
             </p>
           )}
         </div>
