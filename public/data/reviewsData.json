@@ -6,7 +6,7 @@
     "comment": "정말 훌륭한 서비스였습니다!",
     "score": 5,
     "driver": "driver-1",
-    "owner": "user-1"
+    "owner": "김재원"
   },
   {
     "id": "review-2",
@@ -15,7 +15,7 @@
     "comment": "매우 전문적이고 시간이 정확했습니다.",
     "score": 4,
     "driver": "driver-2",
-    "owner": "user-2"
+    "owner": "이도엽"
   },
   {
     "id": "review-3",
@@ -24,7 +24,7 @@
     "comment": "서비스가 만족스럽지 않았습니다. 늦게 도착했어요.",
     "score": 2,
     "driver": "driver-3",
-    "owner": "user-3"
+    "owner": "박효빈"
   },
   {
     "id": "review-4",
@@ -33,7 +33,7 @@
     "comment": "모든 것이 순조롭게 진행되었고, 강력히 추천합니다!",
     "score": 5,
     "driver": "driver-1",
-    "owner": "user-1"
+    "owner": "김재원"
   },
   {
     "id": "review-5",
@@ -42,7 +42,7 @@
     "comment": "서비스는 괜찮았으나 가격이 조금 비쌌습니다.",
     "score": 3,
     "driver": "driver-2",
-    "owner": "user-2"
+    "owner": "이도엽"
   },
   {
     "id": "review-6",
@@ -51,7 +51,7 @@
     "comment": "기대했던 것보다 훨씬 더 좋은 서비스였습니다.",
     "score": 5,
     "driver": "driver-3",
-    "owner": "user-3"
+    "owner": "박효빈"
   },
   {
     "id": "review-7",
@@ -60,7 +60,7 @@
     "comment": "서비스 품질이 떨어지긴 했지만, 전반적으로 괜찮았습니다.",
     "score": 3,
     "driver": "driver-1",
-    "owner": "user-2"
+    "owner": "이도엽"
   },
   {
     "id": "review-8",
@@ -69,7 +69,7 @@
     "comment": "운전자가 친절하고 정확히 도착했어요. 매우 만족합니다!",
     "score": 5,
     "driver": "driver-2",
-    "owner": "user-3"
+    "owner": "박효빈"
   },
   {
     "id": "review-9",
@@ -78,7 +78,7 @@
     "comment": "좀 더 신속했으면 좋았을 것 같아요.",
     "score": 4,
     "driver": "driver-3",
-    "owner": "user-1"
+    "owner": "김재원"
   },
   {
     "id": "review-10",
@@ -87,7 +87,7 @@
     "comment": "기대한 것보다 더 느리게 처리되었습니다. 아쉬워요.",
     "score": 2,
     "driver": "driver-1",
-    "owner": "user-3"
+    "owner": "박효빈"
   },
   {
     "id": "review-11",
@@ -96,7 +96,7 @@
     "comment": "완벽한 서비스였습니다. 아주 훌륭한 경험이었어요.",
     "score": 5,
     "driver": "driver-2",
-    "owner": "user-1"
+    "owner": "김재원"
   },
   {
     "id": "review-12",
@@ -105,6 +105,6 @@
     "comment": "다소 불편한 점이 있었으나 서비스는 괜찮았습니다.",
     "score": 4,
     "driver": "driver-3",
-    "owner": "user-2"
+    "owner": "이도엽"
   }
 ]

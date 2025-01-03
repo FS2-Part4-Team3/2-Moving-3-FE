@@ -5,7 +5,24 @@
     "updatedAt": "2025-01-01T12:00:00Z",
     "moveInfo": "moveInfo-1",
     "status": "PENDING",
-    "driver": "driver-1"
+    "driver": {
+      "id": "driver-1",
+      "createdAt": "2025-01-01T12:00:00Z",
+      "updatedAt": "2025-01-01T12:00:00Z",
+      "email": "test6@test.com",
+      "name": "김철수",
+      "nickname": "철수기사",
+      "image": "https://example.com/driver1.jpg",
+      "password": "password",
+      "phoneNumber": "010-9876-5431",
+      "introduce": "5년 경력의 신뢰할 수 있는 기사입니다.",
+      "description": "소형 이사 및 가정 이사를 전문으로 합니다.",
+      "serviceType": ["SMALL", "HOME"],
+      "availableAreas": ["SEOUL", "INCHEON"],
+      "applyCount": 10,
+      "favoriteCount": 5,
+      "score": 4.8
+    }
   },
   {
     "id": "request-2",
@@ -13,7 +30,24 @@
     "updatedAt": "2025-01-02T12:00:00Z",
     "moveInfo": "moveInfo-2",
     "status": "PENDING",
-    "driver": "driver-2"
+    "driver": {
+      "id": "driver-2",
+      "createdAt": "2025-01-02T12:00:00Z",
+      "updatedAt": "2025-01-02T12:00:00Z",
+      "email": "test7@test.com",
+      "name": "박영희",
+      "nickname": "영희기사",
+      "image": "https://example.com/driver2.jpg",
+      "password": "password",
+      "phoneNumber": "010-4567-8910",
+      "introduce": "친절하고 안전한 운송 서비스를 제공합니다.",
+      "description": "사무실 이사 및 중형 이사를 주로 담당합니다.",
+      "serviceType": ["OFFICE", "MEDIUM"],
+      "availableAreas": ["부산", "울산"],
+      "applyCount": 15,
+      "favoriteCount": 8,
+      "score": 4.7
+    }
   },
   {
     "id": "request-3",
@@ -21,7 +55,24 @@
     "updatedAt": "2025-01-03T12:00:00Z",
     "moveInfo": "moveInfo-3",
     "status": "APPLY",
-    "driver": "driver-3"
+    "driver": {
+      "id": "driver-3",
+      "createdAt": "2025-01-03T12:00:00Z",
+      "updatedAt": "2025-01-03T12:00:00Z",
+      "email": "test8@test.com",
+      "name": "이민호",
+      "nickname": "민호기사",
+      "image": "https://example.com/driver3.jpg",
+      "password": "password",
+      "phoneNumber": "010-7891-2345",
+      "introduce": "정확하고 빠른 서비스로 고객 만족을 실현합니다.",
+      "description": "장거리 및 대형 이사에 특화되어 있습니다.",
+      "serviceType": ["LARGE", "LONG_DISTANCE"],
+      "availableAreas": ["대구", "광주"],
+      "applyCount": 20,
+      "favoriteCount": 12,
+      "score": 4.9
+    }
   },
   {
     "id": "request-4",
@@ -29,7 +80,24 @@
     "updatedAt": "2025-01-04T12:00:00Z",
     "moveInfo": "moveInfo-4",
     "status": "PENDING",
-    "driver": "driver-1"
+    "driver": {
+      "id": "driver-1",
+      "createdAt": "2025-01-01T12:00:00Z",
+      "updatedAt": "2025-01-01T12:00:00Z",
+      "email": "test6@test.com",
+      "name": "김철수",
+      "nickname": "철수기사",
+      "image": "https://example.com/driver1.jpg",
+      "password": "password",
+      "phoneNumber": "010-9876-5431",
+      "introduce": "5년 경력의 신뢰할 수 있는 기사입니다.",
+      "description": "소형 이사 및 가정 이사를 전문으로 합니다.",
+      "serviceType": ["SMALL", "HOME"],
+      "availableAreas": ["SEOUL", "INCHEON"],
+      "applyCount": 10,
+      "favoriteCount": 5,
+      "score": 4.8
+    }
   },
   {
     "id": "request-5",
@@ -37,7 +105,24 @@
     "updatedAt": "2025-01-05T12:00:00Z",
     "moveInfo": "moveInfo-5",
     "status": "PENDING",
-    "driver": "driver-2"
+    "driver": {
+      "id": "driver-2",
+      "createdAt": "2025-01-02T12:00:00Z",
+      "updatedAt": "2025-01-02T12:00:00Z",
+      "email": "test7@test.com",
+      "name": "박영희",
+      "nickname": "영희기사",
+      "image": "https://example.com/driver2.jpg",
+      "password": "password",
+      "phoneNumber": "010-4567-8910",
+      "introduce": "친절하고 안전한 운송 서비스를 제공합니다.",
+      "description": "사무실 이사 및 중형 이사를 주로 담당합니다.",
+      "serviceType": ["OFFICE", "MEDIUM"],
+      "availableAreas": ["부산", "울산"],
+      "applyCount": 15,
+      "favoriteCount": 8,
+      "score": 4.7
+    }
   },
   {
     "id": "request-6",
@@ -45,7 +130,24 @@
     "updatedAt": "2025-01-06T12:00:00Z",
     "moveInfo": "moveInfo-6",
     "status": "EXPIRED",
-    "driver": "driver-3"
+    "driver": {
+      "id": "driver-3",
+      "createdAt": "2025-01-03T12:00:00Z",
+      "updatedAt": "2025-01-03T12:00:00Z",
+      "email": "test8@test.com",
+      "name": "이민호",
+      "nickname": "민호기사",
+      "image": "https://example.com/driver3.jpg",
+      "password": "password",
+      "phoneNumber": "010-7891-2345",
+      "introduce": "정확하고 빠른 서비스로 고객 만족을 실현합니다.",
+      "description": "장거리 및 대형 이사에 특화되어 있습니다.",
+      "serviceType": ["LARGE", "LONG_DISTANCE"],
+      "availableAreas": ["대구", "광주"],
+      "applyCount": 20,
+      "favoriteCount": 12,
+      "score": 4.9
+    }
   },
   {
     "id": "request-7",
@@ -53,7 +155,24 @@
     "updatedAt": "2025-01-07T12:00:00Z",
     "moveInfo": "moveInfo-7",
     "status": "REJECTED",
-    "driver": "driver-1"
+    "driver": {
+      "id": "driver-1",
+      "createdAt": "2025-01-01T12:00:00Z",
+      "updatedAt": "2025-01-01T12:00:00Z",
+      "email": "test6@test.com",
+      "name": "김철수",
+      "nickname": "철수기사",
+      "image": "https://example.com/driver1.jpg",
+      "password": "password",
+      "phoneNumber": "010-9876-5431",
+      "introduce": "5년 경력의 신뢰할 수 있는 기사입니다.",
+      "description": "소형 이사 및 가정 이사를 전문으로 합니다.",
+      "serviceType": ["SMALL", "HOME"],
+      "availableAreas": ["SEOUL", "INCHEON"],
+      "applyCount": 10,
+      "favoriteCount": 5,
+      "score": 4.8
+    }
   },
   {
     "id": "request-8",
@@ -61,7 +180,24 @@
     "updatedAt": "2025-01-08T12:00:00Z",
     "moveInfo": "moveInfo-8",
     "status": "CANCELED",
-    "driver": "driver-2"
+    "driver": {
+      "id": "driver-2",
+      "createdAt": "2025-01-02T12:00:00Z",
+      "updatedAt": "2025-01-02T12:00:00Z",
+      "email": "test7@test.com",
+      "name": "박영희",
+      "nickname": "영희기사",
+      "image": "https://example.com/driver2.jpg",
+      "password": "password",
+      "phoneNumber": "010-4567-8910",
+      "introduce": "친절하고 안전한 운송 서비스를 제공합니다.",
+      "description": "사무실 이사 및 중형 이사를 주로 담당합니다.",
+      "serviceType": ["OFFICE", "MEDIUM"],
+      "availableAreas": ["부산", "울산"],
+      "applyCount": 15,
+      "favoriteCount": 8,
+      "score": 4.7
+    }
   },
   {
     "id": "request-9",
@@ -69,7 +205,24 @@
     "updatedAt": "2025-01-09T12:00:00Z",
     "moveInfo": "moveInfo-3",
     "status": "PENDING",
-    "driver": "driver-1"
+    "driver": {
+      "id": "driver-1",
+      "createdAt": "2025-01-01T12:00:00Z",
+      "updatedAt": "2025-01-01T12:00:00Z",
+      "email": "test6@test.com",
+      "name": "김철수",
+      "nickname": "철수기사",
+      "image": "https://example.com/driver1.jpg",
+      "password": "password",
+      "phoneNumber": "010-9876-5431",
+      "introduce": "5년 경력의 신뢰할 수 있는 기사입니다.",
+      "description": "소형 이사 및 가정 이사를 전문으로 합니다.",
+      "serviceType": ["SMALL", "HOME"],
+      "availableAreas": ["SEOUL", "INCHEON"],
+      "applyCount": 10,
+      "favoriteCount": 5,
+      "score": 4.8
+    }
   },
   {
     "id": "request-10",
@@ -77,6 +230,23 @@
     "updatedAt": "2025-01-10T12:00:00Z",
     "moveInfo": "moveInfo-5",
     "status": "PENDING",
-    "driver": "driver-3"
+    "driver": {
+      "id": "driver-3",
+      "createdAt": "2025-01-03T12:00:00Z",
+      "updatedAt": "2025-01-03T12:00:00Z",
+      "email": "test8@test.com",
+      "name": "이민호",
+      "nickname": "민호기사",
+      "image": "https://example.com/driver3.jpg",
+      "password": "password",
+      "phoneNumber": "010-7891-2345",
+      "introduce": "정확하고 빠른 서비스로 고객 만족을 실현합니다.",
+      "description": "장거리 및 대형 이사에 특화되어 있습니다.",
+      "serviceType": ["LARGE", "LONG_DISTANCE"],
+      "availableAreas": ["대구", "광주"],
+      "applyCount": 20,
+      "favoriteCount": 12,
+      "score": 4.9
+    }
   }
 ]

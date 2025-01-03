@@ -9,7 +9,7 @@
     "image": "https://example.com/user1.jpg",
     "password": "password",
     "serviceTypes": ["SMALL", "HOME"],
-    "areas": ["SEOUL", "GYEONGGI"]
+    "areas": "SEOUL"
   },
   {
     "id": "user-2",
@@ -21,7 +21,7 @@
     "image": "https://example.com/user2.jpg",
     "password": "password",
     "serviceTypes": ["OFFICE", "HOME"],
-    "areas": ["INCHEON", "BUSAN"]
+    "areas": "INCHEON"
   },
   {
     "id": "user-3",
@@ -33,6 +33,6 @@
     "image": "https://example.com/user3.jpg",
     "password": "password",
     "serviceTypes": ["SMALL", "OFFICE"],
-    "areas": ["DAEGU", "GWANGJU"]
+    "areas": "INCHEON"
   }
 ]
