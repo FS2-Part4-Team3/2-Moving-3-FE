@@ -6,8 +6,11 @@ import Image from "next/image";
 import { useState } from "react";
 import x from "@/../public/assets/common/icon_X.svg";
 import { ButtonWrapper } from "../common/headless/Button";
+import type { MediaTypeFilterDropdownProps } from "@/interfaces/Dropdown/MediaTypeFilterDropdownInterface";
 
-export default function MediaTypeFilterDropdown() {
+export default function MediaTypeFilterDropdown({
+  onClick,
+}: MediaTypeFilterDropdownProps) {
   const [smallMov, setSmallMov] = useState<boolean>(false);
   const [homeMov, setHomeMov] = useState<boolean>(false);
   const [officeMov, setOfficeMov] = useState<boolean>(false);
@@ -154,19 +157,32 @@ export default function MediaTypeFilterDropdown() {
             <div className="flex w-full justify-between p-[0.8rem]">
               <div className="flex gap-[2.4rem]">
                 <p
-                  className="font-bold text-[1.8rem] leading-[2.6rem] text-black-400 cursor-pointer"
+                  className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
+                    isMenuClick === "mov" ? "text-black-400" : "text-gray-300"
+                  }`}
                   onClick={() => setIsMenuClick("mov")}
                 >
                   이사 유형
                 </p>
                 <p
-                  className="font-bold text-[1.8rem] leading-[2.6rem] text-black-400 cursor-pointer"
+                  className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
+                    isMenuClick === "filter"
+                      ? "text-black-400"
+                      : "text-gray-300"
+                  }`}
                   onClick={() => setIsMenuClick("filter")}
                 >
                   필터
                 </p>
               </div>
-              <Image src={x} alt="x" width={24} height={24} />
+              <Image
+                src={x}
+                alt="x"
+                width={24}
+                height={24}
+                onClick={onClick}
+                className="cursor-pointer"
+              />
             </div>
             {isMenuClick === "mov" && (
               <div className="flex flex-col gap-[0.8rem]">
@@ -255,8 +271,8 @@ export default function MediaTypeFilterDropdown() {
                     width={36}
                     height={36}
                     onClick={() => {
-                      setSmallMov(!serviceable);
-                      setHomeMov(!appointRequest);
+                      setServiceable(!serviceable);
+                      setAppointRequest(!appointRequest);
                     }}
                     className="cursor-pointer"
                   />
@@ -268,11 +284,11 @@ export default function MediaTypeFilterDropdown() {
                       <p>(10)</p>
                     </div>
                     <Image
-                      src={smallMov ? checkbox_blue : checkbox}
+                      src={serviceable ? checkbox_blue : checkbox}
                       alt="checkbox"
                       width={36}
                       height={36}
-                      onClick={() => setSmallMov(!smallMov)}
+                      onClick={() => setServiceable(!serviceable)}
                       className="cursor-pointer"
                     />
                   </div>
@@ -282,11 +298,11 @@ export default function MediaTypeFilterDropdown() {
                       <p>(50)</p>
                     </div>
                     <Image
-                      src={homeMov ? checkbox_blue : checkbox}
+                      src={appointRequest ? checkbox_blue : checkbox}
                       alt="checkbox"
                       width={36}
                       height={36}
-                      onClick={() => setHomeMov(!homeMov)}
+                      onClick={() => setAppointRequest(!appointRequest)}
                       className="cursor-pointer"
                     />
                   </div>
@@ -295,7 +311,10 @@ export default function MediaTypeFilterDropdown() {
             )}
           </div>
           <ButtonWrapper id="inquiry-driver" onClick={handleInquiryClick}>
-            <ButtonWrapper.Button className="w-full h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold text-[1.6rem] leading-[2.6rem] text-white">
+            <ButtonWrapper.Button
+              className="w-full h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold text-[1.6rem] leading-[2.6rem] text-white"
+              onClick={onClick}
+            >
               조회하기
             </ButtonWrapper.Button>
           </ButtonWrapper>
