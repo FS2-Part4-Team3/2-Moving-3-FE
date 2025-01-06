@@ -26,7 +26,7 @@ export default function MediaTypeFilterDropdown({
 
   return (
     <>
-      <div className="w-[32.8rem] flex flex-col gap-[5.2rem] lg:block sm:hidden">
+      <div className="md:w-[32.8rem] sm:w-full flex flex-col gap-[5.2rem] lg:block sm:hidden">
         <div className="flex flex-col gap-[2.4rem]">
           <div className="border-b border-line-200 flex justify-between items-center py-[1.6rem] px-[1rem]">
             <p className="font-medium text-[2rem] leading-[3.2rem] text-black">
@@ -151,8 +151,8 @@ export default function MediaTypeFilterDropdown({
           </div>
         </div>
       </div>
-      <div className="w-full min-h-screen flex items-center justify-center bg-black bg-opacity-50 lg:hidden">
-        <div className="bg-white w-[37.5rem] rounded-[3.2rem] pt-[1.6rem] pb-[3.2rem] px-[2.4rem] flex flex-col gap-[2.4rem]">
+      <div className="w-full min-h-screen flex md:items-center md:justify-center sm:items-end bg-black bg-opacity-50 lg:hidden">
+        <div className="bg-white md:w-[37.5rem] sm:w-full md:rounded-[3.2rem] sm:rounded-tr-[3.2rem] sm:rounded-tl-[3.2rem] pt-[1.6rem] pb-[3.2rem] px-[2.4rem] flex flex-col gap-[2.4rem]">
           <div className="flex flex-col gap-[1.2rem]">
             <div className="flex w-full justify-between p-[0.8rem]">
               <div className="flex gap-[2.4rem]">

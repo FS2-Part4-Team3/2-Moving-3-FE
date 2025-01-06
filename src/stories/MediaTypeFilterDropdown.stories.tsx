@@ -25,6 +25,7 @@ const Template: StoryFn<MediaTypeFilterDropdownProps> = (args) => {
         width={32}
         height={32}
         onClick={handleClick}
+        className="lg:hidden sm:block"
       />
       {isModalOpen && (
         <div className="modal-overlay">
@@ -33,6 +34,9 @@ const Template: StoryFn<MediaTypeFilterDropdownProps> = (args) => {
           </div>
         </div>
       )}
+      <div className="lg:block sm:hidden">
+        <MediaTypeFilterDropdown {...args} onClick={handleClick} />
+      </div>
     </div>
   );
 };
