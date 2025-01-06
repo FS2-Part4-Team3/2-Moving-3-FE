@@ -15,7 +15,9 @@
     "availableAreas": ["SEOUL", "INCHEON"],
     "applyCount": 10,
     "favoriteCount": 5,
-    "score": 4.8
+    "score": 4.8,
+    "career": 9,
+    "reviewCount": 200
   },
   {
     "id": "driver-2",
@@ -33,7 +35,9 @@
     "availableAreas": ["부산", "울산"],
     "applyCount": 15,
     "favoriteCount": 8,
-    "score": 4.7
+    "score": 4.7,
+    "career": 6,
+    "reviewCount": 230
   },
   {
     "id": "driver-3",
@@ -51,6 +55,8 @@
     "availableAreas": ["대구", "광주"],
     "applyCount": 20,
     "favoriteCount": 12,
-    "score": 4.9
+    "score": 4.9,
+    "career": 3,
+    "reviewCount": 290
   }
 ]
