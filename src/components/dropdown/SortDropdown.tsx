@@ -17,7 +17,7 @@ export default function SortDropdown() {
   return (
     <div>
       <div
-        className="flex items-center gap-[0.2rem] py-[0.6rem] pr-[0.6rem] pl-[0.8rem] cursor-pointer"
+        className="w-auto flex items-center gap-[0.2rem] py-[0.6rem] pr-[0.6rem] pl-[0.8rem] cursor-pointer"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         <p className="font-semibold text-[1.2rem] leading-[2rem] text-center text-black-400">

@@ -31,7 +31,7 @@ export default function RegionServiceDropdown() {
   };
 
   return (
-    <div className="w-[32.8rem] flex lg:flex-col lg:gap-[3.2rem] sm:gap-[1.2rem]">
+    <div className="lg:w-[32.8rem] flex lg:flex-col lg:gap-[3.2rem] sm:gap-[1.2rem]">
       <div className="lg:block sm:hidden">
         <div className="border-b border-line-200 py-[1.6rem] px-[1rem] flex justify-between items-center">
           <p className="font-medium text-[2rem] leading-[3.2rem] text-black">
@@ -102,7 +102,7 @@ export default function RegionServiceDropdown() {
           어떤 서비스가 필요하세요?
         </p>
         <div
-          className={`lg:w-full lg:h-[6.4rem] sm:w-[9rem] sm:h-[3.6rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] border lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:pr-[1rem] sm:pl-[1.4rem] flex items-center justify-between cursor-pointer mb-[0.8rem] ${
+          className={`lg:w-full lg:h-[6.4rem] sm:w-auto sm:h-[3.6rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] border lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:pr-[1rem] sm:pl-[1.4rem] flex items-center justify-between cursor-pointer mb-[0.8rem] ${
             serviceDropdownOpen
               ? "border-blue-300 bg-blue-50"
               : "border-gray-100"
