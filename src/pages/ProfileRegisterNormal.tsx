@@ -10,7 +10,7 @@ import { useRef, useState } from "react";
 
 export default function ProfileRegisterNormal() {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
-  const [previewUrl, setPrviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [selectedMovingType, setSelectedMovingType] = useState<string | null>(
     null
@@ -22,7 +22,7 @@ export default function ProfileRegisterNormal() {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedImg(file);
-      setPrviewUrl(URL.createObjectURL(file));
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
