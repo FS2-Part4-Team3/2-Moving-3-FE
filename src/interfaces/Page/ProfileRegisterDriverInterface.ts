@@ -1,6 +1,6 @@
 export interface RegisterDriverValues {
   nickname: string;
-  carrer: number | string;
+  career: number | string;
   shortBio: string;
   description: string;
   selectedRegion: string | null;
@@ -9,7 +9,7 @@ export interface RegisterDriverValues {
 
 export interface Errors {
   nickname?: string;
-  carrer?: string;
+  career?: string;
   shortBio?: string;
   description?: string;
   selectedRegion?: string;

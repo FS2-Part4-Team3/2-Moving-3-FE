@@ -1,3 +1,5 @@
+`use client`;
+
 import type {
   Errors,
   RegisterDriverValues,
@@ -5,12 +7,10 @@ import type {
 import Error from "next/error";
 import { useState } from "react";
 
-`use client`;
-
 export default function useProfileDriverValidate() {
   const [values, setValues] = useState<RegisterDriverValues>({
     nickname: "",
-    carrer: "",
+    career: "",
     shortBio: "",
     description: "",
     selectedRegion: null,
@@ -27,9 +27,9 @@ export default function useProfileDriverValidate() {
       newError.nickname = "성함을 입력해주세요.";
     }
 
-    if (!values.carrer || isNaN(Number(values.carrer))) {
+    if (!values.career || isNaN(Number(values.career))) {
       isValid = false;
-      newError.carrer = "숫자만 입력해주세요.";
+      newError.career = "숫자만 입력해주세요.";
     }
 
     if (!values.shortBio?.trim() || values.shortBio.length < 8) {
