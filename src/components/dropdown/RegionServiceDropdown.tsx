@@ -80,37 +80,19 @@ export default function RegionServiceDropdown() {
           />
         </div>
         {regionDropdownOpen && (
-          <div className="absolute w-auto border border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] z-[2]">
-            <div className="flex bg-white lg:h-[32rem] sm:h-[18rem] overflow-y-auto">
-              <div className="flex flex-col lg:w-[16.4rem] sm:w-[7.5rem]">
-                {regionsDropdown
-                  .slice(0, Math.ceil(regionsDropdown.length / 2))
-                  .map((region, index) => (
-                    <div
-                      key={index}
-                      className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 border-r border-line-200 cursor-pointer"
-                      onClick={() => handleRegionClick(region.name)}
-                    >
-                      {region.name}
-                    </div>
-                  ))}
-              </div>
-              <div className="flex flex-col lg:w-[16.4rem] sm:w-[7.5rem]">
-                {regionsDropdown
-                  .slice(
-                    Math.ceil(regionsDropdown.length / 2),
-                    regionsDropdown.length
-                  )
-                  .map((region, index) => (
-                    <div
-                      key={index}
-                      className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 cursor-pointer"
-                      onClick={() => handleRegionClick(region.name)}
-                    >
-                      {region.name}
-                    </div>
-                  ))}
-              </div>
+          <div className="absolute w-auto border bg-white border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] z-[2]">
+            <div className="grid grid-cols-2 lg:h-[32rem] sm:h-[18rem] lg:w-auto sm:w-[15rem] overflow-y-auto overflow-x-hidden">
+              {regionsDropdown.map((region, index) => (
+                <div
+                  key={index}
+                  className={`lg:w-[16.4rem] lg:h-[6.4rem] lg:py-[1.6rem] lg:px-[2.4rem] sm:w-[7.5rem] sm:h-[3.6rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 cursor-pointer ${
+                    index % 2 === 0 ? "border-r border-line-200" : ""
+                  }`}
+                  onClick={() => handleRegionClick(region.name)}
+                >
+                  {region.name}
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -150,12 +132,12 @@ export default function RegionServiceDropdown() {
           />
         </div>
         {serviceDropdownOpen && (
-          <div className="absolute lg:w-full sm:w-auto bg-white border border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] flex z-[1]">
+          <div className="absolute lg:w-full sm:w-[9rem] bg-white border border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] flex z-[1]">
             <div className="flex flex-col lg:w-[16.4rem] sm:w-auto">
               {movingTypeDropdown.map((movingType, index) => (
                 <div
                   key={index}
-                  className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 cursor-pointer"
+                  className="lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:pl-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 cursor-pointer"
                   onClick={() => handleServiceClick(movingType.type)}
                 >
                   {movingType.type}
