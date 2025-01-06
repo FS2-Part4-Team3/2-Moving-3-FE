@@ -14,6 +14,7 @@ const Template: StoryFn<FindDriverCardProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   data: {
+    id: "driver-999",
     serviceType: ["SMALL", "HOME"],
     introduce: "5년 경력의 신뢰할 수 있는 기사입니다.",
     image: "http://placehold.it/56x56",
