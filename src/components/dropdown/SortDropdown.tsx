@@ -31,9 +31,6 @@ export default function SortDropdown() {
           ))}
         </div>
       )}
-      <div>
-        <p>드롭다운 오픈시 밑에 요소가 밀리는지 확인하는 용도</p>
-      </div>
     </div>
   );
 }
