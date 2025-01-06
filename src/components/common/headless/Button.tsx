@@ -7,8 +7,9 @@ export const ButtonWrapper = ({
   children,
   id,
   onClick,
+  type,
 }: ButtonContextType & { children: React.ReactNode }) => {
-  const contextValue = { id, onClick };
+  const contextValue = { id, onClick, type };
 
   return (
     <ButtonContext.Provider value={contextValue}>
