@@ -46,6 +46,12 @@ const config: Config = {
       textColor: {
         DEFAULT: "#1F1F1F",
       },
+      boxShadow: {
+        custom1: "4px 4px 10px 0px rgba(225, 225, 225, 0.102)",
+        custom2: "inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)",
+        customBoth:
+          "4px 4px 10px 0px rgba(225, 225, 225, 0.102), inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)",
+      },
     },
   },
 };
