@@ -15,7 +15,9 @@
     "availableAreas": ["SEOUL", "INCHEON"],
     "applyCount": 10,
     "favoriteCount": 5,
-    "score": 4.8
+    "score": 4.8,
+    "career": 9,
+    "reviewCount": 200
   },
   {
     "id": "driver-2",
@@ -29,11 +31,13 @@
     "phoneNumber": "010-4567-8910",
     "introduce": "친절하고 안전한 운송 서비스를 제공합니다.",
     "description": "사무실 이사 및 중형 이사를 주로 담당합니다.",
-    "serviceType": ["OFFICE", "MEDIUM"],
+    "serviceType": ["SMALL", "OFFICE"],
     "availableAreas": ["부산", "울산"],
     "applyCount": 15,
     "favoriteCount": 8,
-    "score": 4.7
+    "score": 4.7,
+    "career": 6,
+    "reviewCount": 230
   },
   {
     "id": "driver-3",
@@ -47,10 +51,12 @@
     "phoneNumber": "010-7891-2345",
     "introduce": "정확하고 빠른 서비스로 고객 만족을 실현합니다.",
     "description": "장거리 및 대형 이사에 특화되어 있습니다.",
-    "serviceType": ["LARGE", "LONG_DISTANCE"],
+    "serviceType": ["HOME", "OFFICE"],
     "availableAreas": ["대구", "광주"],
     "applyCount": 20,
     "favoriteCount": 12,
-    "score": 4.9
+    "score": 4.9,
+    "career": 3,
+    "reviewCount": 290
   }
 ]
