@@ -1,0 +1,10 @@
+import SearchBar from "@/components/common/searchbar/SearchBar";
+
+export default {
+  title: "Components/SearchBar/SearchBar",
+  component: SearchBar,
+};
+
+const Template = () => <SearchBar />;
+
+export const Default = Template.bind({});
