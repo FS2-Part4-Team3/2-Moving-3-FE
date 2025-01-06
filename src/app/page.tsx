@@ -27,14 +27,14 @@ export default function Home() {
           </div>
           <Image
             src={sm_1}
-            alt="소형이사_sm"
+            alt="소형이사"
             width={284.16}
             height={182.4}
             className="absolute right-[-5.416rem] bottom-[-0.34rem] lg:hidden sm:block"
           />
           <Image
             src={lg_1}
-            alt="소형이사_lg"
+            alt="소형이사"
             width={366}
             height={304}
             className="absolute right-0 bottom-[3.4rem] lg:block sm:hidden"
@@ -59,7 +59,7 @@ export default function Home() {
             />
             <Image
               src={lg_2}
-              alt="가정이사_lg"
+              alt="가정이사"
               width={467}
               height={264}
               className="absolute right-[-1rem] bottom-[-1.5rem] lg:block sm:hidden"
@@ -83,7 +83,7 @@ export default function Home() {
             />
             <Image
               src={lg_3}
-              alt="기업,사무실 이사_lg"
+              alt="기업,사무실 이사"
               width={511}
               height={219}
               className="absolute right-[-2rem] bottom-[-0.1rem] lg:block sm:hidden"
