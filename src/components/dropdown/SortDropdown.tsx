@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import arrow from "@/../public/assets/common/dropdown/chevron-down_gray.svg";
 import { useState } from "react";

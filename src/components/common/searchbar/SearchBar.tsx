@@ -1,3 +1,5 @@
+"use client";
+
 import search from "@/../public/assets/common/searchbar/ic_search.svg";
 import x from "@/../public/assets/common/searchbar/ic_x_circle.svg";
 import Image from "next/image";
