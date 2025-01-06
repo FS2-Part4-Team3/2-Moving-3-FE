@@ -11,7 +11,7 @@ export default function SearchBar() {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   return (
-    <div className="md:w-[56rem] sm:w-[26rem] md:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] py-[1.4rem] px-[2.4rem] md:gap-[0.8rem] sm:gap-[0.6rem] flex items-center bg-background-200">
+    <div className="md:w-full sm:w-[26rem] md:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] py-[1.4rem] px-[2.4rem] md:gap-[0.8rem] sm:gap-[0.6rem] flex items-center bg-background-200">
       {!isFocused && (
         <>
           <Image
