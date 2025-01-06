@@ -11,7 +11,7 @@ export default function ProfileRegisterDriverPage() {
           추가 정보를 입력하여 회원가입을 완료해주세요.
         </h3>
       </div>
-      <div className="lg:w-[135.2rem] grid grid-cols-2 gap-[7.2rem]">
+      <div>
         <ProfileRegisterDriver />
       </div>
     </div>

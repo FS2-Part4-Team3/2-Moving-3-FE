@@ -2,30 +2,35 @@
 
 import Image from "next/image";
 import profile from "@/../public/assets/profile/img_profile_upload.svg";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InputWrapper } from "@/components/common/headless/Input";
 import { ProfileChips } from "@/components/chips/ProfileChips";
 import movingTypes from "@/constants/movingType";
 import regions from "@/constants/regions";
 import { ButtonWrapper } from "@/components/common/headless/Button";
-import type { RegisterDriverValues } from "@/interfaces/Page/ProfileRegisterDriverInterface";
+import useProfileDriverValidate from "@/hooks/useProfileDriverValidate";
 
 export default function ProfileRegisterDriver() {
-  const [values, setValues] = useState<RegisterDriverValues>({
-    nickname: "",
-    carrer: "",
-    shortBio: "",
-    description: "",
-  });
+  const { values, setValues, errors, validate, handleChange } =
+    useProfileDriverValidate();
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const [selectedMovingType, setSelectedMovingType] = useState<string | null>(
-    null
-  );
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const isDisabled =
-    values && previewUrl && selectedRegion && selectedMovingType;
+  const [isTouched, setIsTouched] = useState({
+    nickname: false,
+    carrer: false,
+    shortBio: false,
+    description: false,
+    selectedRegion: false,
+    selectedMovingType: false,
+  });
+  const [isFormValid, setIsFormValid] = useState(false);
+  const isDisabled = isFormValid && previewUrl;
+  //toDo: 추후에 user 정보 받아서 중복 선택 가능하게 하기
+
+  useEffect(() => {
+    setIsFormValid(validate());
+  }, [values]);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,21 +44,24 @@ export default function ProfileRegisterDriver() {
     fileInputRef.current?.click();
   };
 
-  const handleValuesSubmit = () => {
+  const handleInputBlur = (field: keyof typeof isTouched) => {
+    setIsTouched((prev) => ({ ...prev, [field]: true }));
+  };
+
+  const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //toDo: 추후에 api 연결
+    e.preventDefault();
+    if (validate()) {
+    } else {
+    }
     return;
   };
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
   return (
-    <>
+    <form
+      className="lg:w-[135.2rem] grid grid-cols-2 gap-[7.2rem]"
+      onSubmit={handleValuesSubmit}
+    >
       <div className="mt-[4.8rem]">
         <div className="border-b pb-[3.2rem] border-line-100 mb-[3.2rem]">
           <h3 className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -83,7 +91,7 @@ export default function ProfileRegisterDriver() {
             id="nickname"
             type="text"
             value={values.nickname}
-            onChange={handleInputChange}
+            onChange={handleChange}
           >
             <div className="flex flex-col">
               <InputWrapper.Label className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -91,9 +99,19 @@ export default function ProfileRegisterDriver() {
               </InputWrapper.Label>
               <InputWrapper.Input
                 name="nickname"
-                className="lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] bg-background-200 focus:outline-none text-[2rem] font-normal text-black-400 placeholder-gray-300"
+                className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
+                  errors.nickname && isTouched.nickname
+                    ? "bg-white border-red-200 border"
+                    : "bg-background-200"
+                } text-[2rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="사이트에 노출될 이름을 입력해 주세요"
+                onBlur={() => handleInputBlur("nickname")}
               />
+              {errors.nickname && isTouched.nickname && (
+                <span className="text-[1.6rem] font-medium text-red-200 mt-[0.8rem] self-end">
+                  {errors.nickname}
+                </span>
+              )}
             </div>
           </InputWrapper>
         </div>
@@ -102,7 +120,7 @@ export default function ProfileRegisterDriver() {
             id="carrer"
             type="text"
             value={values.carrer}
-            onChange={handleInputChange}
+            onChange={handleChange}
           >
             <div className="flex flex-col">
               <InputWrapper.Label className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -110,9 +128,19 @@ export default function ProfileRegisterDriver() {
               </InputWrapper.Label>
               <InputWrapper.Input
                 name="carrer"
-                className="lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] bg-background-200 focus:outline-none text-[2rem] font-normal text-black-400 placeholder-gray-300"
+                className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
+                  errors.carrer && isTouched.carrer
+                    ? "bg-white border-red-200 border"
+                    : "bg-background-200"
+                } text-[2rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="기사님의 경력을 입력해 주세요"
+                onBlur={() => handleInputBlur("carrer")}
               />
+              {errors.carrer && isTouched.carrer && (
+                <span className="text-[1.6rem] font-medium text-red-200 mt-[0.8rem] self-end">
+                  {errors.carrer}
+                </span>
+              )}
             </div>
           </InputWrapper>
         </div>
@@ -121,7 +149,7 @@ export default function ProfileRegisterDriver() {
             id="shortBio"
             type="text"
             value={values.shortBio}
-            onChange={handleInputChange}
+            onChange={handleChange}
           >
             <div className="flex flex-col">
               <InputWrapper.Label className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -129,9 +157,19 @@ export default function ProfileRegisterDriver() {
               </InputWrapper.Label>
               <InputWrapper.Input
                 name="shortBio"
-                className="lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] bg-background-200 focus:outline-none text-[2rem] font-normal text-black-400 placeholder-gray-300"
+                className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
+                  errors.shortBio && isTouched.shortBio
+                    ? "bg-white border-red-200 border"
+                    : "bg-background-200"
+                } text-[2rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="한 줄 소개를 입력해 주세요"
+                onBlur={() => handleInputBlur("shortBio")}
               />
+              {errors.shortBio && isTouched.shortBio && (
+                <span className="text-[1.6rem] font-medium text-red-200 mt-[0.8rem] self-end">
+                  {errors.shortBio}
+                </span>
+              )}
             </div>
           </InputWrapper>
         </div>
@@ -144,10 +182,20 @@ export default function ProfileRegisterDriver() {
           <textarea
             value={values.description}
             name="description"
-            onChange={handleInputChange}
+            onChange={handleChange}
             placeholder="상세 내용을 입력해 주세요"
-            className="w-[64rem] h-[16rem] rounded-[1.6rem] px-[2.4rem] py-[1.4rem] text-[2rem] font-normal text-black-400 placeholder-gray-300 resize-none bg-background-200 focus:outline-none"
+            onBlur={() => handleInputBlur("description")}
+            className={`w-[64rem] h-[16rem] rounded-[1.6rem] px-[2.4rem] py-[1.4rem] text-[2rem] font-normal ${
+              errors.description && isTouched.description
+                ? "bg-white border-red-200 border"
+                : "bg-background-200"
+            } text-black-400 placeholder-gray-300 resize-none focus:outline-none`}
           ></textarea>
+          {errors.description && isTouched.description && (
+            <span className="text-[1.6rem] font-medium text-red-200 mt-[0.8rem] self-end">
+              {errors.description}
+            </span>
+          )}
         </div>
         <div className="border-b pb-[3.2rem] border-line-100 mb-[3.2rem]">
           <h3 className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -155,8 +203,10 @@ export default function ProfileRegisterDriver() {
           </h3>
           <ProfileChips
             movingTypes={movingTypes}
-            selectedMovingType={selectedMovingType}
-            setSelectedMovingType={setSelectedMovingType}
+            selectedMovingType={values.selectedMovingType}
+            setSelectedMovingType={(value) =>
+              setValues((prev) => ({ ...prev, selectedMovingType: value }))
+            }
           />
         </div>
         <div className="mb-[6.8rem]">
@@ -165,14 +215,13 @@ export default function ProfileRegisterDriver() {
           </h3>
           <ProfileChips
             regions={regions}
-            selectedRegion={selectedRegion}
-            setSelectedRegion={setSelectedRegion}
+            selectedRegion={values.selectedRegion}
+            setSelectedRegion={(value) =>
+              setValues((prev) => ({ ...prev, selectedRegion: value }))
+            }
           />
         </div>
-        <ButtonWrapper
-          id="profile-register-driver"
-          onClick={handleValuesSubmit}
-        >
+        <ButtonWrapper id="profile-register-driver" type="submit">
           <ButtonWrapper.Button
             disabled={!isDisabled}
             className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"
@@ -181,6 +230,6 @@ export default function ProfileRegisterDriver() {
           </ButtonWrapper.Button>
         </ButtonWrapper>
       </div>
-    </>
+    </form>
   );
 }
