@@ -21,8 +21,6 @@ export default function ProfileRegisterDriver() {
     carrer: false,
     shortBio: false,
     description: false,
-    selectedRegion: false,
-    selectedMovingType: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid && previewUrl;
@@ -51,10 +49,6 @@ export default function ProfileRegisterDriver() {
   const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //toDo: 추후에 api 연결
     e.preventDefault();
-    if (validate()) {
-    } else {
-    }
-    return;
   };
 
   return (
@@ -198,9 +192,14 @@ export default function ProfileRegisterDriver() {
           )}
         </div>
         <div className="border-b pb-[3.2rem] border-line-100 mb-[3.2rem]">
-          <h3 className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+          <h3 className="text-[2rem] font-semibold lg:text-black-300">
             제공 서비스 <span className="text-blue-300">*</span>
           </h3>
+          {errors.selectedMovingType && (
+            <span className="text-[1.6rem] font-medium text-red-200 mt-[0.2rem] mb-[2.4rem] self-end block">
+              {errors.selectedMovingType}
+            </span>
+          )}
           <ProfileChips
             movingTypes={movingTypes}
             selectedMovingType={values.selectedMovingType}
@@ -210,9 +209,14 @@ export default function ProfileRegisterDriver() {
           />
         </div>
         <div className="mb-[6.8rem]">
-          <h3 className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+          <h3 className="text-[2rem] font-semibold lg:text-black-300">
             서비스 가능 지역 <span className="text-blue-300">*</span>
           </h3>
+          {errors.selectedRegion && (
+            <span className="text-[1.6rem] font-medium text-red-200 mt-[0.2rem] mb-[2.4rem] self-end block">
+              {errors.selectedRegion}
+            </span>
+          )}
           <ProfileChips
             regions={regions}
             selectedRegion={values.selectedRegion}
