@@ -18,7 +18,7 @@ export default function ProfileRegisterDriver() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isTouched, setIsTouched] = useState({
     nickname: false,
-    carrer: false,
+    career: false,
     shortBio: false,
     description: false,
   });
@@ -111,9 +111,9 @@ export default function ProfileRegisterDriver() {
         </div>
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper
-            id="carrer"
+            id="career"
             type="text"
-            value={values.carrer}
+            value={values.career}
             onChange={handleChange}
           >
             <div className="flex flex-col">
@@ -121,18 +121,18 @@ export default function ProfileRegisterDriver() {
                 경력 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <InputWrapper.Input
-                name="carrer"
+                name="career"
                 className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
-                  errors.carrer && isTouched.carrer
+                  errors.career && isTouched.career
                     ? "bg-white border-red-200 border"
                     : "bg-background-200"
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="기사님의 경력을 입력해 주세요"
-                onBlur={() => handleInputBlur("carrer")}
+                onBlur={() => handleInputBlur("career")}
               />
-              {errors.carrer && isTouched.carrer && (
+              {errors.career && isTouched.career && (
                 <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
-                  {errors.carrer}
+                  {errors.career}
                 </span>
               )}
             </div>
