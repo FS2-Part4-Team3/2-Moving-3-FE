@@ -4,14 +4,14 @@ import search from "@/../public/assets/common/searchbar/ic_search.svg";
 import x from "@/../public/assets/common/searchbar/ic_x_circle.svg";
 import Image from "next/image";
 import { InputWrapper } from "../headless/Input";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function SearchBar() {
   const [value, setValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   return (
-    <div className="w-full md:h-[6.4rem] rounded-[1.6rem] py-[1.4rem] px-[2.4rem] md:gap-[0.8rem] sm:gap-[0.6rem] flex items-center bg-background-200">
+    <div className="w-full md:h-[6.4rem] rounded-[1.6rem] py-[1.4rem] lg:px-[2.4rem] sm:px-[1.6rem] md:gap-[0.8rem] sm:gap-[0.6rem] flex items-center bg-background-200">
       {!isFocused && (
         <>
           <Image
