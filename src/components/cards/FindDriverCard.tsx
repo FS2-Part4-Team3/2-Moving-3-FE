@@ -7,8 +7,8 @@ import like from "@/../public/assets/driver/ic_like.svg";
 export default function FindDriverCard({ data }: FindDriverCardProps) {
   return (
     <div
-      className="lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] h-[23rem] rounded-[1.6rem] border-0.5 border-line-100 lg:py-[2rem] sm:py-[1.6rem] lg:px-[2.4rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem]"
-      style={{ boxShadow: "-2px -2px 10px rgba(220, 220, 220, 0.3)" }}
+      className="lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] h-[23rem] rounded-[1.6rem] border-0.5 border-line-100 lg:py-[2rem] sm:py-[1.6rem] lg:px-[2.4rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] 
+      shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]"
     >
       <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
         {data.serviceType.map((item: string, index) => (
