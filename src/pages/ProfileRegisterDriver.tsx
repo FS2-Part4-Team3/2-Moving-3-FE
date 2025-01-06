@@ -53,12 +53,12 @@ export default function ProfileRegisterDriver() {
 
   return (
     <form
-      className="lg:w-[135.2rem] grid grid-cols-2 gap-[7.2rem]"
+      className="lg:w-[135.2rem] lg:grid lg:grid-cols-2 lg:gap-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col"
       onSubmit={handleValuesSubmit}
     >
-      <div className="mt-[4.8rem]">
-        <div className="border-b pb-[3.2rem] border-line-100 mb-[3.2rem]">
-          <h3 className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+      <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
+        <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] border-line-100 lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
+          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
             프로필 이미지
           </h3>
           <input
@@ -80,7 +80,7 @@ export default function ProfileRegisterDriver() {
             </div>
           </button>
         </div>
-        <div className="border-b pb-[3.2rem] border-line-100 mb-[3.2rem]">
+        <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper
             id="nickname"
             type="text"
@@ -88,7 +88,7 @@ export default function ProfileRegisterDriver() {
             onChange={handleChange}
           >
             <div className="flex flex-col">
-              <InputWrapper.Label className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
                 별명 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <InputWrapper.Input
@@ -97,19 +97,19 @@ export default function ProfileRegisterDriver() {
                   errors.nickname && isTouched.nickname
                     ? "bg-white border-red-200 border"
                     : "bg-background-200"
-                } text-[2rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
+                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="사이트에 노출될 이름을 입력해 주세요"
                 onBlur={() => handleInputBlur("nickname")}
               />
               {errors.nickname && isTouched.nickname && (
-                <span className="text-[1.6rem] font-medium text-red-200 mt-[0.8rem] self-end">
+                <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                   {errors.nickname}
                 </span>
               )}
             </div>
           </InputWrapper>
         </div>
-        <div className="border-b pb-[3.2rem] border-line-100 mb-[3.2rem]">
+        <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper
             id="carrer"
             type="text"
@@ -117,7 +117,7 @@ export default function ProfileRegisterDriver() {
             onChange={handleChange}
           >
             <div className="flex flex-col">
-              <InputWrapper.Label className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
                 경력 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <InputWrapper.Input
@@ -126,19 +126,19 @@ export default function ProfileRegisterDriver() {
                   errors.carrer && isTouched.carrer
                     ? "bg-white border-red-200 border"
                     : "bg-background-200"
-                } text-[2rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
+                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="기사님의 경력을 입력해 주세요"
                 onBlur={() => handleInputBlur("carrer")}
               />
               {errors.carrer && isTouched.carrer && (
-                <span className="text-[1.6rem] font-medium text-red-200 mt-[0.8rem] self-end">
+                <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                   {errors.carrer}
                 </span>
               )}
             </div>
           </InputWrapper>
         </div>
-        <div>
+        <div className="lg:border-none md:border-b sm:border-b md:border-line-100 sm:border-line-100 lg:pb-0 md:pb-[2rem] sm:pb-[2rem]">
           <InputWrapper
             id="shortBio"
             type="text"
@@ -146,7 +146,7 @@ export default function ProfileRegisterDriver() {
             onChange={handleChange}
           >
             <div className="flex flex-col">
-              <InputWrapper.Label className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
                 한 줄 소개 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <InputWrapper.Input
@@ -155,12 +155,12 @@ export default function ProfileRegisterDriver() {
                   errors.shortBio && isTouched.shortBio
                     ? "bg-white border-red-200 border"
                     : "bg-background-200"
-                } text-[2rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
+                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="한 줄 소개를 입력해 주세요"
                 onBlur={() => handleInputBlur("shortBio")}
               />
               {errors.shortBio && isTouched.shortBio && (
-                <span className="text-[1.6rem] font-medium text-red-200 mt-[0.8rem] self-end">
+                <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                   {errors.shortBio}
                 </span>
               )}
@@ -168,9 +168,9 @@ export default function ProfileRegisterDriver() {
           </InputWrapper>
         </div>
       </div>
-      <div className="mt-[4.8rem]">
-        <div className="border-b pb-[3.2rem] border-line-100 mb-[3.2rem]">
-          <h3 className="text-[2rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+      <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
+        <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
             상세 설명 <span className="text-blue-300">*</span>
           </h3>
           <textarea
@@ -179,24 +179,28 @@ export default function ProfileRegisterDriver() {
             onChange={handleChange}
             placeholder="상세 내용을 입력해 주세요"
             onBlur={() => handleInputBlur("description")}
-            className={`w-[64rem] h-[16rem] rounded-[1.6rem] px-[2.4rem] py-[1.4rem] text-[2rem] font-normal ${
+            className={`lg:w-[64rem] lg:h-[16rem] md:w-[32.7rem] md:h-[16rem] sm:w-[32.7rem] sm:h-[16rem] rounded-[1.6rem] px-[2.4rem] py-[1.4rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal ${
               errors.description && isTouched.description
                 ? "bg-white border-red-200 border"
                 : "bg-background-200"
             } text-black-400 placeholder-gray-300 resize-none focus:outline-none`}
           ></textarea>
           {errors.description && isTouched.description && (
-            <span className="text-[1.6rem] font-medium text-red-200 mt-[0.8rem] self-end">
+            <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
               {errors.description}
             </span>
           )}
         </div>
-        <div className="border-b pb-[3.2rem] border-line-100 mb-[3.2rem]">
-          <h3 className="text-[2rem] font-semibold lg:text-black-300">
+        <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+          <h3
+            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 ${
+              !errors.selectedMovingType ? "mb-[1.6rem]" : ""
+            }`}
+          >
             제공 서비스 <span className="text-blue-300">*</span>
           </h3>
           {errors.selectedMovingType && (
-            <span className="text-[1.6rem] font-medium text-red-200 mt-[0.2rem] mb-[2.4rem] self-end block">
+            <span className="lg:text-[1.6rem] sm:text-[1.3rem] text-[1.3rem] font-medium text-red-200 mt-[0.2rem] mb-[2.4rem] self-end block">
               {errors.selectedMovingType}
             </span>
           )}
@@ -208,12 +212,16 @@ export default function ProfileRegisterDriver() {
             }
           />
         </div>
-        <div className="mb-[6.8rem]">
-          <h3 className="text-[2rem] font-semibold lg:text-black-300">
+        <div className="lg:mb-[6.8rem] md:mb-[2.4rem] sm:mb-[2.4rem]">
+          <h3
+            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 ${
+              !errors.selectedRegion ? "mb-[1.6rem]" : ""
+            }`}
+          >
             서비스 가능 지역 <span className="text-blue-300">*</span>
           </h3>
           {errors.selectedRegion && (
-            <span className="text-[1.6rem] font-medium text-red-200 mt-[0.2rem] mb-[2.4rem] self-end block">
+            <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.2rem] mb-[2.4rem] self-end block">
               {errors.selectedRegion}
             </span>
           )}
@@ -228,7 +236,7 @@ export default function ProfileRegisterDriver() {
         <ButtonWrapper id="profile-register-driver" type="submit">
           <ButtonWrapper.Button
             disabled={!isDisabled}
-            className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"
+            className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"
           >
             시작하기
           </ButtonWrapper.Button>
