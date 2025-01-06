@@ -33,7 +33,7 @@ export default function MovingTypeCheckCard() {
             />
           </div>
           <span className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-semibold text-black-400">
-            소형이사 (원룸, 투룸, 20평대 미만)
+            {movingType.type}
           </span>
         </div>
       ))}
