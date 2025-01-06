@@ -7,7 +7,7 @@ import like from "@/../public/assets/driver/ic_like.svg";
 export default function FindDriverCard({ data }: FindDriverCardProps) {
   return (
     <div
-      className="lg:w-full md:w-[60rem] sm:w-[32.7rem] h-[23rem] rounded-[1.6rem] border-0.5 border-line-100 lg:py-[2rem] sm:py-[1.6rem] lg:px-[2.4rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] 
+      className="w-full lg:h-[23rem] rounded-[1.6rem] border-0.5 border-line-100 lg:py-[2rem] sm:py-[1.6rem] lg:px-[2.4rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] 
       shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]"
     >
       <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
@@ -24,21 +24,27 @@ export default function FindDriverCard({ data }: FindDriverCardProps) {
         {data.introduce}
       </p>
       <div className="flex items-start w-full rounded-[0.6rem] border border-line-100 lg:py-[1.6rem] lg:px-[1.8rem] lg:gap-[2.4rem] sm:p-[1rem] sm:gap-[1.2rem]">
-        <Image
-          src={data.image}
-          alt="driver-profile"
-          width={56}
-          height={56}
-          className="border-2 border-blue-400 rounded-full lg:block sm:hidden"
-        />
-        <Image
-          src={data.image}
-          alt="driver-profile"
-          width={46}
-          height={46}
-          className="border-2 border-blue-400 rounded-full lg:hidden sm:block"
-        />
-        <div className="flex flex-col w-full lg:gap-[0.8rem] sm:gap-[1.2rem]">
+        <div className="relative w-[5.6rem] h-[5.6rem] lg:block sm:hidden">
+          <Image
+            src={data.image}
+            alt="driver"
+            width={56}
+            height={56}
+            objectFit="cover"
+            className="border-2 border-blue-400 rounded-full"
+          />
+        </div>
+        <div className="relative w-[4.6rem] h-[4.6rem] lg:hidden sm:block">
+          <Image
+            src={data.image}
+            alt="driver"
+            width={46}
+            height={46}
+            objectFit="cover"
+            className="border-2 border-blue-400 rounded-full"
+          />
+        </div>
+        <div className="flex flex-col w-full lg:gap-[0.8rem] sm:gap-[1rem]">
           <div className="flex w-full justify-between">
             <p className="font-semibold lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-300">
               {data.name} 기사님
@@ -50,11 +56,11 @@ export default function FindDriverCard({ data }: FindDriverCardProps) {
               </p>
             </div>
           </div>
-          <div className="flex items-center w-full sm:justify-between lg:gap-[1.6rem] lg:justify-start">
+          <div className="flex items-center w-full md:gap-[1.6rem] sm:justify-between md:justify-start">
             <div className="flex items-center justify-center lg:gap-[0.6rem] sm:gap-[0.2rem]">
               <Image
                 src={star}
-                alt="start"
+                alt="star"
                 width={24}
                 height={24}
                 className="lg:block sm:hidden"
