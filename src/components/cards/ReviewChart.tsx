@@ -48,14 +48,18 @@ export default function ReviewChart({
             <p
               className={`text-black-300 text-[2rem] leading-[3.2rem] ${
                 item.score === 5 ? "font-bold" : "font-medium"
-              }`}
+              } ${item.score === 1 ? "mr-[0.3rem]" : ""}`}
             >
               {item.score}점
             </p>
-            <div className="h-[0.8rem] w-[37rem] rounded-[1.5rem] bg-background-300 flex-grow">
+            <div className="h-[0.8rem] w-[37rem] rounded-[1.5rem] bg-background-300">
               <div
                 className="bg-yellow-100 h-full rounded-[1.5rem]"
-                style={{ width: `${(item.count / reviewCount) * 100}%` }}
+                style={{
+                  width: `${
+                    reviewCount > 0 ? (item.count / reviewCount) * 100 : 0
+                  }%`,
+                }}
               ></div>
             </div>
             <p
