@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { ButtonWrapper } from "../common/headless/Button";
-import check from "@/../public/assets/rpq/ellipse_active.svg";
-import noCheck from "@/../public/assets/rpq/ellipse_inactive.svg";
+import check from "@/../public/assets/rfq/ellipse_active.svg";
+import noCheck from "@/../public/assets/rfq/ellipse_inactive.svg";
 import { useState } from "react";
 import movingTypesCheck from "@/constants/movingTypeCheckCard";
 
