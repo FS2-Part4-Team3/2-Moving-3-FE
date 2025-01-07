@@ -1,7 +1,7 @@
 import type { FindDriverCardProps } from "@/interfaces/Card/FindDriverCardInterface";
 import MovingTypeChips from "../chips/MovingTypeChips";
 import Image from "next/image";
-import star from "@/../public/assets/driver/ic_star.svg";
+import star from "@/../public/assets/driver/ic_star_yellow.svg";
 import like from "@/../public/assets/driver/ic_like.svg";
 
 export default function FindDriverCard({ data }: FindDriverCardProps) {
