@@ -61,13 +61,13 @@ export default function Empty({ type }: EmptyProps) {
         height={82}
         className="lg:hidden sm:block"
       />
-      <div className="flex flex-col items-center font-normal text-[2rem] leading-[3.2rem] text-gray-400">
+      <div className="flex flex-col items-center font-normal lg:text-[2rem] sm:text-[1.4rem] lg:leading-[3.2rem] sm:leading-[2.4rem] text-gray-400">
         <p>{text}</p>
         {text2 && <p>{text2}</p>}
       </div>
       {buttonText && (
         <ButtonWrapper id="empty-button">
-          <ButtonWrapper.Button className="h-[6.5rem] p-[1.6rem] rounded-[1.6rem] font-semibold text-[2rem] leading-[3.2rem] text-white">
+          <ButtonWrapper.Button className="lg:h-[6.5rem] sm:h-[5.4rem] lg:p-[1.6rem] sm:py-[1.6rem] sm:px-[2.4rem] rounded-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white">
             {buttonText}
           </ButtonWrapper.Button>
         </ButtonWrapper>
