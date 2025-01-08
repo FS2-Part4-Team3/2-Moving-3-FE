@@ -20,12 +20,12 @@ export async function getDriverDetailData(driverId: string) {
   }
 }
 
-export const getUserData = async () => {
+export const getMoveInfoData = async () => {
   try {
-    const response = await getRequest("/data/userData.json");
-    return response;
+    const result = await getRequest("/data/moveInfosData.json");
+    return result || [];
   } catch (error) {
-    console.error("Error fetching driver data: ", error);
+    console.error("Error fetching user data:", error);
     return;
   }
 };
