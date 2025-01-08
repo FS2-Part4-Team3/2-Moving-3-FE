@@ -1,7 +1,7 @@
 import SendQuotationModal from "@/components/modal/SendQuotationModal";
 
 export default {
-  title: "Components/Modal/SendQuotationModal",
+  title: "Components/Modals/SendQuotationModal",
   component: SendQuotationModal,
 };
 

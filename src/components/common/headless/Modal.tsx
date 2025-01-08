@@ -17,7 +17,7 @@ export const ModalWrapper = ({
   return (
     <ModalContext.Provider value={contextValue}>
       <div className="fixed inset-0 flex items-center justify-center bg-[#000000] bg-opacity-50">
-        <div className="bg-white px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-[3.2rem] w-auto gap-[4rem] flex flex-col">
+        <div className="bg-white px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-[3.2rem] w-auto lg:gap-[4rem] sm:gap-[2.6rem] flex flex-col">
           {children}
         </div>
       </div>
@@ -37,7 +37,7 @@ const ModalHeader = ({ children }: { children: React.ReactNode }) => {
   const { onClose } = useModalContext();
   return (
     <div className="flex justify-between items-center">
-      <p className="text-black-400 font-semibold text-[2.4rem] leading-[3.2rem]">
+      <p className="text-black-400 lg:font-semibold sm:font-bold lg:text-[2.4rem] sm:text-[1.8rem] lg:leading-[3.2rem] sm:leading-[2.6rem]">
         {children}
       </p>
       <Image
@@ -72,7 +72,7 @@ const ModalFooter = ({
   return (
     <ButtonWrapper id="modal-button" onClick={onClose}>
       <ButtonWrapper.Button
-        className="lg:w-[56rem] lg:h-[6.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold text-[2rem] leading-[3.2rem] text-white flex items-center justify-center"
+        className="lg:w-[56rem] lg:h-[6.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white flex items-center justify-center"
         disabled={isDisabled}
       >
         {children}
