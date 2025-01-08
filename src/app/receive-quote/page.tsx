@@ -1,6 +1,7 @@
 import { getMoveInfoData } from "@/api/DriverService";
 import ReceiveQuoteCard from "@/components/cards/ReceiveQuoteCard";
 import Empty from "@/components/common/Empty/Empty";
+import DriverSearchBar from "@/components/common/searchbar/DriverSearchBar";
 import SearchBar from "@/components/common/searchbar/SearchBar";
 import DriverSortDropdown from "@/components/dropdown/DriverSortDropdown";
 import type { ReceiveQuoteData } from "@/interfaces/Page/ReceiveQuoteInterface";
@@ -8,7 +9,7 @@ import ReceiveQuoteMovingTypeClient from "@/pages/ReceiveQuoteMovingTypeClient";
 
 export default async function ReceiveQuote() {
   let moveInfoData = await getMoveInfoData();
-  //TODO : Search Bar 호출부 뱐경 -> <DriverSearchBar />
+
   //TODO : 전체 999999건은 임시 값임
 
   // moveInfoData = [];
@@ -28,7 +29,7 @@ export default async function ReceiveQuote() {
           <div className="flex flex-col items-center lg:gap-[3.2rem] sm:gap-[2.4rem] flex-grow lg:w-full sm:w-full">
             <div className="w-full flex flex-col gap-[2.4rem] lg:items-end sm:items-center">
               <div className="sm:py-[0.6rem] sm:px-[1rem] lg:p-0 w-full">
-                <SearchBar />
+                <DriverSearchBar />
               </div>
               <div className="flex justify-between w-full items-center sm:px-[1rem]">
                 <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
