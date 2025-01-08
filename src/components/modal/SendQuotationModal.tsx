@@ -11,8 +11,19 @@ import { InputWrapper } from "../common/headless/Input";
 export default function SendQuotationModal() {
   const handleCloseModal = () => {};
 
-  const [price, setPrice] = useState<number>();
+  const [price, setPrice] = useState<string>("");
   const [comment, setComment] = useState<string>("");
+
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  useEffect(() => {
+    setIsDisabled(!(price.length && Number(price) && comment.length >= 10));
+    console.log(
+      price,
+      comment,
+      !(price.length && Number(price) && comment.length >= 10)
+    );
+  }, [price, comment]);
 
   return (
     <ModalWrapper onClose={handleCloseModal}>
@@ -64,25 +75,41 @@ export default function SendQuotationModal() {
           <div>
             <InputWrapper
               value={price || ""}
-              onChange={(e) => setPrice(Number(e.target.value))}
+              onChange={(e) => setPrice(e.target.value)}
             >
-              <InputWrapper.Label>견적가를 입력해 주세요</InputWrapper.Label>
-              <InputWrapper.Input placeholder="견적가 입력" />
+              <div className="flex flex-col gap-[1.6rem] w-full">
+                <InputWrapper.Label className="font-semibold text-[2rem] leading-[3.2rem] text-black-300">
+                  견적가를 입력해 주세요
+                </InputWrapper.Label>
+                <InputWrapper.Input
+                  className="w-full h-[6.4rem] rounded-[1.6rem] p-[1.4rem] bg-background-200 font-normal text-[2rem] leading-[3.2rem] placeholder-gray-300 focus:outline-none"
+                  placeholder="견적가 입력"
+                />
+              </div>
             </InputWrapper>
           </div>
-          <div />
+          <div className="w-full border border-line-100" />
           <div>
-            <InputWrapper
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            >
-              <InputWrapper.Label>코멘트를 입력해 주세요</InputWrapper.Label>
-              <InputWrapper.Input placeholder="최소 10자 이상 입력해주세요" />
+            <InputWrapper value={comment}>
+              <div className="flex flex-col gap-[1.6rem] w-full">
+                <InputWrapper.Label className="font-semibold text-[2rem] leading-[3.2rem] text-black-300">
+                  코멘트를 입력해 주세요
+                </InputWrapper.Label>
+                <div className="py-[1.4rem] px-[2.4rem] bg-background-200 rounded-[1.6rem]">
+                  <textarea
+                    onChange={(e) => setComment(e.target.value)}
+                    className="resize-none w-full h-[16rem] overflow-x-auto bg-background-200 font-normal text-[2rem] leading-[3.2rem] placeholder-gray-300 focus:outline-none"
+                    placeholder="최소 10자 이상 입력해주세요"
+                  />
+                </div>
+              </div>
             </InputWrapper>
           </div>
         </div>
       </ModalWrapper.Content>
-      <ModalWrapper.Footer isDisabled={false}>견적 보내기</ModalWrapper.Footer>
+      <ModalWrapper.Footer isDisabled={isDisabled}>
+        견적 보내기
+      </ModalWrapper.Footer>
     </ModalWrapper>
   );
 }
