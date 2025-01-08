@@ -6,7 +6,7 @@ import Image from "next/image";
 import { InputWrapper } from "../headless/Input";
 import { useState } from "react";
 
-export default function SearchBar() {
+export default function DriverSearchBar() {
   const [value, setValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -33,7 +33,7 @@ export default function SearchBar() {
       <InputWrapper value={value} onChange={(e) => setValue(e.target.value)}>
         <InputWrapper.Input
           className="w-full font-normal lg:text-[2rem] sm:text-[1.4rem] md:leading-[3.2rem] sm:leading-[2.4rem] placeholder:text-gray-400 focus:outline-none bg-background-200"
-          placeholder="텍스트를 입력해주세요"
+          placeholder="어떤 고객님을 찾고 계세요?"
           onFocus={() => {
             setIsFocused(true);
           }}
