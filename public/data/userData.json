@@ -1,12 +1,12 @@
 {
-  "id": "user-1",
+  "id": "moveinfo-1",
   "createdAt": "2025-01-01T12:00:00Z",
   "updatedAt": "2025-01-01T12:00:00Z",
-  "email": "test1@test.com",
-  "name": "홍길동",
-  "phoneNumber": "010-1234-5678",
-  "image": "https://example.com/user1.jpg",
-  "password": "password",
-  "serviceTypes": ["SMALL", "HOME"],
-  "areas": "SEOUL"
+  "type": "HOME",
+  "date": "2025-02-01T12:00:00Z",
+  "fromAddress": "서울 중구 삼일대로 343",
+  "toAddress": "서울 중구 청계천로 100",
+  "progress": "PENDING",
+  "confirmedEstimation": null,
+  "owner": "홍길동"
 }
