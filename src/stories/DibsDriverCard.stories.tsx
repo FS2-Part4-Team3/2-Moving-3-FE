@@ -3,7 +3,7 @@ import type { DibsDriverCardProps } from "@/interfaces/Card/DibsDriverCardInterf
 import type { StoryFn } from "@storybook/react";
 
 export default {
-  title: "Components/DibsDriverCard",
+  title: "Components/Cards/DibsDriverCard",
   component: DibsDriverCard,
 };
 
