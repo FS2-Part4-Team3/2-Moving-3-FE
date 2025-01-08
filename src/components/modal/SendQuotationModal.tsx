@@ -1,12 +1,18 @@
+"use client";
+
 import { getUserData } from "@/api/DriverService";
 import { ModalWrapper } from "../common/headless/Modal";
 import MovingTypeChips from "../chips/MovingTypeChips";
 import { useEffect, useState } from "react";
 import type { SendQuotationModalData } from "@/interfaces/Modal/SendQuotationModalInterface";
 import AddressFormat, { DateFormat } from "@/utils/Format";
+import { InputWrapper } from "../common/headless/Input";
 
 export default function SendQuotationModal() {
   const handleCloseModal = () => {};
+
+  const [price, setPrice] = useState<number>();
+  const [comment, setComment] = useState<string>("");
 
   return (
     <ModalWrapper onClose={handleCloseModal}>
@@ -55,8 +61,25 @@ export default function SendQuotationModal() {
               </div>
             </div>
           </div>
-          <div></div>
-          <div></div>
+          <div>
+            <InputWrapper
+              value={price || ""}
+              onChange={(e) => setPrice(Number(e.target.value))}
+            >
+              <InputWrapper.Label>견적가를 입력해 주세요</InputWrapper.Label>
+              <InputWrapper.Input placeholder="견적가 입력" />
+            </InputWrapper>
+          </div>
+          <div />
+          <div>
+            <InputWrapper
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            >
+              <InputWrapper.Label>코멘트를 입력해 주세요</InputWrapper.Label>
+              <InputWrapper.Input placeholder="최소 10자 이상 입력해주세요" />
+            </InputWrapper>
+          </div>
         </div>
       </ModalWrapper.Content>
       <ModalWrapper.Footer isDisabled={false}>견적 보내기</ModalWrapper.Footer>
