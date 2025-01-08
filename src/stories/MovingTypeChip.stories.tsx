@@ -14,25 +14,25 @@ const Template: StoryFn<MovingTypeChipsProps> = (args) => (
 
 export const Small = Template.bind({});
 Small.args = {
-  type: "small",
+  type: "SMALL",
 };
 
 export const Home = Template.bind({});
 Home.args = {
-  type: "home",
+  type: "HOME",
 };
 
 export const Company = Template.bind({});
 Company.args = {
-  type: "company",
+  type: "OFFICE",
 };
 
 export const Appointment = Template.bind({});
 Appointment.args = {
-  type: "appointment",
+  type: "APPOINTMENT",
 };
 
 export const Waiting = Template.bind({});
 Waiting.args = {
-  type: "waiting",
+  type: "WAITING",
 };
