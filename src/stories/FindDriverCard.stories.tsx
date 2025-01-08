@@ -3,7 +3,7 @@ import type { FindDriverCardProps } from "@/interfaces/Card/FindDriverCardInterf
 import type { StoryFn } from "@storybook/react";
 
 export default {
-  title: "Components/Card/FindDriverCard",
+  title: "Components/Cards/FindDriverCard",
   component: FindDriverCard,
 };
 
