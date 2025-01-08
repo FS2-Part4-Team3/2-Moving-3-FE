@@ -1,4 +1,5 @@
 import { getDriverData } from "@/api/DriverService";
+import DibsDriverCard from "@/components/cards/DibsDriverCard";
 import FindDriverCard from "@/components/cards/FindDriverCard";
 import SearchBar from "@/components/common/searchbar/SearchBar";
 import RegionServiceDropdown from "@/components/dropdown/RegionServiceDropdown";
@@ -17,10 +18,20 @@ export default async function MatchDriver() {
           </p>
         </div>
         <div className="lg:flex lg:gap-[10rem] w-full sm:py-[1.6rem] lg:px-0 md:px-[7.2rem] sm:px-[2.4rem]">
-          <div className="flex lg:justify-start sm:justify-between lg:px-0 sm:px-[1rem]">
-            <RegionServiceDropdown />
-            <div className="lg:hidden sm:block">
-              <SortDropdown />
+          <div className="flex lg:flex-col lg:justify-start sm:justify-between lg:px-0 sm:px-[1rem] lg:gap-[4.6rem]">
+            <div>
+              <RegionServiceDropdown />
+              <div className="lg:hidden sm:block">
+                <SortDropdown />
+              </div>
+            </div>
+            <div className="flex flex-col gap-[1.6rem]">
+              <p className="font-semibold text-[2rem] leading-[3.2rem] text-black-400">
+                찜한 기사님
+              </p>
+              {driverData.map((driver: any, index: number) => (
+                <DibsDriverCard data={driver} key={index} />
+              ))}
             </div>
           </div>
           <div className="flex flex-col items-center lg:gap-[3.2rem] sm:gap-[2.4rem] flex-grow lg:w-full sm:w-full">

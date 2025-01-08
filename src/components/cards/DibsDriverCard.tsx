@@ -1,3 +1,5 @@
+"use client";
+
 import type { DibsDriverCardProps } from "@/interfaces/Card/DibsDriverCardInterface";
 import Image from "next/image";
 import like from "@/../public/assets/driver/ic_like.svg";
@@ -5,9 +7,19 @@ import star from "@/../public/assets/driver/ic_star_yellow.svg";
 import SmallMovingTypeChips from "../chips/SmallMovingTypeChips";
 
 export default function DibsDriverCard({ data }: DibsDriverCardProps) {
+  console.log(data);
   return (
-    <div className="w-[37.5rem] flex flex-col rounded-[1.6rem] border border-line-100 py-[1.6rem] px-[1.4rem] gap-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]">
-      <SmallMovingTypeChips type={data.serviceType} />
+    <div className="w-[32.7rem] flex flex-col rounded-[1.6rem] border border-line-100 py-[1.6rem] px-[1.4rem] gap-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]">
+      <div className="flex gap-[0.4rem]">
+        {data.serviceType.map((item: string, index: number) => (
+          <SmallMovingTypeChips
+            key={index}
+            type={
+              item as "SMALL" | "HOME" | "OFFICE" | "APPOINTMENT" | "WAITING"
+            }
+          />
+        ))}
+      </div>
       <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300">
         {data.introduce}
       </p>
