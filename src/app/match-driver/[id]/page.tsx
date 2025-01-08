@@ -1,68 +1,19 @@
+import { getDriverDetailData } from "@/api/DriverService";
 import ReviewChart from "@/components/cards/ReviewChart";
+import { notFound } from "next/navigation";
 
-interface DriverDetailPageProps {
+export default async function DriverDetailPage({
+  params,
+}: {
   params: { id: string };
-}
-
-export default function DriverDetailPage({ params }: DriverDetailPageProps) {
+}) {
   const { id } = params;
 
-  const driverData = {
-    id: id,
-    name: "홍길동",
-    score: 4.8,
-    reviewCount: 8,
-    reviews: [
-      {
-        score: 5,
-        createdAt: "2025-01-01",
-        owner: "User1",
-        comment: "Excellent service!",
-      },
-      {
-        score: 5,
-        createdAt: "2025-01-01",
-        owner: "User1",
-        comment: "Excellent service!",
-      },
-      {
-        score: 5,
-        createdAt: "2025-01-01",
-        owner: "User1",
-        comment: "Excellent service!",
-      },
-      {
-        score: 5,
-        createdAt: "2025-01-01",
-        owner: "User1",
-        comment: "Excellent service!",
-      },
-      {
-        score: 4,
-        createdAt: "2025-01-02",
-        owner: "User2",
-        comment: "Very good!",
-      },
-      {
-        score: 3,
-        createdAt: "2025-01-03",
-        owner: "User3",
-        comment: "Average experience.",
-      },
-      {
-        score: 2,
-        createdAt: "2025-01-04",
-        owner: "User4",
-        comment: "Could be better.",
-      },
-      {
-        score: 1,
-        createdAt: "2025-01-05",
-        owner: "User5",
-        comment: "Poor service.",
-      },
-    ],
-  };
+  const driverData = await getDriverDetailData(id);
+
+  if (driverData.id !== id || !driverData) {
+    notFound();
+  }
 
   return (
     <div className="flex flex-col gap-[4rem] w-[95.5rem] h-full">

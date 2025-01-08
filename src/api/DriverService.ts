@@ -10,3 +10,12 @@ export const getDriverData = async () => {
     return;
   }
 };
+
+export async function getDriverDetailData(driverId: string) {
+  try {
+    const response = await getRequest(`/data/driversDetailData.json`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
