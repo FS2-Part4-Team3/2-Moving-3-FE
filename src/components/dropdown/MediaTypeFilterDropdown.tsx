@@ -21,8 +21,10 @@ export default function MediaTypeFilterDropdown({
   const [isMenuClick, setIsMenuClick] = useState<"mov" | "filter">("mov");
 
   const handleInquiryClick = () => {
-    console.log("눌렸습니다");
+    // console.log("눌렸습니다");
   };
+
+  // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
 
   return (
     <>
