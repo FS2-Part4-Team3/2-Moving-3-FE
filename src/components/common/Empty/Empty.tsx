@@ -3,12 +3,14 @@ import profile from "@/../public/assets/common/empty/empty_profile_img.svg";
 import folder from "@/../public/assets/common/empty/empty_folder_img.svg";
 import Image from "next/image";
 import { ButtonWrapper } from "../headless/Button";
+import truck from "@/../public/assets/common/empty/empty_truck_img.svg";
 
 export default function Empty({ type }: EmptyProps) {
   let image;
   let text;
   let text2;
   let buttonText;
+  let link; // TODO: 버튼이 있는 경우 라우팅 해야할 주소 입력 용도
 
   switch (type) {
     case "Profile":
@@ -16,17 +18,35 @@ export default function Empty({ type }: EmptyProps) {
       text = "아직 등록된 프로필이 없어요!";
       text2 = "프로필을 등록하고 요청을 받아보세요";
       buttonText = "프로필 등록하기";
-    case "Request":
+      break;
+    case "ReceiveQuote":
       image = folder;
       text = "받은 요청이 없어요";
+      text2 = "";
+      buttonText = "";
+      break;
     case "Review":
       image = folder;
       text = "아직 등록된 리뷰가 없어요!";
+      text2 = "";
       buttonText = "리뷰 작성하러 가기";
+      break;
+    case "Driver":
+      image = folder;
+      text = "아직 등록된 리뷰가 없어요!";
+      text2 = "";
+      buttonText = "";
+      break;
+    case "RequestQuote":
+      image = truck;
+      text = "현재 진행 중인 이사 견적이 있어요!";
+      text2 = "진행중인 이사 완료 후 새로운 견적을 받아보세요.";
+      buttonText = "받은 견적 보러가기";
+      break;
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-[3.2rem] items-center">
       <Image
         src={image}
         alt="empty"
@@ -41,13 +61,15 @@ export default function Empty({ type }: EmptyProps) {
         height={82}
         className="lg:hidden sm:block"
       />
-      <div>
+      <div className="flex flex-col items-center font-normal text-[2rem] leading-[3.2rem] text-gray-400">
         <p>{text}</p>
         {text2 && <p>{text2}</p>}
       </div>
       {buttonText && (
         <ButtonWrapper id="empty-button">
-          <ButtonWrapper.Button>{buttonText}</ButtonWrapper.Button>
+          <ButtonWrapper.Button className="h-[6.5rem] p-[1.6rem] rounded-[1.6rem] font-semibold text-[2rem] leading-[3.2rem] text-white">
+            {buttonText}
+          </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
     </div>

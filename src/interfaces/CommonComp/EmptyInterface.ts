@@ -1,3 +1,3 @@
 export interface EmptyProps {
-  type: "Review" | "Profile" | "Request";
+  type: "Review" | "Profile" | "ReceiveQuote" | "Driver" | "RequestQuote";
 }
