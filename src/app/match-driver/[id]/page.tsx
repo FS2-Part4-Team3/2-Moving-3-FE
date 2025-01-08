@@ -1,11 +1,5 @@
 import ReviewChart from "@/components/cards/ReviewChart";
 
-// async function getDriverData(driverId: string) {
-//   const res = await fetch(`https://api.example.com/drivers/${driverId}`);
-//   if (!res.ok) throw new Error("Failed to fetch driver data");
-//   return res.json();
-// }
-
 interface DriverDetailPageProps {
   params: { id: string };
 }
