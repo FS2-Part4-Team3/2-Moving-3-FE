@@ -3,7 +3,7 @@ import MovingTypeChips from "../chips/MovingTypeChips";
 import { ButtonWrapper } from "../common/headless/Button";
 import writing from "@/../public/assets/common/ic_writing.svg";
 import Image from "next/image";
-import AddressFormat from "@/utils/Format";
+import AddressFormat, { DateFormat, timeAgoFormat } from "@/utils/Format";
 
 export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
   return (
@@ -11,7 +11,7 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
       <div className="flex w-full justify-between items-center">
         <MovingTypeChips type={data.type} />
         <p className="font-normal text-[1.4rem] leading-[2.4rem] text-gray-500">
-          {data.updatedAt}
+          {timeAgoFormat(data.updatedAt)}
         </p>
       </div>
       <div className="flex flex-col gap-[1.8rem]">
@@ -25,7 +25,7 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
               이사일
             </p>
             <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-300">
-              {data.date}
+              {DateFormat(data.date)}
             </p>
           </div>
           <div className="h-[1.6rem] border border-line-200" />
