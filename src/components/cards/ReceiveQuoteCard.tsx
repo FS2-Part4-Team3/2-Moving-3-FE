@@ -3,6 +3,7 @@ import MovingTypeChips from "../chips/MovingTypeChips";
 import { ButtonWrapper } from "../common/headless/Button";
 import writing from "@/../public/assets/common/ic_writing.svg";
 import Image from "next/image";
+import AddressFormat from "@/utils/Format";
 
 export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
   return (
@@ -33,7 +34,7 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
               출발
             </p>
             <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-300">
-              {data.fromAddress}
+              {AddressFormat(data.fromAddress)}
             </p>
           </div>
           <div className="h-[1.6rem] border border-line-200" />
@@ -42,7 +43,7 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
               도착
             </p>
             <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-300">
-              {data.toAddress}
+              {AddressFormat(data.toAddress)}
             </p>
           </div>
         </div>
