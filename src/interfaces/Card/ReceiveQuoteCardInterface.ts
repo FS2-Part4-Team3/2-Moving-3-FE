@@ -3,6 +3,7 @@ export interface ReceiveQuoteCardProps {
 }
 
 interface ReceiveQuoteCardData {
+  id: string;
   owner: string;
   date: string;
   fromAddress: string;
