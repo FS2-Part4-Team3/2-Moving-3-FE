@@ -27,7 +27,7 @@ export default function MovingTypeFilterDropdown({
   // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
 
   return (
-    <>
+    <div className="sm:fixed sm:inset-0 lg:static">
       <div className="md:w-[32.8rem] sm:w-full flex flex-col gap-[5.2rem] lg:block sm:hidden">
         <div className="flex flex-col gap-[2.4rem]">
           <div className="border-b border-line-200 flex justify-between items-center py-[1.6rem] px-[1rem]">
@@ -322,6 +322,6 @@ export default function MovingTypeFilterDropdown({
           </ButtonWrapper>
         </div>
       </div>
-    </>
+    </div>
   );
 }

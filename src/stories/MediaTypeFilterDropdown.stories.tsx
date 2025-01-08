@@ -1,4 +1,4 @@
-import MediaTypeFilterDropdown from "@/components/dropdown/MediaTypeFilterDropdown";
+import MovingTypeFilterDropdown from "@/components/dropdown/MovingTypeFilterDropdown";
 import type { MediaTypeFilterDropdownProps } from "@/interfaces/Dropdown/MediaTypeFilterDropdownInterface";
 import type { StoryFn } from "@storybook/react";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default {
   title: "Components/Dropdown/MediaTypeFilterDropdown",
-  component: MediaTypeFilterDropdown,
+  component: MovingTypeFilterDropdown,
 };
 
 const Template: StoryFn<MediaTypeFilterDropdownProps> = (args) => {
@@ -30,12 +30,12 @@ const Template: StoryFn<MediaTypeFilterDropdownProps> = (args) => {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <MediaTypeFilterDropdown {...args} onClick={handleClick} />
+            <MovingTypeFilterDropdown {...args} onClick={handleClick} />
           </div>
         </div>
       )}
       <div className="lg:block sm:hidden">
-        <MediaTypeFilterDropdown {...args} onClick={handleClick} />
+        <MovingTypeFilterDropdown {...args} onClick={handleClick} />
       </div>
     </div>
   );
