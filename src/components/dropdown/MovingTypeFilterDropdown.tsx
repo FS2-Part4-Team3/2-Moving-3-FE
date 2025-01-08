@@ -8,7 +8,7 @@ import x from "@/../public/assets/common/icon_X.svg";
 import { ButtonWrapper } from "../common/headless/Button";
 import type { MediaTypeFilterDropdownProps } from "@/interfaces/Dropdown/MediaTypeFilterDropdownInterface";
 
-export default function MediaTypeFilterDropdown({
+export default function MovingTypeFilterDropdown({
   onClick,
 }: MediaTypeFilterDropdownProps) {
   const [smallMov, setSmallMov] = useState<boolean>(false);
