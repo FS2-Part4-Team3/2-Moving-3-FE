@@ -17,7 +17,7 @@ export const ModalWrapper = ({
   return (
     <ModalContext.Provider value={contextValue}>
       <div className="fixed inset-0 flex items-center justify-center bg-[#000000] bg-opacity-50">
-        <div className="bg-gray-50 px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-[3.2rem] w-auto gap-[4rem] flex flex-col">
+        <div className="bg-white px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-[3.2rem] w-auto gap-[4rem] flex flex-col">
           {children}
         </div>
       </div>
