@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import AddressCard from "@/components/cards/AddressCard";
-import CalendarCard from "@/components/cards/CalendarCard";
-import MovingTypeCheckCard from "@/components/cards/MovingTypeCheckCard";
-import { useState } from "react";
+import { useState } from 'react';
+import AddressCard from '@/components/cards/AddressCard';
+import CalendarCard from '@/components/cards/CalendarCard';
+import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
 
 export default function RequestForQuotation() {
-  const [movingType, setMovingType] = useState("");
+  const [movingType, setMovingType] = useState('');
   const [isMovingType, setIsMovingType] = useState(false);
   const [movingDate, setMovingDate] = useState<Date | null>(null);
   const [isMovingDate, setIsMovingDate] = useState(false);
@@ -14,15 +14,13 @@ export default function RequestForQuotation() {
     start: string;
     arrival: string;
   }>({
-    start: "",
-    arrival: "",
+    start: '',
+    arrival: '',
   });
 
   const formattedDate = movingDate
-    ? `${movingDate.getFullYear()}년 ${
-        movingDate.getMonth() + 1
-      }월 ${movingDate.getDate()}일`
-    : "";
+    ? `${movingDate.getFullYear()}년 ${movingDate.getMonth() + 1}월 ${movingDate.getDate()}일`
+    : '';
 
   return (
     <div className="flex flex-col items-center">
@@ -32,9 +30,9 @@ export default function RequestForQuotation() {
           <div
             className="w-[35rem] h-[0.8rem] rounded-[3rem] bg-blue-300"
             style={{
-              ...(isMovingType && { width: "calc(140rem * 2 / 4)" }),
-              ...(isMovingType &&
-                isMovingDate && { width: "calc(140rem * 3 / 4)" }),
+              ...(isMovingType && { width: 'calc(140rem * 2 / 4)' }),
+              ...(isMovingType && isMovingDate && { width: 'calc(140rem * 3 / 4)' }),
+              ...(isMovingType && isMovingDate && regions.start && regions.arrival && { width: '140rem' }),
             }}
           ></div>
         </div>
@@ -63,7 +61,7 @@ export default function RequestForQuotation() {
                 {movingType}
               </div>
               <div
-                className="cursor-pointer text-[1.6rem] font-medium text-gray-500 self-end"
+                className="cursor-pointer text-[1.6rem] font-medium text-gray-500 self-end underline"
                 onClick={() => setIsMovingType(false)}
               >
                 수정하기
@@ -84,11 +82,7 @@ export default function RequestForQuotation() {
           {!isMovingDate
             ? isMovingType && (
                 <div className="self-end mb-[10rem]">
-                  <CalendarCard
-                    setMovingDate={setMovingDate}
-                    setIsMovingDate={setIsMovingDate}
-                    initialMovingDate={movingDate}
-                  />
+                  <CalendarCard setMovingDate={setMovingDate} setIsMovingDate={setIsMovingDate} initialMovingDate={movingDate} />
                 </div>
               )
             : isMovingType && (
@@ -97,7 +91,7 @@ export default function RequestForQuotation() {
                     {formattedDate}
                   </div>
                   <div
-                    className="cursor-pointer text-[1.6rem] font-medium text-gray-500 self-end"
+                    className="cursor-pointer text-[1.6rem] font-medium text-gray-500 self-end underline"
                     onClick={() => setIsMovingDate(false)}
                   >
                     수정하기
