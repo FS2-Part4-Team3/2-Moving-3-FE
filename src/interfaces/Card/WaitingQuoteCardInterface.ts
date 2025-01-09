@@ -17,7 +17,7 @@ export interface WaitingQuoteCardProps {
       date: string;
       fromAddress: string;
       toAddress: string;
-      type: string;
+      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
     };
   };
 }
