@@ -1,7 +1,7 @@
 import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
 
 export default {
-  title: 'Components/Dropdown/SortDropdown',
+  title: 'Components/Cards/WaitingQuoteCard',
   component: WaitingQuoteCard,
 };
 
