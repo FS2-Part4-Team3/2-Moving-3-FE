@@ -1,24 +1,22 @@
-import DibsDriverCard from "@/components/cards/DibsDriverCard";
-import type { DibsDriverCardProps } from "@/interfaces/Card/DibsDriverCardInterface";
-import type { StoryFn } from "@storybook/react";
+import type { StoryFn } from '@storybook/react';
+import DibsDriverCard from '@/components/cards/DibsDriverCard';
+import type { DibsDriverCardProps } from '@/interfaces/Card/DibsDriverCardInterface';
 
 export default {
-  title: "Components/Cards/DibsDriverCard",
+  title: 'Components/Cards/DibsDriverCard',
   component: DibsDriverCard,
 };
 
-const Template: StoryFn<DibsDriverCardProps> = (args) => (
-  <DibsDriverCard {...args} />
-);
+const Template: StoryFn<DibsDriverCardProps> = args => <DibsDriverCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   data: {
-    id: "driver-1",
-    serviceType: "SMALL",
-    introduce: "안녕하세요, 저는 경험이 많은 드라이버입니다.",
-    image: "http://placehold.it/56x56",
-    name: "홍길동",
+    id: 'driver-1',
+    serviceType: ['HOME', 'SMALL'],
+    introduce: '안녕하세요, 저는 경험이 많은 드라이버입니다.',
+    image: 'http://placehold.it/56x56',
+    name: '홍길동',
     favoriteCount: 10,
     score: 4.5,
     reviewCount: 20,
