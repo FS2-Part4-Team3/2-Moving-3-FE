@@ -15,7 +15,7 @@ export const Default = Template.bind({});
 Default.args = {
   data: {
     id: "driver-1",
-    serviceType: "SMALL",
+    serviceType: ["HOME", "SMALL"],
     introduce: "안녕하세요, 저는 경험이 많은 드라이버입니다.",
     image: "http://placehold.it/56x56",
     name: "홍길동",
