@@ -5,14 +5,26 @@ import check from "@/../public/assets/rfq/ellipse_active.svg";
 import noCheck from "@/../public/assets/rfq/ellipse_inactive.svg";
 import { useState } from "react";
 import movingTypesCheck from "@/constants/movingTypeCheckCard";
+import type { MovingTypeCheckCardProps } from "@/interfaces/Card/MovingTypeCheckCardInterface";
 
-export default function MovingTypeCheckCard() {
+export default function MovingTypeCheckCard({
+  setMovingType,
+  setIsMovingType,
+  initialMovingType,
+}: MovingTypeCheckCardProps) {
   const [selectedMovingType, setSelectedMovingType] = useState<string | null>(
-    null
+    initialMovingType
   );
 
   const handleCheckClick = (movingType: string) => {
     setSelectedMovingType(movingType);
+  };
+
+  const handleCompleteClick = () => {
+    if (selectedMovingType) {
+      setMovingType(selectedMovingType);
+      setIsMovingType(true);
+    }
   };
   return (
     <div className="lg:w-[64rem] lg:h-[45.2rem] md:w-[31.2rem] md:h-[27.4rem] sm:w-[31.2rem] sm:h-[27.4rem] rounded-tr-none rounded-[1.6rem] border-none lg:p-[4rem] md:p-[1.6rem] sm:p-[1.6rem]">
@@ -40,6 +52,7 @@ export default function MovingTypeCheckCard() {
       <ButtonWrapper id="moving-check-button">
         <ButtonWrapper.Button
           disabled={!selectedMovingType}
+          onClick={handleCompleteClick}
           className="lg:w-[56rem] lg:h-[6.4rem] md:w-[28rem] md:h-[5.4rem] sm:w-[28rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 text-center lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white"
         >
           선택완료

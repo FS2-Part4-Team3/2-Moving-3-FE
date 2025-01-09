@@ -5,12 +5,21 @@ import { ButtonWrapper } from "../common/headless/Button";
 import Image from "next/image";
 import left from "@/../public/assets/calendar/arrow-left.svg";
 import right from "@/../public/assets/calendar/arrow-right.svg";
-import type { Day } from "@/interfaces/Card/CalendarCardInterface";
+import type {
+  CalendarCardProps,
+  Day,
+} from "@/interfaces/Card/CalendarCardInterface";
 import weekdays from "@/constants/weekdays";
 
-export default function CalendarCard() {
+export default function CalendarCard({
+  setMovingDate,
+  setIsMovingDate,
+  initialMovingDate,
+}: CalendarCardProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    initialMovingDate
+  );
 
   const getDaysInMonth = (date: Date): Day[] => {
     const year = date.getFullYear();
@@ -69,6 +78,8 @@ export default function CalendarCard() {
   };
 
   const handleSelectComplte = () => {
+    setMovingDate(selectedDate);
+    setIsMovingDate(true);
     if (selectedDate) {
       return;
       //toDo: 추후에 page에서 나타낼 props 설정
