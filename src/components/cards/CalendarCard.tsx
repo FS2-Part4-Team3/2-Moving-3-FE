@@ -1,12 +1,12 @@
-`use client`;
+import Image from 'next/image';
+import { useState } from 'react';
+import left from '@/../public/assets/calendar/arrow-left.svg';
+import right from '@/../public/assets/calendar/arrow-right.svg';
+import weekdays from '@/constants/weekdays';
+import type { Day } from '@/interfaces/Card/CalendarCardInterface';
+import { ButtonWrapper } from '../common/headless/Button';
 
-import { useState } from "react";
-import { ButtonWrapper } from "../common/headless/Button";
-import Image from "next/image";
-import left from "@/../public/assets/calendar/arrow-left.svg";
-import right from "@/../public/assets/calendar/arrow-right.svg";
-import type { Day } from "@/interfaces/Card/CalendarCardInterface";
-import weekdays from "@/constants/weekdays";
+`use client`;
 
 export default function CalendarCard() {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
@@ -18,52 +18,35 @@ export default function CalendarCard() {
     const startOfMonth = new Date(year, month, 1);
     const endOfMonth = new Date(year, month + 1, 0);
 
-    const prevDays: Day[] = Array.from(
-      { length: startOfMonth.getDay() },
-      (_, i) => {
-        const prevDate = new Date(year, month, -i);
-        return { date: prevDate.getDate(), isCurrentMonth: false };
-      }
-    ).reverse();
+    const prevDays: Day[] = Array.from({ length: startOfMonth.getDay() }, (_, i) => {
+      const prevDate = new Date(year, month, -i);
+      return { date: prevDate.getDate(), isCurrentMonth: false };
+    }).reverse();
 
-    const currentDays: Day[] = Array.from(
-      { length: endOfMonth.getDate() },
-      (_, i) => ({
-        date: i + 1,
-        isCurrentMonth: true,
-      })
-    );
+    const currentDays: Day[] = Array.from({ length: endOfMonth.getDate() }, (_, i) => ({
+      date: i + 1,
+      isCurrentMonth: true,
+    }));
 
-    const nextDays: Day[] = Array.from(
-      { length: 6 - endOfMonth.getDay() },
-      (_, i) => ({
-        date: i + 1,
-        isCurrentMonth: false,
-      })
-    );
+    const nextDays: Day[] = Array.from({ length: 6 - endOfMonth.getDay() }, (_, i) => ({
+      date: i + 1,
+      isCurrentMonth: false,
+    }));
 
     return [...prevDays, ...currentDays, ...nextDays];
   };
 
   const handlePrev = () => {
-    setCurrentMonth(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
-    );
+    setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
   const handleNext = () => {
-    setCurrentMonth(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
-    );
+    setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   };
 
   const handleDateClick = (day: Day) => {
     if (day.isCurrentMonth) {
-      const selected = new Date(
-        currentMonth.getFullYear(),
-        currentMonth.getMonth(),
-        day.date
-      );
+      const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
       setSelectedDate(selected);
     }
   };
@@ -87,8 +70,7 @@ export default function CalendarCard() {
           <Image src={left} alt="이전 달" fill />
         </div>
         <p className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-black-400 font-semibold ">
-          {currentMonth.getFullYear()}.
-          {String(currentMonth.getMonth() + 1).padStart(2, "0")}
+          {currentMonth.getFullYear()}.{String(currentMonth.getMonth() + 1).padStart(2, '0')}
         </p>
         <div
           className="relative lg:w-[3.6rem] lg:h-[3.6rem] md:w-[2.4rem] md:h-[2.4rem] sm:w-[2.4rem] sm:h-[2.4rem] cursor-pointer"
@@ -114,12 +96,10 @@ export default function CalendarCard() {
             onClick={() => handleDateClick(day)}
             className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center ${
               day.isCurrentMonth
-                ? selectedDate &&
-                  selectedDate.getDate() === day.date &&
-                  selectedDate.getMonth() === currentMonth.getMonth()
-                  ? "bg-blue-300 text-white rounded-full "
-                  : "text-black-400"
-                : "text-gray-100"
+                ? selectedDate && selectedDate.getDate() === day.date && selectedDate.getMonth() === currentMonth.getMonth()
+                  ? 'bg-blue-300 text-white rounded-full '
+                  : 'text-black-400'
+                : 'text-gray-100'
             }  `}
           >
             {day.date}

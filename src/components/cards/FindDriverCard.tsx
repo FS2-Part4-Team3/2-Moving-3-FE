@@ -1,8 +1,8 @@
-import type { FindDriverCardProps } from "@/interfaces/Card/FindDriverCardInterface";
-import MovingTypeChips from "../chips/MovingTypeChips";
-import Image from "next/image";
-import star from "@/../public/assets/driver/ic_star_yellow.svg";
-import like from "@/../public/assets/driver/ic_like.svg";
+import Image from 'next/image';
+import like from '@/../public/assets/driver/ic_like.svg';
+import star from '@/../public/assets/driver/ic_star_yellow.svg';
+import type { FindDriverCardProps } from '@/interfaces/Card/FindDriverCardInterface';
+import MovingTypeChips from '../chips/MovingTypeChips';
 
 export default function FindDriverCard({ data }: FindDriverCardProps) {
   return (
@@ -12,12 +12,7 @@ export default function FindDriverCard({ data }: FindDriverCardProps) {
     >
       <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
         {data.serviceType.map((item: string, index) => (
-          <MovingTypeChips
-            key={index}
-            type={
-              item as "SMALL" | "HOME" | "OFFICE" | "APPOINTMENT" | "WAITING"
-            }
-          />
+          <MovingTypeChips key={index} type={item as 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING'} />
         ))}
       </div>
       <p className="font-semibold lg:text-[2.4rem] sm:text-[1.4rem] lg:leading-[3.2rem] sm:leading-[2.4rem] text-black-300">
@@ -58,20 +53,8 @@ export default function FindDriverCard({ data }: FindDriverCardProps) {
           </div>
           <div className="flex items-center w-full md:gap-[1.6rem] sm:justify-between md:justify-start">
             <div className="flex items-center justify-center lg:gap-[0.6rem] sm:gap-[0.2rem]">
-              <Image
-                src={star}
-                alt="star"
-                width={24}
-                height={24}
-                className="lg:block sm:hidden"
-              />
-              <Image
-                src={star}
-                alt="start"
-                width={20}
-                height={20}
-                className="lg:hidden sm:block"
-              />
+              <Image src={star} alt="star" width={24} height={24} className="lg:block sm:hidden" />
+              <Image src={star} alt="start" width={20} height={20} className="lg:hidden sm:block" />
               <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-black-300">
                 {data.score}
               </p>
