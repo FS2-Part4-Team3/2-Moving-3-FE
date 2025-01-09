@@ -11,8 +11,6 @@ import type { RejectQuotationModalProps } from "@/interfaces/Modal/RejectQuotati
 export default function RejectQuotationModal({
   onClose,
 }: RejectQuotationModalProps) {
-  const handleCloseModal = () => {};
-
   const [reason, setReason] = useState<string>("");
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
@@ -94,8 +92,8 @@ export default function RejectQuotationModal({
         </ModalWrapper>
       </div>
       <div className="sm:block md:hidden">
-        <ModalSmallWrapper onClose={handleCloseModal}>
-          <ModalSmallWrapper.Header>요청 반ㅕ</ModalSmallWrapper.Header>
+        <ModalSmallWrapper onClose={onClose}>
+          <ModalSmallWrapper.Header>요청 반려</ModalSmallWrapper.Header>
           <ModalSmallWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
               <div className="flex flex-col gap-[2rem]">
