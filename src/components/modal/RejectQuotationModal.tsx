@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { ModalWrapper } from "../common/headless/Modal";
-import MovingTypeChips from "../chips/MovingTypeChips";
-import { useEffect, useState } from "react";
-import AddressFormat, { DateFormat } from "@utils/Format";
-import { InputWrapper } from "../common/headless/Input";
-import { ModalSmallWrapper } from "../common/headless/ModalSmall";
+import { useEffect, useState } from 'react';
+import AddressFormat, { DateFormat } from '@utils/Format';
+import MovingTypeChips from '../chips/MovingTypeChips';
+import { InputWrapper } from '../common/headless/Input';
+import { ModalWrapper } from '../common/headless/Modal';
+import { ModalSmallWrapper } from '../common/headless/ModalSmall';
 
 export default function RejectQuotationModal() {
   const handleCloseModal = () => {};
 
-  const [reason, setReason] = useState<string>("");
+  const [reason, setReason] = useState<string>('');
 
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
@@ -40,7 +40,7 @@ export default function RejectQuotationModal() {
                       </p>
                       {/* <p>{userData.date}</p> */}
                       <p className="font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-300">
-                        {DateFormat("2025-01-01T12:00:00Z")}
+                        {DateFormat('2025-01-01T12:00:00Z')}
                       </p>
                     </div>
                     <div className="flex lg:gap-[1.6rem] sm:gap-[1.4rem] items-center">
@@ -50,7 +50,7 @@ export default function RejectQuotationModal() {
                         </p>
                         {/* <p>{userData.fromAddress}</p> */}
                         <p className="font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-300">
-                          {AddressFormat("서울 중구 삼일대로 343")}
+                          {AddressFormat('서울 중구 삼일대로 343')}
                         </p>
                       </div>
                       <div className="h-[1.6rem] border border-line-200" />
@@ -60,7 +60,7 @@ export default function RejectQuotationModal() {
                         </p>
                         {/* <p>{userData.toAddress}</p> */}
                         <p className="font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-300">
-                          {AddressFormat("서울 중구 청계천로 100")}
+                          {AddressFormat('서울 중구 청계천로 100')}
                         </p>
                       </div>
                     </div>
@@ -75,7 +75,7 @@ export default function RejectQuotationModal() {
                     </InputWrapper.Label>
                     <div className="py-[1.4rem] lg:px-[2.4rem] sm:px-[1.4rem] bg-background-200 rounded-[1.6rem]">
                       <textarea
-                        onChange={(e) => setReason(e.target.value)}
+                        onChange={e => setReason(e.target.value)}
                         className="resize-none w-full h-[16rem] overflow-x-auto bg-background-200 font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder-gray-300 focus:outline-none"
                         placeholder="최소 10자 이상 입력해주세요"
                       />
@@ -85,9 +85,7 @@ export default function RejectQuotationModal() {
               </div>
             </div>
           </ModalWrapper.Content>
-          <ModalWrapper.Footer isDisabled={isDisabled}>
-            반려하기
-          </ModalWrapper.Footer>
+          <ModalWrapper.Footer isDisabled={isDisabled}>반려하기</ModalWrapper.Footer>
         </ModalWrapper>
       </div>
       <div className="sm:block md:hidden">
@@ -100,9 +98,7 @@ export default function RejectQuotationModal() {
                 <MovingTypeChips type="SMALL" />
                 <div className="flex flex-col rounded-[0.8rem] py-[1rem] gap-[1.2rem]">
                   {/* <p>{userData.owner}</p> */}
-                  <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300">
-                    홍길동 고객님
-                  </p>
+                  <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300">홍길동 고객님</p>
                   <div className="flex flex-col gap-[0.8rem]">
                     <div className="flex gap-[0.8rem] items-center">
                       <p className="rounded-[0.4rem] py-[0.2rem] px-[0.6rem] bg-background-400 font-medium text-[1.4rem] leading-[2.4rem] text-gray-500">
@@ -110,7 +106,7 @@ export default function RejectQuotationModal() {
                       </p>
                       {/* <p>{userData.date}</p> */}
                       <p className="font-medium text-[1.4rem] leading-[2.4rem] text-black-300">
-                        {DateFormat("2025-01-01T12:00:00Z")}
+                        {DateFormat('2025-01-01T12:00:00Z')}
                       </p>
                     </div>
                     <div className="flex gap-[1.4rem] items-center">
@@ -120,7 +116,7 @@ export default function RejectQuotationModal() {
                         </p>
                         {/* <p>{userData.fromAddress}</p> */}
                         <p className="font-medium text-[1.4rem] leading-[2.4rem] text-black-300">
-                          {AddressFormat("서울 중구 삼일대로 343")}
+                          {AddressFormat('서울 중구 삼일대로 343')}
                         </p>
                       </div>
                       <div className="h-[1.6rem] border border-line-200" />
@@ -130,7 +126,7 @@ export default function RejectQuotationModal() {
                         </p>
                         {/* <p>{userData.toAddress}</p> */}
                         <p className="font-medium text-[1.4rem] leading-[2.4rem] text-black-300">
-                          {AddressFormat("서울 중구 청계천로 100")}
+                          {AddressFormat('서울 중구 청계천로 100')}
                         </p>
                       </div>
                     </div>
@@ -145,7 +141,7 @@ export default function RejectQuotationModal() {
                     </InputWrapper.Label>
                     <div className="py-[1.4rem] lg:px-[2.4rem] sm:px-[1.4rem] bg-background-200 rounded-[1.6rem]">
                       <textarea
-                        onChange={(e) => setReason(e.target.value)}
+                        onChange={e => setReason(e.target.value)}
                         className="resize-none w-full h-[16rem] overflow-x-auto bg-background-200 font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder-gray-300 focus:outline-none"
                         placeholder="최소 10자 이상 입력해주세요"
                       />
@@ -155,9 +151,7 @@ export default function RejectQuotationModal() {
               </div>
             </div>
           </ModalSmallWrapper.Content>
-          <ModalSmallWrapper.Footer isDisabled={isDisabled}>
-            반려하기
-          </ModalSmallWrapper.Footer>
+          <ModalSmallWrapper.Footer isDisabled={isDisabled}>반려하기</ModalSmallWrapper.Footer>
         </ModalSmallWrapper>
       </div>
     </>
