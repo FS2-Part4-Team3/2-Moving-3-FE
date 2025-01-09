@@ -1,13 +1,21 @@
+import type { AddressModalProps } from "@/interfaces/Modal/AddressModalInterface";
 import { ModalWrapper } from "../common/headless/Modal";
 import SearchBar from "../common/searchbar/SearchBar";
 
-export default function AddressModal() {
-  const handleModalClose = () => {
-    return;
-  };
+export default function AddressModal({
+  handleModalClose,
+  isArrivalModalOpen,
+  isStartModalOpen,
+}: AddressModalProps) {
   return (
     <ModalWrapper onClose={handleModalClose}>
-      <ModalWrapper.Header>출발지를 선택해주세요</ModalWrapper.Header>
+      <ModalWrapper.Header>
+        {isStartModalOpen
+          ? "출발지를 선택해주세요"
+          : isArrivalModalOpen
+          ? "도착지를 선택해주세요"
+          : ""}
+      </ModalWrapper.Header>
       <ModalWrapper.Content>
         <>
           <SearchBar />

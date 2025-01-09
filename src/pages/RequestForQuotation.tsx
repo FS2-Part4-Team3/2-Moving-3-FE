@@ -25,8 +25,9 @@ export default function RequestForQuotation() {
           <div
             className="w-[35rem] h-[0.8rem] rounded-[3rem] bg-blue-300"
             style={{
-              ...(isMovingType && { width: "calc(140rem * 2 / 3)" }),
-              ...(isMovingDate && { width: "140rem" }),
+              ...(isMovingType && { width: "calc(140rem * 2 / 4)" }),
+              ...(isMovingType &&
+                isMovingDate && { width: "calc(140rem * 3 / 4)" }),
             }}
           ></div>
         </div>
@@ -40,13 +41,15 @@ export default function RequestForQuotation() {
             이사 종류를 선택해 주세요.
           </div>
         </div>
-        <div className="self-end">
+        <div className="w-[140rem] flex justify-end">
           {!isMovingType ? (
-            <MovingTypeCheckCard
-              setMovingType={setMovingType}
-              setIsMovingType={setIsMovingType}
-              initialMovingType={movingType}
-            />
+            <div>
+              <MovingTypeCheckCard
+                setMovingType={setMovingType}
+                setIsMovingType={setIsMovingType}
+                initialMovingType={movingType}
+              />
+            </div>
           ) : (
             <div className="flex flex-col gap-[0.6rem]">
               <div className="max-w-[32.9rem] rounded-[3rem] rounded-tr-none px-[4rem] py-[2rem] bg-blue-300 border-none text-[1.8rem] font-medium text-white ">
@@ -63,46 +66,53 @@ export default function RequestForQuotation() {
         </div>
 
         {isMovingType && (
-          <div className="max-w-[29rem] rounded-[3rem] rounded-tl-none px-[4rem] py-[2rem] bg-white border-none text-[1.8rem] font-medium text-black-400 self-start">
-            이사 예정일을 선택해 주세요.
+          <div className="w-[140rem] ">
+            <div className="max-w-[29rem] rounded-[3rem] rounded-tl-none px-[4rem] py-[2rem] bg-white border-none text-[1.8rem] font-medium text-black-400 ">
+              이사 예정일을 선택해 주세요.
+            </div>
           </div>
         )}
 
-        {!isMovingDate
-          ? isMovingType && (
-              <div className="self-end mb-[10rem]">
-                <CalendarCard
-                  setMovingDate={setMovingDate}
-                  setIsMovingDate={setIsMovingDate}
-                  initialMovingDate={movingDate}
-                />
-              </div>
-            )
-          : isMovingType && (
-              <div className="flex flex-col gap-[0.6rem] self-end">
-                <div className="max-w-[32.9rem] rounded-[3rem] rounded-tr-none px-[4rem] py-[2rem] bg-blue-300 border-none text-[1.8rem] font-medium text-white ">
-                  {formattedDate}
+        <div className="w-[140rem] flex justify-end">
+          {!isMovingDate
+            ? isMovingType && (
+                <div className="self-end mb-[10rem]">
+                  <CalendarCard
+                    setMovingDate={setMovingDate}
+                    setIsMovingDate={setIsMovingDate}
+                    initialMovingDate={movingDate}
+                  />
                 </div>
-                <div
-                  className="cursor-pointer text-[1.6rem] font-medium text-gray-500 self-end"
-                  onClick={() => setIsMovingDate(false)}
-                >
-                  수정하기
+              )
+            : isMovingType && (
+                <div className="flex flex-col gap-[0.6rem] self-end">
+                  <div className="max-w-[32.9rem] rounded-[3rem] rounded-tr-none px-[4rem] py-[2rem] bg-blue-300 border-none text-[1.8rem] font-medium text-white ">
+                    {formattedDate}
+                  </div>
+                  <div
+                    className="cursor-pointer text-[1.6rem] font-medium text-gray-500 self-end"
+                    onClick={() => setIsMovingDate(false)}
+                  >
+                    수정하기
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+        </div>
 
-        {isMovingDate && (
-          <div className="max-w-[29rem] rounded-[3rem] rounded-tl-none px-[4rem] py-[2rem] bg-white border-none text-[1.8rem] font-medium text-black-400 self-start">
-            이사 지역을 선택해 주세요.
+        {isMovingType && isMovingDate && (
+          <div className="w-[140rem]">
+            <div className="max-w-[29rem] rounded-[3rem] rounded-tl-none px-[4rem] py-[2rem] bg-white border-none text-[1.8rem] font-medium text-black-400 self-start">
+              이사 지역을 선택해 주세요.
+            </div>
           </div>
         )}
-
-        {isMovingDate && (
-          <div className="self-end">
-            <AddressCard />
-          </div>
-        )}
+        <div className="w-[140rem] flex justify-end">
+          {isMovingType && isMovingDate && (
+            <div className="self-end mb-[10rem]">
+              <AddressCard />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
