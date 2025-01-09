@@ -6,27 +6,29 @@ import Image from "next/image";
 import type { ModalContextType } from "@/interfaces/CommonComp/HeadlessInterface";
 import { ButtonWrapper } from "./Button";
 
-const ModalContext = createContext<ModalContextType | undefined>(undefined);
+const ModalSmallContext = createContext<ModalContextType | undefined>(
+  undefined
+);
 
-export const ModalWrapper = ({
+export const ModalSmallWrapper = ({
   children,
   onClose,
 }: ModalContextType & { children: React.ReactNode }) => {
   const contextValue = { onClose };
 
   return (
-    <ModalContext.Provider value={contextValue}>
-      <div className="fixed inset-0 flex items-center justify-center bg-[#000000] bg-opacity-50">
-        <div className="bg-white px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-[3.2rem] w-auto lg:gap-[4rem] sm:gap-[2.6rem] flex flex-col">
+    <ModalSmallContext.Provider value={contextValue}>
+      <div className="fixed inset-0 flex items-end justify-center bg-[#000000] bg-opacity-50">
+        <div className="bg-white px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-t-[3.2rem] w-full lg:gap-[4rem] gap-[2.6rem] flex flex-col">
           {children}
         </div>
       </div>
-    </ModalContext.Provider>
+    </ModalSmallContext.Provider>
   );
 };
 
 const useModalContext = () => {
-  const context = useContext(ModalContext);
+  const context = useContext(ModalSmallContext);
   if (!context) {
     throw new Error("useModalContext must be used within a ModalWrapper");
   }
@@ -37,17 +39,9 @@ const ModalHeader = ({ children }: { children: React.ReactNode }) => {
   const { onClose } = useModalContext();
   return (
     <div className="flex justify-between items-center">
-      <p className="text-black-400 lg:font-semibold sm:font-bold lg:text-[2.4rem] sm:text-[1.8rem] lg:leading-[3.2rem] sm:leading-[2.6rem]">
+      <p className="text-black-400 font-bold text-[1.8rem] leading-[2.6rem]">
         {children}
       </p>
-      <Image
-        src={close}
-        alt="close"
-        onClick={onClose}
-        className="lg:block sm:hidden cursor-pointer"
-        width={36}
-        height={36}
-      />
       <Image
         src={close}
         alt="close"
@@ -72,7 +66,7 @@ const ModalFooter = ({
   return (
     <ButtonWrapper id="modal-button" onClick={onClose}>
       <ButtonWrapper.Button
-        className="lg:w-[56rem] lg:h-[6.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white flex items-center justify-center"
+        className="w-full h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold text-[1.6rem] leading-[2.6rem] text-white flex items-center justify-center"
         disabled={isDisabled}
       >
         {children}
@@ -85,6 +79,6 @@ const ModalContent = ({ children }: { children: React.ReactNode }) => {
   return <div>{children}</div>;
 };
 
-ModalWrapper.Header = ModalHeader;
-ModalWrapper.Footer = ModalFooter;
-ModalWrapper.Content = ModalContent;
+ModalSmallWrapper.Header = ModalHeader;
+ModalSmallWrapper.Footer = ModalFooter;
+ModalSmallWrapper.Content = ModalContent;

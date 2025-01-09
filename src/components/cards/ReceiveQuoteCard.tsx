@@ -1,13 +1,22 @@
+"use client";
+
 import type { ReceiveQuoteCardProps } from "@/interfaces/Card/ReceiveQuoteCardInterface";
 import MovingTypeChips from "../chips/MovingTypeChips";
 import { ButtonWrapper } from "../common/headless/Button";
 import writing from "@/../public/assets/common/ic_writing.svg";
 import Image from "next/image";
 import AddressFormat, { DateFormat, timeAgoFormat } from "@/utils/Format";
+import { useState } from "react";
+import SendQuotationModal from "../modal/SendQuotationModal";
 
 export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
+  const [sendQuote, setSendQuote] = useState<boolean>(false);
+  const [rejectQuote, setRejectQuote] = useState<boolean>(false);
+
+  //TODO: 102번째줄 수정해야함, 아직 제작이 되지 않았음
+
   return (
-    <div className="flex flex-col max-w-[95.5rem] border border-line-100 lg:pt-[2rem] lg:pb-[2.4rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] rounded-[1.6rem] gap-[1.6rem]">
+    <div className="flex flex-col w-full border border-line-100 lg:pt-[2rem] lg:pb-[2.4rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] rounded-[1.6rem] gap-[1.6rem]">
       <div className="flex w-full justify-between items-center">
         <MovingTypeChips type={data.type} />
         <p className="font-normal text-[1.4rem] leading-[2.4rem] text-gray-500">
@@ -73,18 +82,26 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
         </div>
       </div>
       <div className="w-full flex md:flex-row sm:flex-col lg:gap-[1.1rem] sm:gap-[0.6rem]">
-        <ButtonWrapper id="send-quote-button">
-          <ButtonWrapper.Button className="md:w-[44.8rem] sm:w-full md:h-[6.4rem] sm:h-fit rounded-[1.6rem] p-[1.6rem] flex items-center justify-center gap-[1rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white">
+        <ButtonWrapper
+          id="send-quote-button"
+          onClick={() => setSendQuote(!sendQuote)}
+        >
+          <ButtonWrapper.Button className="w-full md:h-[6.4rem] sm:h-fit rounded-[1.6rem] p-[1.6rem] flex items-center justify-center gap-[1rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white">
             견적 보내기
             <Image src={writing} alt="writing" width={24} height={24} />
           </ButtonWrapper.Button>
         </ButtonWrapper>
-        <ButtonWrapper id="return-button">
-          <ButtonWrapper.Button className="md:w-[44.8rem] sm:w-full md:h-[6.4rem] sm:h-fit rounded-[1.6rem] p-[1.6rem] flex items-center justify-center py-[1.6rem] px-[2.4rem] border border-blue-300 bg-white text-blue-300 font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem]">
+        <ButtonWrapper
+          id="return-button"
+          onClick={() => setRejectQuote(!rejectQuote)}
+        >
+          <ButtonWrapper.Button className="w-full md:h-[6.4rem] sm:h-fit rounded-[1.6rem] p-[1.6rem] flex items-center justify-center py-[1.6rem] px-[2.4rem] border border-blue-300 bg-white text-blue-300 font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem]">
             반려
           </ButtonWrapper.Button>
         </ButtonWrapper>
       </div>
+      {sendQuote && <SendQuotationModal />}
+      {rejectQuote && null}
     </div>
   );
 }
