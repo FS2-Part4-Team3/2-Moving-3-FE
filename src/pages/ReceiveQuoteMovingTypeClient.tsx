@@ -1,16 +1,12 @@
+"use client";
+
+import DriverSortDropdown from "@/components/dropdown/DriverSortDropdown";
 import MovingTypeFilterDropdown from "@/components/dropdown/MovingTypeFilterDropdown";
-import type { MediaTypeFilterDropdownProps } from "@/interfaces/Dropdown/MediaTypeFilterDropdownInterface";
-import type { StoryFn } from "@storybook/react";
+import Image from "next/image";
 import { useState } from "react";
 import button from "@/../public/assets/common/dropdown/dropdown-open-button.svg";
-import Image from "next/image";
 
-export default {
-  title: "Components/Dropdown/MediaTypeFilterDropdown",
-  component: MovingTypeFilterDropdown,
-};
-
-const Template: StoryFn<MediaTypeFilterDropdownProps> = (args) => {
+export default function ReceiveQuoteMovingTypeClient() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -18,28 +14,25 @@ const Template: StoryFn<MediaTypeFilterDropdownProps> = (args) => {
   };
 
   return (
-    <div>
+    <div className="flex lg:justify-start sm:justify-between lg:px-0 sm:px-[1rem]">
       <Image
         src={button}
         alt="button"
         width={32}
         height={32}
         onClick={handleClick}
-        className="lg:hidden sm:block"
+        className="lg:hidden sm:block cursor-pointer"
       />
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <MovingTypeFilterDropdown {...args} onClick={handleClick} />
+            <MovingTypeFilterDropdown onClick={handleClick} />
           </div>
         </div>
       )}
       <div className="lg:block sm:hidden">
-        <MovingTypeFilterDropdown {...args} onClick={handleClick} />
+        <MovingTypeFilterDropdown onClick={handleClick} />
       </div>
     </div>
   );
-};
-
-export const Default = Template.bind({});
-Default.args = {};
+}

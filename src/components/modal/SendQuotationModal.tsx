@@ -1,10 +1,8 @@
 "use client";
 
-import { getUserData } from "@api/DriverService";
 import { ModalWrapper } from "../common/headless/Modal";
 import MovingTypeChips from "../chips/MovingTypeChips";
 import { useEffect, useState } from "react";
-import type { SendQuotationModalData } from "@interfaces/Modal/SendQuotationModalInterface";
 import AddressFormat, { DateFormat } from "@utils/Format";
 import { InputWrapper } from "../common/headless/Input";
 import { ModalSmallWrapper } from "../common/headless/ModalSmall";
