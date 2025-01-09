@@ -2,7 +2,7 @@ import Image from 'next/image';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { WaitingQuoteCardProps } from '@/interfaces/Card/WaitingQuoteCardInterface';
-import AddressFormat, { DateFormat } from '@/utils/Format';
+import AddressFormat, { DateFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 
 export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
@@ -71,7 +71,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
       </div>
       <div className="w-full flex justify-end items-center gap-[1.6rem]">
         <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400">견적 금액</p>
-        <p className="font-bold text-[2.4rem] leading-[3.2rem] text-black-400">{data.price}</p>
+        <p className="font-bold text-[2.4rem] leading-[3.2rem] text-black-400">{priceFormat(data.price)}원</p>
       </div>
       <div>
         <p>button</p>
