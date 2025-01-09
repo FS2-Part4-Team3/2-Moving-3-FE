@@ -3,7 +3,7 @@ import ReviewChart from '@/components/cards/ReviewChart';
 import type { ReviewChartProps } from '@/interfaces/Card/ReviewChartInterface';
 
 export default {
-  title: 'Components/Card/ReviewChart',
+  title: 'Components/Cards/ReviewChart',
   component: ReviewChart,
 };
 
