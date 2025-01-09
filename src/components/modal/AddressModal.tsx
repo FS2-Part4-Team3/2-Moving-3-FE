@@ -6,6 +6,7 @@ export default function AddressModal({
   handleModalClose,
   isArrivalModalOpen,
   isStartModalOpen,
+  setRegions,
 }: AddressModalProps) {
   return (
     <ModalWrapper onClose={handleModalClose}>

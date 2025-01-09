@@ -10,6 +10,13 @@ export default function RequestForQuotation() {
   const [isMovingType, setIsMovingType] = useState(false);
   const [movingDate, setMovingDate] = useState<Date | null>(null);
   const [isMovingDate, setIsMovingDate] = useState(false);
+  const [regions, setRegions] = useState<{
+    start: string;
+    arrival: string;
+  }>({
+    start: "",
+    arrival: "",
+  });
 
   const formattedDate = movingDate
     ? `${movingDate.getFullYear()}년 ${
@@ -109,7 +116,7 @@ export default function RequestForQuotation() {
         <div className="w-[140rem] flex justify-end">
           {isMovingType && isMovingDate && (
             <div className="self-end mb-[10rem]">
-              <AddressCard />
+              <AddressCard regions={regions} setRegions={setRegions} />
             </div>
           )}
         </div>
