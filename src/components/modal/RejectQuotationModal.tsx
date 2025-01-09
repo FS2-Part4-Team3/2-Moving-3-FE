@@ -6,8 +6,11 @@ import { useEffect, useState } from "react";
 import AddressFormat, { DateFormat } from "@utils/Format";
 import { InputWrapper } from "../common/headless/Input";
 import { ModalSmallWrapper } from "../common/headless/ModalSmall";
+import type { RejectQuotationModalProps } from "@/interfaces/Modal/RejectQuotationModalInterface";
 
-export default function RejectQuotationModal() {
+export default function RejectQuotationModal({
+  onClose,
+}: RejectQuotationModalProps) {
   const handleCloseModal = () => {};
 
   const [reason, setReason] = useState<string>("");
@@ -21,7 +24,7 @@ export default function RejectQuotationModal() {
   return (
     <>
       <div className="sm:hidden md:block">
-        <ModalWrapper onClose={handleCloseModal}>
+        <ModalWrapper onClose={onClose}>
           <ModalWrapper.Header>요청 반려</ModalWrapper.Header>
           <ModalWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
