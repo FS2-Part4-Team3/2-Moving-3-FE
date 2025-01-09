@@ -8,10 +8,19 @@ import Image from "next/image";
 import AddressFormat, { DateFormat, timeAgoFormat } from "@/utils/Format";
 import { useState } from "react";
 import SendQuotationModal from "../modal/SendQuotationModal";
+import RejectQuotationModal from "../modal/RejectQuotationModal";
 
 export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
   const [sendQuote, setSendQuote] = useState<boolean>(false);
   const [rejectQuote, setRejectQuote] = useState<boolean>(false);
+
+  const handleRejectClose = () => {
+    setRejectQuote(!rejectQuote);
+  };
+
+  const handleSendQuoteClose = () => {
+    setSendQuote(!sendQuote);
+  };
 
   //TODO: 102번째줄 수정해야함, 아직 제작이 되지 않았음
 
@@ -100,8 +109,8 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
           </ButtonWrapper.Button>
         </ButtonWrapper>
       </div>
-      {sendQuote && <SendQuotationModal />}
-      {rejectQuote && null}
+      {sendQuote && <SendQuotationModal onClose={handleSendQuoteClose} />}
+      {rejectQuote && <RejectQuotationModal onClose={handleRejectClose} />}
     </div>
   );
 }
