@@ -9,18 +9,25 @@ export default function EstimationSortDropdown() {
   return (
     <>
       <div
-        className={`w-[19rem] h-[6.4rem] rounded-[1.6rem] py-[1.6rem] px-[2.4rem] flex justify-between items-center cursor-pointer mb-[0.8rem] ${isDropdownOpen ? 'bg-blue-50 border border-blue-300' : 'bg-white border border-line-100'}`}
+        className={`lg:w-[19rem] lg:h-[6.4rem] sm:w-[12.7rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] lg:py-[1.6rem] sm:py-[0.6rem] lg:px-[2.4rem] sm:pr-[1rem] sm:pl-[1.4rem] flex justify-between items-center cursor-pointer mb-[0.8rem] ${isDropdownOpen ? 'bg-blue-50 border border-blue-300' : 'bg-white border border-line-100'}`}
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
-        <p className={`font-normal text-[1.8rem] leading-[2.6rem] ${isDropdownOpen ? 'text-blue-300' : 'text-black-400'}`}>
+        <p
+          className={`font-normal lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] ${isDropdownOpen ? 'text-blue-300' : 'text-black-400'}`}
+        >
           전체
         </p>
-        <Image src={isDropdownOpen ? blueArrow : arrow} alt="arrow" width={36} height={36} />
+        <Image src={isDropdownOpen ? blueArrow : arrow} alt="arrow" width={36} height={36} className="lg:block sm:hidden" />
+        <Image src={isDropdownOpen ? blueArrow : arrow} alt="arrow" width={20} height={20} className="lg:hidden sm:block" />
       </div>
       {isDropdownOpen && (
-        <div className="absolute bg-white rounded-[1.6rem] border border-line-200 shadow-[0.4rem_0.4rem_1rem_rgba(220,220,220,0.25)] w-[32.8rem]">
-          <p className="py-[1.6rem] px-[2.4rem] font-medium text-[1.8rem] leading-[2.6rem]">전체</p>
-          <p className="py-[1.6rem] px-[2.4rem] font-medium text-[1.8rem] leading-[2.6rem]">확정한 견적서</p>
+        <div className="absolute bg-white rounded-[1.6rem] border border-line-200 shadow-[0.4rem_0.4rem_1rem_rgba(220,220,220,0.25)] lg:w-[32.8rem] sm:w-[12.7rem]">
+          <p className="lg:py-[1.6rem] sm:py-[0.6rem] lg:px-[2.4rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem]">
+            전체
+          </p>
+          <p className="lg:py-[1.6rem] sm:py-[0.6rem] lg:px-[2.4rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem]">
+            확정한 견적서
+          </p>
         </div>
       )}
       <h1>test</h1>
