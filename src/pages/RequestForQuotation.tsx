@@ -1,5 +1,6 @@
 "use client";
 
+import AddressCard from "@/components/cards/AddressCard";
 import CalendarCard from "@/components/cards/CalendarCard";
 import MovingTypeCheckCard from "@/components/cards/MovingTypeCheckCard";
 import { useState } from "react";
@@ -23,7 +24,10 @@ export default function RequestForQuotation() {
         <div className="w-[140rem] h-[0.8rem] rounded-[3rem] bg-line-200">
           <div
             className="w-[35rem] h-[0.8rem] rounded-[3rem] bg-blue-300"
-            style={isMovingType ? { width: "calc(140rem * 2 / 3)" } : {}}
+            style={{
+              ...(isMovingType && { width: "calc(140rem * 2 / 3)" }),
+              ...(isMovingDate && { width: "140rem" }),
+            }}
           ></div>
         </div>
       </div>
@@ -91,6 +95,12 @@ export default function RequestForQuotation() {
         {isMovingDate && (
           <div className="max-w-[29rem] rounded-[3rem] rounded-tl-none px-[4rem] py-[2rem] bg-white border-none text-[1.8rem] font-medium text-black-400 self-start">
             이사 지역을 선택해 주세요.
+          </div>
+        )}
+
+        {isMovingDate && (
+          <div className="self-end">
+            <AddressCard />
           </div>
         )}
       </div>

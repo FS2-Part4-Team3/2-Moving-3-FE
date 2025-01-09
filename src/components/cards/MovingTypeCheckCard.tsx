@@ -27,7 +27,7 @@ export default function MovingTypeCheckCard({
     }
   };
   return (
-    <div className="lg:w-[64rem] lg:h-[45.2rem] md:w-[31.2rem] md:h-[27.4rem] sm:w-[31.2rem] sm:h-[27.4rem] rounded-tr-none rounded-[1.6rem] border-none lg:p-[4rem] md:p-[1.6rem] sm:p-[1.6rem]">
+    <div className="lg:w-[64rem] lg:h-[45.2rem] md:w-[31.2rem] md:h-[27.4rem] sm:w-[31.2rem] sm:h-[27.4rem] rounded-tr-none rounded-[1.6rem] border-none lg:p-[4rem] md:p-[1.6rem] sm:p-[1.6rem] cursor-pointer">
       {movingTypesCheck.map((movingType) => (
         <div
           onClick={() => handleCheckClick(movingType.type)}

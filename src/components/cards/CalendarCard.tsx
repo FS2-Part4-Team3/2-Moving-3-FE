@@ -27,13 +27,11 @@ export default function CalendarCard({
     const startOfMonth = new Date(year, month, 1);
     const endOfMonth = new Date(year, month + 1, 0);
 
-    const prevDays: Day[] = Array.from(
-      { length: startOfMonth.getDay() },
-      (_, i) => {
-        const prevDate = new Date(year, month, -i);
-        return { date: prevDate.getDate(), isCurrentMonth: false };
-      }
-    ).reverse();
+    const prevDaysCount = startOfMonth.getDay();
+    const prevDays: Day[] = Array.from({ length: prevDaysCount }, (_, i) => {
+      const prevDate = new Date(year, month, 0 - (prevDaysCount - i - 1));
+      return { date: prevDate.getDate(), isCurrentMonth: false };
+    }).reverse();
 
     const currentDays: Day[] = Array.from(
       { length: endOfMonth.getDate() },
@@ -43,13 +41,11 @@ export default function CalendarCard({
       })
     );
 
-    const nextDays: Day[] = Array.from(
-      { length: 6 - endOfMonth.getDay() },
-      (_, i) => ({
-        date: i + 1,
-        isCurrentMonth: false,
-      })
-    );
+    const nextDaysCount = 6 - endOfMonth.getDay();
+    const nextDays: Day[] = Array.from({ length: nextDaysCount }, (_, i) => ({
+      date: i + 1,
+      isCurrentMonth: false,
+    }));
 
     return [...prevDays, ...currentDays, ...nextDays];
   };
@@ -67,14 +63,20 @@ export default function CalendarCard({
   };
 
   const handleDateClick = (day: Day) => {
-    if (day.isCurrentMonth) {
-      const selected = new Date(
-        currentMonth.getFullYear(),
-        currentMonth.getMonth(),
-        day.date
-      );
-      setSelectedDate(selected);
+    const selected = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth(),
+      day.date
+    );
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (!day.isCurrentMonth || selected < today) {
+      return;
     }
+
+    setSelectedDate(selected);
   };
 
   const handleSelectComplte = () => {
@@ -119,23 +121,39 @@ export default function CalendarCard({
         ))}
       </div>
       <div className="grid grid-cols-7 text-center lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] py-[0.2rem] lg:px-[3.6rem] md:px-[0.9rem] sm:px-[0.9rem] justify-items-center lg:gap-y-[3rem] md:gap-y-[1.2rem] sm:gap-y-[1.2rem]">
-        {daysInMonth.map((day, index) => (
-          <div
-            key={index}
-            onClick={() => handleDateClick(day)}
-            className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center ${
-              day.isCurrentMonth
-                ? selectedDate &&
-                  selectedDate.getDate() === day.date &&
-                  selectedDate.getMonth() === currentMonth.getMonth()
-                  ? "bg-blue-300 text-white rounded-full "
-                  : "text-black-400"
-                : "text-gray-100"
-            }  `}
-          >
-            {day.date}
-          </div>
-        ))}
+        {daysInMonth.map((day, index) => {
+          const selected = new Date(
+            currentMonth.getFullYear(),
+            currentMonth.getMonth(),
+            day.date
+          );
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          const isDisabled = !day.isCurrentMonth || selected < today;
+          return (
+            <div
+              key={index}
+              onClick={() => handleDateClick(day)}
+              className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center 
+             ${
+               isDisabled
+                 ? "cursor-not-allowed text-gray-200"
+                 : "cursor-pointer text-black-400"
+             }
+        ${
+          day.isCurrentMonth &&
+          selectedDate &&
+          selectedDate.getDate() === day.date &&
+          selectedDate.getMonth() === currentMonth.getMonth()
+            ? "bg-blue-300 text-white rounded-full"
+            : ""
+        }   `}
+            >
+              {day.date}
+            </div>
+          );
+        })}
       </div>
       <ButtonWrapper id="calendar button">
         <ButtonWrapper.Button
