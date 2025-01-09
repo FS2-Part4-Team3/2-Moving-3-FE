@@ -40,9 +40,6 @@ export default function DriverSortDropdown() {
           ))}
         </div>
       )}
-      <div>
-        <h1>테스트중입니다</h1>
-      </div>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import type { EmptyProps } from "@/interfaces/CommonComp/EmptyInterface";
 import profile from "@/../public/assets/common/empty/empty_profile_img.svg";
 import folder from "@/../public/assets/common/empty/empty_folder_img.svg";
@@ -21,7 +23,7 @@ export default function Empty({ type }: EmptyProps) {
       break;
     case "ReceiveQuote":
       image = folder;
-      text = "받은 요청이 없어요";
+      text = "아직 받은 요청이 없어요!";
       text2 = "";
       buttonText = "";
       break;
