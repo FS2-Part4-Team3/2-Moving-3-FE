@@ -6,13 +6,14 @@ import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import ReviewChart from '@/components/cards/ReviewChart';
+import type { DriverDetailData, DriverReviewData } from '@/interfaces/Page/DriverDetailInterface';
 import DriverDetailClient from '@/pages/DriverDetailClient';
 
 export default async function DriverDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
-  const driverData = await getDriverDetailData(id);
-  const reviewData = await getDriverReviewData(id);
+  const driverData: DriverDetailData = await getDriverDetailData(id);
+  const reviewData: DriverReviewData = await getDriverReviewData(id);
 
   if (driverData.id !== id || !driverData) {
     notFound();
