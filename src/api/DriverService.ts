@@ -1,11 +1,11 @@
-import { getRequest } from "@/utils/abstractApi";
+import { getRequest } from '@/utils/abstractApi';
 
 export const getDriverData = async () => {
   try {
-    const result = await getRequest("/data/driversData.json");
+    const result = await getRequest('/data/driversData.json');
     return result || [];
   } catch (error) {
-    console.error("Error fetching driver data:", error);
+    console.error('Error fetching driver data:', error);
     return;
   }
 };
@@ -17,14 +17,14 @@ export const getDriverDetailData = async (driverId: string) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const getMoveInfoData = async () => {
   try {
-    const result = await getRequest("/data/moveInfosData.json");
+    const result = await getRequest('/data/moveInfosData.json');
     return result || [];
   } catch (error) {
-    console.error("Error fetching user data:", error);
+    console.error('Error fetching user data:', error);
     return;
   }
 };
