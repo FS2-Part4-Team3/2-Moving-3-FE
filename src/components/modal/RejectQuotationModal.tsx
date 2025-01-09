@@ -1,17 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import AddressFormat, { DateFormat } from '@utils/Format';
-import MovingTypeChips from '../chips/MovingTypeChips';
-import { InputWrapper } from '../common/headless/Input';
-import { ModalWrapper } from '../common/headless/Modal';
-import { ModalSmallWrapper } from '../common/headless/ModalSmall';
+import { ModalWrapper } from "../common/headless/Modal";
+import MovingTypeChips from "../chips/MovingTypeChips";
+import { useEffect, useState } from "react";
+import AddressFormat, { DateFormat } from "@utils/Format";
+import { InputWrapper } from "../common/headless/Input";
+import { ModalSmallWrapper } from "../common/headless/ModalSmall";
+import type { RejectQuotationModalProps } from "@/interfaces/Modal/RejectQuotationModalInterface";
 
-export default function RejectQuotationModal() {
-  const handleCloseModal = () => {};
-
-  const [reason, setReason] = useState<string>('');
-
+export default function RejectQuotationModal({
+  onClose,
+}: RejectQuotationModalProps) {
+  const [reason, setReason] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function RejectQuotationModal() {
   return (
     <>
       <div className="sm:hidden md:block">
-        <ModalWrapper onClose={handleCloseModal}>
+        <ModalWrapper onClose={onClose}>
           <ModalWrapper.Header>요청 반려</ModalWrapper.Header>
           <ModalWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
@@ -89,8 +89,8 @@ export default function RejectQuotationModal() {
         </ModalWrapper>
       </div>
       <div className="sm:block md:hidden">
-        <ModalSmallWrapper onClose={handleCloseModal}>
-          <ModalSmallWrapper.Header>요청 반ㅕ</ModalSmallWrapper.Header>
+        <ModalSmallWrapper onClose={onClose}>
+          <ModalSmallWrapper.Header>요청 반려</ModalSmallWrapper.Header>
           <ModalSmallWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
               <div className="flex flex-col gap-[2rem]">

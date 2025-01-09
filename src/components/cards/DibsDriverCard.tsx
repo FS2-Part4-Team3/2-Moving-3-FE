@@ -7,7 +7,6 @@ import type { DibsDriverCardProps } from '@/interfaces/Card/DibsDriverCardInterf
 import SmallMovingTypeChips from '../chips/SmallMovingTypeChips';
 
 export default function DibsDriverCard({ data }: DibsDriverCardProps) {
-  console.log(data);
   return (
     <div className="w-[32.7rem] flex flex-col rounded-[1.6rem] border border-line-100 py-[1.6rem] px-[1.4rem] gap-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]">
       <div className="flex gap-[0.4rem]">

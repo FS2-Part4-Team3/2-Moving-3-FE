@@ -6,3 +6,7 @@ export interface SendQuotationModalData {
   toAddress: string;
   owner: string;
 }
+
+export interface SendQuotationModalProps {
+  onClose: () => void;
+}
