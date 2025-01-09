@@ -22,7 +22,7 @@ export default function RejectQuotationModal() {
     <>
       <div className="sm:hidden md:block">
         <ModalWrapper onClose={handleCloseModal}>
-          <ModalWrapper.Header>견적 보내기</ModalWrapper.Header>
+          <ModalWrapper.Header>요청 반려</ModalWrapper.Header>
           <ModalWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
               <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[2rem]">
@@ -86,13 +86,13 @@ export default function RejectQuotationModal() {
             </div>
           </ModalWrapper.Content>
           <ModalWrapper.Footer isDisabled={isDisabled}>
-            견적 보내기
+            반려하기
           </ModalWrapper.Footer>
         </ModalWrapper>
       </div>
       <div className="sm:block md:hidden">
         <ModalSmallWrapper onClose={handleCloseModal}>
-          <ModalSmallWrapper.Header>견적 보내기</ModalSmallWrapper.Header>
+          <ModalSmallWrapper.Header>요청 반ㅕ</ModalSmallWrapper.Header>
           <ModalSmallWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
               <div className="flex flex-col gap-[2rem]">
@@ -156,7 +156,7 @@ export default function RejectQuotationModal() {
             </div>
           </ModalSmallWrapper.Content>
           <ModalSmallWrapper.Footer isDisabled={isDisabled}>
-            견적 보내기
+            반려하기
           </ModalSmallWrapper.Footer>
         </ModalSmallWrapper>
       </div>
