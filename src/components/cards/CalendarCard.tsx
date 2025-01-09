@@ -1,25 +1,16 @@
-`use client`;
+'use client';
 
-import { useState } from "react";
-import { ButtonWrapper } from "../common/headless/Button";
-import Image from "next/image";
-import left from "@/../public/assets/calendar/arrow-left.svg";
-import right from "@/../public/assets/calendar/arrow-right.svg";
-import type {
-  CalendarCardProps,
-  Day,
-} from "@/interfaces/Card/CalendarCardInterface";
-import weekdays from "@/constants/weekdays";
+import Image from 'next/image';
+import { useState } from 'react';
+import left from '@/../public/assets/calendar/arrow-left.svg';
+import right from '@/../public/assets/calendar/arrow-right.svg';
+import weekdays from '@/constants/weekdays';
+import type { CalendarCardProps, Day } from '@/interfaces/Card/CalendarCardInterface';
+import { ButtonWrapper } from '../common/headless/Button';
 
-export default function CalendarCard({
-  setMovingDate,
-  setIsMovingDate,
-  initialMovingDate,
-}: CalendarCardProps) {
+export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMovingDate }: CalendarCardProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(
-    initialMovingDate
-  );
+  const [selectedDate, setSelectedDate] = useState<Date | null>(initialMovingDate);
 
   const getDaysInMonth = (date: Date): Day[] => {
     const year = date.getFullYear();
@@ -33,13 +24,10 @@ export default function CalendarCard({
       return { date: prevDate.getDate(), isCurrentMonth: false };
     }).reverse();
 
-    const currentDays: Day[] = Array.from(
-      { length: endOfMonth.getDate() },
-      (_, i) => ({
-        date: i + 1,
-        isCurrentMonth: true,
-      })
-    );
+    const currentDays: Day[] = Array.from({ length: endOfMonth.getDate() }, (_, i) => ({
+      date: i + 1,
+      isCurrentMonth: true,
+    }));
 
     const nextDaysCount = 6 - endOfMonth.getDay();
     const nextDays: Day[] = Array.from({ length: nextDaysCount }, (_, i) => ({
@@ -51,23 +39,15 @@ export default function CalendarCard({
   };
 
   const handlePrev = () => {
-    setCurrentMonth(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
-    );
+    setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
   const handleNext = () => {
-    setCurrentMonth(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
-    );
+    setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   };
 
   const handleDateClick = (day: Day) => {
-    const selected = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth(),
-      day.date
-    );
+    const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -100,8 +80,7 @@ export default function CalendarCard({
           <Image src={left} alt="이전 달" fill />
         </div>
         <p className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-black-400 font-semibold ">
-          {currentMonth.getFullYear()}.
-          {String(currentMonth.getMonth() + 1).padStart(2, "0")}
+          {currentMonth.getFullYear()}.{String(currentMonth.getMonth() + 1).padStart(2, '0')}
         </p>
         <div
           className="relative lg:w-[3.6rem] lg:h-[3.6rem] md:w-[2.4rem] md:h-[2.4rem] sm:w-[2.4rem] sm:h-[2.4rem] cursor-pointer"
@@ -122,11 +101,7 @@ export default function CalendarCard({
       </div>
       <div className="grid grid-cols-7 text-center lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] py-[0.2rem] lg:px-[3.6rem] md:px-[0.9rem] sm:px-[0.9rem] justify-items-center lg:gap-y-[3rem] md:gap-y-[1.2rem] sm:gap-y-[1.2rem]">
         {daysInMonth.map((day, index) => {
-          const selected = new Date(
-            currentMonth.getFullYear(),
-            currentMonth.getMonth(),
-            day.date
-          );
+          const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
           const today = new Date();
           today.setHours(0, 0, 0, 0);
 
@@ -136,18 +111,14 @@ export default function CalendarCard({
               key={index}
               onClick={() => handleDateClick(day)}
               className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center 
-             ${
-               isDisabled
-                 ? "cursor-not-allowed text-gray-200"
-                 : "cursor-pointer text-black-400"
-             }
+             ${isDisabled ? 'cursor-not-allowed text-gray-200' : 'cursor-pointer text-black-400'}
         ${
           day.isCurrentMonth &&
           selectedDate &&
           selectedDate.getDate() === day.date &&
           selectedDate.getMonth() === currentMonth.getMonth()
-            ? "bg-blue-300 text-white rounded-full"
-            : ""
+            ? 'bg-blue-300 text-white rounded-full'
+            : ''
         }   `}
             >
               {day.date}

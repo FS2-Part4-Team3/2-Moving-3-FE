@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import AddressFormat, { DateFormat } from "@utils/Format";
 import { InputWrapper } from "../common/headless/Input";
 import { ModalSmallWrapper } from "../common/headless/ModalSmall";
+import type { SendQuotationModalProps } from "@/interfaces/Modal/SendQuotationModalInterface";
 
-export default function SendQuotationModal() {
-  const handleCloseModal = () => {};
-
+export default function SendQuotationModal({
+  onClose,
+}: SendQuotationModalProps) {
   const [price, setPrice] = useState<string>("");
   const [comment, setComment] = useState<string>("");
 
@@ -22,7 +23,7 @@ export default function SendQuotationModal() {
   return (
     <>
       <div className="sm:hidden md:block">
-        <ModalWrapper onClose={handleCloseModal}>
+        <ModalWrapper onClose={onClose}>
           <ModalWrapper.Header>견적 보내기</ModalWrapper.Header>
           <ModalWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
@@ -109,7 +110,7 @@ export default function SendQuotationModal() {
         </ModalWrapper>
       </div>
       <div className="sm:block md:hidden">
-        <ModalSmallWrapper onClose={handleCloseModal}>
+        <ModalSmallWrapper onClose={onClose}>
           <ModalSmallWrapper.Header>견적 보내기</ModalSmallWrapper.Header>
           <ModalSmallWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
