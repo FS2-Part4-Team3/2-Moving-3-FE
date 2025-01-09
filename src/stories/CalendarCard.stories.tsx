@@ -7,4 +7,4 @@ export default {
 
 const Template = () => <CalendarCard />;
 
-export const Defalut = Template.bind({});
+export const Default = Template.bind({});
