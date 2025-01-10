@@ -8,6 +8,7 @@ import DriverReviewCard from '@/components/cards/DriverReviewCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import ReviewChart from '@/components/cards/ReviewChart';
 import DriverDetailChips from '@/components/chips/DriverDetailChips';
+import Empty from '@/components/common/Empty/Empty';
 import type { DriverDetailData, DriverReviewData } from '@/interfaces/Page/DriverDetailInterface';
 import DriverDetailClient from '@/pages/DriverDetailClient';
 
@@ -68,11 +69,16 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
                 리뷰 ({reviewData.reviewCount})
               </p>
-              <ReviewChart data={reviewData.reviews} score={reviewData.score} reviewCount={reviewData.reviewCount} />
+              {reviewData.reviewCount > 0 ? (
+                <ReviewChart data={reviewData.reviews} score={reviewData.score} reviewCount={reviewData.reviewCount} />
+              ) : (
+                <div className="py-[8rem]">
+                  <Empty type="Driver" />
+                </div>
+              )}
             </div>
-
             <div className="flex flex-col w-full">
-              <DriverReviewCard reviews={reviewData.reviews} />
+              {reviewData.reviewCount > 0 ? <DriverReviewCard reviews={reviewData.reviews} /> : null}
             </div>
           </div>
         </div>
