@@ -6,6 +6,7 @@ import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import ReviewChart from '@/components/cards/ReviewChart';
+import { DriverDetailChips } from '@/components/chips/DriverDetailChips';
 import type { DriverDetailData, DriverReviewData } from '@/interfaces/Page/DriverDetailInterface';
 import DriverDetailClient from '@/pages/DriverDetailClient';
 
@@ -49,12 +50,16 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
               제공 서비스
             </p>
-            <div className="flex flex-row lg:gap-[1.2rem] sm:gap-[0.8rem]">제공 서비스 chip comp</div>
+            <div className="flex flex-row lg:gap-[1.2rem] sm:gap-[0.8rem]">
+              <DriverDetailChips serviceType={driverData.serviceType} />
+            </div>
           </div>
           <div className="border border-line-100 w-full"></div>
           <div className="flex flex-col lg:gap-[3.2rem] sm:gap-[1.6rem] lg:px-0 lg:py-0 md:px-[2.4rem] sm:py-[1rem]">
             <p className="text-[2.4rem] leading-[3.2rem] font-bold text-black-400">서비스 가능 지역</p>
-            <div className="gap-[1.2rem]">서비스 가능 지역 chip comp</div>
+            <div className="flex flex-row lg:gap-[1.2rem] sm:gap-[0.8rem]">
+              <DriverDetailChips availableAreas={driverData.availableAreas} />
+            </div>
           </div>
           <div className="border border-line-100 w-full"></div>
           <div className="flex flex-col lg:py-0 sm:py-[1rem] lg:gap-[4rem] sm:gap-[4.3rem]">
