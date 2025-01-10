@@ -6,7 +6,7 @@ import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import ReviewChart from '@/components/cards/ReviewChart';
-import { DriverDetailChips } from '@/components/chips/DriverDetailChips';
+import DriverDetailChips from '@/components/chips/DriverDetailChips';
 import type { DriverDetailData, DriverReviewData } from '@/interfaces/Page/DriverDetailInterface';
 import DriverDetailClient from '@/pages/DriverDetailClient';
 

@@ -1,7 +1,7 @@
 import { areaMapping, typeMapping } from '@/constants/labelMappings';
 import type { DriverDetailChipProps } from '@/interfaces/chip/DriverDetailChipInterface';
 
-export function DriverDetailChips({ serviceType, availableAreas }: DriverDetailChipProps) {
+export default function DriverDetailChips({ serviceType, availableAreas }: DriverDetailChipProps) {
   return (
     <>
       {serviceType &&
