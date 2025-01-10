@@ -1,4 +1,5 @@
 import type { DriverReviewCardProps } from '@/interfaces/Card/DriverReviewCardInterface';
+import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
 export default function DriverReviewCard({ reviews }: DriverReviewCardProps) {
   return (
@@ -12,7 +13,7 @@ export default function DriverReviewCard({ reviews }: DriverReviewCardProps) {
               </div>
               <div className="border-l border-line-200 lg:h-[1.4rem] sm:h-[1.2rem]"></div>
               <div className="lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] font-normal text-gray-300">
-                {review.createdAt}
+                {DateFormatToYYYYMMDD(review.createdAt)}
               </div>
             </div>
             <div>{review.score}</div>
