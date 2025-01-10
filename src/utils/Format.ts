@@ -14,7 +14,37 @@ export function DateFormat(isoDate: string): string {
 
   const dayOfWeek = daysOfWeek[date.getDay()];
 
+  // Ex: 2024. 08. 26(월)
   return `${year}. ${month}. ${day}(${dayOfWeek})`;
+}
+
+export function DateWithoutDayWeeKFormat(isoString: string) {
+  const date = new Date(isoString);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  // Ex: 2024. 08. 26
+  return `${year}.${month}.${day}`;
+}
+
+export function DateIncludeTimeFormat(isoString: string) {
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  const date = new Date(isoString);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const dayOfWeek = days[date.getDay()];
+
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const period = hours < 12 ? '오전' : '오후';
+  const formattedHours = hours % 12 || 12;
+
+  // Ex: 2024. 08. 26(월) 오전 10:00
+  return `${year}. ${month}. ${day}(${dayOfWeek}) ${period} ${formattedHours}:${minutes}`;
 }
 
 export function timeAgoFormat(isoDate: string): string {
