@@ -4,6 +4,7 @@ import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
+import DriverReviewCard from '@/components/cards/DriverReviewCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import ReviewChart from '@/components/cards/ReviewChart';
 import DriverDetailChips from '@/components/chips/DriverDetailChips';
@@ -69,24 +70,9 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               </p>
               <ReviewChart data={reviewData.reviews} score={reviewData.score} reviewCount={reviewData.reviewCount} />
             </div>
+
             <div className="flex flex-col w-full">
-              <div className="flex flex-col py-[3.2rem] lg:gap-[2.4rem] sm:gap-[1.6rem] border-b border-line-100">
-                <div className="flex flex-col gap-[0.8rem]">
-                  <div className="lg:gap-[1.4rem] sm:gap-[1.2rem] flex flex-row items-center">
-                    <div className="lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] font-normal text-black-400">
-                      이름
-                    </div>
-                    <div className="border-l border-line-200 lg:h-[1.4rem] sm:h-[1.2rem]"></div>
-                    <div className="lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] font-normal text-gray-300">
-                      날짜
-                    </div>
-                  </div>
-                  <div>별점</div>
-                </div>
-                <div className="lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] font-normal text-[#2B2B2B]">
-                  comment
-                </div>
-              </div>
+              <DriverReviewCard reviewCount={reviewData.reviewCount} reviews={reviewData.reviews} />
             </div>
           </div>
         </div>
