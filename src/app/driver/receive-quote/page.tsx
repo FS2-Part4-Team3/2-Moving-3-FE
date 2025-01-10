@@ -1,11 +1,9 @@
-import { getMoveInfoData } from "@/api/DriverService";
-import ReceiveQuoteCard from "@/components/cards/ReceiveQuoteCard";
-import Empty from "@/components/common/Empty/Empty";
-import DriverSearchBar from "@/components/common/searchbar/DriverSearchBar";
-import SearchBar from "@/components/common/searchbar/SearchBar";
-import DriverSortDropdown from "@/components/dropdown/DriverSortDropdown";
-import type { ReceiveQuoteData } from "@/interfaces/Page/ReceiveQuoteInterface";
-import ReceiveQuoteMovingTypeClient from "@/pages/ReceiveQuoteMovingTypeClient";
+import { getMoveInfoData } from '@/api/DriverService';
+import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
+import Empty from '@/components/common/Empty/Empty';
+import DriverSearchBar from '@/components/common/searchbar/DriverSearchBar';
+import DriverSortDropdown from '@/components/dropdown/DriverSortDropdown';
+import ReceiveQuoteMovingTypeClient from '@/pages/ReceiveQuoteMovingTypeClient';
 
 export default async function ReceiveQuote() {
   let moveInfoData = await getMoveInfoData();
@@ -18,9 +16,7 @@ export default async function ReceiveQuote() {
     <div className="w-full flex items-center justify-center mb-[7rem]">
       <div className="lg:w-[120rem] sm:w-full items-start justify-center flex flex-col">
         <div className="lg:flex sm:hidden py-[3.2rem] w-full items-start">
-          <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-[#2B2B2B]">
-            받은 요청
-          </p>
+          <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-[#2B2B2B]">받은 요청</p>
         </div>
         <div className="lg:flex lg:gap-[10rem] justify-center w-full sm:py-[1.6rem] lg:px-0 md:px-[7.2rem] sm:px-[2.4rem]">
           <div className="lg:block sm:hidden">
@@ -32,9 +28,7 @@ export default async function ReceiveQuote() {
                 <DriverSearchBar />
               </div>
               <div className="flex justify-between w-full items-center sm:px-[1rem]">
-                <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
-                  전체 999999건
-                </p>
+                <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400">전체 999999건</p>
                 <div className="flex gap-[0.4rem] items-center">
                   <DriverSortDropdown />
                   <div className="lg:hidden sm:block">
