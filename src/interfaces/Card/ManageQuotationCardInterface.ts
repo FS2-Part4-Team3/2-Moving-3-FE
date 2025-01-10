@@ -2,7 +2,7 @@ export interface ManageQuotationCardProps {
   data: {
     id: string;
     updatedAt: string;
-    price: string;
+    price: number;
     moveInfo: {
       id: string;
       updatedAt: string;
