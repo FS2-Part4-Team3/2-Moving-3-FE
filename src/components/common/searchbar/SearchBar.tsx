@@ -4,17 +4,11 @@ import Image from 'next/image';
 import { useState } from 'react';
 import search from '@/../public/assets/common/searchbar/ic_search.svg';
 import x from '@/../public/assets/common/searchbar/ic_x_circle.svg';
-import type { SearchBarProps } from '@/interfaces/SearchBar/SearchBarInterface';
 import { InputWrapper } from '../headless/Input';
 
-export default function SearchBar({ value, setValue, handleSearch }: SearchBarProps) {
+export default function SearchBar() {
+  const [value, setValue] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && handleSearch) {
-      handleSearch();
-    }
-  };
 
   return (
     <div className="w-full md:h-[6.4rem] rounded-[1.6rem] py-[1.4rem] lg:px-[2.4rem] sm:px-[1.6rem] md:gap-[0.8rem] sm:gap-[0.6rem] flex items-center bg-background-200">
@@ -34,7 +28,6 @@ export default function SearchBar({ value, setValue, handleSearch }: SearchBarPr
           onBlur={() => {
             setIsFocused(false);
           }}
-          onKeyDown={handleKeyDown}
         />
       </InputWrapper>
       {isFocused && (

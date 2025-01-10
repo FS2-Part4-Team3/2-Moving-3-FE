@@ -6,10 +6,3 @@ export interface AddressModalProps {
   isArrivalModalOpen?: boolean;
   setRegions: Dispatch<SetStateAction<{ start: string; arrival: string }>>;
 }
-
-export interface AddressData {
-  id: string;
-  postNumber: string;
-  loadName: string;
-  regionName: string;
-}

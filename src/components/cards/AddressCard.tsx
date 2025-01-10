@@ -22,7 +22,10 @@ export default function AddressCard({ regions, setRegions }: AddressCardProps) {
           </div>
           {regions.start && (
             <div
-              onClick={() => setIsStartModalOpen(true)}
+              onClick={() => {
+                setIsArrivalModalOpen(true);
+                setRegions(prev => ({ ...prev, start: '' }));
+              }}
               className="cursor-pointer text-[1.6rem] font-medium text-gray-500 underline self-end"
             >
               수정하기
@@ -39,7 +42,10 @@ export default function AddressCard({ regions, setRegions }: AddressCardProps) {
           </div>
           {regions.arrival && (
             <div
-              onClick={() => setIsArrivalModalOpen(true)}
+              onClick={() => {
+                setIsArrivalModalOpen(true);
+                setRegions(prev => ({ ...prev, arrival: '' }));
+              }}
               className="cursor-pointer text-[1.6rem] font-medium text-gray-500 underline self-end mb-[1rem]"
             >
               수정하기
