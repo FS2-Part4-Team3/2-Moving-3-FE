@@ -18,7 +18,7 @@ export default function AddressCard({ regions, setRegions }: AddressCardProps) {
             onClick={() => setIsStartModalOpen(true)}
             className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[5.4rem] rounded-[1.6rem] border border-blue-300 px-[2.4rem] py-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-blue-300 cursor-pointer"
           >
-            {regions.start ? regions.start : '출발지 선택하기'}
+            {regions.start || '출발지 선택하기'}
           </div>
           {regions.start && (
             <div
@@ -38,7 +38,7 @@ export default function AddressCard({ regions, setRegions }: AddressCardProps) {
             onClick={() => setIsArrivalModalOpen(true)}
             className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[5.4rem] rounded-[1.6rem] border border-blue-300 px-[2.4rem] py-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-blue-300 cursor-pointer"
           >
-            {regions.arrival ? regions.arrival : '도착지 선택하기'}
+            {regions.arrival || '도착지 선택하기'}
           </div>
           {regions.arrival && (
             <div
