@@ -6,37 +6,12 @@ import left from '@/../public/assets/calendar/arrow-left.svg';
 import right from '@/../public/assets/calendar/arrow-right.svg';
 import weekdays from '@/constants/weekdays';
 import type { CalendarCardProps, Day } from '@/interfaces/Card/CalendarCardInterface';
+import { getDaysInMonth } from '@/utils/Format';
 import { ButtonWrapper } from '../common/headless/Button';
 
 export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMovingDate }: CalendarCardProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(initialMovingDate);
-
-  const getDaysInMonth = (date: Date): Day[] => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const startOfMonth = new Date(year, month, 1);
-    const endOfMonth = new Date(year, month + 1, 0);
-
-    const prevDaysCount = startOfMonth.getDay();
-    const prevDays: Day[] = Array.from({ length: prevDaysCount }, (_, i) => {
-      const prevDate = new Date(year, month, 0 - (prevDaysCount - i - 1));
-      return { date: prevDate.getDate(), isCurrentMonth: false };
-    }).reverse();
-
-    const currentDays: Day[] = Array.from({ length: endOfMonth.getDate() }, (_, i) => ({
-      date: i + 1,
-      isCurrentMonth: true,
-    }));
-
-    const nextDaysCount = 6 - endOfMonth.getDay();
-    const nextDays: Day[] = Array.from({ length: nextDaysCount }, (_, i) => ({
-      date: i + 1,
-      isCurrentMonth: false,
-    }));
-
-    return [...prevDays, ...currentDays, ...nextDays];
-  };
 
   const handlePrev = () => {
     setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));

@@ -1,3 +1,5 @@
+import type { Day } from '@/interfaces/Card/CalendarCardInterface';
+
 export default function AddressFormat(address: string) {
   const match = address.match(/^[^\s]+\s[^\s]+/);
   const result = match ? match[0] : '';
@@ -71,4 +73,30 @@ export function priceFormat(price: number) {
 
 export function formatDate(date: Date) {
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+}
+
+export function getDaysInMonth(date: Date): Day[] {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const startOfMonth = new Date(year, month, 1);
+  const endOfMonth = new Date(year, month + 1, 0);
+
+  const prevDaysCount = startOfMonth.getDay();
+  const prevDays: Day[] = Array.from({ length: prevDaysCount }, (_, i) => {
+    const prevDate = new Date(year, month, 0 - (prevDaysCount - i - 1));
+    return { date: prevDate.getDate(), isCurrentMonth: false };
+  }).reverse();
+
+  const currentDays: Day[] = Array.from({ length: endOfMonth.getDate() }, (_, i) => ({
+    date: i + 1,
+    isCurrentMonth: true,
+  }));
+
+  const nextDaysCount = 6 - endOfMonth.getDay();
+  const nextDays: Day[] = Array.from({ length: nextDaysCount }, (_, i) => ({
+    date: i + 1,
+    isCurrentMonth: false,
+  }));
+
+  return [...prevDays, ...currentDays, ...nextDays];
 }
