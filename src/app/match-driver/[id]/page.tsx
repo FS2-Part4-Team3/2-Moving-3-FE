@@ -69,7 +69,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
                 리뷰 ({reviewData.reviewCount})
               </p>
-              {reviewData.reviewCount > 0 ? (
+              {reviewData.reviewCount ? (
                 <ReviewChart data={reviewData.reviews} score={reviewData.score} reviewCount={reviewData.reviewCount} />
               ) : (
                 <div className="py-[8rem]">
