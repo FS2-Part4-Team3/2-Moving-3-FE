@@ -1,4 +1,4 @@
-import { getRequest } from '@/utils/abstractApi';
+import { getRequest } from '@/utils/requestFunctions';
 
 export const getAddressData = async () => {
   try {
