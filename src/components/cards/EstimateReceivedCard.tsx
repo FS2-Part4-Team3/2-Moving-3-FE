@@ -8,7 +8,6 @@ import { priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 
 export default function EstimateReceivedCard({ data }: EstimateReceivedCardProps) {
-  console.log(data);
   return (
     <div className="w-full rounded-[1.6rem] border border-line-100 lg:pt-[2rem] lg:pb-[1.4rem] lg:px-[2.4rem] sm:pt-[1.6rem] sm:pb-[1rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] shadow-[0.2rem_0.2rem_1rem_rgba(220,220,220,0.14)]">
       <MovingTypeChips type={data.moveInfo.type} />
