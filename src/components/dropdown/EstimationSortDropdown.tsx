@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useState } from 'react';
 import blueArrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
