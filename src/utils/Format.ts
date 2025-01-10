@@ -68,3 +68,7 @@ export function timeAgoFormat(isoDate: string): string {
 export function priceFormat(price: number) {
   return price.toLocaleString();
 }
+
+export function formatDate(date: Date) {
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+}

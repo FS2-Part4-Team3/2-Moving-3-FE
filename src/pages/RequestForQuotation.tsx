@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
+import { formatDate } from '@/utils/Format';
 
 export default function RequestForQuotation() {
   const [movingType, setMovingType] = useState('');
@@ -36,9 +37,7 @@ export default function RequestForQuotation() {
 
   const isMobileOrTablet = windowWidth < 1200;
 
-  const formattedDate = movingDate
-    ? `${movingDate.getFullYear()}년 ${movingDate.getMonth() + 1}월 ${movingDate.getDate()}일`
-    : '';
+  const formattedDate = movingDate ? formatDate(movingDate) : '';
 
   return (
     <div className="flex flex-col items-center">
