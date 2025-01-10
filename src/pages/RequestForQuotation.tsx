@@ -42,7 +42,7 @@ export default function RequestForQuotation() {
   return (
     <div className="flex flex-col items-center">
       <div className="bg-white lg:py-[3.2rem] md:py-[2.4rem] sm:py-[2.4rem] flex flex-col gap-[2.4rem] ">
-        <h1 className="text-[2.4rem] font-semibold text-black-600">견적요청</h1>
+        <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B]">견적요청</h1>
         <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[31.2rem] lg:h-[0.8rem] md:h-[0.6rem] sm:h-[0.6rem] rounded-[3rem] bg-line-200">
           <div
             className="lg:w-[35rem] md:w-[8.2rem] sm:w-[8.2rem] lg:h-[0.8rem] md:h-[0.6rem] sm:h-[0.6rem] rounded-[3rem] bg-blue-300"
