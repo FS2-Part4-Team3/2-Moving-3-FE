@@ -1,5 +1,4 @@
 export interface DriverReviewCardProps {
-  reviewCount: number;
   reviews: Review[];
 }
 

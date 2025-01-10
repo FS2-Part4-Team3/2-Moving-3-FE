@@ -72,7 +72,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             </div>
 
             <div className="flex flex-col w-full">
-              <DriverReviewCard reviewCount={reviewData.reviewCount} reviews={reviewData.reviews} />
+              <DriverReviewCard reviews={reviewData.reviews} />
             </div>
           </div>
         </div>
