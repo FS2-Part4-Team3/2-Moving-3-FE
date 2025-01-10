@@ -5,7 +5,7 @@ export interface EstimateReceivedCardProps {
     comment: string;
     moveInfo: {
       id: string;
-      type: string;
+      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
     };
     driver: {
       id: string;

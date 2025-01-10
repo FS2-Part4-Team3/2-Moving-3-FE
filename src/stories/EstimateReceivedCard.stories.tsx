@@ -17,7 +17,7 @@ Default.args = {
     comment: '이사는 순조롭게 진행되었습니다.',
     moveInfo: {
       id: 'move1',
-      type: '이사',
+      type: 'SMALL',
     },
     driver: {
       id: 'driver1',
