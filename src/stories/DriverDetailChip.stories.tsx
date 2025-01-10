@@ -24,17 +24,12 @@ SingleServiceType.args = {
 export const NoAreas = Template.bind({});
 NoAreas.args = {
   serviceType: ['SMALL', 'OFFICE'],
-  availableAreas: [],
 };
 
 export const NoServiceTypes = Template.bind({});
 NoServiceTypes.args = {
-  serviceType: [],
   availableAreas: ['SEOUL', 'DAEGU'],
 };
 
 export const EmptyState = Template.bind({});
-EmptyState.args = {
-  serviceType: [],
-  availableAreas: [],
-};
+EmptyState.args = {};
