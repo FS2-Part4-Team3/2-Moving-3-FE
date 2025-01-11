@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { getDriverData } from '@/api/DriverService';
-import DibsDriverCard from '@/components/cards/DibsDriverCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import SearchBar from '@/components/common/searchbar/SearchBar';
 import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
