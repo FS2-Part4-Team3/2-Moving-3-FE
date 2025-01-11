@@ -7,7 +7,7 @@ import type { PaginationProps } from '@/interfaces/CommonComp/PaginationInterfac
 
 export default function Pagination({ currentPage, totalItems, itemsPerPage, onPageChange }: PaginationProps) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const maxVisiblePages = 5;
+  const maxVisiblePages = currentPage >= 1 && window.innerWidth >= 1200 ? 5 : 3;
 
   const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
   const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
@@ -43,7 +43,7 @@ export default function Pagination({ currentPage, totalItems, itemsPerPage, onPa
         />
       </div>
 
-      <div className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-200">
+      <div className="font-normal lg:text-[1.8rem] sm:text-[1.6rem] leading-[2.6rem] text-gray-200 gap-[0.4rem]">
         {adjustedStartPage > 1 && (
           <>
             <button onClick={() => onPageChange(1)} className="w-[4.8rem] h-[4.8rem]">
