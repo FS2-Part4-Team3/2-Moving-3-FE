@@ -1,3 +1,8 @@
+import Image from 'next/image';
+import left_active from '@/../../public/assets/common/pagination/chevron-left-active.svg';
+import left from '@/../../public/assets/common/pagination/chevron-left.svg';
+import right_active from '@/../../public/assets/common/pagination/chevron-right-active.svg';
+import right from '@/../../public/assets/common/pagination/chevron-right.svg';
 import type { PaginationProps } from '@/interfaces/CommonComp/PaginationInterface';
 
 export default function Pagination({ currentPage, totalItems, itemsPerPage, onPageChange }: PaginationProps) {
@@ -18,41 +23,77 @@ export default function Pagination({ currentPage, totalItems, itemsPerPage, onPa
   };
 
   return (
-    <div className="flex items-center justify-center gap-2">
-      <button onClick={handlePrevious} disabled={currentPage === 1}>
-        Previous
-      </button>
+    <div className="flex items-center lg:gap-[1rem] sm:gap-[0.8rem]">
+      <div className={currentPage !== 1 ? 'cursor-pointer' : ''}>
+        <Image
+          onClick={handlePrevious}
+          src={currentPage === 1 ? left : left_active}
+          alt="left_arrow"
+          width={48}
+          height={48}
+          className="lg:block sm:hidden"
+        />
+        <Image
+          onClick={handlePrevious}
+          src={currentPage === 1 ? left : left_active}
+          alt="left_arrow"
+          width={34}
+          height={34}
+          className="lg:hidden sm:block"
+        />
+      </div>
 
-      {adjustedStartPage > 1 && (
-        <>
-          <button onClick={() => onPageChange(1)}>1</button>
-          {adjustedStartPage > 2 && <span>...</span>}
-        </>
-      )}
+      <div className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-200">
+        {adjustedStartPage > 1 && (
+          <>
+            <button onClick={() => onPageChange(1)} className="w-[4.8rem] h-[4.8rem]">
+              1
+            </button>
+            {adjustedStartPage > 2 && <span className="w-[4.8rem] h-[4.8rem]">···</span>}
+          </>
+        )}
 
-      {Array.from({ length: endPage - adjustedStartPage + 1 }, (_, index) => {
-        const pageNumber = adjustedStartPage + index;
-        return (
-          <button
-            key={pageNumber}
-            className={currentPage === pageNumber ? 'font-bold' : ''}
-            onClick={() => onPageChange(pageNumber)}
-          >
-            {pageNumber}
-          </button>
-        );
-      })}
+        {Array.from({ length: endPage - adjustedStartPage + 1 }, (_, index) => {
+          const pageNumber = adjustedStartPage + index;
+          return (
+            <button
+              key={pageNumber}
+              className={`${currentPage === pageNumber ? 'font-semibold text-black-400' : ''} w-[4.8rem] h-[4.8rem]`}
+              onClick={() => onPageChange(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          );
+        })}
 
-      {endPage < totalPages && (
-        <>
-          {endPage < totalPages - 1 && <span>...</span>}
-          <button onClick={() => onPageChange(totalPages)}>{totalPages}</button>
-        </>
-      )}
+        {endPage < totalPages && (
+          <>
+            {endPage < totalPages - 1 && <span className="w-[4.8rem] h-[4.8rem]">···</span>}
+            <button onClick={() => onPageChange(totalPages)} className="w-[4.8rem] h-[4.8rem]">
+              {totalPages}
+            </button>
+          </>
+        )}
+      </div>
 
-      <button onClick={handleNext} disabled={currentPage === totalPages}>
-        Next
-      </button>
+      <div className={currentPage !== totalPages ? 'cursor-pointer' : ''}>
+        <Image
+          onClick={handleNext}
+          src={currentPage === totalPages ? right : right_active}
+          alt="right_arrow"
+          width={48}
+          height={48}
+          className="lg:block sm:hidden"
+        />
+        <Image
+          onClick={handleNext}
+          src={currentPage === totalPages ? right : right_active}
+          alt="right_arrow"
+          width={34}
+          height={34}
+          className="lg:hidden sm:block"
+        />
+      </div>
     </div>
   );
 }
