@@ -1,19 +1,46 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { getDriverReviewData } from '@/api/DriverService';
 import DriverReviewCard from '@/components/cards/DriverReviewCard';
 import ReviewChart from '@/components/cards/ReviewChart';
 import Empty from '@/components/common/Empty/Empty';
 import Pagination from '@/components/common/pagination/pagination';
-import type { ReviewClientProps } from '@/interfaces/Page/DriverDetailInterface';
+import type { DriverReviewData, ReviewClientProps } from '@/interfaces/Page/DriverDetailInterface';
 
-export default function ReviewClient({ id, initialData, totalItems }: ReviewClientProps) {
+export default function ReviewClient({ id }: ReviewClientProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [reviewData, setReviewData] = useState(initialData);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+
   const queryClient = useQueryClient();
+  const {
+    data: reviewData,
+    isPlaceholderData,
+    isLoading,
+    isError,
+  } = useQuery<DriverReviewData>({
+    queryKey: ['reviewData', id, currentPage, itemsPerPage],
+    queryFn: () => getDriverReviewData(id, currentPage, itemsPerPage),
+    placeholderData: keepPreviousData,
+  });
+
+  const totalPages = reviewData ? Math.ceil(reviewData.reviewCount / itemsPerPage) : 1;
+  const hasMore = currentPage < totalPages;
+
+  useEffect(() => {
+    if (!isPlaceholderData && hasMore) {
+      const pagesToPrefetch = 4;
+      const nextPage = currentPage + 1;
+
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['reviewData', id, i, itemsPerPage],
+          queryFn: () => getDriverReviewData(id, i, itemsPerPage),
+        });
+      }
+    }
+  }, [currentPage, hasMore, itemsPerPage, isPlaceholderData]);
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -32,26 +59,25 @@ export default function ReviewClient({ id, initialData, totalItems }: ReviewClie
     return () => window.removeEventListener('resize', updateItemsPerPage);
   }, []);
 
-  const fetchPageData = async (page: number) => {
-    const data = await queryClient.fetchQuery({
-      queryKey: ['reviewData', id, page, itemsPerPage],
-      queryFn: () => getDriverReviewData(id, page, itemsPerPage),
-    });
-    setReviewData(data);
-  };
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    fetchPageData(page);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Failed to load data</div>;
+  }
 
   return (
     <div className="flex flex-col lg:py-0 sm:py-[1rem] lg:gap-[4rem] sm:gap-[4.3rem]">
       <div className="flex flex-col gap-[3.2rem]">
         <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
-          리뷰 ({reviewData.reviewCount})
+          리뷰 ({reviewData?.reviewCount})
         </p>
-        {reviewData.reviewCount ? (
+        {reviewData?.reviewCount ? (
           <ReviewChart data={reviewData.reviews} score={reviewData.score} reviewCount={reviewData.reviewCount} />
         ) : (
           <div className="py-[8rem]">
@@ -61,14 +87,9 @@ export default function ReviewClient({ id, initialData, totalItems }: ReviewClie
       </div>
 
       <div className="flex flex-col w-full">
-        {reviewData.reviewCount ? <DriverReviewCard reviews={reviewData.reviews} /> : null}
+        {reviewData?.reviewCount ? <DriverReviewCard reviews={reviewData.reviews} /> : null}
         <div className="flex justify-center lg:pt-[21.4rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
-          <Pagination
-            currentPage={currentPage}
-            totalItems={totalItems}
-            itemsPerPage={itemsPerPage}
-            onPageChange={handlePageChange}
-          />
+          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
       </div>
     </div>
