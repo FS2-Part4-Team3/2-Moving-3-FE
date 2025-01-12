@@ -86,12 +86,14 @@ export default function ReviewClient({ id }: ReviewClientProps) {
         )}
       </div>
 
-      <div className="flex flex-col w-full">
-        {reviewData?.reviewCount ? <DriverReviewCard reviews={reviewData.reviews} /> : null}
-        <div className="flex justify-center lg:pt-[21.4rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+      {reviewData?.reviewCount ? (
+        <div className="flex flex-col w-full">
+          {reviewData?.reviews && reviewData.reviews.map((review, index) => <DriverReviewCard key={index} review={review} />)}
+          <div className="flex justify-center lg:pt-[21.4rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
