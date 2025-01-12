@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import left_active from '@/../../public/assets/common/pagination/chevron-left-active.svg';
 import left from '@/../../public/assets/common/pagination/chevron-left.svg';
 import right_active from '@/../../public/assets/common/pagination/chevron-right-active.svg';
@@ -6,12 +9,18 @@ import right from '@/../../public/assets/common/pagination/chevron-right.svg';
 import type { PaginationProps } from '@/interfaces/CommonComp/PaginationInterface';
 
 export default function Pagination({ currentPage, totalItems, itemsPerPage, onPageChange }: PaginationProps) {
+  const [windowWidth, setWindowWidth] = useState(0);
+
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const maxVisiblePages = currentPage >= 1 && window.innerWidth >= 1200 ? 5 : 3;
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+  }, []);
+
+  const maxVisiblePages = windowWidth >= 1200 ? 5 : 3;
 
   const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
   const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
   const adjustedStartPage = Math.max(1, endPage - maxVisiblePages + 1);
 
   const handlePrevious = () => {
