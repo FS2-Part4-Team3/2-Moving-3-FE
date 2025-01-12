@@ -1,5 +1,5 @@
 export interface DriverReviewCardProps {
-  reviews: Review[];
+  review: Review;
 }
 
 export interface Review {
