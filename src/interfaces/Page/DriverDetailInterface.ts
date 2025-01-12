@@ -29,6 +29,4 @@ export interface DriverReviewData {
 
 export interface ReviewClientProps {
   id: string;
-  initialData: DriverReviewData;
-  totalItems: number;
 }

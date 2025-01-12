@@ -1,4 +1,4 @@
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, QueryClientProvider, dehydrate } from '@tanstack/react-query';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import clip from '@/../../public/assets/driver/ic_clip.svg';
@@ -7,7 +7,7 @@ import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import DriverDetailChips from '@/components/chips/DriverDetailChips';
-import type { DriverDetailData, DriverReviewData } from '@/interfaces/Page/DriverDetailInterface';
+import type { DriverDetailData } from '@/interfaces/Page/DriverDetailInterface';
 import ButtonClient from '@/pages/DriverDetail/ButtonClient';
 import ReviewClient from '@/pages/DriverDetail/ReviewClient';
 
@@ -20,13 +20,15 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
   }
 
   const queryClient = new QueryClient();
-  const reviewData: DriverReviewData = await queryClient.fetchQuery({
+  queryClient.prefetchQuery({
     queryKey: ['reviewData', id],
     queryFn: () => getDriverReviewData(id, 1, 5),
   });
 
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
+    <HydrationBoundary state={dehydratedState}>
       <div className="flex flex-row gap-[11.7rem] lg:pt-[5.6rem] sm:pt-[2.4rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem]">
           <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
@@ -68,7 +70,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               </div>
             </div>
             <div className="border border-line-100 w-full"></div>
-            <ReviewClient id={id} initialData={reviewData} totalItems={reviewData.reviewCount} />
+            <ReviewClient id={id} />
           </div>
           <div className="lg:hidden sm:block">
             <div className="flex flex-row gap-[0.8rem] py-[1rem] md:w-[60rem] sm:w-[32.7rem] justify-center">

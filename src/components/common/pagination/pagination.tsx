@@ -8,10 +8,8 @@ import right_active from '@/../../public/assets/common/pagination/chevron-right-
 import right from '@/../../public/assets/common/pagination/chevron-right.svg';
 import type { PaginationProps } from '@/interfaces/CommonComp/PaginationInterface';
 
-export default function Pagination({ currentPage, totalItems, itemsPerPage, onPageChange }: PaginationProps) {
+export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
   const [windowWidth, setWindowWidth] = useState(0);
-
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
