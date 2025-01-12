@@ -5,14 +5,11 @@ import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
-import DriverReviewCard from '@/components/cards/DriverReviewCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
-import ReviewChart from '@/components/cards/ReviewChart';
 import DriverDetailChips from '@/components/chips/DriverDetailChips';
-import Empty from '@/components/common/Empty/Empty';
-import Pagination from '@/components/common/pagination/pagination';
 import type { DriverDetailData, DriverReviewData } from '@/interfaces/Page/DriverDetailInterface';
-import DriverDetailClient from '@/pages/DriverDetail/ButtonClient';
+import ButtonClient from '@/pages/DriverDetail/ButtonClient';
+import ReviewClient from '@/pages/DriverDetail/ReviewClient';
 
 export default async function DriverDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -71,35 +68,11 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               </div>
             </div>
             <div className="border border-line-100 w-full"></div>
-            <div className="flex flex-col lg:py-0 sm:py-[1rem] lg:gap-[4rem] sm:gap-[4.3rem]">
-              <div className="flex flex-col gap-[3.2rem]">
-                <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
-                  리뷰 ({reviewData.reviewCount})
-                </p>
-                {reviewData.reviewCount ? (
-                  <ReviewChart data={reviewData.reviews} score={reviewData.score} reviewCount={reviewData.reviewCount} />
-                ) : (
-                  <div className="py-[8rem]">
-                    <Empty type="Driver" />
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col w-full">
-                {reviewData.reviewCount ? <DriverReviewCard reviews={reviewData.reviews} /> : null}
-                <div className="flex justify-center lg:pt-[21.4rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
-                  <Pagination
-                    currentPage={currentPage}
-                    totalItems={totalItems}
-                    itemsPerPage={itemsPerPage}
-                    onPageChange={handlePageChange}
-                  />
-                </div>
-              </div>
-            </div>
+            <ReviewClient id={id} initialData={reviewData} totalItems={reviewData.reviewCount} />
           </div>
           <div className="lg:hidden sm:block">
             <div className="flex flex-row gap-[0.8rem] py-[1rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
-              <DriverDetailClient />
+              <ButtonClient />
             </div>
           </div>
         </div>
@@ -109,7 +82,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               <p className="text-[2rem] leading-[3.2rem] text-black-400 font-semibold">
                 {driverData.name} 기사님에게 지정 견적을 요청해보세요!
               </p>
-              <DriverDetailClient />
+              <ButtonClient />
             </div>
             <div className="border border-line-100 w-[32.8rem]"></div>
             <div className="flex flex-col gap-[2.2rem]">
