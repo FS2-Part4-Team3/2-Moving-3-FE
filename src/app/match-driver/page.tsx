@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import driverData from '@/../public/data/driversData.json';
 import { getDriverData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import SearchBar from '@/components/common/searchbar/SearchBar';
@@ -6,7 +7,7 @@ import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
 import SortDropdown from '@/components/dropdown/SortDropdown';
 
 export default async function MatchDriver() {
-  const driverData = await getDriverData();
+  // const driverData = await getDriverData();
 
   if (!driverData) {
     return <div>Loading...</div>;
