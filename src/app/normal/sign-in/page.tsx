@@ -17,7 +17,7 @@ export default function SignIn() {
             <p className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.2rem] sm:leading-[1.8rem] text-black-200">
               기사님이신가요?
             </p>
-            <Link href="/sign-in-driver">
+            <Link href="/driver/sign-in">
               <p className="font-semibold lg:text-[2rem] sm:text-[1.2rem] leading-[2rem] text-blue-300 underline decoration-blue-300">
                 기사님 전용 페이지
               </p>
@@ -32,7 +32,7 @@ export default function SignIn() {
             <p className="font-normal lg:text-[2rem] sm:text-[1.2rem] lg:leading-[3.2rem] sm:leading-[1.8rem] lg:text-black-200 sm:text-black-100">
               아직 무빙 회원이 아니신가요?
             </p>
-            <Link href="/sign-up">
+            <Link href="/normal/sign-up">
               <p className="font-semibold lg:text-[2rem] sm:text-[1.2rem] leading-[2rem] text-blue-300 underline decoration-blue-300">
                 이메일로 회원가입하기
               </p>
