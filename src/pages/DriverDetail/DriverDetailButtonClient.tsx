@@ -6,7 +6,7 @@ import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 
-export default function DriverDetailClient() {
+export default function DriverDetailButtonClient() {
   const router = useRouter();
 
   const handleFavorite = () => {
