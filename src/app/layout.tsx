@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   description: '이사 소비자와 이사 전문가 매칭 서비스',
 };
 
+// API 연결 후 Providers 안에 적용 <ReactQueryProviders></ReactQueryProviders>
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,10 +31,8 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <div className="min-h-screen">
           <Providers>
-            <ReactQueryProviders>
-              <GNB />
-              {children}
-            </ReactQueryProviders>
+            <GNB />
+            {children}
           </Providers>
         </div>
       </body>
