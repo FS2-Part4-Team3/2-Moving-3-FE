@@ -1,3 +1,4 @@
+import moveInfoData from '@/../public/data/moveInfosData.json';
 import { getMoveInfoData } from '@/api/DriverService';
 import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
 import Empty from '@/components/common/Empty/Empty';
@@ -6,7 +7,7 @@ import DriverSortDropdown from '@/components/dropdown/DriverSortDropdown';
 import ReceiveQuoteMovingTypeClient from '@/pages/ReceiveQuoteMovingTypeClient';
 
 export default async function ReceiveQuote() {
-  let moveInfoData = await getMoveInfoData();
+  // let moveInfoData = await getMoveInfoData();
 
   //TODO : 전체 999999건은 임시 값임
 
