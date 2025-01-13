@@ -6,7 +6,7 @@ import { useState } from 'react';
 export default function WaitingQuoteTab() {
   const [selectTab, setSelectTab] = useState<'wait' | 'estimate'>('wait');
   return (
-    <div className="flex lg:gap-[3.2rem] sm:gap-[2.4rem]">
+    <div className="flex lg:gap-[3.2rem] sm:gap-[2.4rem] lg:pt-[1.6rem] sm:pt-[1rem] bg-white border-b border-line-100 shadow-[0rem_0.2rem_1rem_rgba(220,220,220,0.3)]">
       <Link href="/normal/my-quote/waiting">
         <div
           className={`lg:py-[1.6rem] sm:py-[1.5rem] cursor-pointer ${selectTab === 'wait' ? 'border-b-2 border-black-400' : ''}`}
