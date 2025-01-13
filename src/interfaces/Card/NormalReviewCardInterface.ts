@@ -13,4 +13,13 @@ export interface ReviewCardEstimations {
 
 export interface ReviewCardProps {
   estimation: ReviewCardEstimations;
+  type: 'ABLE' | 'MY';
+  review: ReviewCardReviews;
+}
+
+export interface ReviewCardReviews {
+  owner: string;
+  comment: string;
+  score: number;
+  createdAt: string;
 }
