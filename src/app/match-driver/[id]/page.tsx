@@ -1,4 +1,4 @@
-import { HydrationBoundary, QueryClient, QueryClientProvider, dehydrate } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import clip from '@/../../public/assets/driver/ic_clip.svg';
