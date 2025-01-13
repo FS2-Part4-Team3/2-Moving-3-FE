@@ -8,7 +8,7 @@ import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
-import useProfileDriverValidate from '@/hooks/useProfileDriverValidate';
+import useProfileDriverValidate from '@/hooks/useProfileValidate';
 
 export default function ProfileRegisterDriver() {
   const { values, setValues, errors, validate, handleChange } = useProfileDriverValidate();

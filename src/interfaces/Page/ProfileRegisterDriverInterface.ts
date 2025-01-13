@@ -5,6 +5,11 @@ export interface RegisterDriverValues {
   description: string;
   selectedRegion: string | null;
   selectedMovingType: string | null;
+  name: string;
+  email: string;
+  number: string;
+  password: string;
+  passwordChk: string;
 }
 
 export interface Errors {
@@ -14,4 +19,9 @@ export interface Errors {
   description?: string;
   selectedRegion?: string;
   selectedMovingType?: string;
+  name?: string;
+  email?: string;
+  number?: string;
+  password?: string;
+  passwordChk?: string;
 }
