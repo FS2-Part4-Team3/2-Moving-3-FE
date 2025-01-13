@@ -3,7 +3,7 @@ import type { Errors, RegisterDriverValues } from '@/interfaces/Page/ProfileRegi
 
 `use client`;
 
-export default function useProfileDriverValidate() {
+export default function useProfileValidate() {
   const [values, setValues] = useState<RegisterDriverValues>({
     nickname: '',
     career: '',
@@ -14,8 +14,9 @@ export default function useProfileDriverValidate() {
     name: '',
     email: '',
     number: '',
-    password: '',
-    passwordChk: '',
+    nowPassword: '',
+    newPassword: '',
+    newPasswordChk: '',
   });
   const [errors, setErrors] = useState<Errors>({});
 
@@ -62,24 +63,26 @@ export default function useProfileDriverValidate() {
       newError.name = '이름을 입력해주세요.';
     }
 
-    if (!values.email.trim() && emailRegex.test(values.email)) {
+    if (!values.email.trim() || !emailRegex.test(values.email)) {
       isValid = false;
       newError.email = '이메일 형식이 아닙니다.';
     }
 
-    if (!values.number.trim() && numberRegex.test(values.number)) {
+    if (!values.number || !numberRegex.test(values.number)) {
       isValid = false;
       newError.number = '숫자만 입력해주세요.';
     }
 
-    if (!values.password.trim() && !passwordRegex.test(values.password)) {
+    //TODO: 추후에 nowPassword validation api로 비밀번호 받와서 검사하기
+
+    if (!values.newPassword.trim() || !passwordRegex.test(values.newPassword)) {
       isValid = false;
-      newError.password = '최소 8자 이상이며 영문, 숫자, 특수문자를 포함해야 합니다.';
+      newError.newPassword = '최소 8자 이상이며 영문, 숫자, 특수문자를 포함해야 합니다.';
     }
 
-    if (!values.passwordChk.trim() && !(values.passwordChk === values.password)) {
+    if (!values.newPasswordChk.trim() || !(values.newPasswordChk === values.newPassword)) {
       isValid = false;
-      newError.passwordChk = '비밀번호가 일치하지 않습니다.';
+      newError.newPasswordChk = '비밀번호가 일치하지 않습니다.';
     }
 
     setErrors(newError);

@@ -8,8 +8,9 @@ export interface RegisterDriverValues {
   name: string;
   email: string;
   number: string;
-  password: string;
-  passwordChk: string;
+  nowPassword: string;
+  newPassword: string;
+  newPasswordChk: string;
 }
 
 export interface Errors {
@@ -22,6 +23,7 @@ export interface Errors {
   name?: string;
   email?: string;
   number?: string;
-  password?: string;
-  passwordChk?: string;
+  nowPassword?: string;
+  newPassword?: string;
+  newPasswordChk?: string;
 }

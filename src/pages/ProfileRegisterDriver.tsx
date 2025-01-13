@@ -8,10 +8,10 @@ import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
-import useProfileDriverValidate from '@/hooks/useProfileValidate';
+import useProfileValidate from '@/hooks/useProfileValidate';
 
 export default function ProfileRegisterDriver() {
-  const { values, setValues, errors, validate, handleChange } = useProfileDriverValidate();
+  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
