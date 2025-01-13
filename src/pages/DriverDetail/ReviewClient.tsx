@@ -2,6 +2,7 @@
 
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import reviewData from '@/../../public/data/driversDetail/driversReviewData.json';
 import { getDriverReviewData } from '@/api/DriverService';
 import DriverReviewCard from '@/components/cards/DriverReviewCard';
 import ReviewChart from '@/components/cards/ReviewChart';
@@ -13,34 +14,34 @@ export default function ReviewClient({ id }: ReviewClientProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
 
-  const queryClient = useQueryClient();
-  const {
-    data: reviewData,
-    isPlaceholderData,
-    isLoading,
-    isError,
-  } = useQuery<DriverReviewData>({
-    queryKey: ['reviewData', id, currentPage, itemsPerPage],
-    queryFn: () => getDriverReviewData(id, currentPage, itemsPerPage),
-    placeholderData: keepPreviousData,
-  });
+  // const queryClient = useQueryClient();
+  // const {
+  //   data: reviewData,
+  //   isPlaceholderData,
+  //   isLoading,
+  //   isError,
+  // } = useQuery<DriverReviewData>({
+  //   queryKey: ['reviewData', id, currentPage, itemsPerPage],
+  //   queryFn: () => getDriverReviewData(id, currentPage, itemsPerPage),
+  //   placeholderData: keepPreviousData,
+  // });
 
   const totalPages = reviewData ? Math.ceil(reviewData.reviewCount / itemsPerPage) : 1;
   const hasMore = currentPage < totalPages;
 
-  useEffect(() => {
-    if (!isPlaceholderData && hasMore) {
-      const pagesToPrefetch = 4;
-      const nextPage = currentPage + 1;
+  // useEffect(() => {
+  //   if (!isPlaceholderData && hasMore) {
+  //     const pagesToPrefetch = 4;
+  //     const nextPage = currentPage + 1;
 
-      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
-        queryClient.prefetchQuery({
-          queryKey: ['reviewData', id, i, itemsPerPage],
-          queryFn: () => getDriverReviewData(id, i, itemsPerPage),
-        });
-      }
-    }
-  }, [currentPage, hasMore, itemsPerPage, isPlaceholderData]);
+  //     for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+  //       queryClient.prefetchQuery({
+  //         queryKey: ['reviewData', id, i, itemsPerPage],
+  //         queryFn: () => getDriverReviewData(id, i, itemsPerPage),
+  //       });
+  //     }
+  //   }
+  // }, [currentPage, hasMore, itemsPerPage, isPlaceholderData]);
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -63,13 +64,13 @@ export default function ReviewClient({ id }: ReviewClientProps) {
     setCurrentPage(page);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (isError) {
-    return <div>Failed to load data</div>;
-  }
+  // if (isError) {
+  //   return <div>Failed to load data</div>;
+  // }
 
   return (
     <div className="flex flex-col lg:py-0 sm:py-[1rem] lg:gap-[4rem] sm:gap-[4.3rem]">

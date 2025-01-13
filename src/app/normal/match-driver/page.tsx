@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import driverData from '@/../public/data/driversData.json';
 import { getDriverData } from '@/api/DriverService';
 import DibsDriverCard from '@/components/cards/DibsDriverCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
@@ -7,7 +8,11 @@ import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
 import SortDropdown from '@/components/dropdown/SortDropdown';
 
 export default async function MatchDriver() {
-  const driverData = await getDriverData();
+  // const driverData = await getDriverData();
+
+  if (!driverData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="w-full flex items-center justify-center mb-[7rem]">
