@@ -1,27 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { getEstimationData } from '@/api/DriverService';
-import type { ReviewCardEstimations } from '@/interfaces/Card/ReviewCardInterface';
+import type { ReviewCardProps } from '@/interfaces/Card/ReviewCardInterface';
+import { DateWithoutDayWeeKFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
 
-export default function ReviewCard() {
-  const [estimationsData, setEstimationsData] = useState<ReviewCardEstimations[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getEstimationData();
-      setEstimationsData(data);
-    };
-    fetchData();
-  }, []);
-
-  if (estimationsData.length === 0) {
-    return <div>Loading...</div>;
-  }
-
+export default function ReviewCard({ estimationsData }: ReviewCardProps) {
   return (
     <div>
       {estimationsData.map(estimation => (
@@ -30,15 +15,15 @@ export default function ReviewCard() {
             <MovingTypeChips type={estimation.moveInfo.type} />
           </div>
           <div>
-            <div>
-              <Image src={estimation.driver.image} alt={estimation.driver.name} />
+            <div className="lg:w-[10.8rem] lg:h-[9.9rem] relative ">
+              <Image src={estimation.driver.image} alt={estimation.driver.name} fill />
             </div>
             <div>
               <h1>{estimation.driver.name} 기사님</h1>
               <div>
                 <div>
                   <h2>이사일</h2>
-                  <span>{estimation.moveInfo.date}</span>
+                  <span>{DateWithoutDayWeeKFormat(estimation.moveInfo.date)}</span>
                 </div>
                 <div>
                   <h2>견적가</h2>
