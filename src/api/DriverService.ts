@@ -17,7 +17,7 @@ export async function getDriverDetailData(driverId: string) {
   } catch (error) {
     throw error;
   }
-};
+}
 
 export const getDriverReviewData = async (driverId: string, page: number, itemsPerPage: number) => {
   try {
@@ -27,7 +27,7 @@ export const getDriverReviewData = async (driverId: string, page: number, itemsP
   } catch (error) {
     throw error;
   }
-}
+};
 
 export const getMoveInfoData = async () => {
   try {
