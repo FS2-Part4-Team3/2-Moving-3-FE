@@ -17,7 +17,7 @@ export default function ManageQuoteTab() {
   }, [pathname]);
 
   return (
-    <div className="flex lg:gap-[3.2rem] sm:gap-[2.4rem]">
+    <div className="flex lg:gap-[3.2rem] sm:gap-[2.4rem] lg:pt-[1.6rem] sm:pt-[1rem] lg:px-[0rem] md:px-[7.2rem] sm:px-[2.4rem]">
       <Link href="/driver/my-quote/send">
         <div
           className={`lg:py-[1.6rem] sm:py-[1.5rem] cursor-pointer ${selectTab === 'sent' ? 'border-b-2 border-black-400' : ''}`}

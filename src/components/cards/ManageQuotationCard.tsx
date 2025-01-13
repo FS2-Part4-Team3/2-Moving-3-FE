@@ -7,11 +7,11 @@ import { ButtonWrapper } from '../common/headless/Button';
 
 export default function ManageQuotationCard({ data }: ManageQuotationCardProps) {
   // TODO: api 연결 시 변경되는 데이터 값에 관해서는 수정 예정입니다.
-  // let status: string = 'end';
+  let status: string = 'end';
   // let status: string = 'abandon';
   return (
     <>
-      <div className="relative w-full rounded-[1.6rem] border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] shadow-[0.2rem_0.2rem_1rem_rgba(220,220,220,0.14)]">
+      <div className="relative w-full rounded-[1.6rem] border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
         {(status === 'end' || 'abandon') && (
           <div className="absolute inset-0 bg-black bg-opacity-60 rounded-[1.6rem]">
             <div className="flex items-center justify-center flex-col w-full h-full bg-opacity-100 gap-[1.6rem]">
