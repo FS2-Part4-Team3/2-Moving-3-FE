@@ -12,5 +12,5 @@ export interface ReviewCardEstimations {
 }
 
 export interface ReviewCardProps {
-  estimationsData: ReviewCardEstimations[];
+  estimation: ReviewCardEstimations;
 }

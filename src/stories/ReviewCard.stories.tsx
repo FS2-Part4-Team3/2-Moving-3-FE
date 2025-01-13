@@ -7,36 +7,22 @@ export default {
   component: ReviewCard,
 };
 
-const mockEstimationData: ReviewCardEstimations[] = [
-  {
-    id: '1',
-    moveInfo: {
-      type: 'SMALL',
-      date: '2025-01-20',
-    },
-    driver: {
-      name: 'John Doe',
-      image: '/images/john-doe.jpg',
-    },
-    price: 150000,
+const mockEstimationData: ReviewCardEstimations = {
+  id: '1',
+  moveInfo: {
+    type: 'SMALL',
+    date: '2025-01-20',
   },
-  {
-    id: '2',
-    moveInfo: {
-      type: 'HOME',
-      date: '2025-01-22',
-    },
-    driver: {
-      name: 'Jane Smith',
-      image: '/images/jane-smith.jpg',
-    },
-    price: 250000,
+  driver: {
+    name: 'John Doe',
+    image: '/images/john-doe.jpg',
   },
-];
+  price: 150000,
+};
 
 const Template: StoryFn<ReviewCardProps> = args => <ReviewCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  estimationsData: mockEstimationData,
+  estimation: mockEstimationData,
 };
