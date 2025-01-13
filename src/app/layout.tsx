@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "@styles/globals.css";
-import { Providers } from "@/store/providers";
-import GNB from "@/components/common/gnb/GNB";
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import '@styles/globals.css';
+import GNB from '@/components/common/gnb/GNB';
+import ReactQueryProviders from '@/hooks/useReactQuery';
+import { Providers } from '@/store/providers';
 
 const pretendard = localFont({
-  src: "../../public/fonts/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
+  src: '../../public/fonts/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
 });
 
 export const metadata: Metadata = {
-  title: "Moving",
-  description: "이사 소비자와 이사 전문가 매칭 서비스",
+  title: 'Moving',
+  description: '이사 소비자와 이사 전문가 매칭 서비스',
 };
 
 export default function RootLayout({
@@ -28,8 +29,10 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <div className="min-h-screen">
           <Providers>
-            <GNB />
-            {children}
+            <ReactQueryProviders>
+              <GNB />
+              {children}
+            </ReactQueryProviders>
           </Providers>
         </div>
       </body>
