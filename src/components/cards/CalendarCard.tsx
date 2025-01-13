@@ -1,40 +1,17 @@
+'use client';
+
 import Image from 'next/image';
 import { useState } from 'react';
 import left from '@/../public/assets/calendar/arrow-left.svg';
 import right from '@/../public/assets/calendar/arrow-right.svg';
 import weekdays from '@/constants/weekdays';
-import type { Day } from '@/interfaces/Card/CalendarCardInterface';
+import type { CalendarCardProps, Day } from '@/interfaces/Card/CalendarCardInterface';
+import { getDaysInMonth } from '@/utils/Format';
 import { ButtonWrapper } from '../common/headless/Button';
 
-`use client`;
-
-export default function CalendarCard() {
+export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMovingDate }: CalendarCardProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
-  const getDaysInMonth = (date: Date): Day[] => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const startOfMonth = new Date(year, month, 1);
-    const endOfMonth = new Date(year, month + 1, 0);
-
-    const prevDays: Day[] = Array.from({ length: startOfMonth.getDay() }, (_, i) => {
-      const prevDate = new Date(year, month, -i);
-      return { date: prevDate.getDate(), isCurrentMonth: false };
-    }).reverse();
-
-    const currentDays: Day[] = Array.from({ length: endOfMonth.getDate() }, (_, i) => ({
-      date: i + 1,
-      isCurrentMonth: true,
-    }));
-
-    const nextDays: Day[] = Array.from({ length: 6 - endOfMonth.getDay() }, (_, i) => ({
-      date: i + 1,
-      isCurrentMonth: false,
-    }));
-
-    return [...prevDays, ...currentDays, ...nextDays];
-  };
+  const [selectedDate, setSelectedDate] = useState<Date | null>(initialMovingDate);
 
   const handlePrev = () => {
     setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
@@ -45,13 +22,21 @@ export default function CalendarCard() {
   };
 
   const handleDateClick = (day: Day) => {
-    if (day.isCurrentMonth) {
-      const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
-      setSelectedDate(selected);
+    const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (!day.isCurrentMonth || selected < today) {
+      return;
     }
+
+    setSelectedDate(selected);
   };
 
   const handleSelectComplte = () => {
+    setMovingDate(selectedDate);
+    setIsMovingDate(true);
     if (selectedDate) {
       return;
       //toDo: 추후에 page에서 나타낼 props 설정
@@ -90,21 +75,31 @@ export default function CalendarCard() {
         ))}
       </div>
       <div className="grid grid-cols-7 text-center lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] py-[0.2rem] lg:px-[3.6rem] md:px-[0.9rem] sm:px-[0.9rem] justify-items-center lg:gap-y-[3rem] md:gap-y-[1.2rem] sm:gap-y-[1.2rem]">
-        {daysInMonth.map((day, index) => (
-          <div
-            key={index}
-            onClick={() => handleDateClick(day)}
-            className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center ${
-              day.isCurrentMonth
-                ? selectedDate && selectedDate.getDate() === day.date && selectedDate.getMonth() === currentMonth.getMonth()
-                  ? 'bg-blue-300 text-white rounded-full '
-                  : 'text-black-400'
-                : 'text-gray-100'
-            }  `}
-          >
-            {day.date}
-          </div>
-        ))}
+        {daysInMonth.map((day, index) => {
+          const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          const isDisabled = !day.isCurrentMonth || selected < today;
+          return (
+            <div
+              key={index}
+              onClick={() => handleDateClick(day)}
+              className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center 
+             ${isDisabled ? 'cursor-not-allowed text-gray-200' : 'cursor-pointer text-black-400'}
+        ${
+          day.isCurrentMonth &&
+          selectedDate &&
+          selectedDate.getDate() === day.date &&
+          selectedDate.getMonth() === currentMonth.getMonth()
+            ? 'bg-blue-300 text-white rounded-full'
+            : ''
+        }   `}
+            >
+              {day.date}
+            </div>
+          );
+        })}
       </div>
       <ButtonWrapper id="calendar button">
         <ButtonWrapper.Button
