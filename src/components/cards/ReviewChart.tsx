@@ -64,7 +64,7 @@ export default function ReviewChart({ data, score, reviewCount }: ReviewChartPro
                 <div
                   className="bg-yellow-100 h-full rounded-[1.5rem]"
                   style={{
-                    width: `${reviewCount > 0 ? (item.count / reviewCount) * 100 : 0}%`,
+                    width: `${reviewCount ? (item.count / reviewCount) * 100 : 0}%`,
                   }}
                 ></div>
               </div>
