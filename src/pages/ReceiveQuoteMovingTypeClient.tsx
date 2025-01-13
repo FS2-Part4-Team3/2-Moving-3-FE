@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import DriverSortDropdown from "@/components/dropdown/DriverSortDropdown";
-import MovingTypeFilterDropdown from "@/components/dropdown/MovingTypeFilterDropdown";
-import Image from "next/image";
-import { useState } from "react";
-import button from "@/../public/assets/common/dropdown/dropdown-open-button.svg";
+import Image from 'next/image';
+import { useState } from 'react';
+import button from '@/../public/assets/common/dropdown/dropdown-open-button.svg';
+import DriverSortDropdown from '@/components/dropdown/DriverSortDropdown';
+import MovingTypeFilterDropdown from '@/components/dropdown/MovingTypeFilterDropdown';
 
 export default function ReceiveQuoteMovingTypeClient() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -23,13 +23,7 @@ export default function ReceiveQuoteMovingTypeClient() {
         onClick={handleClick}
         className="lg:hidden sm:block cursor-pointer"
       />
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <MovingTypeFilterDropdown onClick={handleClick} />
-          </div>
-        </div>
-      )}
+      {isModalOpen && <MovingTypeFilterDropdown onClick={handleClick} />}
       <div className="lg:block sm:hidden">
         <MovingTypeFilterDropdown onClick={handleClick} />
       </div>
