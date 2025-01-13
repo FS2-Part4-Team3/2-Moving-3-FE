@@ -13,7 +13,7 @@ export default function SpecifiedQuotationFailureModal({ onClose }: SpecifiedQuo
   };
 
   return (
-    <ModalWrapper onClose={onClose}>
+    <ModalWrapper onClose={onClose} className="sm:px-[1.6rem] sm:gap-[3rem] sm:py-[2.4rem]">
       <ModalWrapper.Header>지정 견적 요청하기</ModalWrapper.Header>
       <ModalWrapper.Content>
         <p className="text-black-300 font-medium lg:text-[1.8rem] sm:text-[1.6rem] lg:leading-[2.6rem] sm:leading-[2.4rem]">
