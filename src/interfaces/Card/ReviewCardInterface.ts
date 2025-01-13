@@ -10,3 +10,7 @@ export interface ReviewCardEstimations {
   };
   price: number;
 }
+
+export interface ReviewCardProps {
+  estimationsData: ReviewCardEstimations[];
+}
