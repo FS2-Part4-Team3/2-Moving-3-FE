@@ -67,28 +67,35 @@ export default function GNB() {
           />
           <div className="w-full flex gap-[4rem]">
             {status === 'General' && (
-              <Link href="/request-quote" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/normal/request-quote" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isRequestQuote ? 'text-black-400' : 'text-gray-400'}`}>
                   견적 요청
                 </p>
               </Link>
             )}
             {status === 'Driver' && (
-              <Link href="/receive-quote" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/driver/receive-quote" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isReceiveQuote ? 'text-black-400' : 'text-gray-400'}`}>
                   받은 요청
                 </p>
               </Link>
             )}
             {status !== 'Driver' && (
-              <Link href="/match-driver" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/normal/match-driver" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMatchDriver ? 'text-black-400' : 'text-gray-400'}`}>
                   기사님 찾기
                 </p>
               </Link>
             )}
-            {status !== 'LogOut' && (
-              <Link href="/my-quotes" className="lg:block sm:hidden cursor-pointer">
+            {status === 'Driver' && (
+              <Link href="/driver/my-quotes" className="lg:block sm:hidden cursor-pointer">
+                <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMyQuotes ? 'text-black-400' : 'text-gray-400'}`}>
+                  내 견적 관리
+                </p>
+              </Link>
+            )}
+            {status === 'General' && (
+              <Link href="/normal/my-quotes" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMyQuotes ? 'text-black-400' : 'text-gray-400'}`}>
                   내 견적 관리
                 </p>
@@ -97,7 +104,7 @@ export default function GNB() {
           </div>
           {status === 'LogOut' && (
             <div className="lg:block sm:hidden">
-              <Link href="/sign-in" className="flex items-center justify-center cursor-pointer">
+              <Link href="/normal/sign-in" className="flex items-center justify-center cursor-pointer">
                 <ButtonWrapper id="login-button" onClick={handleClick}>
                   <ButtonWrapper.Button className="w-[11.6rem] h-[4.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 flex items-center justify-center font-semibold text-[1.8rem] leading-[2.6rem] text-white">
                     로그인
@@ -142,35 +149,42 @@ export default function GNB() {
             </div>
             <div>
               {status === 'General' && (
-                <Link href="/request-quote" className="cursor-pointer">
+                <Link href="/normal/request-quote" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     견적 요청
                   </p>
                 </Link>
               )}
               {status !== 'Driver' && (
-                <Link href="/match-driver" className="cursor-pointer">
+                <Link href="/normal/match-driver" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     기사님 찾기
                   </p>
                 </Link>
               )}
               {status === 'Driver' && (
-                <Link href="/receive-quote" className="cursor-pointer">
+                <Link href="/driver/receive-quote" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     받은 요청
                   </p>
                 </Link>
               )}
-              {status !== 'LogOut' && (
-                <Link href="/request-quote" className="cursor-pointer">
+              {status === 'Driver' && (
+                <Link href="/driver/request-quote" className="cursor-pointer">
+                  <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
+                    내 견적 관리
+                  </p>
+                </Link>
+              )}
+              {status === 'General' && (
+                <Link href="/normal/request-quote" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>
                 </Link>
               )}
               {status === 'LogOut' && (
-                <Link href="/sign-in" className="cursor-pointer">
+                <Link href="/normal/sign-in" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     로그인
                   </p>
