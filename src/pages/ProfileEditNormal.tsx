@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { InputWrapper } from '@/components/common/headless/Input';
 import ProfileEditNormalLeft from '@/components/section/ProfileEditNormalLeft';
+import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight';
+import movingTypes from '@/constants/movingType';
+import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
 
 export default function ProfileEditNormal() {
@@ -47,15 +50,33 @@ export default function ProfileEditNormal() {
     e.preventDefault();
   };
   return (
-    <form className="grid grid-cols-2 lg:w-[120rem] lg:gap-[7.2rem]">
-      <ProfileEditNormalLeft
-        values={values}
-        errors={errors}
-        isTouched={isTouched}
-        handleChange={handleChange}
-        handleInputBlur={handleInputBlur}
-      />
-      <div></div>
+    <form className="grid grid-cols-2 lg:w-[120rem] lg:gap-x-[22rem]">
+      <div>
+        <ProfileEditNormalLeft
+          values={values}
+          errors={errors}
+          isTouched={isTouched}
+          handleChange={handleChange}
+          handleInputBlur={handleInputBlur}
+        />
+      </div>
+      <div>
+        <ProfileEditNormalRight
+          handleImgChange={handleImgChange}
+          handleImgClick={handleImgClick}
+          previewUrl={previewUrl}
+          fileInputRef={fileInputRef}
+          chipProps={{
+            regions,
+            movingTypes,
+            selectedRegion: values.selectedRegion,
+            selectedMovingType: values.selectedMovingType,
+            setSelectedRegion: value => setValues(prev => ({ ...prev, selectedRegion: value })),
+            setSelectedMovingType: value => setValues(prev => ({ ...prev, selectedMovingType: value })),
+            setSelectedRegions: value => setValues(prev => ({ ...prev, selectedRegions: value })),
+          }}
+        />
+      </div>
     </form>
   );
 }

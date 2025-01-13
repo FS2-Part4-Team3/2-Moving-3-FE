@@ -1,6 +1,7 @@
+import type { ProfileChipProps } from '../chip/ProfileChipInterface';
 import type { RegisterDriverValues } from './ProfileRegisterDriverInterface';
 
-export interface ProfileEditNormlProps {
+export interface ProfileEditNormlLeftProps {
   values: RegisterDriverValues;
   errors: {
     name?: string;
@@ -13,6 +14,14 @@ export interface ProfileEditNormlProps {
   isTouched: IsTouched;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleInputBlur: (field: keyof IsTouched) => void;
+}
+
+export interface ProfileEditNormlRightProps {
+  handleImgChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleImgClick: () => void;
+  previewUrl: string | null;
+  fileInputRef: React.RefObject<HTMLInputElement>;
+  chipProps: ProfileChipProps;
 }
 
 export interface IsTouched {
