@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { SpecifiedQuotationFailureModalProps } from '@/interfaces/Modal/SpecifiedQuotationFailureModalInterface';
 import { ButtonWrapper } from '../common/headless/Button';
 import { ModalWrapper } from '../common/headless/Modal';
