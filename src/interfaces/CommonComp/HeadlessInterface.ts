@@ -13,4 +13,5 @@ export interface ButtonContextType {
 
 export interface ModalContextType {
   onClose: () => void;
+  className?: string;
 }
