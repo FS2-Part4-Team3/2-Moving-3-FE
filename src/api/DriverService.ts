@@ -15,13 +15,14 @@ export const getDriverData = async () => {
   }
 };
 
-export async function getDriverDetailData(driverId: string) {
+export const getDriverDetailData = async (driverId: string) => {
   try {
     const response = await getRequest(`/data/driversDetailData.json`);
     return response;
   } catch (error) {
     throw error;
   }
+<<<<<<< HEAD
 }
 
 export const getMoveInfoData = async () => {
@@ -54,4 +55,6 @@ export const getEstimationData = async () => {
 >>>>>>> 704f446 (Feat:#84 - review card ui)
     return;
   }
+=======
+>>>>>>> 7896137 (fix:#46-api function convention)
 };
