@@ -1,5 +1,4 @@
 import type { StoryFn } from '@storybook/react';
-import React from 'react';
 import MovingTypeChips from '@/components/chips/MovingTypeChips';
 import type { MovingTypeChipsProps } from '@/interfaces/chip/MovingTypeChipInterface';
 

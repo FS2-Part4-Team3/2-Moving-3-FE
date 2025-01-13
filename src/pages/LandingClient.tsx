@@ -7,11 +7,11 @@ export default function LandingClient() {
   const router = useRouter();
 
   const handleSignInNavigation = () => {
-    router.push('/sign-in');
+    router.push('/normal/sign-in');
   };
 
   const handleSignUpNavigation = () => {
-    router.push('/sign-up');
+    router.push('/normal/sign-up');
   };
 
   return (
