@@ -8,7 +8,7 @@ export default function DriverDetailChips({ serviceType, availableAreas }: Drive
         serviceType.map(type => (
           <div
             key={type}
-            className="flex justify-center items-center lg:w-[10.3rem] lg:h-[4.6rem] md:w-[7.3rem] md:h-[3.6rem] sm:w-[7.3rem] sm:h-[3.6rem] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-normal border rounded-[10rem] cursor-pointer bg-blue-50 text-blue-300 border-blue-300 shadow-chipServiceShadow"
+            className="flex justify-center items-center lg:w-[10.3rem] lg:h-[4.6rem] md:w-[7.3rem] md:h-[3.6rem] sm:w-[7.3rem] sm:h-[3.6rem] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-normal border rounded-[10rem] bg-blue-50 text-blue-300 border-blue-300 shadow-chipServiceShadow"
           >
             {typeMapping[type] || type}
           </div>
@@ -17,7 +17,7 @@ export default function DriverDetailChips({ serviceType, availableAreas }: Drive
         availableAreas.map(area => (
           <div
             key={area}
-            className="flex justify-center items-center lg:w-[7.2rem] lg:h-[4.6rem] md:w-[4.9rem] md:h-[3.6rem] sm:w-[4.9rem] sm:h-[3.6rem] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-normal border rounded-[10rem] cursor-pointer bg-background-100 text-blue-400 border-gray-100 shadow-chipAreaShadow"
+            className="flex justify-center items-center lg:w-[7.2rem] lg:h-[4.6rem] md:w-[4.9rem] md:h-[3.6rem] sm:w-[4.9rem] sm:h-[3.6rem] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-normal border rounded-[10rem] bg-background-100 text-blue-400 border-gray-100 shadow-chipAreaShadow"
           >
             {areaMapping[area] || area}
           </div>

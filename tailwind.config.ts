@@ -50,11 +50,8 @@ const config: Config = {
         custom1: '4px 4px 10px 0px rgba(225, 225, 225, 0.102)',
         custom2: 'inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)',
         customBoth: '4px 4px 10px 0px rgba(225, 225, 225, 0.102), inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)',
-<<<<<<< HEAD
-=======
         chipServiceShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.25)',
         chipAreaShadow: 'box-shadow: 4px 4px 10px 0px rgba(230, 230, 230, 0.161)',
->>>>>>> 193ef08 (feat:#74-Chip Comp UI complete)
       },
     },
   },
