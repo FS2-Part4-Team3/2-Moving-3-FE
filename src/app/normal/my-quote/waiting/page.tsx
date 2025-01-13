@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getEstimationData } from '@/api/DriverService';
 import WaitingQuoteTab from '@/components/Tabs/WaitingQuoteTab';
 import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
