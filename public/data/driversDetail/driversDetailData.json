@@ -1,0 +1,18 @@
+{
+  "id": "driver-1",
+  "image": "http://placehold.it/56x56",
+  "name": "홍길동",
+  "introduce": "5년 경력의 신뢰할 수 있는 기사입니다.",
+  "favoriteCount": 5,
+  "score": 4.8,
+  "career": 9,
+  "applyCount": 10,
+
+  "description": "소형 이사 및 가정 이사를 전문으로 합니다.",
+
+  "serviceType": ["SMALL", "HOME"],
+
+  "availableAreas": ["SEOUL", "INCHEON"],
+
+  "reviewCount": 8
+}

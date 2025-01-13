@@ -10,14 +10,24 @@ export const getDriverData = async () => {
   }
 };
 
-export async function getDriverDetailData(driverId: string) {
+export const getDriverDetailData = async (driverId: string) => {
   try {
-    const response = await getRequest(`/data/driversDetailData.json`);
-    return response;
+    const res = await getRequest(`/data/driversDetail/driversDetailData.json`);
+    return res;
   } catch (error) {
     throw error;
   }
-}
+};
+
+export const getDriverReviewData = async (driverId: string, page: number, itemsPerPage: number) => {
+  try {
+    // const res = await getRequest(`/reviews/${id}?page=${page}&itemsPerPage=${itemsPerPage}`);
+    const res = await getRequest(`/data/driversDetail/driversReviewData.json`);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const getMoveInfoData = async () => {
   try {
