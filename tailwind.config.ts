@@ -49,6 +49,7 @@ const config: Config = {
       boxShadow: {
         custom1: '4px 4px 10px 0px rgba(225, 225, 225, 0.102)',
         custom2: 'inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)',
+        custom3: '2px 2px 10px rgba(237, 237, 237, 1), -2px -2px 10px rgba(237, 237, 237, 1)',
         customBoth: '4px 4px 10px 0px rgba(225, 225, 225, 0.102), inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)',
         chipServiceShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.25)',
         chipAreaShadow: 'box-shadow: 4px 4px 10px 0px rgba(230, 230, 230, 0.161)',
