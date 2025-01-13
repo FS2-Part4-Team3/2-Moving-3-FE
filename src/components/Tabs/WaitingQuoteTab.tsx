@@ -1,10 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function WaitingQuoteTab() {
+  const pathname = usePathname();
   const [selectTab, setSelectTab] = useState<'wait' | 'estimate'>('wait');
+
+  useEffect(() => {
+    if (pathname === '/normal/my-quote/waiting') {
+      setSelectTab('wait');
+    } else if (pathname === '/normal/my-quote/received') {
+      setSelectTab('estimate');
+    }
+  }, [pathname]);
+
   return (
     <div className="flex lg:gap-[3.2rem] sm:gap-[2.4rem] lg:pt-[1.6rem] sm:pt-[1rem] bg-white border-b border-line-100 shadow-[0rem_0.2rem_1rem_rgba(220,220,220,0.3)] lg:px-[0rem] md:px-[7.2rem] sm:px-[2.4rem]">
       <Link href="/normal/my-quote/waiting">
