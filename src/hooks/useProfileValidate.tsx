@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Errors, RegisterDriverValues } from '@/interfaces/Page/ProfileRegisterDriverInterface';
+import type { Errors, RegisterDriverValues, ValidateProps } from '@/interfaces/Page/ProfileRegisterDriverInterface';
 
 `use client`;
 
@@ -20,12 +20,13 @@ export default function useProfileValidate() {
   });
   const [errors, setErrors] = useState<Errors>({});
 
-  const validate = () => {
+  const validate = (type: ValidateProps['type']) => {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[a-zA-Z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const numberRegex =
       /^(010\d{4}\d{4}|02\d{4}\d{4}|032\d{4}\d{4}|042\d{4}\d{4}|051\d{4}\d{4}|052\d{4}\d{4}|053\d{4}\d{4}|062\d{4}\d{4}|064\d{4}\d{4}|031\d{4}\d{4}|033\d{4}\d{4}|041\d{4}\d{4}|043\d{4}\d{4}|054\d{4}\d{4}|055\d{4}\d{4}|061\d{4}\d{4}|063\d{4}\d{4})$/;
     let isValid = true;
+    let isEditNormalValid = true;
     let newError: Errors = {};
 
     if (!values.nickname?.trim()) {
@@ -59,34 +60,34 @@ export default function useProfileValidate() {
     }
 
     if (!values.name.trim()) {
-      isValid = false;
+      isEditNormalValid = false;
       newError.name = '이름을 입력해주세요.';
     }
 
     if (!values.email.trim() || !emailRegex.test(values.email)) {
-      isValid = false;
+      isEditNormalValid = false;
       newError.email = '이메일 형식이 아닙니다.';
     }
 
     if (!values.number || !numberRegex.test(values.number)) {
-      isValid = false;
+      isEditNormalValid = false;
       newError.number = '숫자만 입력해주세요.';
     }
 
     //TODO: 추후에 nowPassword validation api로 비밀번호 받와서 검사하기
 
     if (!values.newPassword.trim() || !passwordRegex.test(values.newPassword)) {
-      isValid = false;
+      isEditNormalValid = false;
       newError.newPassword = '최소 8자 이상이며 영문, 숫자, 특수문자를 포함해야 합니다.';
     }
 
     if (!values.newPasswordChk.trim() || !(values.newPasswordChk === values.newPassword)) {
-      isValid = false;
+      isEditNormalValid = false;
       newError.newPasswordChk = '비밀번호가 일치하지 않습니다.';
     }
 
     setErrors(newError);
-    return isValid;
+    return type === 'REGISTER' ? isValid : isEditNormalValid;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

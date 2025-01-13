@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { InputWrapper } from '@/components/common/headless/Input';
+import { ButtonWrapper } from '@/components/common/headless/Button';
 import ProfileEditNormalLeft from '@/components/section/ProfileEditNormalLeft';
 import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight';
 import movingTypes from '@/constants/movingType';
@@ -26,7 +26,7 @@ export default function ProfileEditNormal() {
   const isDisabled = isFormValid && previewUrl;
 
   useEffect(() => {
-    setIsFormValid(validate());
+    setIsFormValid(validate('EDIT'));
   }, [values]);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +50,7 @@ export default function ProfileEditNormal() {
     e.preventDefault();
   };
   return (
-    <form className="grid grid-cols-2 lg:w-[120rem] lg:gap-x-[22rem]">
+    <form className="grid grid-cols-2 lg:w-[120rem] lg:gap-x-[22rem]" onSubmit={handleValuesSubmit}>
       <div>
         <ProfileEditNormalLeft
           values={values}
@@ -77,6 +77,19 @@ export default function ProfileEditNormal() {
           }}
         />
       </div>
+      <ButtonWrapper id="cancel-btn">
+        <ButtonWrapper.Button className="lg:w-[66rem] lg:h-[6.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] font-semibold text-center text-gray-300 ">
+          취소
+        </ButtonWrapper.Button>
+      </ButtonWrapper>
+      <ButtonWrapper id="fix-btn">
+        <ButtonWrapper.Button
+          disabled={!isDisabled}
+          className="lg:w-[66rem] lg:h-[6.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] font-semibold text-center text-white lg:mb-[15rem]"
+        >
+          수정하기
+        </ButtonWrapper.Button>
+      </ButtonWrapper>
     </form>
   );
 }

@@ -26,7 +26,7 @@ export default function ProfileRegisterDriver() {
   //toDo: 추후에 user 정보 받아서 중복 선택 가능하게 하기
 
   useEffect(() => {
-    setIsFormValid(validate());
+    setIsFormValid(validate('REGISTER'));
   }, [values]);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {

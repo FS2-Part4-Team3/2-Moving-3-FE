@@ -27,3 +27,7 @@ export interface Errors {
   newPassword?: string;
   newPasswordChk?: string;
 }
+
+export interface ValidateProps {
+  type: 'REGISTER' | 'EDIT';
+}
