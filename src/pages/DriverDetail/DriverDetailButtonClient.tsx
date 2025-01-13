@@ -2,11 +2,15 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { ButtonWrapper } from '@/components/common/headless/Button';
+import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
 
 export default function DriverDetailButtonClient() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const router = useRouter();
 
   const handleFavorite = () => {
@@ -17,6 +21,13 @@ export default function DriverDetailButtonClient() {
 
   const handleRequest = () => {
     // 만약 견적이 있다면, 지정 견적 요청 Api 연결 (post)
+
+    // 없다면 Modal open
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -34,6 +45,7 @@ export default function DriverDetailButtonClient() {
           지정 견적 요청하기
         </ButtonWrapper.Button>
       </ButtonWrapper>
+      {isModalOpen && <SpecifiedQuotationFailureModal onClose={handleCloseModal} />}
     </>
   );
 }
