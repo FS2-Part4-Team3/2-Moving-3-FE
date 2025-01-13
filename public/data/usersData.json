@@ -1,0 +1,38 @@
+[
+  {
+    "id": "user-1",
+    "createdAt": "2025-01-01T12:00:00Z",
+    "updatedAt": "2025-01-01T12:00:00Z",
+    "email": "test1@test.com",
+    "name": "김재원",
+    "phoneNumber": "010-1234-5678",
+    "image": "https://example.com/user1.jpg",
+    "password": "password",
+    "serviceTypes": ["SMALL", "HOME"],
+    "areas": "SEOUL"
+  },
+  {
+    "id": "user-2",
+    "createdAt": "2025-01-02T12:00:00Z",
+    "updatedAt": "2025-01-02T12:00:00Z",
+    "email": "test2@test.com",
+    "name": "이도엽",
+    "phoneNumber": "010-9876-5432",
+    "image": "https://example.com/user2.jpg",
+    "password": "password",
+    "serviceTypes": ["OFFICE", "HOME"],
+    "areas": "INCHEON"
+  },
+  {
+    "id": "user-3",
+    "createdAt": "2025-01-03T12:00:00Z",
+    "updatedAt": "2025-01-03T12:00:00Z",
+    "email": "test3@test.com",
+    "name": "박효빈",
+    "phoneNumber": "010-5678-1234",
+    "image": "https://example.com/user3.jpg",
+    "password": "password",
+    "serviceTypes": ["SMALL", "OFFICE"],
+    "areas": "INCHEON"
+  }
+]
