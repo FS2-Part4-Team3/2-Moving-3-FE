@@ -6,7 +6,7 @@ export interface ManageQuotationCardProps {
     moveInfo: {
       id: string;
       updatedAt: string;
-      type: string;
+      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
       date: string;
       fromAddress: string;
       toAddress: string;
