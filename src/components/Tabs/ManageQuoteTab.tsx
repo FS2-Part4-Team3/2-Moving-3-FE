@@ -11,14 +11,14 @@ export default function ManageQuoteTab() {
   useEffect(() => {
     if (pathname === '/driver/my-quote/sent') {
       setSelectTab('sent');
-    } else if (pathname === '/normal/my-quote/rejected') {
+    } else if (pathname === '/driver/my-quote/rejected') {
       setSelectTab('rejected');
     }
   }, [pathname]);
 
   return (
     <div className="flex lg:gap-[3.2rem] sm:gap-[2.4rem] lg:pt-[1.6rem] sm:pt-[1rem] lg:px-[0rem] md:px-[7.2rem] sm:px-[2.4rem]">
-      <Link href="/driver/my-quote/send">
+      <Link href="/driver/my-quote/sent">
         <div
           className={`lg:py-[1.6rem] sm:py-[1.5rem] cursor-pointer ${selectTab === 'sent' ? 'border-b-2 border-black-400' : ''}`}
           onClick={() => setSelectTab('sent')}
