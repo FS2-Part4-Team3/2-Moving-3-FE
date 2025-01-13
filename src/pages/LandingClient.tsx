@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { ButtonWrapper } from "@/components/common/headless/Button";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
+import { ButtonWrapper } from '@/components/common/headless/Button';
 
 export default function LandingClient() {
   const router = useRouter();
 
   const handleSignInNavigation = () => {
-    router.push("/sign-in");
+    router.push('/sign-in');
   };
 
   const handleSignUpNavigation = () => {
-    router.push("/sign-up");
+    router.push('/sign-up');
   };
 
   return (

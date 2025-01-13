@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { ButtonWrapper } from "@/components/common/headless/Button";
-import { useRouter } from "next/navigation";
-import heart_black from "@/../../public/assets/driver/ic_like.svg";
-import heart_red from "@/../../public/assets/driver/ic_like_on.svg";
-import Image from "next/image";
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import heart_black from '@/../../public/assets/driver/ic_like.svg';
+import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
+import { ButtonWrapper } from '@/components/common/headless/Button';
 
 export default function DriverDetailClient() {
   const router = useRouter();
