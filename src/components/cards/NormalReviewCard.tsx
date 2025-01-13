@@ -2,7 +2,7 @@ import Image from 'next/image';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { ReviewCardProps } from '@/interfaces/Card/NormalReviewCardInterface';
-import { DateWithoutDayWeeKFormat } from '@/utils/Format';
+import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
 
@@ -27,7 +27,7 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
           <MovingTypeChips key={index} type={type} />
         ))}
         {type === 'MY' && (
-          <span className="lg:flex md:hidden sm:hidden lg:text-[1.8rem] font-normal text-gray-300  items-center ml-auto">
+          <span className="lg:flex md:hidden sm:hidden lg:text-[1.8rem] font-normal text-gray-300 items-center ml-auto">
             작성일 {DateWithoutDayWeeKFormat(review.createdAt)}
           </span>
         )}
@@ -55,7 +55,7 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
             <div className="flex lg:gap-[1.2rem] md:gap-[0.6rem] sm:gap-[0.6rem]">
               <h2 className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-normal text-gray-500 ">견적가</h2>
               <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 ">
-                {estimation.price}원
+                {priceFormat(estimation.price)}원
               </span>
             </div>
           </div>
