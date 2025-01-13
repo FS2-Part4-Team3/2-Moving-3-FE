@@ -5,7 +5,7 @@ export interface ReviewCardEstimations {
     image: string;
   };
   moveInfo: {
-    type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
+    type: ('SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING')[];
     date: string;
   };
   price: number;
