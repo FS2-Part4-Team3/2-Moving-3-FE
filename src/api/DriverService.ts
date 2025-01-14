@@ -2,8 +2,8 @@ import { getRequest } from '@/utils/requestFunctions';
 
 export const getDriverData = async () => {
   try {
-    const result = await getRequest('/data/driversData.json');
-    return result || [];
+    const res = await getRequest('/data/driversData.json');
+    return res || [];
   } catch (error) {
     console.error('Error fetching driver data:', error);
     return;
@@ -29,12 +29,32 @@ export const getDriverReviewData = async (driverId: string, page: number, itemsP
   }
 };
 
+export const getDriverReviewData = async (driverId: string, page: number, itemsPerPage: number) => {
+  try {
+    // const res = await getRequest(`/reviews/${id}?page=${page}&itemsPerPage=${itemsPerPage}`);
+    const res = await getRequest(`/data/driversDetail/driversReviewData.json`);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getMoveInfoData = async () => {
   try {
-    const result = await getRequest('/data/moveInfosData.json');
-    return result || [];
+    const res = await getRequest('/data/moveInfosData.json');
+    return res || [];
   } catch (error) {
     console.error('Error fetching user data:', error);
+    return;
+  }
+};
+
+export const getEstimationData = async () => {
+  try {
+    const res = await getRequest('/data/estimationsData.json');
+    return res || [];
+  } catch (error) {
+    console.error('Error fetching estimate data:', error);
     return;
   }
 };

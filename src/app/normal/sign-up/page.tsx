@@ -8,7 +8,7 @@ import SignUpClient from '@/pages/SignUpClient';
 
 export default function SignUp() {
   return (
-    <div className="w-full min-h-screen flex items-center justify-center">
+    <div className="w-full lg:py-[7.2rem] sm:py-[5.6rem] flex items-center justify-center">
       <div className="w-[120rem] flex flex-col items-center justify-center gap-[7.2rem]">
         <div className="flex flex-col lg:gap-[0.8rem] sm:gap-[0.4rem] lg:w-[68rem] sm:w-[32.7rem] items-center justify-center">
           <Image src={logo} alt="logo" width={140} height={80} className="p-[1rem] lg:block sm:hidden" />
