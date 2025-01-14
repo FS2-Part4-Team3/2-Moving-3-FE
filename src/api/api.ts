@@ -7,16 +7,27 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
     ...options.headers,
   };
 
-  const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
+  console.log('Requesting URL:', `${BASE_URL}${url}`);
+  console.log('Request headers:', headers);
 
-  const response = await fetch(urlWithCacheBusting, {
-    ...options,
-    headers,
-  });
+  try {
+    const response = await fetch(`${BASE_URL}${url}`, {
+      ...options,
+      headers,
+    });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) {
+      console.error('Response not OK:', {
+        status: response.status,
+        statusText: response.statusText,
+        url: response.url,
+      });
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
   }
-
-  return response.json();
 }

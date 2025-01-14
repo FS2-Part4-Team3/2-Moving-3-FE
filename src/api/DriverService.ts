@@ -1,3 +1,4 @@
+import type { Params } from '@/interfaces/API';
 import { getRequest } from '@/utils/requestFunctions';
 
 export const getDriverData = async () => {
@@ -49,12 +50,23 @@ export const getEstimationData = async () => {
   }
 };
 
-export const getDriverListData = async () => {
+export const getDriverListData = async (page?: number, pageSize?: number, orderBy?: string, keyword?: string) => {
   try {
-    const res = await getRequest('/drivers');
-    return res || [];
+    console.log('Input parameters:', { page, pageSize, orderBy, keyword });
+
+    const params: Params = {};
+
+    if (page !== undefined) params.page = page;
+    if (pageSize !== undefined) params.pageSize = pageSize;
+    if (orderBy) params.orderBy = orderBy;
+    if (keyword) params.keyword = keyword;
+
+    console.log('Constructed params:', params);
+
+    const response = await getRequest('/drivers', params);
+    return response || [];
   } catch (error) {
     console.error('Error fetching drivers list data:', error);
-    return;
+    return undefined;
   }
 };

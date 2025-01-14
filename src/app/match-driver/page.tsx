@@ -1,16 +1,11 @@
 import Link from 'next/link';
 import { getDriverListData } from '@/api/DriverService';
-// import driverData from '@/../public/data/driversData.json';
-// import { getDriverData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import SearchBar from '@/components/common/searchbar/SearchBar';
 import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
 import SortDropdown from '@/components/dropdown/SortDropdown';
-import type { FindDriverCardProps } from '@/interfaces/Card/FindDriverCardInterface';
 
 export default async function MatchDriver() {
-  // const driverData = await getDriverData();
-
   const driverData = await getDriverListData();
 
   if (!driverData) {
