@@ -50,7 +50,10 @@ export default function ProfileEditNormal() {
     e.preventDefault();
   };
   return (
-    <form className="grid grid-cols-2 lg:w-[120rem] lg:gap-x-[22rem]" onSubmit={handleValuesSubmit}>
+    <form
+      className="lg:grid lg:grid-cols-2 md:flex md:flex-col md:items-center sm:flex sm:flex-col sm:items-center lg:w-[120rem] md:w-[37.5rem] sm:w-[37.5rem] lg:gap-x-[22rem]"
+      onSubmit={handleValuesSubmit}
+    >
       <div>
         <ProfileEditNormalLeft
           values={values}
@@ -78,14 +81,14 @@ export default function ProfileEditNormal() {
         />
       </div>
       <ButtonWrapper id="cancel-btn">
-        <ButtonWrapper.Button className="lg:w-[66rem] lg:h-[6.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] font-semibold text-center text-gray-300 ">
+        <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-0 md:mb-[2.4rem] sm:mb-[2.4rem] ">
           취소
         </ButtonWrapper.Button>
       </ButtonWrapper>
       <ButtonWrapper id="fix-btn">
         <ButtonWrapper.Button
           disabled={!isDisabled}
-          className="lg:w-[66rem] lg:h-[6.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] font-semibold text-center text-white lg:mb-[15rem]"
+          className="lg:order-2 md:order-1 sm:order-1 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[15rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
         >
           수정하기
         </ButtonWrapper.Button>

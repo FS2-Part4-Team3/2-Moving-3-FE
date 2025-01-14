@@ -20,7 +20,7 @@ export default function ProfileEditNormalLeft({
 
   return (
     <div>
-      <div className="lg:w-[64rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="name" type="text" value={values.name} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -42,7 +42,7 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="email" type="text" value={values.email} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -64,7 +64,7 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="number" type="text" value={values.number} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -86,7 +86,7 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="nowPassword" type={isViewNow ? 'text' : 'password'} value={values.nowPassword} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -119,7 +119,7 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="newPassword" type={isViewNew ? 'text' : 'password'} value={values.newPassword} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -152,7 +152,7 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
+      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
         <InputWrapper
           id="newPasswordChk"
           type={isViewNewChk ? 'text' : 'password'}
