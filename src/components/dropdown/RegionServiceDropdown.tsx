@@ -41,6 +41,8 @@ export default function RegionServiceDropdown() {
 
   const handleResetClick = () => {
     dispatch(resetSelection());
+    setSelectedRegion(null);
+    setSelectedService(null);
   };
 
   const handleRegionClick = (region: string) => {
