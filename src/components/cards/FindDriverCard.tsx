@@ -24,7 +24,7 @@ export default function FindDriverCard({
   }, [inView]);
 
   return (
-    <div>
+    <div className="flex flex-col lg:gap-[4.8rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
       {data.map((driver: any) => (
         <Link key={driver.id} href={`/match-driver/${driver.id}`}>
           <div
@@ -107,7 +107,7 @@ export default function FindDriverCard({
           </div>
         </Link>
       ))}
-      {hasNextPage && <div ref={ref}>MORE</div>}
+      {hasNextPage && <div ref={ref}>Loading...</div>}
     </div>
   );
 }
