@@ -144,7 +144,7 @@ export default function ProfileEditDriver({
             </div>
           </InputWrapper>
         </div>
-        <div className="lg:mb-[6.4rem] md:mb-[2rem] sm:mb-[2rem]">
+        <div className="lg:mb-[6.4rem] md:mb-[2rem] sm:mb-[2rem] lg:border-none md:border-b sm:border-b border-line-100 lg:pb-0 md:pb-[2rem] sm:pb-[2rem]">
           <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
             상세 설명
           </h3>
@@ -208,7 +208,7 @@ export default function ProfileEditDriver({
       <ButtonWrapper id="profile-register-driver" type="submit">
         <ButtonWrapper.Button
           disabled={!isDisabled}
-          className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"
+          className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
         >
           취소
         </ButtonWrapper.Button>
