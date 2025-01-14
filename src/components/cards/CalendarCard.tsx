@@ -39,7 +39,7 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
     setIsMovingDate(true);
     if (selectedDate) {
       return;
-      //toDo: 추후에 page에서 나타낼 props 설정
+      //TODO: 추후에 page에서 나타낼 props 설정
     }
   };
 

@@ -9,7 +9,7 @@ export function ProfileChips({
   setSelectedMovingType,
 }: ProfileChipProps) {
   const handleRegionSelect = (regionName: string) => {
-    //toDo: user 정보 넣기
+    //TODO: user 정보 넣기
     // if(user.role === driver) {
     //    if(selectedRegions.includes(regionName)){
     //     setSelectedRegions(selectedRegions.filter((r) => r != regionName));

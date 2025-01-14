@@ -8,10 +8,10 @@ import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
-import useProfileDriverValidate from '@/hooks/useProfileDriverValidate';
+import useProfileValidate from '@/hooks/useProfileValidate';
 
 export default function ProfileRegisterDriver() {
-  const { values, setValues, errors, validate, handleChange } = useProfileDriverValidate();
+  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -23,10 +23,10 @@ export default function ProfileRegisterDriver() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid && previewUrl;
-  //toDo: 추후에 user 정보 받아서 중복 선택 가능하게 하기
+  //TODO: 추후에 user 정보 받아서 중복 선택 가능하게 하기
 
   useEffect(() => {
-    setIsFormValid(validate());
+    setIsFormValid(validate('REGISTER'));
   }, [values]);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ export default function ProfileRegisterDriver() {
   };
 
   const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //toDo: 추후에 api 연결
+    //TODO: 추후에 api 연결
     e.preventDefault();
   };
 
