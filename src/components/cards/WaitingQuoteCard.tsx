@@ -8,7 +8,7 @@ import MovingTypeChips from '../chips/MovingTypeChips';
 
 export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
   return (
-    <div className="w-full rounded-[1.6rem] border border-line-100 pt-[2.8rem] pb-[2.2rem] px-[2.4rem] flex flex-col lg:gap-[2.4rem] sm:gap-[1rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] shadow-[0.2rem_0.2rem_1rem_rgba(220,220,220,0.14)] bg-white">
+    <div className="w-full rounded-[1.6rem] border border-line-100 pt-[2.8rem] pb-[2.2rem] px-[2.4rem] flex flex-col lg:gap-[2.4rem] sm:gap-[1rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] bg-white">
       <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
         <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
           <MovingTypeChips type="WAITING" />
@@ -118,7 +118,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
           {priceFormat(data.price)}원
         </p>
       </div>
-      <WaitingQuoteCardClient data={data.id} />
+      <WaitingQuoteCardClient dataId={data.id} />
     </div>
   );
 }

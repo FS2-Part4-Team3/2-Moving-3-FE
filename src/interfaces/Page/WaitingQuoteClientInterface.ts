@@ -1,3 +1,3 @@
 export interface WaitingQuoteCardClientProps {
-  data: string;
+  dataId: string;
 }
