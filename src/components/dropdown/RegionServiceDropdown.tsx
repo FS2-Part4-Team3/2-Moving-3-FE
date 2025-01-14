@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clicked_arrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
 import arrow_down from '@/../public/assets/common/dropdown/chevron-down.svg';
+import { getDriverListData } from '@/api/DriverService';
 import movingTypeDropdown from '@/constants/movingTypeDropdown';
 import regionsDropdown from '@/constants/regionsDropdown';
 import { resetSelection, setSelectedRegion, setSelectedService } from '@/store/slices/driversSlice';
@@ -26,7 +27,15 @@ export default function RegionServiceDropdown() {
 
   const handleRegionClick = (region: string) => {
     // setSelectedRegion(region);
-    dispatch(setSelectedRegion(region));
+    const regionObj = regionsDropdown.find(r => r.name === region);
+
+    if (regionObj) {
+      dispatch(setSelectedRegion(region));
+
+      if (regionObj.code) {
+      }
+    }
+
     setRegionDropdownOpen(false);
   };
 

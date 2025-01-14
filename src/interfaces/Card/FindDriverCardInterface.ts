@@ -8,7 +8,7 @@ interface FindDriverCardData {
   introduce: string;
   name: string;
   image: string;
-  score: number;
+  rating: number;
   career: number;
   applyCount: number;
   likeCount: number;

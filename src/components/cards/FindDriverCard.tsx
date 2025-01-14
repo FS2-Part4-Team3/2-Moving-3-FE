@@ -77,7 +77,7 @@ export default function FindDriverCard({
                     <Image src={star} alt="star" width={24} height={24} className="lg:block sm:hidden" />
                     <Image src={star} alt="start" width={20} height={20} className="lg:hidden sm:block" />
                     <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-black-300">
-                      {driver.score}
+                      {driver.rating}
                     </p>
                     <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-gray-300">
                       ({driver.reviewCount})
