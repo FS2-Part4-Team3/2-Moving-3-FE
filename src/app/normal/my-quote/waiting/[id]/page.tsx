@@ -6,21 +6,22 @@ import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getEstimationData } from '@/api/DriverService';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
-import DriverDetailButtonClient from '@/pages/DriverDetail/DriverDetailButtonClient';
+import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import { priceFormat } from '@/utils/Format';
 
 export default async function MyQuoteWaitingDetail({ params }: { params: { id: string } }) {
   const { id } = params;
-  const quoteData = await getEstimationData();
+  const quoteDatas = await getEstimationData();
+  const quoteData = quoteDatas[0];
   const driverData = quoteData.driver;
   if (driverData.id !== id || !quoteData) {
     notFound();
   }
 
   return (
-    <div>
-      <div className="lg:py-[3.2rem] sm:py-[1.4rem]">
-        <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.8rem] sm:leading-[2.6rem] font-semibold text-black-400">
+    <div className="flex flex-col items-center justify-center">
+      <div className="bg-white lg:w-[140rem] md:w-[60rem] sm:w-[32.7rem]">
+        <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.8rem] sm:leading-[2.6rem] font-semibold text-black-400 lg:py-[3.2rem] sm:py-[1.4rem]">
           견적 상세
         </p>
       </div>
@@ -55,7 +56,7 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[32.8rem] gap-[4rem]">
             <div className="flex flex-col gap-[3.2rem]">
-              <DriverDetailButtonClient />
+              <DetailButtonClient type="quoteWaiting" />
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col gap-[2.2rem]">
@@ -70,9 +71,9 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
         </div>
       </div>
       <div className="lg:hidden sm:block">
-        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom7">
-          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
-            <DriverDetailButtonClient />
+        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
+          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
+            <DetailButtonClient type="quoteWaiting" />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import DriverDetailChips from '@/components/chips/DriverDetailChips';
 import type { DriverDetailData } from '@/interfaces/Page/DriverDetailInterface';
-import DriverDetailButtonClient from '@/pages/DriverDetail/DriverDetailButtonClient';
+import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import ReviewClient from '@/pages/DriverDetail/ReviewClient';
 
 export default async function DriverDetailPage({ params }: { params: { id: string } }) {
@@ -76,7 +76,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
         </div>
         <div className="lg:hidden sm:block">
           <div className="flex flex-row gap-[0.8rem] py-[1rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
-            <DriverDetailButtonClient />
+            <DetailButtonClient />
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             <p className="text-[2rem] leading-[3.2rem] text-black-400 font-semibold">
               {driverData.name} 기사님에게 지정 견적을 요청해보세요!
             </p>
-            <DriverDetailButtonClient />
+            <DetailButtonClient />
           </div>
           <div className="border border-line-100 w-[32.8rem]"></div>
           <div className="flex flex-col gap-[2.2rem]">

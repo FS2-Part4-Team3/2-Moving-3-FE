@@ -9,7 +9,7 @@ import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import DriverDetailChips from '@/components/chips/DriverDetailChips';
 import type { DriverDetailData } from '@/interfaces/Page/DriverDetailInterface';
-import DriverDetailButtonClient from '@/pages/DriverDetail/DriverDetailButtonClient';
+import DriverDetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import ReviewClient from '@/pages/DriverDetail/ReviewClient';
 
 export default async function DriverDetailPage({ params }: { params: { id: string } }) {
