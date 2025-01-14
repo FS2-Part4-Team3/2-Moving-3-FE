@@ -21,17 +21,9 @@ const mockEstimationData: ReviewCardEstimations = {
   price: 150000,
 };
 
-const mockReviewData: ReviewCardReviews = {
-  owner: '1',
-  comment: '코멘트입니다!',
-  score: 3,
-  createdAt: '2025-01-01T12:00:00Z',
-};
-
 const Template: StoryFn<WritingReviewModalProps> = args => <WritingReviewModal {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   estimation: mockEstimationData,
-  review: mockReviewData,
 };

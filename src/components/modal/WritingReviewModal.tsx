@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { render } from 'react-dom';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { WritingReviewModalProps } from '@/interfaces/Modal/WritingReveiwModalInterface';
@@ -9,16 +10,27 @@ import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ModalWrapper } from '../common/headless/Modal';
 
-export default function WritingReviewModal({ estimation, review }: WritingReviewModalProps) {
+export default function WritingReviewModal({ estimation }: WritingReviewModalProps) {
   const [isClosed, setIsClosed] = useState(false);
-  const renderStars = (score: number) => {
+  const [selectedStars, setSelectedStars] = useState(0);
+
+  const handleStarClick = (index: number) => {
+    setSelectedStars(index + 1);
+  };
+
+  const renderStars = () => {
     const totalStars = 5;
-    const emptyStars = totalStars - score;
-    const fullStars = score;
-
-    const stars = [...Array(fullStars).fill(star_yellow), ...Array(emptyStars).fill(star_gray)];
-
-    return stars.map((star, index) => <Image key={index} src={star} alt="star" width={40} height={40} />);
+    return Array.from({ length: totalStars }, (_, index) => (
+      <Image
+        key={index}
+        src={index < selectedStars ? star_yellow : star_gray}
+        alt="star"
+        width={40}
+        height={40}
+        onClick={() => handleStarClick(index)}
+        style={{ cursor: 'pointer' }}
+      />
+    ));
   };
 
   return (
@@ -32,7 +44,7 @@ export default function WritingReviewModal({ estimation, review }: WritingReview
                 <MovingTypeChips key={index} type={type} />
               ))}
             </div>
-            <div className="flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[56rem] lg:h-[12.8rem] rounded-[0.6rem] border lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.8rem] md:py-[1.3rem] sm:px-0 sm:py-[1.3rem] bg-white border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
+            <div className="flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[56rem] lg:h-[12.8rem] md:w-[32.7rem] sm:w-[32.7rem] rounded-[0.6rem] lg:border md:border-b sm:border-b lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.6rem] md:py-[0.2rem] sm:px-0 sm:py-[1rem] bg-white border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
               <div className="lg:w-[9.6rem] lg:h-[9.6rem] md:w-[4.6rem] md:h-[4.6rem] sm:w-[4.6rem] sm:h-[4.6rem] relative ">
                 <Image src={estimation.driver.image} alt={estimation.driver.name} fill />
               </div>
@@ -59,7 +71,7 @@ export default function WritingReviewModal({ estimation, review }: WritingReview
             </div>
             <div className="flex flex-col gap-[1.6rem]">
               <span className="text-[2rem] font-semibold text-black-300 ">평점을 선택해 주세요</span>
-              <div className="flex">{renderStars(review.score)}</div>
+              <div className="flex">{renderStars()}</div>
             </div>
             <div className="w-[56rem] h-[0.1rem] bg-line-100 lg:my-[3.2rem] "></div>
             <div className="flex flex-col gap-[1.6rem]">

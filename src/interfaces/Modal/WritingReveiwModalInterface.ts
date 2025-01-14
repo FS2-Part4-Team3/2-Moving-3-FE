@@ -2,5 +2,4 @@ import type { ReviewCardEstimations, ReviewCardReviews } from '../Card/NormalRev
 
 export interface WritingReviewModalProps {
   estimation: ReviewCardEstimations;
-  review: ReviewCardReviews;
 }
