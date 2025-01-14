@@ -25,7 +25,7 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
           견적 상세
         </p>
       </div>
-      <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[7.4rem] justify-center">
+      <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
           <FindDriverCard key={driverData.id} data={driverData} type="WAITING" />
           <div className="lg:hidden sm:block">
