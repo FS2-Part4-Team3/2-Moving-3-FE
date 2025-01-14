@@ -56,7 +56,11 @@ export default function RegionServiceDropdown() {
 
   const handleServiceClick = (service: string) => {
     setSelectedService(service);
-    dispatch(setServiceType(service));
+
+    const movingObj = movingTypeDropdown.find(s => s.type === service);
+    if (movingObj) {
+      dispatch(setServiceType(movingObj.code ?? undefined));
+    }
     setServiceDropdownOpen(false);
   };
 
