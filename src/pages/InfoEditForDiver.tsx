@@ -7,6 +7,7 @@ import visibility_on from '@/../public/assets/sign/visibility_on.svg';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import type { InfoEditForDriverProps } from '@/interfaces/Page/InfoEditForDriver';
 
 export default function InfoEditForDriver() {
   const { values, errors, validate, handleChange } = useProfileValidate();
