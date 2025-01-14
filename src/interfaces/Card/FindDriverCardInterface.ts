@@ -1,5 +1,6 @@
 export interface FindDriverCardProps {
   data: FindDriverCardData;
+  type?: 'WAITING' | 'CONFIRM';
 }
 
 interface FindDriverCardData {

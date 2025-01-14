@@ -27,7 +27,7 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
       </div>
       <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[7.4rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
-          <FindDriverCard key={driverData.id} data={driverData} />
+          <FindDriverCard key={driverData.id} data={driverData} type="WAITING" />
           <div className="lg:hidden sm:block">
             <div className="border border-line-100 w-full mb-[2.4rem]"></div>
             <div className="flex flex-col gap-[1.6rem] py-[1rem]">
