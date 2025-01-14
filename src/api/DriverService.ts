@@ -1,4 +1,5 @@
 import type { Params } from '@/interfaces/API';
+import type { DriverListResponse } from '@/interfaces/API/DriverServiceInterface';
 import { getRequest } from '@/utils/requestFunctions';
 
 export const getDriverData = async () => {
@@ -50,23 +51,24 @@ export const getEstimationData = async () => {
   }
 };
 
-export const getDriverListData = async (page?: number, pageSize?: number, orderBy?: string, keyword?: string) => {
+export const getDriverListData = async (
+  page?: number,
+  pageSize?: number,
+  orderBy?: string,
+  keyword?: string,
+): Promise<DriverListResponse> => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+    orderBy: orderBy,
+    keyword: keyword,
+  };
+
   try {
-    console.log('Input parameters:', { page, pageSize, orderBy, keyword });
-
-    const params: Params = {};
-
-    if (page !== undefined) params.page = page;
-    if (pageSize !== undefined) params.pageSize = pageSize;
-    if (orderBy) params.orderBy = orderBy;
-    if (keyword) params.keyword = keyword;
-
-    console.log('Constructed params:', params);
-
-    const response = await getRequest('/drivers', params);
-    return response || [];
+    const data = await getRequest('/drivers', params);
+    return data;
   } catch (error) {
-    console.error('Error fetching drivers list data:', error);
-    return undefined;
+    console.error('Fetch error:', error);
+    throw error;
   }
 };

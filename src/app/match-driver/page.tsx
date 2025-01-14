@@ -6,12 +6,9 @@ import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
 import SortDropdown from '@/components/dropdown/SortDropdown';
 
 export default async function MatchDriver() {
-  const driverData = await getDriverListData();
+  const driverData = await getDriverListData(2);
 
-  if (!driverData) {
-    return <div>Loading...</div>;
-  }
-
+  console.log(driverData);
   return (
     <div className="w-full flex items-center justify-center mb-[7rem]">
       <div className="lg:w-[120rem] sm:w-full items-start justify-center flex flex-col">
