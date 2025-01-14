@@ -9,11 +9,22 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import type { ProfileEditDriverProps } from '@/interfaces/Page/ProfileEditDriverInterface';
 
-export default function ProfileEditDriver() {
-  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
-  const [selectedImg, setSelectedImg] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+export default function ProfileEditDriver({
+  values: { nickname, career, shortBio, description, selectedRegion, selectedMovingType },
+  imgUrl,
+}: ProfileEditDriverProps) {
+  const { values, setValues, errors, validate, handleChange } = useProfileValidate({
+    nickname,
+    career,
+    shortBio,
+    description,
+    selectedRegion,
+    selectedMovingType,
+  });
+  const [selectedImg, setSelectedImg] = useState<File | null>();
+  const [previewUrl, setPreviewUrl] = useState<string | null>(imgUrl);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isTouched, setIsTouched] = useState({
     nickname: false,
