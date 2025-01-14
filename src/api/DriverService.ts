@@ -29,16 +29,6 @@ export const getDriverReviewData = async (driverId: string, page: number, itemsP
   }
 };
 
-export const getDriverReviewData = async (driverId: string, page: number, itemsPerPage: number) => {
-  try {
-    // const res = await getRequest(`/reviews/${id}?page=${page}&itemsPerPage=${itemsPerPage}`);
-    const res = await getRequest(`/data/driversDetail/driversReviewData.json`);
-    return res;
-  } catch (error) {
-    throw error;
-  }
-};
-
 export const getMoveInfoData = async () => {
   try {
     const res = await getRequest('/data/moveInfosData.json');
