@@ -54,14 +54,18 @@ export const getEstimationData = async () => {
 export const getDriverListData = async (
   page?: number,
   pageSize?: number,
-  orderBy?: string,
   keyword?: string,
+  orderBy?: string,
+  area?: string,
+  serviceType?: string,
 ): Promise<DriverListResponse> => {
   const params = {
     page: page,
     pageSize: pageSize,
-    orderBy: orderBy,
     keyword: keyword,
+    orderBy: orderBy,
+    area: area,
+    serviceType: serviceType,
   };
 
   try {
