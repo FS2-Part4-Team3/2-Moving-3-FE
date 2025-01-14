@@ -38,3 +38,13 @@ export const getMoveInfoData = async () => {
     return;
   }
 };
+
+export const getEstimationData = async () => {
+  try {
+    const res = await getRequest('/data/estimationsData.json');
+    return res || [];
+  } catch (error) {
+    console.error('Error fetching estimate data:', error);
+    return;
+  }
+};
