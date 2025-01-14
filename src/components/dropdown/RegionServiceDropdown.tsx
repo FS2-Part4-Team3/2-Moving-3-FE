@@ -21,24 +21,6 @@ export default function RegionServiceDropdown() {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchDrivers = async () => {
-      dispatch(setLoading(true));
-      try {
-        const res = await getDriverListData(page, pageSize, keyword, orderBy, area, serviceType);
-        dispatch(setDriverList(res.list));
-        dispatch(setError(null));
-      } catch (error) {
-        dispatch(setError('Failed to fetch drivers'));
-        console.error('Error fetching drivers:', error);
-      } finally {
-        dispatch(setLoading(false));
-      }
-    };
-
-    fetchDrivers();
-  }, [page, pageSize, keyword, orderBy, area, serviceType, dispatch]);
-
   const handleResetClick = () => {
     dispatch(resetSelection());
     setSelectedRegion(null);

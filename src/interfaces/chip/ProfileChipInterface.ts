@@ -1,11 +1,11 @@
 export interface Region {
   name: string;
-  code: string | null;
+  code?: string | null;
 }
 
 export interface MovingType {
   type: string;
-  code: string | null;
+  code?: string | null;
 }
 
 export interface ProfileChipProps {
