@@ -1,19 +1,16 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import clicked_arrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
 import arrow_down from '@/../public/assets/common/dropdown/chevron-down.svg';
-import { getDriverListData } from '@/api/DriverService';
 import movingTypeDropdown from '@/constants/movingTypeDropdown';
 import regionsDropdown from '@/constants/regionsDropdown';
-import { resetSelection, setArea, setDriverList, setError, setLoading, setServiceType } from '@/store/slices/driversSlice';
-import type { RootState } from '@/store/store';
+import { resetSelection, setArea, setServiceType } from '@/store/slices/driversSlice';
 
 export default function RegionServiceDropdown() {
   const dispatch = useDispatch();
-  const { page, pageSize, keyword, orderBy, area, serviceType } = useSelector((state: RootState) => state.drivers);
 
   const [regionDropdownOpen, setRegionDropdownOpen] = useState<boolean>(false);
   const [serviceDropdownOpen, setServiceDropdownOpen] = useState<boolean>(false);

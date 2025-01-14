@@ -2,15 +2,23 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import arrow from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import sortMenu from '@/constants/sortMenu';
+import { setOrderBy } from '@/store/slices/driversSlice';
 
 export default function SortDropdown() {
+  const dispatch = useDispatch();
+
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
 
   const handleMenuClick = (menu: string) => {
     setSelectedMenu(menu);
+    const menuObj = sortMenu.find(m => m.name === menu);
+    if (menuObj) {
+      dispatch(setOrderBy(menuObj.code ?? 'MostReviewed'));
+    }
     setIsDropdownOpen(false);
   };
 

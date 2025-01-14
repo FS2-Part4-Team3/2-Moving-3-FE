@@ -55,7 +55,7 @@ export const getDriverListData = async (
   page?: number,
   pageSize?: number,
   keyword?: string,
-  orderBy?: string,
+  orderBy: string = 'MostReviewed',
   area?: string,
   serviceType?: string,
 ): Promise<DriverListResponse> => {
