@@ -1,9 +1,9 @@
+'use client';
+
 import { useState } from 'react';
 import type { Errors, RegisterDriverValues, ValidateProps } from '@/interfaces/Page/ProfileRegisterDriverInterface';
 
-`use client`;
-
-export default function useProfileValidate() {
+export default function useProfileValidate(initialValues?: Partial<RegisterDriverValues>) {
   const [values, setValues] = useState<RegisterDriverValues>({
     nickname: '',
     career: '',
@@ -17,6 +17,7 @@ export default function useProfileValidate() {
     nowPassword: '',
     newPassword: '',
     newPasswordChk: '',
+    ...initialValues,
   });
   const [errors, setErrors] = useState<Errors>({});
 
