@@ -48,3 +48,13 @@ export const getEstimationData = async () => {
     return;
   }
 };
+
+export const getDriverListData = async () => {
+  try {
+    const res = await getRequest('/drivers');
+    return res || [];
+  } catch (error) {
+    console.error('Error fetching drivers list data:', error);
+    return;
+  }
+};

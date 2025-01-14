@@ -4,13 +4,13 @@ export interface FindDriverCardProps {
 
 interface FindDriverCardData {
   id: string;
-  serviceType: string[];
+  serviceTypes: string[];
   introduce: string;
   name: string;
   image: string;
   score: number;
   career: number;
   applyCount: number;
-  favoriteCount: number;
+  likeCount: number;
   reviewCount: number;
 }

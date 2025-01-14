@@ -1,13 +1,17 @@
 import Link from 'next/link';
-import driverData from '@/../public/data/driversData.json';
-import { getDriverData } from '@/api/DriverService';
+import { getDriverListData } from '@/api/DriverService';
+// import driverData from '@/../public/data/driversData.json';
+// import { getDriverData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import SearchBar from '@/components/common/searchbar/SearchBar';
 import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
 import SortDropdown from '@/components/dropdown/SortDropdown';
+import type { FindDriverCardProps } from '@/interfaces/Card/FindDriverCardInterface';
 
 export default async function MatchDriver() {
   // const driverData = await getDriverData();
+
+  const driverData = await getDriverListData();
 
   if (!driverData) {
     return <div>Loading...</div>;
@@ -36,7 +40,7 @@ export default async function MatchDriver() {
               </div>
             </div>
             <div className="w-full sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
-              {driverData.map((driver: any) => (
+              {driverData.list.map((driver: any) => (
                 <Link key={driver.id} href={`/match-driver/${driver.id}`}>
                   <FindDriverCard key={driver.id} data={driver} />
                 </Link>

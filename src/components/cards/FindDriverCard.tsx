@@ -7,11 +7,11 @@ import MovingTypeChips from '../chips/MovingTypeChips';
 export default function FindDriverCard({ data }: FindDriverCardProps) {
   return (
     <div
-      className="w-full lg:h-[23rem] rounded-[1.6rem] border-0.5 border-line-100 lg:py-[2rem] sm:py-[1.6rem] lg:px-[2.4rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] 
+      className="w-full lg:h-fit rounded-[1.6rem] border-0.5 border-line-100 lg:py-[2rem] sm:py-[1.6rem] lg:px-[2.4rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] 
       shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]"
     >
       <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
-        {data.serviceType.map((item: string, index) => (
+        {data.serviceTypes.map((item: string, index) => (
           <MovingTypeChips key={index} type={item as 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING'} />
         ))}
       </div>
@@ -47,7 +47,7 @@ export default function FindDriverCard({ data }: FindDriverCardProps) {
             <div className="flex gap-[0.4rem] justify-center items-center">
               <Image src={like} alt="like" width={24} height={24} />
               <p className="font-medium  lg:text-[1.8rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-400">
-                {data.favoriteCount}
+                {data.likeCount}
               </p>
             </div>
           </div>
