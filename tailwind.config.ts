@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  mode: 'jit',
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -52,6 +53,7 @@ const config: Config = {
         custom3: '2px 2px 10px rgba(237, 237, 237, 1), -2px -2px 10px rgba(237, 237, 237, 1)',
         custom4: '2px 2px 10px rgba(224, 224, 224, 0.2)',
         custom5: '4px 4px 10px rgba(224, 224, 224, 0.2)',
+        custom6: '4px 4px 10px rgba(195, 217, 242, 0.2)',
         customBoth: '4px 4px 10px 0px rgba(225, 225, 225, 0.102), inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)',
         chipServiceShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.25)',
         chipAreaShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.161)',

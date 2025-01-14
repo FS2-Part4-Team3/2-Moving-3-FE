@@ -2,8 +2,8 @@ import { getRequest } from '@/utils/requestFunctions';
 
 export const getDriverData = async () => {
   try {
-    const result = await getRequest('/data/driversData.json');
-    return result || [];
+    const res = await getRequest('/data/driversData.json');
+    return res || [];
   } catch (error) {
     console.error('Error fetching driver data:', error);
     return;
@@ -31,8 +31,8 @@ export const getDriverReviewData = async (driverId: string, page: number, itemsP
 
 export const getMoveInfoData = async () => {
   try {
-    const result = await getRequest('/data/moveInfosData.json');
-    return result || [];
+    const res = await getRequest('/data/moveInfosData.json');
+    return res || [];
   } catch (error) {
     console.error('Error fetching user data:', error);
     return;
