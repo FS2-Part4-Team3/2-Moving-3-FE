@@ -5,6 +5,7 @@ export interface Region {
 
 export interface MovingType {
   type: string;
+  code: string | null;
 }
 
 export interface ProfileChipProps {

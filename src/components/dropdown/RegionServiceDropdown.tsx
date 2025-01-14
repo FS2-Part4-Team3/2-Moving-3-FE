@@ -1,47 +1,60 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clicked_arrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
 import arrow_down from '@/../public/assets/common/dropdown/chevron-down.svg';
 import { getDriverListData } from '@/api/DriverService';
 import movingTypeDropdown from '@/constants/movingTypeDropdown';
 import regionsDropdown from '@/constants/regionsDropdown';
-import { resetSelection, setSelectedRegion, setSelectedService } from '@/store/slices/driversSlice';
+import { resetSelection, setArea, setDriverList, setError, setLoading, setServiceType } from '@/store/slices/driversSlice';
 import type { RootState } from '@/store/store';
 
 export default function RegionServiceDropdown() {
   const dispatch = useDispatch();
-  const { selectedRegion, selectedService } = useSelector((state: RootState) => state.drivers);
+  const { page, pageSize, keyword, orderBy, area, serviceType } = useSelector((state: RootState) => state.drivers);
 
   const [regionDropdownOpen, setRegionDropdownOpen] = useState<boolean>(false);
   const [serviceDropdownOpen, setServiceDropdownOpen] = useState<boolean>(false);
 
-  // const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  // const [selectedService, setSelectedService] = useState<string | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [selectedService, setSelectedService] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      dispatch(setLoading(true));
+      try {
+        const res = await getDriverListData(page, pageSize, keyword, orderBy, area, serviceType);
+        dispatch(setDriverList(res.list));
+        dispatch(setError(null));
+      } catch (error) {
+        dispatch(setError('Failed to fetch drivers'));
+        console.error('Error fetching drivers:', error);
+      } finally {
+        dispatch(setLoading(false));
+      }
+    };
+
+    fetchDrivers();
+  }, [page, pageSize, keyword, orderBy, area, serviceType, dispatch]);
 
   const handleResetClick = () => {
     dispatch(resetSelection());
   };
 
   const handleRegionClick = (region: string) => {
-    // setSelectedRegion(region);
+    setSelectedRegion(region);
     const regionObj = regionsDropdown.find(r => r.name === region);
-
     if (regionObj) {
-      dispatch(setSelectedRegion(region));
-
-      if (regionObj.code) {
-      }
+      dispatch(setArea(regionObj.code ?? undefined));
     }
-
     setRegionDropdownOpen(false);
   };
 
   const handleServiceClick = (service: string) => {
-    // setSelectedService(service);
-    dispatch(setSelectedService(service));
+    setSelectedService(service);
+    dispatch(setServiceType(service));
     setServiceDropdownOpen(false);
   };
 
