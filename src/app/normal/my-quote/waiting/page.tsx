@@ -4,7 +4,6 @@ import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
 
 export default async function MyQuoteWaiting() {
   const driverData = await getEstimationData();
-  console.log(driverData);
   return (
     <div className="w-full items-center justify-center flex flex-col bg-background-100">
       <div className="w-full bg-white justify-center flex">
