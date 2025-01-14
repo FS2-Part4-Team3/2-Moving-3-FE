@@ -54,7 +54,7 @@ export const getEstimationData = async () => {
     const res = await getRequest('/data/estimationsData.json');
     return res || [];
   } catch (error) {
-    console.error('Error fetching estimation data:', error);
+    console.error('Error fetching estimate data:', error);
     return;
   }
 };
