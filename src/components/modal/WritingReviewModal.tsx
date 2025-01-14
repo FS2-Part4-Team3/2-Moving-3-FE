@@ -21,15 +21,16 @@ export default function WritingReviewModal({ estimation }: WritingReviewModalPro
   const renderStars = () => {
     const totalStars = 5;
     return Array.from({ length: totalStars }, (_, index) => (
-      <Image
-        key={index}
-        src={index < selectedStars ? star_yellow : star_gray}
-        alt="star"
-        width={40}
-        height={40}
-        onClick={() => handleStarClick(index)}
-        style={{ cursor: 'pointer' }}
-      />
+      <div className="lg:w-[4rem] lg:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[2rem] sm:h-[2rem] relative">
+        <Image
+          key={index}
+          src={index < selectedStars ? star_yellow : star_gray}
+          alt="star"
+          fill
+          onClick={() => handleStarClick(index)}
+          style={{ cursor: 'pointer' }}
+        />
+      </div>
     ));
   };
 
@@ -70,14 +71,18 @@ export default function WritingReviewModal({ estimation }: WritingReviewModalPro
               </div>
             </div>
             <div className="flex flex-col gap-[1.6rem]">
-              <span className="text-[2rem] font-semibold text-black-300 ">평점을 선택해 주세요</span>
+              <span className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-black-300 ">
+                평점을 선택해 주세요
+              </span>
               <div className="flex">{renderStars()}</div>
             </div>
-            <div className="w-[56rem] h-[0.1rem] bg-line-100 lg:my-[3.2rem] "></div>
+            <div className="lg:w-[56rem] md:w-[32.7rem] sm:w-[32.7rem] h-[0.1rem] bg-line-100 lg:my-[3.2rem] md:my-[2rem] sm:my-[2rem] "></div>
             <div className="flex flex-col gap-[1.6rem]">
-              <span className="text-[2rem] font-semibold text-black-300 ">상세 후기를 작성해 주세요</span>
+              <span className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-black-300 ">
+                상세 후기를 작성해 주세요
+              </span>
               <textarea
-                className="resize-none w-[56rem] h-[16rem] rounded-[1.6rem] px-[2.4rem] py-[1.4rem] bg-background-200 focus:outline-none placeholder:text-[2rem] placeholder:text-gray-300 text-[2rem] font-normal"
+                className="resize-none lg:w-[56rem] lg:h-[16rem] md:w-[32.7rem] md:h-[16rem] sm:w-[32.7rem] sm:h-[16rem] rounded-[1.6rem] lg:px-[2.4rem] lg:py-[1.4rem] md:px-[1.6rem] md:py-[1.4rem] bg-background-200 focus:outline-none placeholder:text-[2rem] placeholder:text-gray-300 text-[2rem] font-normal"
                 placeholder="최소 10자 이상 입력해주세요"
               ></textarea>
             </div>
