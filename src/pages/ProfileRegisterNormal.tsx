@@ -1,21 +1,19 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import profile from "@/../public/assets/profile/img_profile_upload.svg";
-import { ProfileChips } from "@/components/chips/ProfileChips";
-import movingTypes from "@/constants/movingType";
-import regions from "@/constants/regions";
-import { ButtonWrapper } from "@/components/common/headless/Button";
-import { useRef, useState } from "react";
+import Image from 'next/image';
+import { useRef, useState } from 'react';
+import profile from '@/../public/assets/profile/img_profile_upload.svg';
+import { ProfileChips } from '@/components/chips/ProfileChips';
+import { ButtonWrapper } from '@/components/common/headless/Button';
+import movingTypes from '@/constants/movingType';
+import regions from '@/constants/regions';
 
 export default function ProfileRegisterNormal() {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const [selectedMovingType, setSelectedMovingType] = useState<string | null>(
-    null
-  );
-  //toDo: const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [selectedMovingType, setSelectedMovingType] = useState<string | null>(null);
+  //TODO: const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +30,7 @@ export default function ProfileRegisterNormal() {
 
   const handleImgSubmit = () => {
     if (selectedImg) return;
-    //toDo: api post 요청 삽입
+    //TODO: api post 요청 삽입
   };
   return (
     <div className="flex flex-col justify-center items-center">
@@ -49,22 +47,10 @@ export default function ProfileRegisterNormal() {
           <h2 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-black-300 mb-[2.4rem]">
             프로필 이미지
           </h2>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleImgChange}
-          />
+          <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImgChange} />
           <button onClick={handleImgClick}>
             <div className="relative lg:w-[16rem] lg:h-[16rem] md:w-[10rem] md:h-[10rem] sm:w-[10rem] sm:h-[10rem]">
-              <Image
-                src={previewUrl || profile}
-                alt="프로필 등록 이미지"
-                fill
-                className="cursor-pointer"
-                priority
-              />
+              <Image src={previewUrl || profile} alt="프로필 등록 이미지" fill className="cursor-pointer" priority />
             </div>
           </button>
         </div>
@@ -88,11 +74,7 @@ export default function ProfileRegisterNormal() {
           <p className="lg:text-[1.6rem] md:text-[1.2rem] sm:text-[1.2rem] font-normal text-gray-400 mb-[3.2rem]">
             *내가 사는 지역은 언제든 수정 가능해요!
           </p>
-          <ProfileChips
-            regions={regions}
-            selectedRegion={selectedRegion}
-            setSelectedRegion={setSelectedRegion}
-          />
+          <ProfileChips regions={regions} selectedRegion={selectedRegion} setSelectedRegion={setSelectedRegion} />
         </div>
       </div>
       <ButtonWrapper id="profile-register-normal" onClick={handleImgSubmit}>

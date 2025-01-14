@@ -46,7 +46,7 @@ export default function ProfileEditNormal() {
   };
 
   const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //toDo: 추후에 api 연결
+    //TODO: 추후에 api 연결
     e.preventDefault();
   };
   return (

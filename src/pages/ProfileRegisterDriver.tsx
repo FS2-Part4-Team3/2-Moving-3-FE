@@ -23,7 +23,7 @@ export default function ProfileRegisterDriver() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid && previewUrl;
-  //toDo: 추후에 user 정보 받아서 중복 선택 가능하게 하기
+  //TODO: 추후에 user 정보 받아서 중복 선택 가능하게 하기
 
   useEffect(() => {
     setIsFormValid(validate('REGISTER'));
@@ -46,7 +46,7 @@ export default function ProfileRegisterDriver() {
   };
 
   const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //toDo: 추후에 api 연결
+    //TODO: 추후에 api 연결
     e.preventDefault();
   };
 
