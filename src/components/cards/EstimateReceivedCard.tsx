@@ -38,7 +38,7 @@ export default function EstimateReceivedCard({ data }: EstimateReceivedCardProps
             </p>
             <div className="flex gap-[0.2rem] items-center">
               <Image src={heart} alt="heart" width={24} height={24} />
-              <p className="font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.3rem] md:leading-[2.2rem] text-blue-400">
+              <p className="font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.3rem] sm:leading-[2.2rem] text-blue-400">
                 {data.driver.favoriteCount}
               </p>
             </div>
