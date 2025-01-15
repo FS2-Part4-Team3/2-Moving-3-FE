@@ -5,11 +5,13 @@ export interface ReviewCardEstimations {
     image: string;
   };
   moveInfo: {
-    type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
+    type: MoveType;
     date: string;
   };
   price: number;
 }
+
+export type MoveType = 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
 
 export interface ReviewCardProps {
   estimation: ReviewCardEstimations;

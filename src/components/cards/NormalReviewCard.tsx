@@ -1,14 +1,17 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { ReviewCardProps } from '@/interfaces/Card/NormalReviewCardInterface';
 import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
+import WritingReviewModal from '../modal/WritingReviewModal';
 
 export default function NormalReviewCard({ estimation, type, review }: ReviewCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const renderStars = (score: number) => {
     const totalStars = 5;
     const emptyStars = totalStars - score;
@@ -65,7 +68,10 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
       </div>
       {type === 'ABLE' && (
         <ButtonWrapper id="review_card-btn">
-          <ButtonWrapper.Button className="lg:w-[64rem] lg:h-[6.4rem] md:w-[56rem] md:h-[3.8rem] sm:w-[29.9rem] sm:h-[4.8rem] lg:rounded-[1.6rem] md:rounded-[0.8rem] sm:rounded-[0.8rem] p-[1.6rem] bg-blue-300 text-center lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white ">
+          <ButtonWrapper.Button
+            onClick={() => setIsModalOpen(true)}
+            className="lg:w-[64rem] lg:h-[6.4rem] md:w-[56rem] md:h-[3.8rem] sm:w-[29.9rem] sm:h-[4.8rem] lg:rounded-[1.6rem] md:rounded-[0.8rem] sm:rounded-[0.8rem] text-center bg-blue-300  lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white "
+          >
             리뷰 작성하기
           </ButtonWrapper.Button>
         </ButtonWrapper>
@@ -78,6 +84,7 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
           </span>
         </div>
       )}
+      {isModalOpen && <WritingReviewModal estimation={estimation} setIsModalOpen={setIsModalOpen} />}
     </div>
   );
 }
