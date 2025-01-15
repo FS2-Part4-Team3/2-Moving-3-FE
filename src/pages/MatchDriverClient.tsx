@@ -1,6 +1,7 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
@@ -49,7 +50,15 @@ export default function MatchDriverClient() {
   return (
     <div>
       <div className="flex flex-col lg:gap-[4.8rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
-        {drivers ? drivers.pages.flatMap(page => page.list.map(driver => <FindDriverCard data={driver} />)) : []}
+        {drivers
+          ? drivers.pages.flatMap(page =>
+              page.list.map(driver => (
+                <Link key={driver.id} href={`/normal/match-driver/${driver.id}`}>
+                  <FindDriverCard data={driver} />
+                </Link>
+              )),
+            )
+          : []}
       </div>
       {hasNextPage && <div ref={ref}>Loading...</div>}
     </div>
