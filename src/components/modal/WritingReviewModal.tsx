@@ -10,8 +10,7 @@ import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ModalWrapper } from '../common/headless/Modal';
 
-export default function WritingReviewModal({ estimation }: WritingReviewModalProps) {
-  const [isClosed, setIsClosed] = useState(false);
+export default function WritingReviewModal({ estimation, setIsModalOpen }: WritingReviewModalProps) {
   const [selectedStars, setSelectedStars] = useState(0);
 
   const handleStarClick = (index: number) => {
@@ -36,14 +35,12 @@ export default function WritingReviewModal({ estimation }: WritingReviewModalPro
 
   return (
     <div>
-      <ModalWrapper onClose={() => setIsClosed(true)}>
+      <ModalWrapper onClose={() => setIsModalOpen(false)}>
         <ModalWrapper.Header>리뷰 쓰기</ModalWrapper.Header>
         <ModalWrapper.Content>
           <div>
-            <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem]">
-              {estimation.moveInfo.type.map((type, index) => (
-                <MovingTypeChips key={index} type={type} />
-              ))}
+            <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] z-3">
+              <MovingTypeChips type={estimation.moveInfo.type} />
             </div>
             <div className="flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[56rem] lg:h-[12.8rem] md:w-[32.7rem] sm:w-[32.7rem] rounded-[0.6rem] lg:border md:border-b sm:border-b lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.6rem] md:py-[0.2rem] sm:px-0 sm:py-[1rem] bg-white border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
               <div className="lg:w-[9.6rem] lg:h-[9.6rem] md:w-[4.6rem] md:h-[4.6rem] sm:w-[4.6rem] sm:h-[4.6rem] relative ">
