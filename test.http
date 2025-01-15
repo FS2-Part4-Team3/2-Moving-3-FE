@@ -1,0 +1,7 @@
+POST https://backend.moving.wiki/auth/signUp/user
+Content-Type: application/json
+
+{"email":"test2@test.com",
+  "name":"test2",
+  "phoneNumber":"010-1234-2345",
+  "password":"password2",}
