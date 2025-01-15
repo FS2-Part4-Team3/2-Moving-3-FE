@@ -1,12 +1,17 @@
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { ReviewCardProps } from '@/interfaces/Card/NormalReviewCardInterface';
 import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
+import WritingReviewModal from '../modal/WritingReviewModal';
 
 export default function NormalReviewCard({ estimation, type, review }: ReviewCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const renderStars = (score: number) => {
     const totalStars = 5;
     const emptyStars = totalStars - score;
@@ -23,9 +28,8 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
       className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white border-none flex flex-col shadow-custom3"
     >
       <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:w-[64rem] ">
-        {estimation.moveInfo.type.map((type, index) => (
-          <MovingTypeChips key={index} type={type} />
-        ))}
+        <MovingTypeChips type={estimation.moveInfo.type} />
+
         {type === 'MY' && (
           <span className="lg:flex md:hidden sm:hidden lg:text-[1.8rem] font-normal text-gray-300 items-center ml-auto">
             작성일 {DateWithoutDayWeeKFormat(review.createdAt)}
@@ -64,7 +68,10 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
       </div>
       {type === 'ABLE' && (
         <ButtonWrapper id="review_card-btn">
-          <ButtonWrapper.Button className="lg:w-[64rem] lg:h-[6.4rem] md:w-[56rem] md:h-[3.8rem] sm:w-[29.9rem] sm:h-[4.8rem] lg:rounded-[1.6rem] md:rounded-[0.8rem] sm:rounded-[0.8rem] p-[1.6rem] bg-blue-300 text-center lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white ">
+          <ButtonWrapper.Button
+            onClick={() => setIsModalOpen(true)}
+            className="lg:w-[64rem] lg:h-[6.4rem] md:w-[56rem] md:h-[3.8rem] sm:w-[29.9rem] sm:h-[4.8rem] lg:rounded-[1.6rem] md:rounded-[0.8rem] sm:rounded-[0.8rem] p-[1.6rem] bg-blue-300 text-center lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white "
+          >
             리뷰 작성하기
           </ButtonWrapper.Button>
         </ButtonWrapper>
@@ -77,6 +84,7 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
           </span>
         </div>
       )}
+      {isModalOpen && <WritingReviewModal estimation={estimation} setIsModalOpen={setIsModalOpen} />}
     </div>
   );
 }
