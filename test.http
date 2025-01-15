@@ -18,3 +18,16 @@ Content-Type: application/json
 
 ### 
 GET https://backend.moving.wiki/drivers?page=1&pageSize=10
+
+###
+GET https://backend.moving.wiki/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDgwZTFjLTY2NWEtNDIwOC04OTdjLWI1MDAwNGVhMWE5YyIsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNzM2OTIxNzAzLCJleHAiOjE3MzY5MjUzMDN9.ikVkG9BE4vDRZeM1In9iCE8LLKpCrIfxTw0iOIOHiVM
+
+###
+PATCH https://backend.moving.wiki/users/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDgwZTFjLTY2NWEtNDIwOC04OTdjLWI1MDAwNGVhMWE5YyIsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNzM2OTIxNzAzLCJleHAiOjE3MzY5MjUzMDN9.ikVkG9BE4vDRZeM1In9iCE8LLKpCrIfxTw0iOIOHiVM
+Content-Type: application/json
+
+{
+  "serviceTypes":["HOME"],
+  "areas":["SEOUL"]
