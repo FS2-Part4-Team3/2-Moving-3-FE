@@ -9,11 +9,8 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
 
   const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
 
-  console.log('Requesting URL:', `${BASE_URL}${url}`);
-  console.log('Request headers:', headers);
-
   try {
-    const response = await fetch(urlWithCacheBusting, {
+    const response = await fetch(`${BASE_URL}${url}`, {
       ...options,
       headers,
     });

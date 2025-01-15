@@ -4,4 +4,17 @@ Content-Type: application/json
 {"email":"test2@test.com",
   "name":"test2",
   "phoneNumber":"010-1234-2345",
-  "password":"password2",}
+  "password":"password2"}
+
+###
+
+POST https://backend.moving.wiki/auth/signIn/user
+Content-Type: application/json
+
+{
+  "email":"test2@test.com",
+  "password":"password2"
+}
+
+### 
+GET https://backend.moving.wiki/drivers?page=1&pageSize=10
