@@ -4,7 +4,7 @@ import { getEstimationData } from '@/api/DriverService';
 import ReviewTabs from '@/components/Tabs/ReviewTabs';
 import NormalReviewCard from '@/components/cards/NormalReviewCard';
 import type { ReviewCardEstimations } from '@/interfaces/Card/NormalReviewCardInterface';
-import WritableReviewPagination from '@/pages/WritableReviewPagination';
+import ReviewPagination from '@/pages/ReviewPagination';
 
 export default async function WritableReviewPage() {
   const estimationsData: ReviewCardEstimations[] = await getEstimationData();
@@ -24,7 +24,7 @@ export default async function WritableReviewPage() {
             ))}
           </div>
         ))}
-        <WritableReviewPagination estimationsData={estimationsData} />
+        <ReviewPagination estimationsData={estimationsData} />
       </div>
     </>
   );
