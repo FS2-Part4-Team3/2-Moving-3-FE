@@ -51,7 +51,7 @@ export default function MyQuoteEditClient() {
             <ModalWrapper onClose={handleCloseModal}>
               <ModalWrapper.Header>견적 삭제하기</ModalWrapper.Header>
               <ModalWrapper.Content>
-                <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-black-300 flex items-center justify-center">
+                <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-black-300 flex items-center justify-center">
                   정말 삭제하시겠습니까?
                 </p>
               </ModalWrapper.Content>
