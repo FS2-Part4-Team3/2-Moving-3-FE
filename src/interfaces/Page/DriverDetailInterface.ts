@@ -30,3 +30,7 @@ export interface DriverReviewData {
 export interface ReviewClientProps {
   id: string;
 }
+
+export interface DetailButtonClientProps {
+  type?: 'quoteWaiting' | 'quoteReceived';
+}

@@ -17,7 +17,7 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
   const quoteData = quoteDatas[0];
   const driverData = quoteData.driver;
 
-  if (driverData.id !== id || !quoteData) {
+  if (quoteData.id !== id || !quoteData) {
     notFound();
   }
 
