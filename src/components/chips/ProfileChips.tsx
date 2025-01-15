@@ -1,23 +1,27 @@
+import { getUserData } from '@/api/UserService';
+import type { User } from '@/interfaces/User/userInterface';
 import type { ProfileChipProps } from '@/interfaces/chip/ProfileChipInterface';
 
 export function ProfileChips({
   regions,
   movingTypes,
-  selectedRegion,
+  selectedRegions = [],
   selectedMovingType,
-  setSelectedRegion,
+  setSelectedRegions,
   setSelectedMovingType,
-}: ProfileChipProps) {
+  user,
+}: ProfileChipProps & { user: User }) {
   const handleRegionSelect = (regionName: string) => {
-    //TODO: user 정보 넣기
-    // if(user.role === driver) {
-    //    if(selectedRegions.includes(regionName)){
-    //     setSelectedRegions(selectedRegions.filter((r) => r != regionName));
-    //    } else {
-    //     setSelectedRegions([...selectedRegions, regionName])
-    //    }
-    //   }
-    setSelectedRegion?.(regionName);
+    const regions = selectedRegions ?? [];
+    if (user.type === 'driver') {
+      if (regions?.includes(regionName)) {
+        setSelectedRegions?.(regions.filter(r => r !== regionName));
+      } else {
+        setSelectedRegions?.([...regions, regionName]);
+      }
+    } else if (user.type === 'normal') {
+      setSelectedRegions?.([regionName]);
+    }
   };
 
   const handleMovingTypeSelect = (movingType: string) => {
@@ -33,7 +37,7 @@ export function ProfileChips({
               onClick={() => handleRegionSelect(region.name)}
               key={region.name}
               className={`flex justify-center items-center lg:w-[7.2rem] lg:h-[4.6rem] md:w-[4.9rem] md:h-[3.6rem] sm:w-[4.9rem] sm:h-[3.6rem] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-normal border rounded-[10rem] cursor-pointer ${
-                selectedRegion === region.name
+                selectedRegions?.includes(region.name)
                   ? 'bg-blue-50 text-blue-300 border-blue-300'
                   : 'bg-background-100 text-blue-400 border-gray-100' //toDo: 유저 정보 입력 후 다수의 지역 선택 시 css 반영
               }`}

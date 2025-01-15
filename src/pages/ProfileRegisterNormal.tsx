@@ -9,11 +9,14 @@ import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 
 export default function ProfileRegisterNormal() {
+  // TODO: user redux 전역으로 관리 후 삽입
+  const user = {
+    type: 'driver',
+  };
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [selectedMovingType, setSelectedMovingType] = useState<string | null>(null);
-  //TODO: const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [selectedRegions, setSelectedRegions] = useState<string[] | null>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +68,7 @@ export default function ProfileRegisterNormal() {
             movingTypes={movingTypes}
             selectedMovingType={selectedMovingType}
             setSelectedMovingType={setSelectedMovingType}
+            user={user}
           />
         </div>
         <div className="mt-[3.2rem]">
@@ -74,12 +78,12 @@ export default function ProfileRegisterNormal() {
           <p className="lg:text-[1.6rem] md:text-[1.2rem] sm:text-[1.2rem] font-normal text-gray-400 mb-[3.2rem]">
             *내가 사는 지역은 언제든 수정 가능해요!
           </p>
-          <ProfileChips regions={regions} selectedRegion={selectedRegion} setSelectedRegion={setSelectedRegion} />
+          <ProfileChips regions={regions} selectedRegions={selectedRegions} setSelectedRegions={setSelectedRegions} user={user} />
         </div>
       </div>
       <ButtonWrapper id="profile-register-normal" onClick={handleImgSubmit}>
         <ButtonWrapper.Button
-          disabled={!(selectedImg && selectedMovingType && selectedMovingType)}
+          disabled={!(selectedImg && selectedMovingType && selectedRegions)}
           className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"
         >
           시작하기
