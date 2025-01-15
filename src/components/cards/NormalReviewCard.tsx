@@ -70,7 +70,7 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
         <ButtonWrapper id="review_card-btn">
           <ButtonWrapper.Button
             onClick={() => setIsModalOpen(true)}
-            className="lg:w-[64rem] lg:h-[6.4rem] md:w-[56rem] md:h-[3.8rem] sm:w-[29.9rem] sm:h-[4.8rem] lg:rounded-[1.6rem] md:rounded-[0.8rem] sm:rounded-[0.8rem] p-[1.6rem] bg-blue-300 text-center lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white "
+            className="lg:w-[64rem] lg:h-[6.4rem] md:w-[56rem] md:h-[3.8rem] sm:w-[29.9rem] sm:h-[4.8rem] lg:rounded-[1.6rem] md:rounded-[0.8rem] sm:rounded-[0.8rem] text-center bg-blue-300  lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white "
           >
             리뷰 작성하기
           </ButtonWrapper.Button>
