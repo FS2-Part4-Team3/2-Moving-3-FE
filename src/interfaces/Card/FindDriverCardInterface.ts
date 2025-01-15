@@ -5,7 +5,7 @@ export interface FindDriverCardProps {
 
 interface FindDriverCardData {
   id: string;
-  serviceTypes: string[];
+  serviceType: string[];
   introduce: string;
   name: string;
   image: string;

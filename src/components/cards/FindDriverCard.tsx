@@ -12,8 +12,8 @@ export default function FindDriverCard({ data, type }: FindDriverCardProps) {
       shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]"
       >
         <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
-        {type === 'WAITING' && <MovingTypeChips type="WAITING" />}
-          {data.serviceTypes.map((item: string, index: number) => (
+          {type === 'WAITING' && <MovingTypeChips type="WAITING" />}
+          {data.serviceType.map((item: string, index: number) => (
             <MovingTypeChips key={index} type={item as 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING'} />
           ))}
         </div>
