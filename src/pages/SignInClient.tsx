@@ -57,7 +57,9 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
+      console.log('cookie:', document.cookie);
       console.log('로그인 성공:', res);
+      console.log('cookie:', document.cookie);
     } catch (error) {
       console.error('로그인 실패:', error);
     }

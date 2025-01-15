@@ -23,6 +23,7 @@ export async function getRequest(url: string, params?: Params) {
 export async function postRequest(url: string, body: object = {}) {
   return fetchWrapper(url, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
