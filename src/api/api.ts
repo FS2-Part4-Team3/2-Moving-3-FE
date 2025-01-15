@@ -1,6 +1,14 @@
 // const BASE_URL = 'http://localhost:3000';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
+export class CustomError extends Error {
+  data: any;
+  constructor(message: string, data: any) {
+    super(message);
+    this.data = data;
+  }
+}
+
 export async function fetchWrapper(url: string, options: RequestInit = {}) {
   const headers = {
     'Cache-Control': 'no-cache',
@@ -21,7 +29,8 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
         statusText: response.statusText,
         url: response.url,
       });
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const error = new CustomError(`HTTP error! status: ${response.status}`, await response.json());
+      throw error;
     }
 
     return response.json();

@@ -71,8 +71,8 @@ export default function SignUpClient() {
         router.push('/driver/sign-in');
       }
       alert('회원가입이 완료되었습니다');
-    } catch (error) {
-      alert('회원가입에 실패하였습니다.');
+    } catch (error: any) {
+      alert(error.data.message);
     }
   };
 
