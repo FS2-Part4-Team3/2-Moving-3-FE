@@ -2,4 +2,5 @@ import type { ReviewCardEstimations, ReviewCardReviews } from '../Card/NormalRev
 
 export interface WritingReviewModalProps {
   estimation: ReviewCardEstimations;
+  setIsModalOpen: (args: boolean) => void;
 }
