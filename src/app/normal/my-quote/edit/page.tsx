@@ -5,7 +5,7 @@ import MyQuoteEditClient from '@/pages/MyQuoteEditClient';
 
 export default async function MyQuoteEdit() {
   const moveInfoData = await getEstimationData();
-  console.log(moveInfoData[0]);
+
   return (
     <div className="w-full min-h-screen bg-background-100 flex flex-col items-center">
       <div className="w-full bg-white flex justify-center">
