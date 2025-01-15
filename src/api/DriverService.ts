@@ -1,3 +1,5 @@
+import type { Params } from '@/interfaces/API';
+import type { DriverListResponse } from '@/interfaces/API/DriverServiceInterface';
 import { getRequest } from '@/utils/requestFunctions';
 
 export const getDriverData = async () => {
@@ -46,5 +48,31 @@ export const getEstimationData = async () => {
   } catch (error) {
     console.error('Error fetching estimate data:', error);
     return;
+  }
+};
+
+export const getDriverListData = async (
+  page?: number,
+  pageSize?: number,
+  keyword?: string,
+  orderBy: string = 'MostReviewed',
+  area?: string,
+  serviceType?: string,
+): Promise<DriverListResponse> => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+    keyword: keyword,
+    orderBy: orderBy,
+    area: area,
+    serviceType: serviceType,
+  };
+
+  try {
+    const data = await getRequest('/drivers', params);
+    return data;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
   }
 };

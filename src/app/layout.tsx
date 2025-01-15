@@ -31,8 +31,10 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <div className="min-h-screen">
           <Providers>
-            <GNB />
-            {children}
+            <ReactQueryProviders>
+              <GNB />
+              {children}
+            </ReactQueryProviders>
           </Providers>
         </div>
       </body>
