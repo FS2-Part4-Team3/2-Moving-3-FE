@@ -14,6 +14,22 @@ export const postSignInData = async (userType: string, email: string, password: 
   }
 };
 
+export const postSignUpData = async (userType: string, email: string, name: string, phoneNumber: string, password: string) => {
+  const params = {
+    email: email,
+    name: name,
+    phoneNumber: phoneNumber,
+    password: password,
+  };
+  try {
+    const data = await postRequest(`/auth/signUp/${userType}`, params);
+    return data;
+  } catch (error) {
+    console.error('SignUp Fetch error:', error);
+    throw error;
+  }
+};
+
 export const patchUserData = async (imgUrl: string, serviceTypes: string[], areas: string[]) => {
   try {
     const requestBody: any = { serviceTypes, areas };

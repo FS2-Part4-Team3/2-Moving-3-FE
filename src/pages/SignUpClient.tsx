@@ -1,14 +1,16 @@
 'use client';
 
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
+import { postSignUpData } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 
 export default function SignUpClient() {
+  const router = useRouter();
   const pathname = usePathname();
   const [userType, setUserType] = useState('');
 
@@ -53,8 +55,25 @@ export default function SignUpClient() {
     }
   }, [number]);
 
-  const handleSubmit = () => {
-    const data = { email, password };
+  const handleSubmit = async () => {
+    try {
+      const res = await postSignUpData(userType, email, name, number, password);
+      console.log('res', res);
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.log(errorData);
+        throw new Error(errorData.message || '알 수 없는 오류가 발생했습니다.');
+      }
+
+      if (userType === 'user') {
+        router.push('/normal/sign-in');
+      } else if (userType === 'driver') {
+        router.push('/driver/sign-in');
+      }
+      alert('회원가입이 완료되었습니다');
+    } catch (error: any) {
+      alert(error.data.message);
+    }
   };
 
   useEffect(() => {
