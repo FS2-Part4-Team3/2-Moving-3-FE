@@ -20,8 +20,6 @@ export default function SignUpClient() {
     }
   }, [pathname]);
 
-  console.log(userType);
-
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [number, setNumber] = useState<string>('');
