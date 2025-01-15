@@ -4,6 +4,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export async function fetchWrapper(url: string, options: RequestInit = {}) {
   const headers = {
     'Cache-Control': 'no-cache',
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     ...options.headers,
   };
 

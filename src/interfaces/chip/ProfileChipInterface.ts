@@ -1,18 +1,20 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 export interface Region {
   name: string;
-  code?: string | null;
+  code: string;
 }
 
 export interface MovingType {
   type: string;
-  code?: string | null;
+  code: string;
 }
 
 export interface ProfileChipProps {
   regions?: Region[];
   movingTypes?: MovingType[];
-  selectedMovingType?: string | null;
-  selectedRegions?: string[] | null;
-  setSelectedMovingType?: (arg: string) => void;
-  setSelectedRegions?: (arg: string[]) => void;
+  selectedMovingType?: string[];
+  selectedRegions?: string[];
+  setSelectedMovingType?: Dispatch<SetStateAction<string[]>>;
+  setSelectedRegions?: Dispatch<SetStateAction<string[]>>;
 }

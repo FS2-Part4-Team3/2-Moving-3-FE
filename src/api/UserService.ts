@@ -1,4 +1,4 @@
-import { getRequest, patchRequest, postRequest } from '@/utils/requestFunctions';
+import { getRequest, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
 
 export const postSignInData = async (userType: string, email: string, password: string) => {
   const params = {
@@ -16,7 +16,12 @@ export const postSignInData = async (userType: string, email: string, password: 
 
 export const patchUserData = async (imgUrl: string, serviceTypes: string[], areas: string[]) => {
   try {
-    const res = await patchRequest('/users/update', { image: imgUrl, serviceTypes: serviceTypes, areas: areas });
+    const requestBody: any = { serviceTypes, areas };
+    if (imgUrl) {
+      requestBody.image = imgUrl;
+    }
+
+    const res = await patchRequest('/users/update', requestBody);
     return res || [];
   } catch (err) {
     console.error('Error patching user data: ', err);
@@ -31,5 +36,17 @@ export const getUserData = async () => {
   } catch (err) {
     console.error('Error fetching user data: ', err);
     return;
+  }
+};
+
+export const putImage = async (url: string, imageFile: Blob | File) => {
+  try {
+    if (!(imageFile instanceof File || imageFile instanceof Blob)) {
+      throw new Error('유효하지 않은 이미지 파일입니다.');
+    }
+    const res = await putRequest(url, imageFile);
+    return res || [];
+  } catch (err) {
+    throw new Error();
   }
 };
