@@ -9,13 +9,16 @@ import FindDriverCard from '@/components/cards/FindDriverCard';
 import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import { priceFormat } from '@/utils/Format';
 
-export default async function MyQuoteWaitingDetail({ params }: { params: { id: string } }) {
+export default async function MyQuoteReceivedDetail({ params }: { params: { id: string } }) {
   const { id } = params;
 
   // Api 연결 필요
   const quoteDatas = await getEstimationData();
   const quoteData = quoteDatas[0];
   const driverData = quoteData.driver;
+
+  // moveinfo에 progress 나 confirmedEstimation로 확정 견적인지 데이터 이용해서 기사님 카드 컴포넌트 페이지에 띄우기.
+  // quoteData.moveInfo ~
 
   if (driverData.id !== id || !quoteData) {
     notFound();
@@ -76,7 +79,9 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
-            <DetailButtonClient type="quoteWaiting" />
+            {/* 확정 견적인지 아닌지 확인해서 컴포넌트 사용 */}
+            {/* 현재는 체크없이 확정 견적으로 나타낸 상태 */}
+            <DetailButtonClient type="quoteReceived" />
           </div>
         </div>
       </div>
