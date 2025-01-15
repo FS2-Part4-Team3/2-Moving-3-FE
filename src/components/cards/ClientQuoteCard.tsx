@@ -1,11 +1,8 @@
-'use client';
-
-import type { ManageQuotationCardProps } from '@/interfaces/Card/ManageQuotationCardInterface';
-import AddressFormat, { DateFormat, priceFormat, timeAgoFormat } from '@/utils/Format';
+import type { ClientQuoteCardProps } from '@/interfaces/Card/ClientQuoteCardInterface';
+import AddressFormat, { DateFormat, timeAgoFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
-import { ButtonWrapper } from '../common/headless/Button';
 
-export default function ManageQuotationCard({ data }: ManageQuotationCardProps) {
+export default function ClientQuoteCard({ data }: ClientQuoteCardProps) {
   // TODO: api 연결 시 변경되는 데이터 값에 관해서는 수정 예정입니다.
   // let status: string = 'end';
   let status: string = 'abandon';
