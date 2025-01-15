@@ -1,3 +1,3 @@
 export interface MovingTypeChipsProps {
-  type: "SMALL" | "HOME" | "OFFICE" | "APPOINTMENT" | "WAITING";
+  type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING' | 'RECEIVED';
 }

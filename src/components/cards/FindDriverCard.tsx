@@ -13,6 +13,7 @@ export default function FindDriverCard({ data, type }: FindDriverCardProps) {
       >
         <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
           {type === 'WAITING' && <MovingTypeChips type="WAITING" />}
+          {type === 'RECEIVED' && <MovingTypeChips type="RECEIVED" />}
           {data.serviceType.map((item: string, index: number) => (
             <MovingTypeChips key={index} type={item as 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING'} />
           ))}
