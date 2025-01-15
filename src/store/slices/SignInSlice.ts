@@ -4,6 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 interface SignInState {
   id: string | undefined;
   name: string | undefined;
+  nickname: string | undefined;
   accessToken: string | undefined;
   email: string | undefined;
   image: string | undefined;
@@ -19,6 +20,7 @@ interface SignInState {
 const initialState: SignInState = {
   id: undefined,
   name: undefined,
+  nickname: undefined,
   accessToken: undefined,
   email: undefined,
   image: undefined,
@@ -48,11 +50,13 @@ const signInSlice = createSlice({
       state.type = type;
 
       if (type === 'driver') {
+        state.nickname = action.payload.nickname;
         state.availableAreas = action.payload.availableAreas;
         state.areas = undefined;
       } else if (type === 'user') {
         state.areas = action.payload.areas;
         state.availableAreas = undefined;
+        state.nickname = undefined;
       }
     },
     setSignOut(state) {

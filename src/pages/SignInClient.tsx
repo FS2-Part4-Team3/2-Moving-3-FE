@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
@@ -13,6 +13,7 @@ import { setUserSign } from '@/store/slices/SignInSlice';
 
 export default function SignInClient() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const pathname = usePathname();
   const [userType, setUserType] = useState('');
 
@@ -60,13 +61,11 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
-      console.log('cookie:', document.cookie);
-      console.log('로그인 성공:', res);
-      console.log('cookie:', document.cookie);
       dispatch(
         setUserSign({
           id: res.id,
           name: res.name,
+          nickname: userType === 'driver' ? res.nickname : undefined,
           accessToken: res.accessToken,
           email: res.email,
           image: res.image,
@@ -79,6 +78,18 @@ export default function SignInClient() {
           type: userType,
         }),
       );
+      if (userType === 'user' && (!res.image || !res.areas || !res.serviceTypes)) {
+        router.push('/normal/profile-register');
+      } else if (userType === 'user' && res.image && res.areas && res.serviceTypes) {
+        router.push('/normal/match-driver');
+      } else if (
+        userType === 'driver' &&
+        (!res.image || (!res.introduce && !res.description && !res.availableAreas && !res.nickname))
+      ) {
+        router.push('/driver/profile-register');
+      } else if (userType === 'driver' && res.image && res.introduce && res.description && res.availableAreas) {
+        router.push('/driver/receive-quote');
+      }
     } catch (error) {
       console.error('로그인 실패:', error);
     }
