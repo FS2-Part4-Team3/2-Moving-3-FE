@@ -3,13 +3,16 @@
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
 import { postSignInData } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
+import { setUserSign } from '@/store/slices/SignInSlice';
 
 export default function SignInClient() {
+  const dispatch = useDispatch();
   const pathname = usePathname();
   const [userType, setUserType] = useState('');
 
@@ -60,6 +63,22 @@ export default function SignInClient() {
       console.log('cookie:', document.cookie);
       console.log('로그인 성공:', res);
       console.log('cookie:', document.cookie);
+      dispatch(
+        setUserSign({
+          id: res.id,
+          name: res.name,
+          accessToken: res.accessToken,
+          email: res.email,
+          image: res.image,
+          phoneNumber: res.phoneNumber,
+          introduce: res.introduce,
+          description: res.description,
+          serviceTypes: res.serviceTypes,
+          availableAreas: userType === 'driver' ? res.availableAreas : undefined,
+          areas: userType === 'user' ? res.areas : undefined,
+          type: userType,
+        }),
+      );
     } catch (error) {
       console.error('로그인 실패:', error);
     }
