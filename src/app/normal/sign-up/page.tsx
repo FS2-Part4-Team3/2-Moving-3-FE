@@ -6,6 +6,8 @@ import naver from '@/../public/assets/sign/ic_naver.svg';
 import logo from '@/../public/assets/sign/sign-logo.svg';
 import SignUpClient from '@/pages/SignUpClient';
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 export default function SignUp() {
   return (
     <div className="w-full lg:py-[7.2rem] sm:py-[5.6rem] flex items-center justify-center">
@@ -45,7 +47,9 @@ export default function SignUp() {
           </p>
           <div className="lg:block sm:hidden">
             <div className="flex lg:gap-[3.2rem]">
-              <Image src={google} alt="google" width={72} height={72} />
+              <a href={`${BASE_URL}/auth/google/user`} target="_blank" rel="noopener noreferrer">
+                <Image src={google} alt="google" width={72} height={72} />
+              </a>
               <Image src={kakao} alt="kakao" width={72} height={72} />
               <Image src={naver} alt="naver" width={72} height={72} />
             </div>
