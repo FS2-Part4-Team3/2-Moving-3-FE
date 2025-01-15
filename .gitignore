@@ -12,7 +12,7 @@
 
 # testing
 /coverage
-http*.*
+*.http
 
 # next.js
 /.next/
