@@ -91,7 +91,8 @@ export default function SignInClient() {
         router.push('/driver/receive-quote');
       }
     } catch (error) {
-      console.error('로그인 실패:', error);
+      // console.error('로그인 실패:', error);
+      alert('이메일 또는 비밀번호가 일치하지 않습니다');
     }
   };
 
