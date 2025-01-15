@@ -52,11 +52,11 @@ export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
           </div>
         </div>
       )}
-      {type === 'WAITING' && (
+      {(type === 'WAITING' || type === 'RECEIVED') && (
         <div className="w-fit">
           <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-[#F2F3F8]">
             <p className="font-semibold lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-400">
-              견적 대기
+              {type === 'WAITING' ? '견적 대기' : '확정 견적'}
             </p>
           </div>
         </div>
