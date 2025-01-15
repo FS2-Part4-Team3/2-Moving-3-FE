@@ -1,5 +1,5 @@
 export interface FindDriverCardProps {
-  data: FindDriverCardData[];
+  data: FindDriverCardData;
 }
 
 interface FindDriverCardData {

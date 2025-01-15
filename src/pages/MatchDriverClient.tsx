@@ -1,6 +1,8 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
 import { getDriverListData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
@@ -9,6 +11,8 @@ import type { RootState } from '@/store/store';
 
 export default function MatchDriverClient() {
   const { page, pageSize, keyword, orderBy, area, serviceType } = useSelector((state: RootState) => state.drivers);
+
+  const { ref, inView } = useInView();
 
   const {
     data: drivers,
@@ -30,6 +34,10 @@ export default function MatchDriverClient() {
     initialPageParam: page,
   });
 
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
+  }, [inView]);
+
   if (driversLoading) {
     return <div>Loading...</div>;
   }
@@ -39,11 +47,11 @@ export default function MatchDriverClient() {
   }
 
   return (
-    <FindDriverCard
-      data={drivers ? drivers.pages.flatMap(page => page.list) : []}
-      fetchNextPage={fetchNextPage}
-      hasNextPage={hasNextPage}
-      isFetchingNextPage={isFetchingNextPage}
-    />
+    <div>
+      <div className="flex flex-col lg:gap-[4.8rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
+        {drivers ? drivers.pages.flatMap(page => page.list.map(driver => <FindDriverCard data={driver} />)) : []}
+      </div>
+      {hasNextPage && <div ref={ref}>Loading...</div>}
+    </div>
   );
 }
