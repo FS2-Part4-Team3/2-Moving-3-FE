@@ -9,14 +9,6 @@ export class CustomError extends Error {
   }
 }
 
-export class CustomError extends Error {
-  data: any;
-  constructor(message: string, data: any) {
-    super(message);
-    this.data = data;
-  }
-}
-
 export async function fetchWrapper(url: string, options: RequestInit = {}) {
   const headers = {
     'Cache-Control': 'no-cache',
