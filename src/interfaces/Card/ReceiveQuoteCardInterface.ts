@@ -4,10 +4,12 @@ export interface ReceiveQuoteCardProps {
 
 interface ReceiveQuoteCardData {
   id: string;
-  owner: string;
+  owner: {
+    name: string;
+  };
   date: string;
   fromAddress: string;
   toAddress: string;
-  type: "SMALL" | "HOME" | "OFFICE" | "APPOINTMENT" | "WAITING";
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
   updatedAt: string;
 }

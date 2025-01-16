@@ -1,6 +1,7 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
@@ -8,7 +9,6 @@ import { getMovesListData } from '@/api/DriverService';
 import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
 import Empty from '@/components/common/Empty/Empty';
 import { MovesListResponse } from '@/interfaces/API/MovesServiceInterface';
-import { setMovesList } from '@/store/slices/movesSlice';
 import { RootState } from '@/store/store';
 
 export default function ReceiveQuoteClient() {
@@ -27,7 +27,7 @@ export default function ReceiveQuoteClient() {
     isFetchingNextPage,
   } = useInfiniteQuery<MovesListResponse>({
     queryKey: ['moves', keyword, orderBy, serviceType, serviceArea, designatedRequest],
-    queryFn: ({ pageParam }) => {
+    queryFn: async ({ pageParam }) => {
       return getMovesListData(pageParam as number, pageSize, keyword, orderBy, serviceType, serviceArea, designatedRequest);
     },
     getNextPageParam: (lastPage, allPages) => {
@@ -49,6 +49,15 @@ export default function ReceiveQuoteClient() {
   if (movesError) {
     return <div>Error</div>;
   }
+
+  if (!moves || moves.pages[0].list.length === 0) {
+    return (
+      <div className="w-full h-[56rem] flex items-center justify-center">
+        <Empty type="ReceiveQuote" />
+      </div>
+    );
+  }
+
   console.log(
     'moves',
     moves.pages.flatMap(page => {
@@ -59,19 +68,15 @@ export default function ReceiveQuoteClient() {
   return (
     <div>
       <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
-        {moves ? (
-          moves.pages.flatMap(page =>
-            page.list.map(driver => (
-              <div key={driver.id}>
-                <ReceiveQuoteCard data={driver} />
-              </div>
-            )),
-          )
-        ) : (
-          <div className="w-full h-[56rem] flex items-center justify-center">
-            <Empty type="ReceiveQuote" />
-          </div>
-        )}
+        {moves
+          ? moves.pages.flatMap(page =>
+              page.list.map(driver => (
+                <Link key={driver.id} href={`/driver/receive-quote/${driver.id}`}>
+                  <ReceiveQuoteCard data={driver} />
+                </Link>
+              )),
+            )
+          : []}
       </div>
       {hasNextPage && <div ref={ref}>Loading...</div>}
     </div>
