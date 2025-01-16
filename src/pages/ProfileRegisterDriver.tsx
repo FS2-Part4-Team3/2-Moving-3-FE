@@ -1,8 +1,11 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
+import { patchUserData } from '@/api/UserService';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
@@ -23,7 +26,7 @@ export default function ProfileRegisterDriver() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid;
-  //TODO: 추후에 user 정보 받아서 중복 선택 가능하게 하기
+  const router = useRouter();
 
   useEffect(() => {
     setIsFormValid(validate('REGISTER'));
@@ -45,9 +48,22 @@ export default function ProfileRegisterDriver() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
+  const userMutation = useMutation({
+    mutationFn: async () => {
+      let sampleImage = '';
+      const res = await patchUserData(sampleImage, values.selectedMovingType, values.selectedRegions);
+    },
+    onSuccess: () => {
+      router.push('/driver/receive-quote');
+    },
+    onError: () => {
+      router.push('/not-found');
+    },
+  });
+
   const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //TODO: 추후에 api 연결
     e.preventDefault();
+    userMutation.mutate();
   };
 
   return (

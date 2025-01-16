@@ -33,7 +33,6 @@ export default function ProfileRegisterNormal() {
 
   const userMutation = useMutation({
     mutationFn: async () => {
-      if (!selectedImg) return;
       let sampleImage = '';
       const res = await patchUserData(sampleImage, selectedMovingType, selectedRegions);
 
