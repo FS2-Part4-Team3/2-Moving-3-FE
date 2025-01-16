@@ -61,6 +61,7 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
+      localStorage.setItem('accessToken', res.accessToken);
       dispatch(
         setUserSign({
           id: res.id,
@@ -90,7 +91,6 @@ export default function SignInClient() {
       } else if (userType === 'driver' && res.image && res.introduce && res.description && res.availableAreas) {
         router.push('/driver/receive-quote');
       }
-      localStorage.setItem('accessToken', res.accessToken);
     } catch (error) {
       alert('이메일 또는 비밀번호가 일치하지 않습니다');
     }
