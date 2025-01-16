@@ -33,7 +33,7 @@
       "@pages/*": ["./src/pages/*"],
       "@constants/*": ["./src/constatns/*"]
     },
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },

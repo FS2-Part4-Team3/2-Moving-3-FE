@@ -4,19 +4,16 @@ import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getEstimationData } from '@/api/DriverService';
+import ClientQuoteCard from '@/components/cards/ClientQuoteCard';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
-import FindDriverCard from '@/components/cards/FindDriverCard';
-import MyQuoteReceivedToast from '@/components/toasts/MyQuoteReceivedToast';
-import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import { priceFormat } from '@/utils/Format';
 
-export default async function MyQuoteReceivedDetail({ params }: { params: { id: string } }) {
+export default async function MyQuoteSentDetail({ params }: { params: { id: string } }) {
   const { id } = params;
 
   // Api 연결 필요
   const quoteDatas = await getEstimationData();
   const quoteData = quoteDatas[0];
-  const driverData = quoteData.driver;
 
   // moveinfo에 progress 나 confirmedEstimation로 확정 견적인지 데이터 이용해서 기사님 카드 컴포넌트 페이지에 띄우기.
   // quoteData.moveInfo ~
@@ -27,16 +24,14 @@ export default async function MyQuoteReceivedDetail({ params }: { params: { id: 
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="bg-white lg:w-[140rem] md:w-[60rem] sm:w-[32.7rem]">
+      <div className="bg-white lg:w-[129.6rem] md:w-[60rem] sm:w-[32.7rem]">
         <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.8rem] sm:leading-[2.6rem] font-semibold text-black-400 lg:py-[3.2rem] sm:py-[1.4rem]">
           견적 상세
         </p>
       </div>
       <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
-          {/* 확정 견적인지 아닌지 확인해서 컴포넌트 사용 */}
-          {/* 현재는 체크없이 확정 견적으로 나타낸 상태 */}
-          <FindDriverCard key={driverData.id} data={driverData} type="RECEIVED" />
+          <ClientQuoteCard key={quoteData.id} data={quoteData} />
           <div className="lg:hidden sm:block">
             <div className="border border-line-100 w-full mb-[2.4rem]"></div>
             <div className="flex flex-col gap-[1.6rem] py-[1rem]">
@@ -60,34 +55,16 @@ export default async function MyQuoteReceivedDetail({ params }: { params: { id: 
             </p>
           </div>
           <div className="border border-line-100 w-full"></div>
-          <div className="flex flex-col lg:gap-[2.2rem] sm:gap-[0.8rem]">
-            <EstimationInformationCard data={quoteData} />
-            {/* 확정 견적이 아닐 때 토스트 창 띄우기 사용 */}
-            {/* 현재는 모든 페이지에 토스트 띄워져 있는 상태 */}
-            <MyQuoteReceivedToast />
-          </div>
+          <EstimationInformationCard data={quoteData} />
         </div>
         <div className="lg:block sm:hidden">
-          <div className="flex flex-col w-[32.8rem] gap-[4rem]">
-            <div className="flex flex-col gap-[3.2rem]">
-              <DetailButtonClient type="quoteReceived" />
+          <div className="flex flex-col gap-[2.2rem]">
+            <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400">견적서 공유하기</p>
+            <div className="flex flex-row gap-[1.6rem]">
+              <Image src={clip} alt="share-clip" width={64} height={64} />
+              <Image src={kakao} alt="share-kakao" width={64} height={64} />
+              <Image src={facebook} alt="share-facebook" width={64} height={64} />
             </div>
-            <div className="border border-line-100 w-full"></div>
-            <div className="flex flex-col gap-[2.2rem]">
-              <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400">견적서 공유하기</p>
-              <div className="flex flex-row gap-[1.6rem]">
-                <Image src={clip} alt="share-clip" width={64} height={64} />
-                <Image src={kakao} alt="share-kakao" width={64} height={64} />
-                <Image src={facebook} alt="share-facebook" width={64} height={64} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="lg:hidden sm:block">
-        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
-          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
-            <DetailButtonClient type="quoteReceived" />
           </div>
         </div>
       </div>
