@@ -58,10 +58,8 @@ export default function SignUpClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignUpData(userType, email, name, number, password);
-      console.log('res', res);
       if (!res.ok) {
         const errorData = await res.json();
-        console.log(errorData);
         throw new Error(errorData.message || '알 수 없는 오류가 발생했습니다.');
       }
 
