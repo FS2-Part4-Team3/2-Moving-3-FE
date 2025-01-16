@@ -4,7 +4,7 @@ interface MovesState {
   page: number;
   pageSize: number;
   keyword: string | undefined;
-  orderBy: 'UpcomingMoveDate' | 'RecentRequest';
+  orderBy: string;
   serviceType: 'SMALL' | 'HOME' | 'OFFICE' | undefined;
   serviceArea: 'Active' | 'Inactive';
   designatedRequest: 'Active' | 'Inactive';
@@ -39,7 +39,7 @@ const movesSlice = createSlice({
     setKeyword(state, action: PayloadAction<string>) {
       state.keyword = action.payload;
     },
-    setOrderBy(state, action: PayloadAction<'UpcomingMoveDate' | 'RecentRequest'>) {
+    setOrderBy(state, action: PayloadAction<string>) {
       state.orderBy = action.payload;
     },
     setServiceType(state, action: PayloadAction<'SMALL' | 'HOME' | 'OFFICE' | undefined>) {

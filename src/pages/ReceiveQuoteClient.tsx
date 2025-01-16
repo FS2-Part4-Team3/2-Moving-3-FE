@@ -66,19 +66,21 @@ export default function ReceiveQuoteClient() {
   // );
 
   return (
-    <div>
+    <>
       <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
         {moves
           ? moves.pages.flatMap(page =>
               page.list.map(driver => (
                 <Link key={driver.id} href={`/driver/receive-quote/${driver.id}`}>
-                  <ReceiveQuoteCard data={driver} />
+                  <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
+                    <ReceiveQuoteCard data={driver} />
+                  </div>
                 </Link>
               )),
             )
           : []}
       </div>
       {hasNextPage && <div ref={ref}>Loading...</div>}
-    </div>
+    </>
   );
 }

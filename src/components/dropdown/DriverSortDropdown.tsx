@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import arrow from '@/../public/assets/common/dropdown/chevron-down.svg';
 import sortMenu from '@/constants/driverSortMenu';
-import { setOrderBy } from '@/store/slices/driversSlice';
+import { setOrderBy } from '@/store/slices/movesSlice';
 
 export default function DriverSortDropdown() {
   const dispatch = useDispatch();

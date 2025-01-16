@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import search from '@/../public/assets/common/searchbar/ic_search.svg';
 import x from '@/../public/assets/common/searchbar/ic_x_circle.svg';
-import { setKeyword } from '@/store/slices/driversSlice';
+import { setKeyword } from '@/store/slices/movesSlice';
 import { InputWrapper } from '../headless/Input';
 
 export default function DriverSearchBar() {
@@ -16,6 +16,7 @@ export default function DriverSearchBar() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      console.log(value);
       dispatch(setKeyword(value));
     }
   };
