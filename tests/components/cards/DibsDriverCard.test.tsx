@@ -52,7 +52,7 @@ describe('DibsDriverCard', () => {
     expect(screen.getByText(`${mockData.name} 기사님`)).toBeInTheDocument();
     expect(screen.getByText(mockData.favoriteCount)).toBeInTheDocument();
     expect(screen.getByText(mockData.score)).toBeInTheDocument();
-    expect(screen.getByText(mockData.reviewCount)).toBeInTheDocument();
+    expect(screen.getByText(`(${mockData.reviewCount})`)).toBeInTheDocument();
     expect(screen.getByText(`${mockData.career}년`)).toBeInTheDocument();
     expect(screen.getByText(`${mockData.applyCount}건`)).toBeInTheDocument();
   });
