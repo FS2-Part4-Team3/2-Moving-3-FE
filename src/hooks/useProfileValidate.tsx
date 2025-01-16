@@ -9,8 +9,8 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
     career: '',
     shortBio: '',
     description: '',
-    selectedRegion: null,
-    selectedMovingType: null,
+    selectedRegions: [],
+    selectedMovingType: [],
     name: '',
     email: '',
     number: '',
@@ -50,7 +50,7 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.description = '10자 이상 입력해주세요.';
     }
 
-    if (!values.selectedRegion) {
+    if (!values.selectedRegions) {
       isValid = false;
       newError.selectedRegion = '* 1개 이상 선택해주세요.';
     }

@@ -22,7 +22,7 @@ export default function ProfileRegisterDriver() {
     description: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const isDisabled = isFormValid && previewUrl;
+  const isDisabled = isFormValid;
   //TODO: 추후에 user 정보 받아서 중복 선택 가능하게 하기
 
   useEffect(() => {
@@ -189,8 +189,8 @@ export default function ProfileRegisterDriver() {
           )}
           <ProfileChips
             regions={regions}
-            selectedRegion={values.selectedRegion}
-            setSelectedRegion={value => setValues(prev => ({ ...prev, selectedRegion: value }))}
+            selectedRegions={values.selectedRegions}
+            setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegions: value }))}
           />
         </div>
         <ButtonWrapper id="profile-register-driver" type="submit">

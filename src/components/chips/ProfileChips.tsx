@@ -16,27 +16,20 @@ export function ProfileChips({
 
   const handleRegionSelect = (regionName: string) => {
     if (user.type === 'driver') {
-      if (setSelectedRegions) {
-        setSelectedRegions(prev => {
-          if (prev) {
-            if (prev.includes(regionName)) {
-              return prev.filter(r => r !== regionName);
-            }
-            return [...prev, regionName];
-          }
-          return [regionName];
-        });
+      if (selectedRegions?.includes(regionName)) {
+        setSelectedRegions?.(selectedRegions.filter(region => region !== regionName));
+      } else {
+        setSelectedRegions?.([...(selectedRegions || []), regionName]);
       }
-      setSelectedRegions?.(() => [regionName]);
     }
 
     if (user.type === 'user') {
-      setSelectedRegions?.(() => [regionName]);
+      setSelectedRegions?.([regionName]);
     }
   };
 
   const handleMovingTypeSelect = (movingType: string) => {
-    setSelectedMovingType?.(() => [movingType]);
+    setSelectedMovingType?.([movingType]);
   };
 
   return (

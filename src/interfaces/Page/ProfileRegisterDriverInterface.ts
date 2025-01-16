@@ -3,8 +3,8 @@ export interface RegisterDriverValues {
   career: number | string;
   shortBio: string;
   description: string;
-  selectedRegion: string | null;
-  selectedMovingType: string | null;
+  selectedRegions: string[];
+  selectedMovingType: string[];
   name: string;
   email: string;
   number: string;
