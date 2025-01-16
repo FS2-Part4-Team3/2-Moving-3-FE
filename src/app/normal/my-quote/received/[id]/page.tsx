@@ -6,6 +6,7 @@ import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getEstimationData } from '@/api/DriverService';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
+import MyQuoteReceivedToast from '@/components/toasts/MyQuoteReceivedToast';
 import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import { priceFormat } from '@/utils/Format';
 
@@ -59,7 +60,12 @@ export default async function MyQuoteReceivedDetail({ params }: { params: { id: 
             </p>
           </div>
           <div className="border border-line-100 w-full"></div>
-          <EstimationInformationCard data={quoteData} />
+          <div className="flex flex-col lg:gap-[2.2rem] sm:gap-[0.8rem]">
+            <EstimationInformationCard data={quoteData} />
+            {/* 확정 견적이 아닐 때 토스트 창 띄우기 사용 */}
+            {/* 현재는 모든 페이지에 토스트 띄워져 있는 상태 */}
+            <MyQuoteReceivedToast />
+          </div>
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[32.8rem] gap-[4rem]">
@@ -78,8 +84,6 @@ export default async function MyQuoteReceivedDetail({ params }: { params: { id: 
           </div>
         </div>
       </div>
-      {/* 확정 견적이 아닐 때 토스트 창 띄우기 사용 */}
-      {/* 현재는 모든 페이지에 토스트 띄워져 있는 상태 */}
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
