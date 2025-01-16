@@ -49,7 +49,7 @@ export default function ProfileRegisterNormal() {
     },
   });
 
-  const handleImgSubmit = () => {
+  const handleSubmit = () => {
     userMutation.mutate();
   };
   return (
@@ -97,7 +97,7 @@ export default function ProfileRegisterNormal() {
           <ProfileChips regions={regions} selectedRegions={selectedRegions} setSelectedRegions={setSelectedRegions} />
         </div>
       </div>
-      <ButtonWrapper id="profile-register-normal" onClick={handleImgSubmit}>
+      <ButtonWrapper id="profile-register-normal" onClick={handleSubmit}>
         <ButtonWrapper.Button
           disabled={!selectedMovingType.length || !selectedRegions.length}
           className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"

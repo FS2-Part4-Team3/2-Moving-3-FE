@@ -60,7 +60,7 @@ export const patchDriverData = async (
       requestBody.image = imgUrl;
     }
 
-    const res = await patchRequest('/users/update', requestBody);
+    const res = await patchRequest('/drivers/update', requestBody);
     return res || [];
   } catch (err) {
     console.error('Error patching driver data ', err);

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import dropdown from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
-import { patchUserData } from '@/api/UserService';
+import { patchDriverData } from '@/api/UserService';
 import CareerCalendarCard from '@/components/cards/CareerCalendarCard';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
@@ -55,7 +55,15 @@ export default function ProfileRegisterDriver() {
   const userMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
-      const res = await patchUserData(sampleImage, values.selectedMovingType, values.selectedRegions);
+      const res = await patchDriverData(
+        sampleImage,
+        values.nickname,
+        values.career,
+        values.shortBio,
+        values.description,
+        values.selectedMovingType,
+        values.selectedRegions,
+      );
     },
     onSuccess: () => {
       router.push('/driver/receive-quote');
@@ -65,16 +73,12 @@ export default function ProfileRegisterDriver() {
     },
   });
 
-  const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleValuesSubmit = () => {
     userMutation.mutate();
   };
 
   return (
-    <form
-      className="lg:w-[135.2rem] lg:grid lg:grid-cols-2 lg:gap-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col"
-      onSubmit={handleValuesSubmit}
-    >
+    <div className="lg:w-[135.2rem] lg:grid lg:grid-cols-2 lg:gap-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col">
       <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] border-line-100 lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
           <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -231,7 +235,7 @@ export default function ProfileRegisterDriver() {
             setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegions: value }))}
           />
         </div>
-        <ButtonWrapper id="profile-register-driver" type="submit">
+        <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleValuesSubmit}>
           <ButtonWrapper.Button
             disabled={!isDisabled}
             className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"
@@ -240,6 +244,6 @@ export default function ProfileRegisterDriver() {
           </ButtonWrapper.Button>
         </ButtonWrapper>
       </div>
-    </form>
+    </div>
   );
 }
