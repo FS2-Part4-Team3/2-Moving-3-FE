@@ -82,7 +82,7 @@ export const getMovesListData = (
   pageSize: number,
   keyword: string,
   orderBy: 'UpcomingMoveDate' | 'RecentRequest',
-  serviceType: 'SMALL' | 'HOME' | 'OFFICE',
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | '',
   serviceArea: 'Active' | 'Inactive',
   designatedRequest: 'Active' | 'Inactive',
 ) => {
