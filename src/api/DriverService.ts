@@ -72,7 +72,34 @@ export const getDriverListData = async (
     const data = await getRequest('/drivers', params);
     return data;
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.error('Get Driver List Fetch error:', error);
     throw error;
+  }
+};
+
+export const getMovesListData = (
+  page: number,
+  pageSize: number,
+  keyword: string,
+  orderBy: 'UpcomingMoveDate' | 'RecentRequest',
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE',
+  serviceArea: 'Active' | 'Inactive',
+  designatedRequest: 'Active' | 'Inactive',
+) => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+    keyword: keyword,
+    orderBy: orderBy,
+    serviceType: serviceType,
+    serviceArea: serviceArea,
+    designatedRequest: designatedRequest,
+  };
+
+  try {
+    const data = getRequest('/moves', params);
+    return data;
+  } catch (error) {
+    console.error('Get Move List Fetch Error:', error);
   }
 };
