@@ -3,6 +3,7 @@ import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import { InfoEditDriverCardProps } from '@/interfaces/Card/InfoEditDriverCardInterface';
+import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 
 export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
   return (
@@ -29,7 +30,9 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
               </p>
             </div>
           </div>
-          <div className="flex flex-row gap-[1.6rem] lg:block sm:hidden">버튼</div>
+          <div className="flex flex-row gap-[1.6rem] lg:block sm:hidden">
+            <DetailButtonClient type="InfoEditDriver" />
+          </div>
         </div>
         <div className="w-full flex flex-row lg:px-[1.8rem] lg:py-[2.4rem] sm:p-[1rem] lg:gap-[2.4rem] sm:gap-[1.4rem] bg-background-100 border border-line-200 rounded-[0.6rem] shadow-custom11">
           {data.image && (
@@ -82,7 +85,9 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
           </div>
         </div>
       </div>
-      <div className="flex flex-row justify-between lg:hidden sm:block">버튼</div>
+      <div className="flex md:flex-row sm:flex-col md:gap-0 sm:gap-[0.8rem] md:justify-between lg:hidden sm:block">
+        <DetailButtonClient type="InfoEditDriver" />
+      </div>
     </div>
   );
 }

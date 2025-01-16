@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import edit_gray from '@/../../public/assets/driver/ic_edit_gray.svg';
+import edit_white from '@/../../public/assets/driver/ic_edit_white.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { ButtonWrapper } from '@/components/common/headless/Button';
@@ -53,9 +55,17 @@ export default function DetailButtonClient({ type }: DetailButtonClientProps) {
     alert('견적이 확정되었습니다.');
   };
 
+  const handleEditProfile = () => {
+    router.push('/driver/my-page/edit-profile');
+  };
+
+  const handleEditBasicInfo = () => {
+    router.push('/driver/my-page/edit-basic-info');
+  };
+
   return (
     <>
-      {type !== 'quoteReceived' && (
+      {(type === 'quoteWaiting' || type === undefined) && (
         <ButtonWrapper id="favorite-driver" onClick={handleFavorite}>
           <ButtonWrapper.Button className="lg:w-full h-[5.4rem] sm:w-[5.4rem] rounded-[1.6rem] p-[1rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-black bg-white border border-line-200">
             <div className="flex flex-row gap-[1rem] items-center justify-center">
@@ -65,8 +75,8 @@ export default function DetailButtonClient({ type }: DetailButtonClientProps) {
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
-      {type !== 'quoteReceived' && (
-        <ButtonWrapper id="request-designated-quote" onClick={handleRequest}>
+      {(type === 'quoteWaiting' || type === undefined) && (
+        <ButtonWrapper id="request-quote" onClick={handleRequest}>
           <ButtonWrapper.Button
             className="w-full lg:h-[6.4rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] flex items-center justify-center text-white"
             disabled={isCompleted}
@@ -81,6 +91,29 @@ export default function DetailButtonClient({ type }: DetailButtonClientProps) {
             <div className="flex flex-row gap-[1rem] items-center justify-center">
               <Image src={heart_black} alt="heart" width={24} height={24} />
               <p>기사님 찜하기</p>
+            </div>
+          </ButtonWrapper.Button>
+        </ButtonWrapper>
+      )}
+      {type === 'InfoEditDriver' && (
+        <ButtonWrapper id="my-profile-edit" onClick={handleEditProfile}>
+          <ButtonWrapper.Button
+            className="lg:w-[28rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white"
+            disabled={isCompleted}
+          >
+            <div className="flex flex-row gap-[0.6rem] items-center justify-center">
+              <p>내 프로필 수정</p>
+              <Image src={edit_white} alt="edit" width={24} height={24} />
+            </div>
+          </ButtonWrapper.Button>
+        </ButtonWrapper>
+      )}
+      {type === 'InfoEditDriver' && (
+        <ButtonWrapper id="basic-info-edit" onClick={handleEditBasicInfo}>
+          <ButtonWrapper.Button className="lg:w-[28rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-gray-300 bg-background-200 border border-gray-200">
+            <div className="flex flex-row gap-[0.6rem] items-center justify-center">
+              <p>기본 정보 수정</p>
+              <Image src={edit_gray} alt="edit" width={24} height={24} />
             </div>
           </ButtonWrapper.Button>
         </ButtonWrapper>
