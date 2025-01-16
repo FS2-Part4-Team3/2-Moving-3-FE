@@ -78,6 +78,8 @@ export default async function MyQuoteReceivedDetail({ params }: { params: { id: 
           </div>
         </div>
       </div>
+      {/* 확정 견적이 아닐 때 토스트 창 띄우기 사용 */}
+      {/* 현재는 모든 페이지에 토스트 띄워져 있는 상태 */}
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
