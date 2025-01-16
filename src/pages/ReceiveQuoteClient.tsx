@@ -32,7 +32,7 @@ export default function ReceiveQuoteClient() {
     },
     getNextPageParam: (lastPage, allPages) => {
       const currentPage = allPages.length;
-      const totalPages = Math.ceil(lastPage.totalCount / 10);
+      const totalPages = Math.ceil(lastPage.totalCount / pageSize);
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
     initialPageParam: page,
@@ -58,12 +58,12 @@ export default function ReceiveQuoteClient() {
     );
   }
 
-  console.log(
-    'moves',
-    moves.pages.flatMap(page => {
-      return page.list;
-    }),
-  );
+  // console.log(
+  //   'moves',
+  //   moves.pages.flatMap(page => {
+  //     return page.list;
+  //   }),
+  // );
 
   return (
     <div>
