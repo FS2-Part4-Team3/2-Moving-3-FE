@@ -6,7 +6,7 @@ import type { Errors, RegisterDriverValues, ValidateProps } from '@/interfaces/P
 export default function useProfileValidate(initialValues?: Partial<RegisterDriverValues>) {
   const [values, setValues] = useState<RegisterDriverValues>({
     nickname: '',
-    career: '',
+    career: new Date(),
     shortBio: '',
     description: '',
     selectedRegions: [],
@@ -35,9 +35,9 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.nickname = '성함을 입력해주세요.';
     }
 
-    if (!values.career || isNaN(Number(values.career))) {
+    if (!values.career) {
       isValid = false;
-      newError.career = '숫자만 입력해주세요.';
+      newError.career = '경력 시작일을 입력해주세요.';
     }
 
     if (!values.shortBio?.trim() || values.shortBio.length < 8) {

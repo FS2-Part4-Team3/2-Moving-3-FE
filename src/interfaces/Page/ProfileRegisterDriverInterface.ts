@@ -1,6 +1,6 @@
 export interface RegisterDriverValues {
   nickname: string;
-  career: number | string;
+  career: Date;
   shortBio: string;
   description: string;
   selectedRegions: string[];
