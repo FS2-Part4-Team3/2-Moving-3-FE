@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
+import movingTypes from '@/constants/movingType';
+import regions from '@/constants/regions';
 import { InfoEditDriverCardProps } from '@/interfaces/Card/InfoEditDriverCardInterface';
 
 export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
@@ -25,7 +27,7 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
         )}
         <div className="flex flex-col gap-[1.6rem]">
           <div className="flex flex-row gap-[1.6rem] items-center font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem]">
-            <div className="flex flex-row gap-[0.6rem]">
+            <div className="flex flex-row gap-[0.6rem] items-center">
               <Image src={star} alt="star" width={24} height={24} />
               <p className="text-black-300">{data.rating}</p>
               <p className="text-gray-300">({data.reviewCount})</p>
@@ -46,14 +48,18 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
               <div className="border border-line-100 bg-background-200 rounded-[0.4rem] px-[0.6rem] py-[0.4rem] gap-[1rem]">
                 <p className="text-gray-500">제공 서비스</p>
               </div>
-              <div className="text-black-300">{data.serviceType}</div>
+              <div className="text-black-300">
+                {data.serviceType.map(type => movingTypes.find(item => item.code === type)?.type || type).join(', ')}
+              </div>
             </div>
             <div className="h-[1.6rem] border border-line-200" />
             <div className="flex flex-row gap-[1.2rem] items-center">
               <div className="border border-line-100 bg-background-200 rounded-[0.4rem] px-[0.6rem] py-[0.4rem] gap-[1rem]">
                 <p className="text-gray-500">지역</p>
               </div>
-              <div className="text-black-300">{data.availableAreas}</div>
+              <div className="text-black-300">
+                {data.availableAreas.map(name => regions.find(item => item.code === name)?.name || name).join(', ')}
+              </div>
             </div>
           </div>
         </div>
