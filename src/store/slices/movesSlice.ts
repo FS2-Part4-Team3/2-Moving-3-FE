@@ -1,12 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { setOrderBy } from './driversSlice';
 
 interface MovesState {
   page: number;
   pageSize: number;
-  keyword: string;
+  keyword: string | undefined;
   orderBy: 'UpcomingMoveDate' | 'RecentRequest';
-  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | '';
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | undefined;
   serviceArea: 'Active' | 'Inactive';
   designatedRequest: 'Active' | 'Inactive';
   movesList: any[];
@@ -17,9 +16,9 @@ interface MovesState {
 const initialState: MovesState = {
   page: 1,
   pageSize: 10,
-  keyword: '',
+  keyword: undefined,
   orderBy: 'UpcomingMoveDate',
-  serviceType: '',
+  serviceType: undefined,
   serviceArea: 'Inactive',
   designatedRequest: 'Inactive',
   movesList: [],
@@ -43,7 +42,7 @@ const movesSlice = createSlice({
     setOrderBy(state, action: PayloadAction<'UpcomingMoveDate' | 'RecentRequest'>) {
       state.orderBy = action.payload;
     },
-    setServiceType(state, action: PayloadAction<'SMALL' | 'HOME' | 'OFFICE' | ''>) {
+    setServiceType(state, action: PayloadAction<'SMALL' | 'HOME' | 'OFFICE' | undefined>) {
       state.serviceType = action.payload;
     },
     setServiceArea(state, action: PayloadAction<'Active' | 'Inactive'>) {
@@ -62,7 +61,7 @@ const movesSlice = createSlice({
       state.error = action.payload;
     },
     resetMovingType(state) {
-      state.serviceType = '';
+      state.serviceType = undefined;
     },
     resetFilter(state) {
       state.serviceArea = 'Inactive';
@@ -70,3 +69,19 @@ const movesSlice = createSlice({
     },
   },
 });
+
+export const {
+  setPage,
+  setPageSize,
+  setKeyword,
+  setOrderBy,
+  setServiceType,
+  setServiceArea,
+  setDesignatedRequest,
+  setMovesList,
+  setLoading,
+  setError,
+  resetMovingType,
+  resetFilter,
+} = movesSlice.actions;
+export default movesSlice.reducer;

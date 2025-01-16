@@ -80,9 +80,9 @@ export const getDriverListData = async (
 export const getMovesListData = (
   page: number,
   pageSize: number,
-  keyword: string,
+  keyword: string | undefined,
   orderBy: 'UpcomingMoveDate' | 'RecentRequest',
-  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | '',
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | undefined,
   serviceArea: 'Active' | 'Inactive',
   designatedRequest: 'Active' | 'Inactive',
 ) => {
