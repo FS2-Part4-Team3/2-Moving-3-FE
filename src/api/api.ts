@@ -1,6 +1,14 @@
 // const BASE_URL = 'http://localhost:3000';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
+export class CustomError extends Error {
+  data: any;
+  constructor(message: string, data: any) {
+    super(message);
+    this.data = data;
+  }
+}
+
 export async function fetchWrapper(url: string, options: RequestInit = {}) {
   const headers = {
     'Cache-Control': 'no-cache',
