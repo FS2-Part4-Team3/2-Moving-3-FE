@@ -61,6 +61,7 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
+      localStorage.setItem('accessToken', res.accessToken);
       dispatch(
         setUserSign({
           id: res.id,

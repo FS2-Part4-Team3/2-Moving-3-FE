@@ -46,3 +46,14 @@ export async function deleteRequest(url: string) {
     method: 'DELETE',
   });
 }
+
+export async function putRequest(url: string, body: object = {}) {
+  const isBinary = body instanceof Blob || body instanceof File;
+  return fetchWrapper(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/octet-stream',
+    },
+    body: isBinary ? body : JSON.stringify(body),
+  });
+}
