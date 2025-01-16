@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import edit_gray from '@/../../public/assets/driver/ic_edit_gray.svg';
-import edit_white from '@/../../public/assets/driver/ic_edit_white.svg';
+import edit_white from '@/../../public/assets/common/ic_writing.svg';
+import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { ButtonWrapper } from '@/components/common/headless/Button';
