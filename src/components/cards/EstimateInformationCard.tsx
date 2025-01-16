@@ -1,3 +1,5 @@
+'use client';
+
 import type { EstimationInformationCardProps } from '@/interfaces/Card/EstimationInformationCardInterface';
 import { DateIncludeTimeFormat, DateWithoutDayWeeKFormat } from '@/utils/Format';
 
@@ -9,6 +11,7 @@ enum MoveType {
 }
 
 export default function EstimationInformationCard({ data }: EstimationInformationCardProps) {
+  console.log(data);
   return (
     <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
       <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-black-400">
