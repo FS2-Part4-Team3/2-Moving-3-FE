@@ -95,11 +95,11 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
             </select>
             <select
               onChange={handleMonthChange}
-              value={currentMonth.getMonth() + 1}
+              value={`${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`}
               className="w-[7rem] p-2 border-none bg-blue-200 rounded-md text-white text-[2rem] text-center"
             >
               {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
-                <option key={month} value={`${currentMonth.getFullYear()}-${month}`}>
+                <option key={month} value={`${currentMonth.getFullYear()}-${String(month).padStart(2, '0')}`}>
                   {String(month).padStart(2, '0')}
                 </option>
               ))}
