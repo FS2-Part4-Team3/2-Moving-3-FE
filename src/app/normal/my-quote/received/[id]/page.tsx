@@ -33,7 +33,9 @@ export default async function MyQuoteReceivedDetail({ params }: { params: { id: 
       </div>
       <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
-          <FindDriverCard key={driverData.id} data={driverData} type="WAITING" />
+          {/* 확정 견적인지 아닌지 확인해서 컴포넌트 사용 */}
+          {/* 현재는 체크없이 확정 견적으로 나타낸 상태 */}
+          <FindDriverCard key={driverData.id} data={driverData} type="RECEIVED" />
           <div className="lg:hidden sm:block">
             <div className="border border-line-100 w-full mb-[2.4rem]"></div>
             <div className="flex flex-col gap-[1.6rem] py-[1rem]">
@@ -79,8 +81,6 @@ export default async function MyQuoteReceivedDetail({ params }: { params: { id: 
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
-            {/* 확정 견적인지 아닌지 확인해서 컴포넌트 사용 */}
-            {/* 현재는 체크없이 확정 견적으로 나타낸 상태 */}
             <DetailButtonClient type="quoteReceived" />
           </div>
         </div>
