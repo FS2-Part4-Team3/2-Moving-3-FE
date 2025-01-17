@@ -48,12 +48,13 @@ export async function deleteRequest(url: string) {
 }
 
 export async function putRequest(url: string, body: object = {}) {
-  const isBinary = body instanceof Blob || body instanceof File;
-  return fetchWrapper(url, {
+  const test = fetch(url, {
     method: 'PUT',
     headers: {
-      'Content-Type': isBinary ? body.type || 'application/octet-stream' : 'application/json',
+      'Content-Type': 'application/octet-stream',
     },
-    body: isBinary ? body : JSON.stringify(body),
+    body: JSON.stringify(body),
   });
+  console.log(test);
+  return test;
 }

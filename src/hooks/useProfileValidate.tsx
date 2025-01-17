@@ -60,12 +60,12 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.selectedMovingType = '* 1개 이상 선택해주세요.';
     }
 
-    if (!values.name.trim()) {
+    if (!values.name) {
       isEditNormalValid = false;
       newError.name = '이름을 입력해주세요.';
     }
 
-    if (!values.email.trim() || !emailRegex.test(values.email)) {
+    if (!values.email || !emailRegex.test(values.email)) {
       isEditNormalValid = false;
       newError.email = '이메일 형식이 아닙니다.';
     }

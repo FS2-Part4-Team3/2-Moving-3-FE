@@ -109,7 +109,7 @@ export const putImage = async (url: string, imageFile: Blob | File) => {
     const res = await putRequest(url, imageFile);
 
     if (!res.ok) {
-      throw new Error(res.status);
+      throw new Error();
     }
     const data = res.json();
     return data;

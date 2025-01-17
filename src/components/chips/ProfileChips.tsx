@@ -13,7 +13,7 @@ export function ProfileChips({
   setSelectedMovingType,
 }: ProfileChipProps) {
   const user = useSelector((state: RootState) => state.signIn);
-
+  console.log(user);
   const handleRegionSelect = (regionName: string) => {
     if (user.type === 'driver') {
       if (selectedRegions?.includes(regionName)) {

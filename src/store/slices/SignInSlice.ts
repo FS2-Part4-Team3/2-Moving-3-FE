@@ -11,7 +11,7 @@ interface SignInState {
   phoneNumber: string | undefined;
   introduce: string | null | undefined;
   description: string | null | undefined;
-  serviceTypes: string[] | undefined;
+  serviceType: string[] | undefined;
   availableAreas: string[] | undefined; // 기사님의 경우 서비스 가능 지역
   areas: string[] | undefined; // 일반 유저의 경우 내가 사는 지역
   type: string | undefined;
@@ -27,7 +27,7 @@ const initialState: SignInState = {
   phoneNumber: undefined,
   introduce: undefined,
   description: undefined,
-  serviceTypes: undefined,
+  serviceType: undefined,
   availableAreas: undefined,
   areas: undefined,
   type: undefined,
@@ -38,7 +38,7 @@ const signInSlice = createSlice({
   initialState,
   reducers: {
     setUserSign(state, action: PayloadAction<SignInState>) {
-      const { id, name, accessToken, email, image, phoneNumber, serviceTypes, type } = action.payload;
+      const { id, name, accessToken, email, image, phoneNumber, serviceType, type } = action.payload;
 
       state.id = id;
       state.name = name;
@@ -46,7 +46,7 @@ const signInSlice = createSlice({
       state.email = email;
       state.image = image;
       state.phoneNumber = phoneNumber;
-      state.serviceTypes = serviceTypes;
+      state.serviceType = serviceType;
       state.type = type;
 
       if (type === 'driver') {

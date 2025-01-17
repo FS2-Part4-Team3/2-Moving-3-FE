@@ -1,16 +1,25 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import ProfileEditNormalLeft from '@/components/section/ProfileEditNormalLeft';
 import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { RootState } from '@/store/store';
 
 export default function ProfileEditNormal() {
-  //TODO: api 연결 후 유저 값 받아와서 초기값으로 넘겨주기
-  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
+  const user = useSelector((state: RootState) => state.signIn);
+  const { values, setValues, errors, validate, handleChange } = useProfileValidate({
+    name: user.name || '',
+    email: user.email || '',
+    number: user.phoneNumber || '',
+  });
+
+  console.log(user);
+  console.log(values);
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -23,7 +32,6 @@ export default function ProfileEditNormal() {
     newPasswordChk: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const isDisabled = isFormValid && previewUrl;
 
   useEffect(() => {
     setIsFormValid(validate('EDIT'));
@@ -80,13 +88,13 @@ export default function ProfileEditNormal() {
         />
       </div>
       <ButtonWrapper id="cancel-btn">
-        <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-0 md:mb-[2.4rem] sm:mb-[2.4rem] ">
+        <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[15rem] md:mb-[2.4rem] sm:mb-[2.4rem] ">
           취소
         </ButtonWrapper.Button>
       </ButtonWrapper>
       <ButtonWrapper id="fix-btn">
         <ButtonWrapper.Button
-          disabled={!isDisabled}
+          disabled={!isFormValid}
           className="lg:order-2 md:order-1 sm:order-1 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[15rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
         >
           수정하기
