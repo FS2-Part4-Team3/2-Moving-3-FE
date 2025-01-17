@@ -2,86 +2,88 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import checkbox from '@/../public/assets/common/check-box/check-box.svg';
 import checkbox_blue from '@/../public/assets/common/check-box/check-box_blue.svg';
 import x from '@/../public/assets/common/icon_X.svg';
 import type { MediaTypeFilterDropdownProps } from '@/interfaces/Dropdown/MediaTypeFilterDropdownInterface';
 import { setDesignatedRequest, setServiceArea, setServiceType } from '@/store/slices/movesSlice';
-import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../common/headless/Button';
 
-export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDropdownProps) {
+export default function MovingTypeFilterDropdown({ onClick, filterState, onFilterChange }: MediaTypeFilterDropdownProps) {
   // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
   const dispatch = useDispatch();
-  const { serviceType } = useSelector((state: RootState) => state.moves);
 
-  const [smallMov, setSmallMov] = useState<boolean>(false);
-  const [homeMov, setHomeMov] = useState<boolean>(false);
-  const [officeMov, setOfficeMov] = useState<boolean>(false);
+  // const [smallMov, setSmallMov] = useState<boolean>(false);
+  // const [homeMov, setHomeMov] = useState<boolean>(false);
+  // const [officeMov, setOfficeMov] = useState<boolean>(false);
 
-  const [serviceable, setServiceable] = useState<boolean>(false);
-  const [appointRequest, setAppointRequest] = useState<boolean>(false);
+  // const [serviceable, setServiceable] = useState<boolean>(false);
+  // const [appointRequest, setAppointRequest] = useState<boolean>(false);
 
   const [isMenuClick, setIsMenuClick] = useState<'mov' | 'filter'>('mov');
 
-  const [types, setTypes] = useState<string[]>([]);
+  // const [types, setTypes] = useState<string[]>([]);
 
   const handleClickMovType = (movType: string) => {
-    setTypes(prevTypes => {
-      const updatedTypes = prevTypes.includes(movType) ? prevTypes.filter(type => type !== movType) : [...prevTypes, movType];
+    const updatedTypes = filterState.types.includes(movType)
+      ? filterState.types.filter(type => type !== movType)
+      : [...filterState.types, movType];
 
-      dispatch(setServiceType(updatedTypes.join(',')));
-      return updatedTypes;
-    });
+    const newState = {
+      ...filterState,
+      types: updatedTypes,
+      smallMov: movType === 'SMALL' ? !filterState.smallMov : filterState.smallMov,
+      homeMov: movType === 'HOME' ? !filterState.homeMov : filterState.homeMov,
+      officeMov: movType === 'OFFICE' ? !filterState.officeMov : filterState.officeMov,
+    };
+
+    onFilterChange(newState);
+    dispatch(setServiceType(updatedTypes.join(',')));
   };
 
   const handleSelectMovAll = () => {
-    const newSmallMov = !smallMov;
-    setSmallMov(newSmallMov);
-    setHomeMov(newSmallMov);
-    setOfficeMov(newSmallMov);
+    const allSelected = filterState.smallMov && filterState.homeMov && filterState.officeMov;
+    const newState = {
+      ...filterState,
+      smallMov: !allSelected,
+      homeMov: !allSelected,
+      officeMov: !allSelected,
+      types: !allSelected ? ['SMALL', 'HOME', 'OFFICE'] : [],
+    };
 
-    const newTypes = newSmallMov ? ['SMALL', 'HOME', 'OFFICE'] : [];
-    setTypes(newTypes);
-    dispatch(setServiceType(newTypes.join(',')));
+    onFilterChange(newState);
+    dispatch(setServiceType(newState.types.join(',')));
   };
 
   const handleClickFilter = (filter: string) => {
+    const newState = { ...filterState };
     if (filter === 'area') {
-      if (serviceable) {
-        setServiceable(false);
-        dispatch(setServiceArea('Inactive'));
-      } else {
-        setServiceable(true);
-        dispatch(setServiceArea('Active'));
-      }
+      newState.serviceable = !filterState.serviceable;
+      dispatch(setServiceArea(newState.serviceable ? 'Active' : 'Inactive'));
     } else if (filter === 'appointment') {
-      if (appointRequest) {
-        setAppointRequest(false);
-        dispatch(setDesignatedRequest('Inactive'));
-      } else {
-        setAppointRequest(true);
-        dispatch(setDesignatedRequest('Active'));
-      }
+      newState.appointRequest = !filterState.appointRequest;
+      dispatch(setDesignatedRequest(newState.appointRequest ? 'Active' : 'Inactive'));
     }
+
+    onFilterChange(newState);
   };
 
   const handleSelectFilterAll = () => {
-    const newServiceable = !serviceable;
-    setServiceable(newServiceable);
-    setAppointRequest(newServiceable);
+    const allSelected = filterState.serviceable && filterState.appointRequest;
+    const newState = {
+      ...filterState,
+      serviceable: !allSelected,
+      appointRequest: !allSelected,
+    };
 
-    const newTypes = newServiceable ? 'Active' : 'Inactive';
-    dispatch(setServiceArea(newTypes));
-    dispatch(setDesignatedRequest(newTypes));
+    onFilterChange(newState);
+    dispatch(setServiceArea(!allSelected ? 'Active' : 'Inactive'));
+    dispatch(setDesignatedRequest(!allSelected ? 'Active' : 'Inactive'));
   };
 
   const handleInquiryClick = () => {
-    // dispatch(setServiceType(types.join(',')));
-    // console.log('get /moves?serviceType=' + types.join(','));
-
-    console.log('누ㄹ렸습니다');
+    console.log('눌렀습니다');
   };
 
   return (
@@ -92,7 +94,7 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
             <p className="font-medium text-[2rem] leading-[3.2rem] text-black">이사 유형</p>
             <div className="flex gap-[0.4rem] items-center">
               <Image
-                src={smallMov && homeMov && officeMov ? checkbox_blue : checkbox}
+                src={filterState.smallMov && filterState.homeMov && filterState.officeMov ? checkbox_blue : checkbox}
                 alt="checkbox"
                 width={36}
                 height={36}
@@ -109,12 +111,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 <p>(10)</p>
               </div>
               <Image
-                src={smallMov ? checkbox_blue : checkbox}
+                src={filterState.smallMov ? checkbox_blue : checkbox}
                 alt="checkbox"
                 width={36}
                 height={36}
                 onClick={() => {
-                  setSmallMov(!smallMov);
                   handleClickMovType('SMALL');
                 }}
                 className="cursor-pointer"
@@ -126,12 +127,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 <p>(50)</p>
               </div>
               <Image
-                src={homeMov ? checkbox_blue : checkbox}
+                src={filterState.homeMov ? checkbox_blue : checkbox}
                 alt="checkbox"
                 width={36}
                 height={36}
                 onClick={() => {
-                  setHomeMov(!homeMov);
                   handleClickMovType('HOME');
                 }}
                 className="cursor-pointer"
@@ -143,12 +143,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 <p>(1999)</p>
               </div>
               <Image
-                src={officeMov ? checkbox_blue : checkbox}
+                src={filterState.officeMov ? checkbox_blue : checkbox}
                 alt="checkbox"
                 width={36}
                 height={36}
                 onClick={() => {
-                  setOfficeMov(!officeMov);
                   handleClickMovType('OFFICE');
                 }}
                 className="cursor-pointer"
@@ -161,7 +160,7 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
             <p className="font-medium text-[2rem] leading-[3.2rem] text-black">필터</p>
             <div className="flex gap-[0.4rem] items-center">
               <Image
-                src={serviceable && appointRequest ? checkbox_blue : checkbox}
+                src={filterState.serviceable && filterState.appointRequest ? checkbox_blue : checkbox}
                 alt="checkbox"
                 width={36}
                 height={36}
@@ -178,12 +177,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 <p>(990)</p>
               </div>
               <Image
-                src={serviceable ? checkbox_blue : checkbox}
+                src={filterState.serviceable ? checkbox_blue : checkbox}
                 alt="checkbox"
                 width={36}
                 height={36}
                 onClick={() => {
-                  setServiceable(!serviceable);
                   handleClickFilter('area');
                 }}
                 className="cursor-pointer"
@@ -195,12 +193,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 <p>(50090)</p>
               </div>
               <Image
-                src={appointRequest ? checkbox_blue : checkbox}
+                src={filterState.appointRequest ? checkbox_blue : checkbox}
                 alt="checkbox"
                 width={36}
                 height={36}
                 onClick={() => {
-                  setAppointRequest(!appointRequest);
                   handleClickFilter('appointment');
                 }}
                 className="cursor-pointer"
@@ -240,15 +237,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                     <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 (199999)</p>
                   </div>
                   <Image
-                    src={smallMov && homeMov && officeMov ? checkbox_blue : checkbox}
+                    src={filterState.smallMov && filterState.homeMov && filterState.officeMov ? checkbox_blue : checkbox}
                     alt="checkbox"
                     width={36}
                     height={36}
-                    onClick={() => {
-                      setSmallMov(!smallMov);
-                      setHomeMov(!homeMov);
-                      setOfficeMov(!officeMov);
-                    }}
+                    onClick={handleSelectMovAll}
                     className="cursor-pointer"
                   />
                 </div>
@@ -259,11 +252,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                       <p>(10)</p>
                     </div>
                     <Image
-                      src={smallMov ? checkbox_blue : checkbox}
+                      src={filterState.smallMov ? checkbox_blue : checkbox}
                       alt="checkbox"
                       width={36}
                       height={36}
-                      onClick={() => setSmallMov(!smallMov)}
+                      onClick={() => handleClickMovType('SMALL')}
                       className="cursor-pointer"
                     />
                   </div>
@@ -273,11 +266,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                       <p>(50)</p>
                     </div>
                     <Image
-                      src={homeMov ? checkbox_blue : checkbox}
+                      src={filterState.homeMov ? checkbox_blue : checkbox}
                       alt="checkbox"
                       width={36}
                       height={36}
-                      onClick={() => setHomeMov(!homeMov)}
+                      onClick={() => handleClickMovType('HOME')}
                       className="cursor-pointer"
                     />
                   </div>
@@ -287,11 +280,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                       <p>(1999)</p>
                     </div>
                     <Image
-                      src={officeMov ? checkbox_blue : checkbox}
+                      src={filterState.officeMov ? checkbox_blue : checkbox}
                       alt="checkbox"
                       width={36}
                       height={36}
-                      onClick={() => setOfficeMov(!officeMov)}
+                      onClick={() => handleClickMovType('OFFICE')}
                       className="cursor-pointer"
                     />
                   </div>
@@ -305,14 +298,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                     <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 (18888)</p>
                   </div>
                   <Image
-                    src={serviceable && appointRequest ? checkbox_blue : checkbox}
+                    src={filterState.serviceable && filterState.appointRequest ? checkbox_blue : checkbox}
                     alt="checkbox"
                     width={36}
                     height={36}
-                    onClick={() => {
-                      setServiceable(!serviceable);
-                      setAppointRequest(!appointRequest);
-                    }}
+                    onClick={handleSelectFilterAll}
                     className="cursor-pointer"
                   />
                 </div>
@@ -323,11 +313,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                       <p>(10)</p>
                     </div>
                     <Image
-                      src={serviceable ? checkbox_blue : checkbox}
+                      src={filterState.serviceable ? checkbox_blue : checkbox}
                       alt="checkbox"
                       width={36}
                       height={36}
-                      onClick={() => setServiceable(!serviceable)}
+                      onClick={() => handleClickFilter('area')}
                       className="cursor-pointer"
                     />
                   </div>
@@ -337,11 +327,11 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                       <p>(50)</p>
                     </div>
                     <Image
-                      src={appointRequest ? checkbox_blue : checkbox}
+                      src={filterState.appointRequest ? checkbox_blue : checkbox}
                       alt="checkbox"
                       width={36}
                       height={36}
-                      onClick={() => setAppointRequest(!appointRequest)}
+                      onClick={() => handleClickFilter('appointment')}
                       className="cursor-pointer"
                     />
                   </div>
