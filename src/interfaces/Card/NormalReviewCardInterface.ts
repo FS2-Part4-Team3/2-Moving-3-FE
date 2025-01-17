@@ -37,7 +37,11 @@ export interface MyReviews {
         image: string;
       };
       owner: {
-        moveInfos: {};
+        moveInfos: {
+          type: 'SMALL' | 'HOME' | 'OFFICE';
+          date: string;
+          price: number;
+        };
       };
     },
   ];
