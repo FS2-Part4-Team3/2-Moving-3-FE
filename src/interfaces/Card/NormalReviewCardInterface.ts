@@ -24,4 +24,21 @@ export interface ReviewCardReviews {
   createdAt: string;
 }
 
-export interface NormalReviewCardProps {}
+export interface MyReviews {
+  totalCount: number;
+  list: [
+    {
+      id: string;
+      createdAt: string;
+      comment: string;
+      score: number;
+      driver: {
+        name: string;
+        image: string;
+      };
+      owner: {
+        moveInfos: {};
+      };
+    },
+  ];
+}

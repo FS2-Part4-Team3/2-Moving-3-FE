@@ -1,17 +1,25 @@
 'use client';
 
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
-import type { ReviewCardProps } from '@/interfaces/Card/NormalReviewCardInterface';
+import { getMyReviewData } from '@/api/ReviewService';
+import { MyReviews, type ReviewCardProps } from '@/interfaces/Card/NormalReviewCardInterface';
 import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
 import WritingReviewModal from '../modal/WritingReviewModal';
 
-export default function NormalReviewCard({ estimation, type, review }: ReviewCardProps) {
+export default function NormalReviewCard({ type }: ReviewCardProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
   const renderStars = (score: number) => {
     const totalStars = 5;
     const emptyStars = totalStars - score;
@@ -22,9 +30,62 @@ export default function NormalReviewCard({ estimation, type, review }: ReviewCar
     return stars.map((star, index) => <Image key={index} src={star} alt="star" width={20} height={20} />);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width >= 1200) {
+        setItemsPerPage(6);
+      } else {
+        setItemsPerPage(4);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const {
+    data: myReviews,
+    isLoading,
+    isError,
+    isPlaceholderData,
+  } = useQuery<MyReviews>({
+    queryKey: ['myReviews', currentPage, itemsPerPage],
+    queryFn: () => getMyReviewData(currentPage, itemsPerPage),
+    placeholderData: keepPreviousData,
+  });
+  const totalPages = myReviews ? Math.ceil(myReviews.totalCount / itemsPerPage) : 1;
+  const hasMore = currentPage < totalPages;
+
+  useEffect(() => {
+    if (!isPlaceholderData && hasMore) {
+      const pagesToPrefetch = 5;
+      const nextPage = currentPage + 1;
+
+      for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
+        queryClient.prefetchQuery({
+          queryKey: ['myReviews', i, itemsPerPage],
+          queryFn: () => getMyReviewData(i, itemsPerPage),
+        });
+      }
+    }
+  }, [currentPage, hasMore, isPlaceholderData, itemsPerPage]);
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
+  if (isError) {
+    router.push('/not-found');
+  }
+
   return (
     <div
-      key={estimation.id}
+      key={myReviews.list.id}
       className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white border-none flex flex-col shadow-custom3"
     >
       <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:w-[64rem] ">
