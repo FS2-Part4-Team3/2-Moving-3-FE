@@ -7,7 +7,7 @@ import checkbox from '@/../public/assets/common/check-box/check-box.svg';
 import checkbox_blue from '@/../public/assets/common/check-box/check-box_blue.svg';
 import x from '@/../public/assets/common/icon_X.svg';
 import type { MediaTypeFilterDropdownProps } from '@/interfaces/Dropdown/MediaTypeFilterDropdownInterface';
-import { setServiceType } from '@/store/slices/movesSlice';
+import { setDesignatedRequest, setServiceArea, setServiceType } from '@/store/slices/movesSlice';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../common/headless/Button';
 
@@ -36,8 +36,8 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
     });
   };
 
-  const handleSelectAll = () => {
-    const newSmallMov = !smallMov; // 현재 상태를 반전
+  const handleSelectMovAll = () => {
+    const newSmallMov = !smallMov;
     setSmallMov(newSmallMov);
     setHomeMov(newSmallMov);
     setOfficeMov(newSmallMov);
@@ -47,23 +47,32 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
     dispatch(setServiceType(newTypes.join(',')));
   };
 
+  const handleClickFilter = (filter: string) => {
+    if (filter === 'area') {
+      if (serviceable) {
+        setServiceable(false);
+        dispatch(setServiceArea('Inactive'));
+      } else {
+        setServiceable(true);
+        dispatch(setServiceArea('Active'));
+      }
+    } else if (filter === 'appointment') {
+      if (appointRequest) {
+        setAppointRequest(false);
+        dispatch(setDesignatedRequest('Inactive'));
+      } else {
+        setAppointRequest(true);
+        dispatch(setDesignatedRequest('Active'));
+      }
+    }
+  };
+
   const handleInquiryClick = () => {
     // dispatch(setServiceType(types.join(',')));
     // console.log('get /moves?serviceType=' + types.join(','));
 
     console.log('누ㄹ렸습니다');
   };
-
-  // const handleServiceTypeClick = (smallMov: boolean, homeMov: boolean, officeMov: boolean) => {
-  //   const types = [];
-  //   if (smallMov) types.push('SMALL');
-  //   if (homeMov) types.push('HOME');
-  //   if (officeMov) types.push('OFFICE');
-
-  //   console.log('types', types);
-  //   console.log('types join', types.join(','));
-  //   return types.join(',');
-  // };
 
   return (
     <div className="sm:fixed sm:inset-0 lg:static">
@@ -77,7 +86,7 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 alt="checkbox"
                 width={36}
                 height={36}
-                onClick={handleSelectAll}
+                onClick={handleSelectMovAll}
                 className="cursor-pointer"
               />
               <p className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-300">전체선택</p>
@@ -166,7 +175,10 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 alt="checkbox"
                 width={36}
                 height={36}
-                onClick={() => setServiceable(!serviceable)}
+                onClick={() => {
+                  setServiceable(!serviceable);
+                  handleClickFilter('area');
+                }}
                 className="cursor-pointer"
               />
             </div>
@@ -180,7 +192,10 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 alt="checkbox"
                 width={36}
                 height={36}
-                onClick={() => setAppointRequest(!appointRequest)}
+                onClick={() => {
+                  setAppointRequest(!appointRequest);
+                  handleClickFilter('appointment');
+                }}
                 className="cursor-pointer"
               />
             </div>
