@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { getUserData } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import ProfileEditNormalLeft from '@/components/section/ProfileEditNormalLeft';
 import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight';
@@ -11,13 +12,34 @@ import useProfileValidate from '@/hooks/useProfileValidate';
 import { RootState } from '@/store/store';
 
 export default function ProfileEditNormal() {
-  const user = useSelector((state: RootState) => state.signIn);
-  const { values, setValues, errors, validate, handleChange } = useProfileValidate({
-    name: user.name || '',
-    email: user.email || '',
-    number: user.phoneNumber || '',
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phoneNumber: '',
   });
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserData();
+        setUser(userData);
+
+        setValues(prev => ({
+          ...prev,
+          name: userData.name,
+          email: userData.email,
+          number: userData.phoneNumber,
+        }));
+
+        return user;
+      } catch (err) {
+        console.error('Error fetching user data:', err);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
