@@ -24,7 +24,25 @@ export default function DibsDriverCard() {
         setLoading(false);
       }
     };
-  });
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>로딩중 ...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!dibsDrivers.length) {
+    return (
+      <div className="w-[32.7rem] flex items-center justify-center pt-[3rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
+        찜한 기사님이 없습니다.
+      </div>
+    );
+  }
 
   return (
     <>
