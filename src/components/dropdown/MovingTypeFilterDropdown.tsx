@@ -2,17 +2,19 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import checkbox from '@/../public/assets/common/check-box/check-box.svg';
 import checkbox_blue from '@/../public/assets/common/check-box/check-box_blue.svg';
 import x from '@/../public/assets/common/icon_X.svg';
 import type { MediaTypeFilterDropdownProps } from '@/interfaces/Dropdown/MediaTypeFilterDropdownInterface';
 import { setServiceType } from '@/store/slices/movesSlice';
+import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../common/headless/Button';
 
 export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDropdownProps) {
   // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
   const dispatch = useDispatch();
+  const { serviceType } = useSelector((state: RootState) => state.moves);
 
   const [smallMov, setSmallMov] = useState<boolean>(false);
   const [homeMov, setHomeMov] = useState<boolean>(false);
@@ -25,9 +27,29 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
 
   const [types, setTypes] = useState<string[]>([]);
 
+  const handleClickMovType = (movType: string) => {
+    setTypes(prevTypes => {
+      const updatedTypes = prevTypes.includes(movType) ? prevTypes.filter(type => type !== movType) : [...prevTypes, movType];
+
+      dispatch(setServiceType(updatedTypes.join(',')));
+      return updatedTypes;
+    });
+  };
+
+  const handleSelectAll = () => {
+    const newSmallMov = !smallMov; // 현재 상태를 반전
+    setSmallMov(newSmallMov);
+    setHomeMov(newSmallMov);
+    setOfficeMov(newSmallMov);
+
+    const newTypes = newSmallMov ? ['SMALL', 'HOME', 'OFFICE'] : [];
+    setTypes(newTypes);
+    dispatch(setServiceType(newTypes.join(',')));
+  };
+
   const handleInquiryClick = () => {
-    // const serviceType = handleServiceTypeClick(smallMov, homeMov, officeMov);
-    // console.log('get /moves?serviceType=' + serviceType);
+    // dispatch(setServiceType(types.join(',')));
+    // console.log('get /moves?serviceType=' + types.join(','));
 
     console.log('누ㄹ렸습니다');
   };
@@ -43,17 +65,6 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
   //   return types.join(',');
   // };
 
-  const handleClickMovType = (movType: string) => {
-    setTypes(prevTypes => {
-      if (prevTypes.includes(movType)) {
-        return prevTypes.filter(type => type !== movType); // 이미 포함된 경우 제거
-      } else {
-        return [...prevTypes, movType]; // 포함되지 않은 경우 추가
-      }
-    });
-  };
-  dispatch(setServiceType(types.join(',')));
-
   return (
     <div className="sm:fixed sm:inset-0 lg:static">
       <div className="md:w-[32.8rem] sm:w-full flex flex-col gap-[5.2rem] lg:block sm:hidden">
@@ -66,11 +77,7 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 alt="checkbox"
                 width={36}
                 height={36}
-                onClick={() => {
-                  setSmallMov(!smallMov);
-                  setHomeMov(!homeMov);
-                  setOfficeMov(!officeMov);
-                }}
+                onClick={handleSelectAll}
                 className="cursor-pointer"
               />
               <p className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-300">전체선택</p>
