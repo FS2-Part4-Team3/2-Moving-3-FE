@@ -12,7 +12,7 @@ export class CustomError extends Error {
 export async function fetchWrapper(url: string, options: RequestInit = {}) {
   const headers = {
     'Cache-Control': 'no-cache',
-    // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     ...options.headers,
   };
 
