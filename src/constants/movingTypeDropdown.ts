@@ -1,4 +1,4 @@
-import type { MovingType } from '@/interfaces/chip/ProfileChipInterface';
+import { MovingType } from '@/interfaces/Constants/MovingTypeDropdownInterface';
 
 const movingTypes: MovingType[] = [
   { type: '전체', code: null },

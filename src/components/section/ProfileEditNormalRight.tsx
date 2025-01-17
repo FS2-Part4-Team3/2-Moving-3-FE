@@ -43,11 +43,7 @@ export default function ProfileEditNormalRight({
         <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-gray-400 mt-[0.2rem] mb-[3.2rem] self-end block">
           * 견적 요청 시 지역을 설정할 수 있어요.
         </span>
-        <ProfileChips
-          regions={chipProps.regions}
-          selectedRegion={chipProps.selectedRegion}
-          setSelectedRegion={chipProps.setSelectedRegion}
-        />
+        <ProfileChips regions={chipProps.regions} />
       </div>
     </div>
   );

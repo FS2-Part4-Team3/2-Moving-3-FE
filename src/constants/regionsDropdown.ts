@@ -1,4 +1,4 @@
-import type { Region } from '@/interfaces/chip/ProfileChipInterface';
+import type { Region } from '@/interfaces/Constants/RegionsDropdownInterface';
 
 const regions: Region[] = [
   { name: '전체', code: null },
