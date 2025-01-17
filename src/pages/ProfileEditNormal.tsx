@@ -72,11 +72,10 @@ export default function ProfileEditNormal() {
           chipProps={{
             regions,
             movingTypes,
-            selectedRegion: values.selectedRegion,
+            selectedRegions: values.selectedRegions,
             selectedMovingType: values.selectedMovingType,
-            setSelectedRegion: value => setValues(prev => ({ ...prev, selectedRegion: value })),
+            setSelectedRegions: value => setValues(prev => ({ ...prev, selectedRegion: value })),
             setSelectedMovingType: value => setValues(prev => ({ ...prev, selectedMovingType: value })),
-            setSelectedRegions: value => setValues(prev => ({ ...prev, selectedRegions: value })),
           }}
         />
       </div>

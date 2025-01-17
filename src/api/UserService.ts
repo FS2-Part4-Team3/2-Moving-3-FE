@@ -1,3 +1,4 @@
+import { UserUpdates } from '@/interfaces/API/UserServiceInterface';
 import { getRequest, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
 
 export const postSignInData = async (userType: string, email: string, password: string) => {
@@ -30,11 +31,27 @@ export const postSignUpData = async (userType: string, email: string, name: stri
   }
 };
 
-export const patchUserData = async (imgUrl: string, serviceTypes: string[], areas: string[]) => {
+export const patchUserData = async (
+  imgUrl: string,
+  serviceType: string[],
+  areas: string[],
+  name: string,
+  email: string,
+  phoneNumber: string,
+  password: string,
+) => {
   try {
-    const requestBody: any = { serviceTypes, areas };
+    const requestBody: any = { serviceType, areas };
     if (imgUrl) {
       requestBody.image = imgUrl;
+    }
+    const updates: UserUpdates = { name, email, phoneNumber, password };
+
+    for (const key in updates) {
+      const typedKey = key as keyof UserUpdates;
+      if (updates[typedKey]) {
+        requestBody[typedKey] = updates[typedKey];
+      }
     }
 
     const res = await patchRequest('/users/update', requestBody);
@@ -51,11 +68,11 @@ export const patchDriverData = async (
   startAt: Date,
   introduce: string,
   description: string,
-  serviceTypes: string[],
+  serviceType: string[],
   availableAreas: string[],
 ) => {
   try {
-    const requestBody: any = { nickname, startAt, introduce, description, serviceTypes, availableAreas };
+    const requestBody: any = { nickname, startAt, introduce, description, serviceType, availableAreas };
     if (imgUrl) {
       requestBody.image = imgUrl;
     }
