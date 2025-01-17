@@ -96,7 +96,7 @@ export default function NormalReviewCard({ type }: ReviewCardProps) {
           className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white border-none flex flex-col shadow-custom3"
         >
           <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:w-[64rem] ">
-            <MovingTypeChips type={myReview.owner.moveInfos.type} />
+            <MovingTypeChips type={myReview.estimation.moveInfos.serviceType} />
 
             {type === 'MY' && (
               <span className="lg:flex md:hidden sm:hidden lg:text-[1.8rem] font-normal text-gray-300 items-center ml-auto">
@@ -120,14 +120,14 @@ export default function NormalReviewCard({ type }: ReviewCardProps) {
                 <div className="flex lg:gap-[1.2rem] md:gap-[0.6rem] sm:gap-[0.6rem]">
                   <h2 className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-normal text-gray-500 ">이사일</h2>
                   <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 ">
-                    {DateWithoutDayWeeKFormat(myReview.owner.moveInfos.date)}
+                    {DateWithoutDayWeeKFormat(myReview.estimation.moveInfos.date)}
                   </span>
                 </div>
                 <div className="w-[0.1rem] lg:h-[1.6rem] md:h-[1.4rem] sm:h-[1.4rem] rounded-[10rem] bg-line-200 "></div>
                 <div className="flex lg:gap-[1.2rem] md:gap-[0.6rem] sm:gap-[0.6rem]">
                   <h2 className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-normal text-gray-500 ">견적가</h2>
                   <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 ">
-                    {priceFormat(myReview.owner.moveInfos.price)}원
+                    {priceFormat(myReview.estimation.price)}원
                   </span>
                 </div>
               </div>

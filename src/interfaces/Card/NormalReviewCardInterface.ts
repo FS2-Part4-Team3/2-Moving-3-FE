@@ -3,15 +3,18 @@ export interface ReviewCardEstimations {
   createdAt: string;
   comment: string;
   score: number;
+
   driver: {
     name: string;
     image: string;
   };
-  owner: {
+
+  estimation: {
+    price: number;
     moveInfos: {
-      type: 'SMALL' | 'HOME' | 'OFFICE';
+      serviceType: 'SMALL' | 'HOME' | 'OFFICE';
       date: string;
-      price: number;
+      isSpecificRequest: boolean;
     };
   };
 }
@@ -37,15 +40,18 @@ export interface MyReviews {
       createdAt: string;
       comment: string;
       score: number;
+
       driver: {
         name: string;
         image: string;
       };
-      owner: {
+
+      estimation: {
+        price: number;
         moveInfos: {
-          type: 'SMALL' | 'HOME' | 'OFFICE';
+          serviceType: 'SMALL' | 'HOME' | 'OFFICE';
           date: string;
-          price: number;
+          isSpecificRequest: boolean;
         };
       };
     },
