@@ -51,6 +51,16 @@ export const getEstimationData = async () => {
   }
 };
 
+export const getDibsDriverListData = async () => {
+  try {
+    const res = await getRequest('/drivers/like');
+    return res || [];
+  } catch (error) {
+    console.error('Fetch Dibs Driver Error', error);
+    throw error;
+  }
+};
+
 export const getDriverListData = async (
   page?: number,
   pageSize?: number,
@@ -72,7 +82,7 @@ export const getDriverListData = async (
     const data = await getRequest('/drivers', params);
     return data;
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.error('Fetch Driver List error:', error);
     throw error;
   }
 };
