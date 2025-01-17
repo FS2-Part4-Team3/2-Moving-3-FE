@@ -1,14 +1,20 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import dropdown from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
+import { patchDriverData } from '@/api/UserService';
+import CareerCalendarCard from '@/components/cards/CareerCalendarCard';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
 export default function ProfileRegisterDriver() {
   const { values, setValues, errors, validate, handleChange } = useProfileValidate();
@@ -22,8 +28,9 @@ export default function ProfileRegisterDriver() {
     description: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const isDisabled = isFormValid && previewUrl;
-  //TODO: 추후에 user 정보 받아서 중복 선택 가능하게 하기
+  const isDisabled = isFormValid;
+  const [isCareerOpen, setIsCareerOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsFormValid(validate('REGISTER'));
@@ -45,16 +52,33 @@ export default function ProfileRegisterDriver() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
-  const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //TODO: 추후에 api 연결
-    e.preventDefault();
+  const userMutation = useMutation({
+    mutationFn: async () => {
+      let sampleImage = '';
+      const res = await patchDriverData(
+        sampleImage,
+        values.nickname,
+        values.career,
+        values.shortBio,
+        values.description,
+        values.selectedMovingType,
+        values.selectedRegions,
+      );
+    },
+    onSuccess: () => {
+      router.push('/driver/receive-quote');
+    },
+    onError: () => {
+      router.push('/not-found');
+    },
+  });
+
+  const handleValuesSubmit = () => {
+    userMutation.mutate();
   };
 
   return (
-    <form
-      className="lg:w-[135.2rem] lg:grid lg:grid-cols-2 lg:gap-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col"
-      onSubmit={handleValuesSubmit}
-    >
+    <div className="lg:w-[135.2rem] lg:grid lg:grid-cols-2 lg:gap-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col">
       <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] border-line-100 lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
           <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -90,19 +114,37 @@ export default function ProfileRegisterDriver() {
           </InputWrapper>
         </div>
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
-          <InputWrapper id="career" type="text" value={values.career} onChange={handleChange}>
+          <InputWrapper id="career" type="text" value={DateFormatToYYYYMMDD(values.career.toISOString())} onChange={handleChange}>
             <div className="flex flex-col">
               <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
-                경력 <span className="text-blue-300">*</span>
+                경력 시작일 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
-              <InputWrapper.Input
-                name="career"
-                className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
-                  errors.career && isTouched.career ? 'bg-white border-red-200 border' : 'bg-background-200'
-                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder="기사님의 경력을 입력해 주세요"
-                onBlur={() => handleInputBlur('career')}
-              />
+              <div className="lg:w-[64rem] lg:h-[6.4rem] flex relative">
+                <InputWrapper.Input
+                  disabled
+                  name="career"
+                  className={`w-full rounded-[1.6rem] p-[1.4rem] ${
+                    errors.career && isTouched.career ? 'bg-white border-red-200 border' : 'bg-background-200'
+                  } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
+                  placeholder="기사님의 경력 시작일을 입력해 주세요"
+                  onBlur={() => handleInputBlur('career')}
+                />
+                <Image
+                  src={dropdown}
+                  alt="open-calendar-btn"
+                  width={40}
+                  height={40}
+                  className="cursor-pointer absolute top-1/2 right-[1.5rem] transform -translate-y-1/2"
+                  onClick={() => setIsCareerOpen(prev => !prev)}
+                />
+              </div>
+              {isCareerOpen && (
+                <CareerCalendarCard
+                  setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
+                  setIsCareerOpen={setIsCareerOpen}
+                  initialCareerDate={values.career}
+                />
+              )}
               {errors.career && isTouched.career && (
                 <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                   {errors.career}
@@ -189,11 +231,11 @@ export default function ProfileRegisterDriver() {
           )}
           <ProfileChips
             regions={regions}
-            selectedRegion={values.selectedRegion}
-            setSelectedRegion={value => setValues(prev => ({ ...prev, selectedRegion: value }))}
+            selectedRegions={values.selectedRegions}
+            setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegions: value }))}
           />
         </div>
-        <ButtonWrapper id="profile-register-driver" type="submit">
+        <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleValuesSubmit}>
           <ButtonWrapper.Button
             disabled={!isDisabled}
             className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"
@@ -202,6 +244,6 @@ export default function ProfileRegisterDriver() {
           </ButtonWrapper.Button>
         </ButtonWrapper>
       </div>
-    </form>
+    </div>
   );
 }

@@ -6,11 +6,11 @@ import type { Errors, RegisterDriverValues, ValidateProps } from '@/interfaces/P
 export default function useProfileValidate(initialValues?: Partial<RegisterDriverValues>) {
   const [values, setValues] = useState<RegisterDriverValues>({
     nickname: '',
-    career: '',
+    career: new Date(),
     shortBio: '',
     description: '',
-    selectedRegion: null,
-    selectedMovingType: null,
+    selectedRegions: [],
+    selectedMovingType: [],
     name: '',
     email: '',
     number: '',
@@ -35,9 +35,9 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.nickname = '성함을 입력해주세요.';
     }
 
-    if (!values.career || isNaN(Number(values.career))) {
+    if (!values.career) {
       isValid = false;
-      newError.career = '숫자만 입력해주세요.';
+      newError.career = '경력 시작일을 입력해주세요.';
     }
 
     if (!values.shortBio?.trim() || values.shortBio.length < 8) {
@@ -50,7 +50,7 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.description = '10자 이상 입력해주세요.';
     }
 
-    if (!values.selectedRegion) {
+    if (!values.selectedRegions) {
       isValid = false;
       newError.selectedRegion = '* 1개 이상 선택해주세요.';
     }

@@ -45,6 +45,29 @@ export const patchUserData = async (imgUrl: string, serviceTypes: string[], area
   }
 };
 
+export const patchDriverData = async (
+  imgUrl: string,
+  nickname: string,
+  startAt: Date,
+  introduce: string,
+  description: string,
+  serviceTypes: string[],
+  availableAreas: string[],
+) => {
+  try {
+    const requestBody: any = { nickname, startAt, introduce, description, serviceTypes, availableAreas };
+    if (imgUrl) {
+      requestBody.image = imgUrl;
+    }
+
+    const res = await patchRequest('/drivers/update', requestBody);
+    return res || [];
+  } catch (err) {
+    console.error('Error patching driver data ', err);
+    return;
+  }
+};
+
 export const getUserData = async () => {
   try {
     const res = await getRequest('/auth/me');
