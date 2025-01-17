@@ -67,6 +67,16 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
     }
   };
 
+  const handleSelectFilterAll = () => {
+    const newServiceable = !serviceable;
+    setServiceable(newServiceable);
+    setAppointRequest(newServiceable);
+
+    const newTypes = newServiceable ? 'Active' : 'Inactive';
+    dispatch(setServiceArea(newTypes));
+    dispatch(setDesignatedRequest(newTypes));
+  };
+
   const handleInquiryClick = () => {
     // dispatch(setServiceType(types.join(',')));
     // console.log('get /moves?serviceType=' + types.join(','));
@@ -155,10 +165,7 @@ export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDro
                 alt="checkbox"
                 width={36}
                 height={36}
-                onClick={() => {
-                  setServiceable(!serviceable);
-                  setAppointRequest(!appointRequest);
-                }}
+                onClick={handleSelectFilterAll}
                 className="cursor-pointer"
               />
               <p className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-300">전체선택</p>
