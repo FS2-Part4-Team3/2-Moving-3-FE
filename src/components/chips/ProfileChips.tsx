@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { getUserData } from '@/api/UserService';
 import type { ProfileChipProps } from '@/interfaces/chip/ProfileChipInterface';
 import type { RootState } from '@/store/store';
 
@@ -12,7 +14,25 @@ export function ProfileChips({
   setSelectedRegions,
   setSelectedMovingType,
 }: ProfileChipProps) {
-  const user = useSelector((state: RootState) => state.signIn);
+  //const user = useSelector((state: RootState) => state.signIn);
+  const [user, setUser] = useState({
+    type: '',
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserData();
+        setUser(prev => ({ ...prev, type: userData.type }));
+
+        return user;
+      } catch (err) {
+        console.error('Error fetching user data:', err);
+      }
+    };
+    fetchUserData();
+  }, []);
+
   const handleRegionSelect = (regionName: string) => {
     if (user.type === 'driver') {
       if (selectedRegions?.includes(regionName)) {
@@ -20,9 +40,7 @@ export function ProfileChips({
       } else {
         setSelectedRegions?.([...(selectedRegions || []), regionName]);
       }
-    }
-
-    if (user.type === 'user') {
+    } else if (user.type === 'user') {
       setSelectedRegions?.([regionName]);
     }
   };

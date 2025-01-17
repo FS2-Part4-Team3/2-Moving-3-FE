@@ -29,8 +29,8 @@ export default function ProfileEditNormal() {
           name: userData.name,
           email: userData.email,
           number: userData.phoneNumber,
-          selectedRegions: userData.serviceType,
-          selectedMovingType: userData.areas,
+          selectedRegions: userData.areas,
+          selectedMovingType: userData.serviceType,
         }));
         setSelectedImg(userData.image);
 
@@ -96,7 +96,7 @@ export default function ProfileEditNormal() {
       if (selectedImg === null) return;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await editUserData(
-        sampleImage,
+        image,
         values.selectedMovingType,
         values.selectedRegions,
         values.name,
@@ -144,7 +144,7 @@ export default function ProfileEditNormal() {
             movingTypes,
             selectedRegions: values.selectedRegions,
             selectedMovingType: values.selectedMovingType,
-            setSelectedRegions: value => setValues(prev => ({ ...prev, selectedRegion: value })),
+            setSelectedRegions: value => setValues(prev => ({ ...prev, selectedRegions: value })),
             setSelectedMovingType: value => setValues(prev => ({ ...prev, selectedMovingType: value })),
           }}
         />
