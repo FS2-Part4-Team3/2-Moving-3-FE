@@ -32,5 +32,5 @@ export interface ReviewClientProps {
 }
 
 export interface DetailButtonClientProps {
-  type?: 'quoteWaiting' | 'quoteReceived';
+  type?: 'quoteWaiting' | 'quoteReceived' | 'InfoEditDriver';
 }
