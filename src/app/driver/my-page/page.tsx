@@ -10,7 +10,6 @@ export default async function DriverMyPage() {
   const driverData = quoteData.driver;
 
   if (!quoteData) {
-    console.log('errorerrorereoroeroe');
     notFound();
   }
 
