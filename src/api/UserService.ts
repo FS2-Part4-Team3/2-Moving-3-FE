@@ -114,3 +114,14 @@ export const putImage = async (url: string, imageFile: Blob | File) => {
     throw new Error();
   }
 };
+
+export const patchPassword = async (oldPw: string, NewPw: string) => {
+  try {
+    const requestBody = { oldPw, NewPw };
+    const res = await patchRequest('/auth/password', requestBody);
+    return res || [];
+  } catch (err) {
+    console.error('Error patching password data ', err);
+    return;
+  }
+};

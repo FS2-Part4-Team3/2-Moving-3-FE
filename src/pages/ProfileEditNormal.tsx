@@ -1,15 +1,15 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getUserData } from '@/api/UserService';
+import { editUserData, getUserData, patchPassword, putImage } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import ProfileEditNormalLeft from '@/components/section/ProfileEditNormalLeft';
 import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { RootState } from '@/store/store';
 
 export default function ProfileEditNormal() {
   const [user, setUser] = useState({
@@ -29,7 +29,10 @@ export default function ProfileEditNormal() {
           name: userData.name,
           email: userData.email,
           number: userData.phoneNumber,
+          selectedRegions: userData.serviceType,
+          selectedMovingType: userData.areas,
         }));
+        setSelectedImg(userData.image);
 
         return user;
       } catch (err) {
@@ -52,6 +55,7 @@ export default function ProfileEditNormal() {
     newPasswordChk: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsFormValid(validate('EDIT'));
@@ -73,15 +77,53 @@ export default function ProfileEditNormal() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
-  const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //TODO: 추후에 api 연결
-    e.preventDefault();
+  const userMutation = useMutation({
+    mutationFn: async () => {
+      let sampleImage = '';
+      if (selectedImg) {
+        sampleImage = selectedImg.name;
+      }
+      const response = await editUserData(
+        sampleImage,
+        values.selectedMovingType,
+        values.selectedRegions,
+        values.name,
+        values.email,
+        values.number,
+      );
+      const { uploadUrl } = response;
+
+      if (selectedImg === null) return;
+      const image = await putImage(uploadUrl, selectedImg);
+      const res = await editUserData(
+        sampleImage,
+        values.selectedMovingType,
+        values.selectedRegions,
+        values.name,
+        values.email,
+        values.number,
+      );
+
+      const resPassword = await patchPassword(values.nowPassword, values.newPassword);
+
+      return {
+        res,
+        resPassword,
+      };
+    },
+    onSuccess: () => {
+      router.push('/normal/match-driver');
+    },
+    onError: () => {
+      router.push('/not-found');
+    },
+  });
+
+  const handleValuesSubmit = () => {
+    userMutation.mutate();
   };
   return (
-    <form
-      className="lg:grid lg:grid-cols-2 md:flex md:flex-col md:items-center sm:flex sm:flex-col sm:items-center lg:w-[120rem] md:w-[37.5rem] sm:w-[37.5rem] lg:gap-x-[22rem]"
-      onSubmit={handleValuesSubmit}
-    >
+    <div className="lg:grid lg:grid-cols-2 md:flex md:flex-col md:items-center sm:flex sm:flex-col sm:items-center lg:w-[120rem] md:w-[37.5rem] sm:w-[37.5rem] lg:gap-x-[22rem]">
       <div>
         <ProfileEditNormalLeft
           values={values}
@@ -107,12 +149,17 @@ export default function ProfileEditNormal() {
           }}
         />
       </div>
-      <ButtonWrapper id="cancel-btn">
+      <ButtonWrapper
+        id="cancel-btn"
+        onClick={() => {
+          router.back();
+        }}
+      >
         <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[15rem] md:mb-[2.4rem] sm:mb-[2.4rem] ">
           취소
         </ButtonWrapper.Button>
       </ButtonWrapper>
-      <ButtonWrapper id="fix-btn">
+      <ButtonWrapper id="fix-btn" onClick={handleValuesSubmit}>
         <ButtonWrapper.Button
           disabled={!isFormValid}
           className="lg:order-2 md:order-1 sm:order-1 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[15rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
@@ -120,6 +167,6 @@ export default function ProfileEditNormal() {
           수정하기
         </ButtonWrapper.Button>
       </ButtonWrapper>
-    </form>
+    </div>
   );
 }
