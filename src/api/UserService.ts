@@ -107,13 +107,10 @@ export const putImage = async (url: string, imageFile: Blob | File) => {
       throw new Error('유효하지 않은 이미지 파일입니다.');
     }
     const res = await putRequest(url, imageFile);
-
-    if (!res.ok) {
-      throw new Error();
-    }
-    const data = res.json();
-    return data;
+    const text = await res.text();
+    return text;
   } catch (err) {
+    console.error('putImage 함수에서 발생한 에러:', err);
     throw new Error();
   }
 };

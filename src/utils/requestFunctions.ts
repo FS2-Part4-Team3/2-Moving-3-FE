@@ -48,13 +48,11 @@ export async function deleteRequest(url: string) {
 }
 
 export async function putRequest(url: string, body: object = {}) {
-  const test = fetch(url, {
+  return fetch(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/octet-stream',
     },
     body: JSON.stringify(body),
   });
-  console.log(test);
-  return test;
 }

@@ -46,20 +46,22 @@ export default function ProfileRegisterNormal() {
       if (selectedImg === null) return;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await patchUserData(image, selectedMovingType, selectedRegions);
+
       dispatch(
         setUserSign({
-          image: res.person.image,
-          serviceType: res.person.serviceType,
-          areas: res.peson.areas,
+          image: res.image,
+          serviceType: res.serviceType,
+          areas: res.areas,
         }),
       );
-      return res;
+
+      return await patchUserData(image, selectedMovingType, selectedRegions);
     },
     onSuccess: () => {
       router.push('/normal/match-driver');
     },
     onError: () => {
-      // router.push('/not-found');
+      router.push('/not-found');
     },
   });
 
