@@ -14,16 +14,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
   // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
   const dispatch = useDispatch();
 
-  // const [smallMov, setSmallMov] = useState<boolean>(false);
-  // const [homeMov, setHomeMov] = useState<boolean>(false);
-  // const [officeMov, setOfficeMov] = useState<boolean>(false);
-
-  // const [serviceable, setServiceable] = useState<boolean>(false);
-  // const [appointRequest, setAppointRequest] = useState<boolean>(false);
-
   const [isMenuClick, setIsMenuClick] = useState<'mov' | 'filter'>('mov');
-
-  // const [types, setTypes] = useState<string[]>([]);
 
   const handleClickMovType = (movType: string) => {
     const updatedTypes = filterState.types.includes(movType)
@@ -80,10 +71,6 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
     onFilterChange(newState);
     dispatch(setServiceArea(!allSelected ? 'Active' : 'Inactive'));
     dispatch(setDesignatedRequest(!allSelected ? 'Active' : 'Inactive'));
-  };
-
-  const handleInquiryClick = () => {
-    console.log('눌렀습니다');
   };
 
   return (
@@ -339,7 +326,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
               </div>
             )}
           </div>
-          <ButtonWrapper id="inquiry-driver" onClick={handleInquiryClick}>
+          <ButtonWrapper id="inquiry-driver">
             <ButtonWrapper.Button
               className="w-full h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold text-[1.6rem] leading-[2.6rem] text-white"
               onClick={onClick}

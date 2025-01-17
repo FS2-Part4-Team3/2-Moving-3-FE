@@ -8,15 +8,7 @@ import ReceiveQuoteClient from '@/pages/ReceiveQuoteClient';
 import ReceiveQuoteMovingTypeClient from '@/pages/ReceiveQuoteMovingTypeClient';
 
 export default async function ReceiveQuote() {
-  // let moveInfoData = await getMoveInfoData();
-
   //TODO : 전체 999999건은 임시 값임
-
-  // moveInfoData = [];
-
-  // if (!moveInfoData) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <div className="w-full flex items-center justify-center mb-[7rem]">
