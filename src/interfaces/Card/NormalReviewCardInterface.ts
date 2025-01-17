@@ -14,9 +14,7 @@ export interface ReviewCardEstimations {
 export type MoveType = 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
 
 export interface ReviewCardProps {
-  estimation: ReviewCardEstimations;
   type: 'ABLE' | 'MY';
-  review: ReviewCardReviews;
 }
 
 export interface ReviewCardReviews {
@@ -25,3 +23,5 @@ export interface ReviewCardReviews {
   score: number;
   createdAt: string;
 }
+
+export interface NormalReviewCardProps {}

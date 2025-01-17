@@ -1,6 +1,6 @@
 import { getRequest } from '@/utils/requestFunctions';
 
-export const getMyReviewData = async (page: string, pageSize: string) => {
+export const getMyReviewData = async (page: number, pageSize: number) => {
   const params = {
     page: page,
     pageSize: pageSize,
