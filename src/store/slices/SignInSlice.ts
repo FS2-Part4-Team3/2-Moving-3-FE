@@ -2,35 +2,35 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface SignInState {
-  id: string | undefined;
-  name: string | undefined;
-  nickname: string | undefined;
-  accessToken: string | undefined;
-  email: string | undefined;
-  image: string | undefined;
-  phoneNumber: string | undefined;
-  introduce: string | null | undefined;
-  description: string | null | undefined;
-  serviceType: string[] | undefined;
-  availableAreas: string[] | undefined; // 기사님의 경우 서비스 가능 지역
-  areas: string[] | undefined; // 일반 유저의 경우 내가 사는 지역
-  type: string | undefined;
+  id?: string;
+  name?: string;
+  nickname?: string;
+  accessToken?: string;
+  email?: string;
+  image?: string;
+  phoneNumber?: string;
+  introduce?: string;
+  description?: string;
+  serviceType?: string[];
+  availableAreas?: string[]; // 기사님의 경우 서비스 가능 지역
+  areas?: string[]; // 일반 유저의 경우 내가 사는 지역
+  type?: string;
 }
 
 const initialState: SignInState = {
-  id: undefined,
-  name: undefined,
-  nickname: undefined,
-  accessToken: undefined,
-  email: undefined,
-  image: undefined,
-  phoneNumber: undefined,
-  introduce: undefined,
-  description: undefined,
-  serviceType: undefined,
-  availableAreas: undefined,
-  areas: undefined,
-  type: undefined,
+  id: '',
+  name: '',
+  nickname: '',
+  accessToken: '',
+  email: '',
+  image: '',
+  phoneNumber: '',
+  introduce: '',
+  description: '',
+  serviceType: [],
+  availableAreas: [],
+  areas: [],
+  type: '',
 };
 
 const signInSlice = createSlice({
@@ -52,11 +52,11 @@ const signInSlice = createSlice({
       if (type === 'driver') {
         state.nickname = action.payload.nickname;
         state.availableAreas = action.payload.availableAreas;
-        state.areas = undefined;
+        state.areas = [];
       } else if (type === 'user') {
         state.areas = action.payload.areas;
-        state.availableAreas = undefined;
-        state.nickname = undefined;
+        state.availableAreas = [];
+        state.nickname = '';
       }
     },
     setSignOut(state) {

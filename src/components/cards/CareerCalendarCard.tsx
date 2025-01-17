@@ -44,10 +44,8 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
 
   const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const [newYear, newMonth] = e.target.value.split('-');
-    console.log('Selected Month:', newMonth);
     const newDate = new Date(Number(newYear), Number(newMonth) - 1, 1);
     setCurrentMonth(newDate);
-    console.log(newDate);
 
     setIsDatePickerOpen(false);
   };

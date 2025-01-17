@@ -4,18 +4,21 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
 import { patchUserData, putImage } from '@/api/UserService';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
+import { setUserSign } from '@/store/slices/SignInSlice';
 
 export default function ProfileRegisterNormal() {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const [selectedMovingType, setSelectedMovingType] = useState<string[]>([]);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -37,12 +40,20 @@ export default function ProfileRegisterNormal() {
       if (selectedImg) {
         sampleImage = selectedImg.name;
       }
-      const res = await patchUserData(sampleImage, selectedMovingType, selectedRegions);
-      const { uploadUrl } = res;
+      const response = await patchUserData(sampleImage, selectedMovingType, selectedRegions);
+      const { uploadUrl } = response;
 
       if (selectedImg === null) return;
       const image = await putImage(uploadUrl, selectedImg);
-      return await patchUserData(image, selectedMovingType, selectedRegions);
+      const res = await patchUserData(image, selectedMovingType, selectedRegions);
+      dispatch(
+        setUserSign({
+          image: res.person.image,
+          serviceType: res.person.serviceType,
+          areas: res.peson.areas,
+        }),
+      );
+      return res;
     },
     onSuccess: () => {
       router.push('/normal/match-driver');

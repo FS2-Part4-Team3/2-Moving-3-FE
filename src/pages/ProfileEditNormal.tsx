@@ -18,8 +18,6 @@ export default function ProfileEditNormal() {
     number: user.phoneNumber || '',
   });
 
-  console.log(user);
-  console.log(values);
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
