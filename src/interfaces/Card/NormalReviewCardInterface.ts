@@ -1,14 +1,19 @@
 export interface ReviewCardEstimations {
   id: string;
+  createdAt: string;
+  comment: string;
+  score: number;
   driver: {
     name: string;
     image: string;
   };
-  moveInfo: {
-    type: MoveType;
-    date: string;
+  owner: {
+    moveInfos: {
+      type: 'SMALL' | 'HOME' | 'OFFICE';
+      date: string;
+      price: number;
+    };
   };
-  price: number;
 }
 
 export type MoveType = 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';

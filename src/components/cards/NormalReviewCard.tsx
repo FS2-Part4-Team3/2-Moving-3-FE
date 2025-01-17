@@ -11,6 +11,7 @@ import { MyReviews, type ReviewCardProps } from '@/interfaces/Card/NormalReviewC
 import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
+import Pagination from '../common/pagination/pagination';
 import WritingReviewModal from '../modal/WritingReviewModal';
 
 export default function NormalReviewCard({ type }: ReviewCardProps) {
@@ -74,6 +75,10 @@ export default function NormalReviewCard({ type }: ReviewCardProps) {
       }
     }
   }, [currentPage, hasMore, isPlaceholderData, itemsPerPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   if (isLoading) {
     return <div>Loading</div>;
@@ -150,6 +155,7 @@ export default function NormalReviewCard({ type }: ReviewCardProps) {
           {isModalOpen && <WritingReviewModal estimation={myReview} setIsModalOpen={setIsModalOpen} />}
         </div>
       ))}
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );
 }
