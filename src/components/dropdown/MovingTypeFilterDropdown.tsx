@@ -1,16 +1,19 @@
-"use client";
+'use client';
 
-import checkbox from "@/../public/assets/common/check-box/check-box.svg";
-import checkbox_blue from "@/../public/assets/common/check-box/check-box_blue.svg";
-import Image from "next/image";
-import { useState } from "react";
-import x from "@/../public/assets/common/icon_X.svg";
-import { ButtonWrapper } from "../common/headless/Button";
-import type { MediaTypeFilterDropdownProps } from "@/interfaces/Dropdown/MediaTypeFilterDropdownInterface";
+import Image from 'next/image';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import checkbox from '@/../public/assets/common/check-box/check-box.svg';
+import checkbox_blue from '@/../public/assets/common/check-box/check-box_blue.svg';
+import x from '@/../public/assets/common/icon_X.svg';
+import type { MediaTypeFilterDropdownProps } from '@/interfaces/Dropdown/MediaTypeFilterDropdownInterface';
+import { setServiceType } from '@/store/slices/movesSlice';
+import { ButtonWrapper } from '../common/headless/Button';
 
-export default function MovingTypeFilterDropdown({
-  onClick,
-}: MediaTypeFilterDropdownProps) {
+export default function MovingTypeFilterDropdown({ onClick }: MediaTypeFilterDropdownProps) {
+  // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
+  const dispatch = useDispatch();
+
   const [smallMov, setSmallMov] = useState<boolean>(false);
   const [homeMov, setHomeMov] = useState<boolean>(false);
   const [officeMov, setOfficeMov] = useState<boolean>(false);
@@ -18,27 +21,48 @@ export default function MovingTypeFilterDropdown({
   const [serviceable, setServiceable] = useState<boolean>(false);
   const [appointRequest, setAppointRequest] = useState<boolean>(false);
 
-  const [isMenuClick, setIsMenuClick] = useState<"mov" | "filter">("mov");
+  const [isMenuClick, setIsMenuClick] = useState<'mov' | 'filter'>('mov');
+
+  const [types, setTypes] = useState<string[]>([]);
 
   const handleInquiryClick = () => {
-    // console.log("눌렸습니다");
+    // const serviceType = handleServiceTypeClick(smallMov, homeMov, officeMov);
+    // console.log('get /moves?serviceType=' + serviceType);
+
+    console.log('누ㄹ렸습니다');
   };
 
-  // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
+  // const handleServiceTypeClick = (smallMov: boolean, homeMov: boolean, officeMov: boolean) => {
+  //   const types = [];
+  //   if (smallMov) types.push('SMALL');
+  //   if (homeMov) types.push('HOME');
+  //   if (officeMov) types.push('OFFICE');
+
+  //   console.log('types', types);
+  //   console.log('types join', types.join(','));
+  //   return types.join(',');
+  // };
+
+  const handleClickMovType = (movType: string) => {
+    setTypes(prevTypes => {
+      if (prevTypes.includes(movType)) {
+        return prevTypes.filter(type => type !== movType); // 이미 포함된 경우 제거
+      } else {
+        return [...prevTypes, movType]; // 포함되지 않은 경우 추가
+      }
+    });
+  };
+  dispatch(setServiceType(types.join(',')));
 
   return (
     <div className="sm:fixed sm:inset-0 lg:static">
       <div className="md:w-[32.8rem] sm:w-full flex flex-col gap-[5.2rem] lg:block sm:hidden">
         <div className="flex flex-col gap-[2.4rem]">
           <div className="border-b border-line-200 flex justify-between items-center py-[1.6rem] px-[1rem]">
-            <p className="font-medium text-[2rem] leading-[3.2rem] text-black">
-              이사 유형
-            </p>
+            <p className="font-medium text-[2rem] leading-[3.2rem] text-black">이사 유형</p>
             <div className="flex gap-[0.4rem] items-center">
               <Image
-                src={
-                  smallMov && homeMov && officeMov ? checkbox_blue : checkbox
-                }
+                src={smallMov && homeMov && officeMov ? checkbox_blue : checkbox}
                 alt="checkbox"
                 width={36}
                 height={36}
@@ -49,9 +73,7 @@ export default function MovingTypeFilterDropdown({
                 }}
                 className="cursor-pointer"
               />
-              <p className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-300">
-                전체선택
-              </p>
+              <p className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-300">전체선택</p>
             </div>
           </div>
           <div className="flex flex-col gap-[1.6rem]">
@@ -65,7 +87,10 @@ export default function MovingTypeFilterDropdown({
                 alt="checkbox"
                 width={36}
                 height={36}
-                onClick={() => setSmallMov(!smallMov)}
+                onClick={() => {
+                  setSmallMov(!smallMov);
+                  handleClickMovType('SMALL');
+                }}
                 className="cursor-pointer"
               />
             </div>
@@ -79,7 +104,10 @@ export default function MovingTypeFilterDropdown({
                 alt="checkbox"
                 width={36}
                 height={36}
-                onClick={() => setHomeMov(!homeMov)}
+                onClick={() => {
+                  setHomeMov(!homeMov);
+                  handleClickMovType('HOME');
+                }}
                 className="cursor-pointer"
               />
             </div>
@@ -93,7 +121,10 @@ export default function MovingTypeFilterDropdown({
                 alt="checkbox"
                 width={36}
                 height={36}
-                onClick={() => setOfficeMov(!officeMov)}
+                onClick={() => {
+                  setOfficeMov(!officeMov);
+                  handleClickMovType('OFFICE');
+                }}
                 className="cursor-pointer"
               />
             </div>
@@ -101,9 +132,7 @@ export default function MovingTypeFilterDropdown({
         </div>
         <div className="flex flex-col gap-[2.4rem]">
           <div className="border-b border-line-200 flex justify-between items-center py-[1.6rem] px-[1rem]">
-            <p className="font-medium text-[2rem] leading-[3.2rem] text-black">
-              필터
-            </p>
+            <p className="font-medium text-[2rem] leading-[3.2rem] text-black">필터</p>
             <div className="flex gap-[0.4rem] items-center">
               <Image
                 src={serviceable && appointRequest ? checkbox_blue : checkbox}
@@ -116,9 +145,7 @@ export default function MovingTypeFilterDropdown({
                 }}
                 className="cursor-pointer"
               />
-              <p className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-300">
-                전체선택
-              </p>
+              <p className="font-normal text-[1.8rem] leading-[2.6rem] text-gray-300">전체선택</p>
             </div>
           </div>
           <div className="flex flex-col gap-[1.6rem]">
@@ -160,46 +187,31 @@ export default function MovingTypeFilterDropdown({
               <div className="flex gap-[2.4rem]">
                 <p
                   className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
-                    isMenuClick === "mov" ? "text-black-400" : "text-gray-300"
+                    isMenuClick === 'mov' ? 'text-black-400' : 'text-gray-300'
                   }`}
-                  onClick={() => setIsMenuClick("mov")}
+                  onClick={() => setIsMenuClick('mov')}
                 >
                   이사 유형
                 </p>
                 <p
                   className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
-                    isMenuClick === "filter"
-                      ? "text-black-400"
-                      : "text-gray-300"
+                    isMenuClick === 'filter' ? 'text-black-400' : 'text-gray-300'
                   }`}
-                  onClick={() => setIsMenuClick("filter")}
+                  onClick={() => setIsMenuClick('filter')}
                 >
                   필터
                 </p>
               </div>
-              <Image
-                src={x}
-                alt="x"
-                width={24}
-                height={24}
-                onClick={onClick}
-                className="cursor-pointer"
-              />
+              <Image src={x} alt="x" width={24} height={24} onClick={onClick} className="cursor-pointer" />
             </div>
-            {isMenuClick === "mov" && (
+            {isMenuClick === 'mov' && (
               <div className="flex flex-col gap-[0.8rem]">
                 <div className="flex gap-[1rem] items-center py-[0.8rem] px-[1rem] border-b border-line-100 justify-between">
                   <div className="flex">
-                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">
-                      전체선택 (199999)
-                    </p>
+                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 (199999)</p>
                   </div>
                   <Image
-                    src={
-                      smallMov && homeMov && officeMov
-                        ? checkbox_blue
-                        : checkbox
-                    }
+                    src={smallMov && homeMov && officeMov ? checkbox_blue : checkbox}
                     alt="checkbox"
                     width={36}
                     height={36}
@@ -257,18 +269,14 @@ export default function MovingTypeFilterDropdown({
                 </div>
               </div>
             )}
-            {isMenuClick === "filter" && (
+            {isMenuClick === 'filter' && (
               <div className="flex flex-col gap-[0.8rem]">
                 <div className="flex gap-[1rem] items-center py-[0.8rem] px-[1rem] border-b border-line-100 justify-between">
                   <div className="flex">
-                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">
-                      전체선택 (18888)
-                    </p>
+                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 (18888)</p>
                   </div>
                   <Image
-                    src={
-                      serviceable && appointRequest ? checkbox_blue : checkbox
-                    }
+                    src={serviceable && appointRequest ? checkbox_blue : checkbox}
                     alt="checkbox"
                     width={36}
                     height={36}

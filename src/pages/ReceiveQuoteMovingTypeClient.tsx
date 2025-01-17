@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import button from '@/../public/assets/common/dropdown/dropdown-open-button.svg';
-import DriverSortDropdown from '@/components/dropdown/DriverSortDropdown';
 import MovingTypeFilterDropdown from '@/components/dropdown/MovingTypeFilterDropdown';
 
 export default function ReceiveQuoteMovingTypeClient() {

@@ -27,7 +27,7 @@ export default function ReceiveQuoteClient() {
     isFetchingNextPage,
   } = useInfiniteQuery<MovesListResponse>({
     queryKey: ['moves', keyword, orderBy, serviceType, serviceArea, designatedRequest],
-    queryFn: async ({ pageParam }) => {
+    queryFn: ({ pageParam }) => {
       return getMovesListData(pageParam as number, pageSize, keyword, orderBy, serviceType, serviceArea, designatedRequest);
     },
     getNextPageParam: (lastPage, allPages) => {

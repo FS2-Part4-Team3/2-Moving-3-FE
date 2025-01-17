@@ -1,4 +1,3 @@
-import type { Params } from '@/interfaces/API';
 import type { DriverListResponse } from '@/interfaces/API/DriverServiceInterface';
 import { getRequest } from '@/utils/requestFunctions';
 
@@ -77,7 +76,7 @@ export const getDriverListData = async (
   }
 };
 
-export const getMovesListData = (
+export const getMovesListData = async (
   page: number,
   pageSize: number,
   keyword: string | undefined,
@@ -97,9 +96,10 @@ export const getMovesListData = (
   };
 
   try {
-    const data = getRequest('/moves', params);
+    const data = await getRequest('/moves', params);
     return data;
   } catch (error) {
     console.error('Get Move List Fetch Error:', error);
+    throw error;
   }
 };

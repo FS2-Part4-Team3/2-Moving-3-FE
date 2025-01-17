@@ -5,7 +5,7 @@ interface MovesState {
   pageSize: number;
   keyword: string | undefined;
   orderBy: string;
-  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | undefined;
+  serviceType: string;
   serviceArea: 'Active' | 'Inactive';
   designatedRequest: 'Active' | 'Inactive';
   movesList: any[];
@@ -18,7 +18,7 @@ const initialState: MovesState = {
   pageSize: 10,
   keyword: undefined,
   orderBy: 'UpcomingMoveDate',
-  serviceType: undefined,
+  serviceType: '',
   serviceArea: 'Inactive',
   designatedRequest: 'Inactive',
   movesList: [],
@@ -42,7 +42,7 @@ const movesSlice = createSlice({
     setOrderBy(state, action: PayloadAction<string>) {
       state.orderBy = action.payload;
     },
-    setServiceType(state, action: PayloadAction<'SMALL' | 'HOME' | 'OFFICE' | undefined>) {
+    setServiceType(state, action: PayloadAction<string>) {
       state.serviceType = action.payload;
     },
     setServiceArea(state, action: PayloadAction<'Active' | 'Inactive'>) {
@@ -61,7 +61,7 @@ const movesSlice = createSlice({
       state.error = action.payload;
     },
     resetMovingType(state) {
-      state.serviceType = undefined;
+      state.serviceType = '';
     },
     resetFilter(state) {
       state.serviceArea = 'Inactive';
