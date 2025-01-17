@@ -52,7 +52,7 @@ export async function putRequest(url: string, body: object = {}) {
   return fetchWrapper(url, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/octet-stream',
+      'Content-Type': isBinary ? body.type || 'application/octet-stream' : 'application/json',
     },
     body: isBinary ? body : JSON.stringify(body),
   });

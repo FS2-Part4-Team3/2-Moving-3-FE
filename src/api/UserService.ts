@@ -31,27 +31,33 @@ export const postSignUpData = async (userType: string, email: string, name: stri
   }
 };
 
-export const patchUserData = async (
+export const patchUserData = async (imgUrl: string, serviceType: string[], areas: string[]) => {
+  try {
+    const requestBody: any = { serviceType, areas };
+    if (imgUrl) {
+      requestBody.image = imgUrl;
+    }
+
+    const res = await patchRequest('/users/update', requestBody);
+    return res || [];
+  } catch (err) {
+    console.error('Error patching user data: ', err);
+    return;
+  }
+};
+
+export const editUserData = async (
   imgUrl: string,
   serviceType: string[],
   areas: string[],
   name: string,
   email: string,
   phoneNumber: string,
-  password: string,
 ) => {
   try {
-    const requestBody: any = { serviceType, areas };
+    const requestBody: any = { serviceType, areas, name, email, phoneNumber };
     if (imgUrl) {
       requestBody.image = imgUrl;
-    }
-    const updates: UserUpdates = { name, email, phoneNumber, password };
-
-    for (const key in updates) {
-      const typedKey = key as keyof UserUpdates;
-      if (updates[typedKey]) {
-        requestBody[typedKey] = updates[typedKey];
-      }
     }
 
     const res = await patchRequest('/users/update', requestBody);
@@ -101,7 +107,12 @@ export const putImage = async (url: string, imageFile: Blob | File) => {
       throw new Error('유효하지 않은 이미지 파일입니다.');
     }
     const res = await putRequest(url, imageFile);
-    return res || [];
+
+    if (!res.ok) {
+      throw new Error(res.status);
+    }
+    const data = res.json();
+    return data;
   } catch (err) {
     throw new Error();
   }

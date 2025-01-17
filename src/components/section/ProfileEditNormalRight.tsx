@@ -45,8 +45,8 @@ export default function ProfileEditNormalRight({
         </span>
         <ProfileChips
           regions={chipProps.regions}
-          selectedRegion={chipProps.selectedRegion}
-          setSelectedRegion={chipProps.setSelectedRegion}
+          selectedRegions={chipProps.selectedRegions}
+          setSelectedRegions={chipProps.setSelectedRegions}
         />
       </div>
     </div>

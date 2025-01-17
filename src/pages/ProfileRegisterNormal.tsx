@@ -34,18 +34,21 @@ export default function ProfileRegisterNormal() {
   const userMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
+      if (selectedImg) {
+        sampleImage = selectedImg.name;
+      }
       const res = await patchUserData(sampleImage, selectedMovingType, selectedRegions);
+      const { uploadUrl } = res;
 
-      //TODO image 처리 api를 모르겠어서 태영님께 질문 후 추후에 처리하겠습니다.
-      // const {uploadUrl} = res
-
-      // return await putImage(uploadUrl, selectedImg)
+      if (selectedImg === null) return;
+      const image = await putImage(uploadUrl, selectedImg);
+      return await patchUserData(image, selectedMovingType, selectedRegions);
     },
     onSuccess: () => {
       router.push('/normal/match-driver');
     },
     onError: () => {
-      router.push('/not-found');
+      // router.push('/not-found');
     },
   });
 
