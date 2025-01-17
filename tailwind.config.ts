@@ -58,6 +58,7 @@ const config: Config = {
         custom8: '0px 4px 8px rgba(0, 0, 0, 0.16)',
         custom9: '2px 2px 10px 0px rgba(220, 220, 220, 0.1), -2px -2px 10px 0px rgba(220, 220, 220, 0.1)',
         custom10: '2px 2px 10px 0px rgba(46, 46, 46, 0.04), -2px -2px 10px 0px rgba(46, 46, 46, 0.04)',
+        custom11: '4px 4px 16px 0px rgba(233, 233, 233, 0.1)',
         customBoth: '4px 4px 10px 0px rgba(225, 225, 225, 0.102), inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)',
         chipServiceShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.25)',
         chipAreaShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.161)',
