@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import { getDibsDriverListData } from '@/api/DriverService';
-import type { DibsDriverCardProps } from '@/interfaces/Card/DibsDriverCardInterface';
 import SmallMovingTypeChips from '../chips/SmallMovingTypeChips';
 
 export default function DibsDriverCard() {
