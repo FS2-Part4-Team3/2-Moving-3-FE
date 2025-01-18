@@ -36,16 +36,13 @@ export default function CallBackGoogle() {
           type: res.type,
         }),
       );
-      if (res.type === 'user' && (!res.image || !res.areas || !res.serviceTypes)) {
+      if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
         router.push('/normal/profile-register');
-      } else if (res.type === 'user' && res.image && res.areas && res.serviceTypes) {
+      } else if (res.type === 'user' && res.areas && res.serviceTypes) {
         router.push('/normal/match-driver');
-      } else if (
-        res.type === 'driver' &&
-        (!res.image || (!res.introduce && !res.description && !res.availableAreas && !res.nickname))
-      ) {
+      } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas && !res.nickname) {
         router.push('/driver/profile-register');
-      } else if (res.type === 'driver' && res.image && res.introduce && res.description && res.availableAreas) {
+      } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas) {
         router.push('/driver/receive-quote');
       }
     };
