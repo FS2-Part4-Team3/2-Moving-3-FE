@@ -50,6 +50,16 @@ export const getEstimationData = async () => {
   }
 };
 
+export const getDibsDriverListData = async () => {
+  try {
+    const res = await getRequest('/drivers/like');
+    return res || [];
+  } catch (error) {
+    console.error('Fetch Dibs Driver Error', error);
+    throw error;
+  }
+};
+
 export const getDriverListData = async (
   page?: number,
   pageSize?: number,
