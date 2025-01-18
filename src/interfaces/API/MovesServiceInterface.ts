@@ -3,7 +3,6 @@ export interface MovesListResponse {
   list: {
     id: string;
     updatedAt: string;
-    // serviceType: string[];
     serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
     date: string;
     fromAddress: string;
