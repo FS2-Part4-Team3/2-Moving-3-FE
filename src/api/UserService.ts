@@ -101,9 +101,9 @@ export const getUserData = async () => {
   }
 };
 
-export const putImage = async (url: string, imageFile: Blob | File) => {
+export const putImage = async (url: string, imageFile: File) => {
   try {
-    if (!(imageFile instanceof File || imageFile instanceof Blob)) {
+    if (!(imageFile instanceof File)) {
       throw new Error('유효하지 않은 이미지 파일입니다.');
     }
     const res = await putRequest(url, imageFile);

@@ -33,6 +33,7 @@ export default function ProfileEditNormal() {
           selectedMovingType: userData.serviceType,
         }));
         setSelectedImg(userData.image);
+        setPreviewUrl(userData.image);
 
         return user;
       } catch (err) {
@@ -95,6 +96,7 @@ export default function ProfileEditNormal() {
 
       if (selectedImg === null) return;
       const image = await putImage(uploadUrl, selectedImg);
+
       const res = await editUserData(
         image,
         values.selectedMovingType,
