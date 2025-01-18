@@ -16,7 +16,6 @@ export default function DriverSearchBar() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      console.log(value);
       dispatch(setKeyword(value));
     }
   };
