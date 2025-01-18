@@ -72,10 +72,13 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
 
     if (!values.number || !numberRegex.test(values.number)) {
       isEditNormalValid = false;
-      newError.number = '숫자만 입력해주세요.';
+      newError.number = '핸드폰 번호 및 숫자만 입력해주세요.';
     }
 
-    //TODO: 추후에 nowPassword validation api로 비밀번호 받와서 검사하기
+    if (!values.nowPassword.trim() || !passwordRegex.test(values.nowPassword)) {
+      isEditNormalValid = false;
+      newError.nowPassword = '최소 8자 이상이며 영문, 숫자, 특수문자를 포함해야 합니다.';
+    }
 
     if (!values.newPassword.trim() || !passwordRegex.test(values.newPassword)) {
       isEditNormalValid = false;
@@ -84,7 +87,7 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
 
     if (!values.newPasswordChk.trim() || !(values.newPasswordChk === values.newPassword)) {
       isEditNormalValid = false;
-      newError.newPasswordChk = '비밀번호가 일치하지 않습니다.';
+      newError.newPasswordChk = '새 비밀번호가 일치하지 않습니다.';
     }
 
     setErrors(newError);

@@ -81,37 +81,26 @@ export default function ProfileEditNormal() {
   const userMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
-      if (selectedImg) {
+      let image = '';
+
+      if (selectedImg instanceof File) {
         sampleImage = selectedImg.name;
+        const response = await editUserData(
+          sampleImage,
+          values.selectedMovingType,
+          values.selectedRegions,
+          values.name,
+          values.email,
+          values.number,
+        );
+        const { uploadUrl } = response;
+        image = await putImage(uploadUrl, selectedImg);
       }
-      const response = await editUserData(
-        sampleImage,
-        values.selectedMovingType,
-        values.selectedRegions,
-        values.name,
-        values.email,
-        values.number,
-      );
-      const { uploadUrl } = response;
 
-      if (selectedImg === null) return;
-      const image = await putImage(uploadUrl, selectedImg);
-
-      const res = await editUserData(
-        image,
-        values.selectedMovingType,
-        values.selectedRegions,
-        values.name,
-        values.email,
-        values.number,
-      );
-
-      const resPassword = await patchPassword(values.nowPassword, values.newPassword);
-
-      return {
-        res,
-        resPassword,
-      };
+      await Promise.all([
+        editUserData(image, values.selectedMovingType, values.selectedRegions, values.name, values.email, values.number),
+        patchPassword(values.nowPassword, values.newPassword),
+      ]);
     },
     onSuccess: () => {
       router.push('/normal/match-driver');

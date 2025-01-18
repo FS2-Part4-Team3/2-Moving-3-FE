@@ -115,10 +115,9 @@ export const putImage = async (url: string, imageFile: File) => {
   }
 };
 
-export const patchPassword = async (oldPw: string, NewPw: string) => {
+export const patchPassword = async (oldPw: string, newPw: string) => {
   try {
-    const requestBody = { oldPw, NewPw };
-    const res = await patchRequest('/auth/password', requestBody);
+    const res = await patchRequest('/auth/password', { oldPw, newPw });
     return res || [];
   } catch (err) {
     console.error('Error patching password data ', err);
