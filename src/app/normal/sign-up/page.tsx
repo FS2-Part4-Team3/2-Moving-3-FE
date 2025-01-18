@@ -47,7 +47,7 @@ export default function SignUp() {
           </p>
           <div className="lg:block sm:hidden">
             <div className="flex lg:gap-[3.2rem]">
-              <a href={`${BASE_URL}/auth/google/user`} target="_blank" rel="noopener noreferrer">
+              <a href={`${BASE_URL}/auth/google/user`} rel="noopener noreferrer">
                 <Image src={google} alt="google" width={72} height={72} />
               </a>
               <Image src={kakao} alt="kakao" width={72} height={72} />

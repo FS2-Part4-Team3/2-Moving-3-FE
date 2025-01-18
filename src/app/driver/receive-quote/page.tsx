@@ -4,18 +4,11 @@ import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
 import Empty from '@/components/common/Empty/Empty';
 import DriverSearchBar from '@/components/common/searchbar/DriverSearchBar';
 import DriverSortDropdown from '@/components/dropdown/DriverSortDropdown';
+import ReceiveQuoteClient from '@/pages/ReceiveQuoteClient';
 import ReceiveQuoteMovingTypeClient from '@/pages/ReceiveQuoteMovingTypeClient';
 
 export default async function ReceiveQuote() {
-  // let moveInfoData = await getMoveInfoData();
-
   //TODO : 전체 999999건은 임시 값임
-
-  // moveInfoData = [];
-
-  if (!moveInfoData) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="w-full flex items-center justify-center mb-[7rem]">
@@ -42,19 +35,7 @@ export default async function ReceiveQuote() {
                 </div>
               </div>
             </div>
-            {!moveInfoData.length ? (
-              <div className="w-full h-[56rem] flex items-center justify-center">
-                <Empty type="ReceiveQuote" />
-              </div>
-            ) : (
-              <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
-                {moveInfoData?.map((user: any) => (
-                  <div key={user.id}>
-                    <ReceiveQuoteCard data={user} />
-                  </div>
-                ))}
-              </div>
-            )}
+            <ReceiveQuoteClient />
           </div>
         </div>
       </div>

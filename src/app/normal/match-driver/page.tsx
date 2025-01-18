@@ -1,4 +1,3 @@
-import driverData from '@/../public/data/driversData.json';
 import DibsDriverCard from '@/components/cards/DibsDriverCard';
 import SearchBar from '@/components/common/searchbar/SearchBar';
 import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
@@ -6,7 +5,6 @@ import SortDropdown from '@/components/dropdown/SortDropdown';
 import MatchDriverClient from '@/pages/MatchDriverClient';
 
 export default async function MatchDriver() {
-  //TODO: 찜한 기사님 API 연결 미완
   return (
     <div className="w-full flex items-center justify-center mb-[7rem]">
       <div className="lg:w-[120rem] sm:w-full items-start justify-center flex flex-col">
@@ -24,9 +22,7 @@ export default async function MatchDriver() {
             <div className="lg:block sm:hidden">
               <div className="flex flex-col gap-[1.6rem]">
                 <p className="font-semibold text-[2rem] leading-[3.2rem] text-black-400">찜한 기사님</p>
-                {driverData.map((driver: any, index: number) => (
-                  <DibsDriverCard data={driver} key={index} />
-                ))}
+                <DibsDriverCard />
               </div>
             </div>
           </div>

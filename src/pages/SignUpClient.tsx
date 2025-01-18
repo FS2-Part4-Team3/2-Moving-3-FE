@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
 import { postSignUpData } from '@/api/UserService';
+import { CustomError } from '@/api/api';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 
@@ -58,10 +59,6 @@ export default function SignUpClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignUpData(userType, email, name, number, password);
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || '알 수 없는 오류가 발생했습니다.');
-      }
 
       if (userType === 'user') {
         router.push('/normal/sign-in');
@@ -70,7 +67,7 @@ export default function SignUpClient() {
       }
       alert('회원가입이 완료되었습니다');
     } catch (error: any) {
-      alert(error.data.message);
+      alert(error.data?.message || '회원가입에 실패하였습니다.');
     }
   };
 
