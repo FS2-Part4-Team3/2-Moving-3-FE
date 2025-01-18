@@ -79,16 +79,16 @@ export default function SignInClient() {
           type: res.person.type,
         }),
       );
-      if (userType === 'user' && (!res.image || !res.areas || !res.serviceTypes)) {
+      if (userType === 'user' && (!res.areas || !res.serviceType)) {
         router.push('/normal/profile-register');
-      } else if (userType === 'user' && res.image && res.areas && res.serviceTypes) {
+      } else if (userType === 'user' && res.areas && res.serviceType) {
         router.push('/normal/match-driver');
       } else if (
         userType === 'driver' &&
-        (!res.image || (!res.introduce && !res.description && !res.availableAreas && !res.nickname))
+        (!res.introduce || !res.description || !res.availableAreas || !res.nickname || !res.serviceType)
       ) {
         router.push('/driver/profile-register');
-      } else if (userType === 'driver' && res.image && res.introduce && res.description && res.availableAreas) {
+      } else if (userType === 'driver' && res.introduce && res.description && res.availableAreas && res.serviceType) {
         router.push('/driver/receive-quote');
       }
     } catch (error) {
