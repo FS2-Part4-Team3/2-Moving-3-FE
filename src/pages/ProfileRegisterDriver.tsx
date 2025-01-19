@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import dropdown from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
-import { patchDriverData } from '@/api/UserService';
+import { patchDriverData, putImage } from '@/api/UserService';
 import CareerCalendarCard from '@/components/cards/CareerCalendarCard';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
@@ -55,8 +55,24 @@ export default function ProfileRegisterDriver() {
   const userMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
-      const res = await patchDriverData(
+      if (selectedImg) {
+        sampleImage = selectedImg.name;
+      }
+      const response = await patchDriverData(
         sampleImage,
+        values.nickname,
+        values.career,
+        values.shortBio,
+        values.description,
+        values.selectedMovingType,
+        values.selectedRegions,
+      );
+      const { uploadUrl } = response;
+
+      if (selectedImg === null) return;
+      const image = await putImage(uploadUrl, selectedImg);
+      const res = await patchDriverData(
+        image,
         values.nickname,
         values.career,
         values.shortBio,
