@@ -1,5 +1,5 @@
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
-import ProfileEditDriver from '@/pages/DriverDetail/ProfileEditDriver';
+import ProfileEditDriver from '@/pages/ProfileEditDriver';
 
 export default function ProfileEditForDriverPage() {
   // 예시 데이터

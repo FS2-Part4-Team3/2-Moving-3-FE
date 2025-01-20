@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
+import { getUserData } from '@/api/UserService';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
@@ -10,19 +11,13 @@ import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
 import type { ProfileEditDriverProps } from '@/interfaces/Page/ProfileEditDriverInterface';
+import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
 export default function ProfileEditDriver({
   values: { nickname, career, shortBio, description, selectedRegion, selectedMovingType },
   imgUrl,
 }: ProfileEditDriverProps) {
-  const { values, setValues, errors, validate, handleChange } = useProfileValidate({
-    nickname,
-    career,
-    shortBio,
-    description,
-    selectedRegion,
-    selectedMovingType,
-  });
+  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
   const [selectedImg, setSelectedImg] = useState<File | null>();
   const [previewUrl, setPreviewUrl] = useState<string | null>(imgUrl);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -33,8 +28,43 @@ export default function ProfileEditDriver({
     description: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const isDisabled = isFormValid && previewUrl;
-  //TODO: 추후에 user 정보 받아서 중복 선택 가능하게 하기
+  const isDisabled = isFormValid;
+  const [user, setUser] = useState({
+    nickname: '',
+    image: '',
+    startAt: '',
+    introduce: '',
+    description: '',
+    availableAreas: [],
+    serviceType: [],
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserData();
+        setUser(userData);
+
+        setValues(prev => ({
+          ...prev,
+          nickname: userData.nickname,
+          email: userData.email,
+          career: userData.startAt,
+          shortBio: userData.introduce,
+          description: userData.description,
+          selectedRegions: userData.availableAreas,
+          selectedMovingType: userData.serviceType,
+        }));
+        setSelectedImg(userData.image);
+        setPreviewUrl(userData.image);
+
+        return user;
+      } catch (err) {
+        console.error('Error fetching user data', err);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     setIsFormValid(validate('REGISTER'));
@@ -101,17 +131,17 @@ export default function ProfileEditDriver({
           </button>
         </div>
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
-          <InputWrapper id="career" type="text" value={values.career} onChange={handleChange}>
+          <InputWrapper id="career" type="text" value={DateFormatToYYYYMMDD(values.career.toISOString())} onChange={handleChange}>
             <div className="flex flex-col">
               <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
-                경력
+                경력 시작일
               </InputWrapper.Label>
               <InputWrapper.Input
                 name="career"
                 className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
                   errors.career && isTouched.career ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder="기사님의 경력을 입력해 주세요"
+                placeholder="기사님의 경력 시작일을 입력해 주세요"
                 onBlur={() => handleInputBlur('career')}
               />
               {errors.career && isTouched.career && (
@@ -200,8 +230,8 @@ export default function ProfileEditDriver({
           )}
           <ProfileChips
             regions={regions}
-            selectedRegion={values.selectedRegion}
-            setSelectedRegion={value => setValues(prev => ({ ...prev, selectedRegion: value }))}
+            selectedRegions={values.selectedRegions}
+            setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegion: value }))}
           />
         </div>
       </div>
