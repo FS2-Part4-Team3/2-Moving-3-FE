@@ -50,9 +50,14 @@ export const getEstimationData = async () => {
   }
 };
 
-export const getDibsDriverListData = async () => {
+export const getDibsDriverListData = async (page: number, pageSize: number) => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+  };
+
   try {
-    const res = await getRequest('/drivers/like');
+    const res = await getRequest('/drivers/like', params);
     return res || [];
   } catch (error) {
     console.error('Fetch Dibs Driver Error', error);
@@ -82,34 +87,6 @@ export const getDriverListData = async (
     return data;
   } catch (error) {
     console.error('Get Driver List Fetch error:', error);
-    throw error;
-  }
-};
-
-export const getMovesListData = async (
-  page: number,
-  pageSize: number,
-  keyword: string | undefined,
-  orderBy: string,
-  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | undefined,
-  serviceArea: 'Active' | 'Inactive',
-  designatedRequest: 'Active' | 'Inactive',
-) => {
-  const params = {
-    page: page,
-    pageSize: pageSize,
-    keyword: keyword,
-    orderBy: orderBy,
-    serviceType: serviceType,
-    serviceArea: serviceArea,
-    designatedRequest: designatedRequest,
-  };
-
-  try {
-    const data = await getRequest('/moves', params);
-    return data;
-  } catch (error) {
-    console.error('Get Move List Fetch Error:', error);
     throw error;
   }
 };

@@ -15,7 +15,7 @@ export default function DibsDriverCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getDibsDriverListData();
+        const data = await getDibsDriverListData(1, 3);
         setDibsDrivers(data);
       } catch (error) {
         setError('데이터를 가져오는데에 실패했습니다.');
