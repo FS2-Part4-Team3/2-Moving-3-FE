@@ -1,7 +1,3 @@
-import moveInfoData from '@/../public/data/moveInfosData.json';
-import { getMoveInfoData } from '@/api/DriverService';
-import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
-import Empty from '@/components/common/Empty/Empty';
 import DriverSearchBar from '@/components/common/searchbar/DriverSearchBar';
 import DriverSortDropdown from '@/components/dropdown/DriverSortDropdown';
 import ReceiveQuoteClient from '@/pages/ReceiveQuoteClient';
