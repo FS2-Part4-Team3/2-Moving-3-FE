@@ -1,10 +1,12 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
-import { getUserData } from '@/api/UserService';
+import { editDriverData, getUserData } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
@@ -31,6 +33,7 @@ export default function InfoEditForDriver() {
     email: '',
     phoneNumber: '',
   });
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -60,8 +63,24 @@ export default function InfoEditForDriver() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
+  const userMutation = useMutation({
+    mutationFn: async () => {
+      await editDriverData(values.name, values.email, values.number);
+    },
+    onSuccess: () => {
+      router.back();
+    },
+    onError: () => {
+      router.push('/not-found');
+    },
+  });
+
+  const handleSubmit = () => {
+    userMutation.mutate();
+  };
+
   return (
-    <form className="lg:grid lg:grid-cols-2 md:flex md:flex-col md:items-center sm:flex sm:flex-col sm:items-center lg:w-[135.2rem] md:w-[37.5rem] sm:w-[37.5rem] lg:gap-x-[22rem]">
+    <div className="lg:grid lg:grid-cols-2 md:flex md:flex-col md:items-center sm:flex sm:flex-col sm:items-center lg:w-[135.2rem] md:w-[37.5rem] sm:w-[37.5rem] lg:gap-x-[22rem]">
       <div className="flex flex-col ">
         <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper id="name" type="text" value={values.name} onChange={handleChange}>
@@ -251,7 +270,7 @@ export default function InfoEditForDriver() {
           취소
         </ButtonWrapper.Button>
       </ButtonWrapper>
-      <ButtonWrapper id="fix-btn">
+      <ButtonWrapper id="fix-btn" onClick={handleSubmit}>
         <ButtonWrapper.Button
           disabled={!isDisabled}
           className="lg:order-2 md:order-1 sm:order-1 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[6.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
@@ -259,6 +278,6 @@ export default function InfoEditForDriver() {
           수정하기
         </ButtonWrapper.Button>
       </ButtonWrapper>
-    </form>
+    </div>
   );
 }

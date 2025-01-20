@@ -91,7 +91,7 @@ export const patchDriverData = async (
   }
 };
 
-export const editDriverData = async (name: string, email: string, phoneNumber: Date) => {
+export const editDriverData = async (name: string, email: string, phoneNumber: string) => {
   try {
     const requestBody: any = { name, email, phoneNumber };
     const res = await patchRequest('/drivers/update', requestBody);
