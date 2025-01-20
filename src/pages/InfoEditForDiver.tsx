@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
-import { editDriverData, getUserData } from '@/api/UserService';
+import { editDriverData, getUserData, patchPassword } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
@@ -65,7 +65,10 @@ export default function InfoEditForDriver() {
 
   const userMutation = useMutation({
     mutationFn: async () => {
-      await editDriverData(values.name, values.email, values.number);
+      await Promise.all([
+        editDriverData(values.name, values.email, values.number),
+        patchPassword(values.nowPassword, values.newPassword),
+      ]);
     },
     onSuccess: () => {
       router.back();
