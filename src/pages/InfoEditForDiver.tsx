@@ -2,7 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
@@ -117,9 +117,10 @@ export default function InfoEditForDriver() {
                 name="email"
                 className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
                   errors.email && isTouched.email ? 'bg-white border-red-200 border' : 'bg-background-200'
-                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
+                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-gray-300 placeholder-gray-300 focus:outline-none`}
                 placeholder="이메일을 입력해 주세요"
                 onBlur={() => handleInputBlur('email')}
+                disabled
               />
               {errors.email && isTouched.email && (
                 <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
