@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { getUserData } from '@/api/UserService';
 import type { ProfileChipProps } from '@/interfaces/chip/ProfileChipInterface';
 import type { RootState } from '@/store/store';
 
@@ -12,31 +14,39 @@ export function ProfileChips({
   setSelectedRegions,
   setSelectedMovingType,
 }: ProfileChipProps) {
-  const user = useSelector((state: RootState) => state.signIn);
+  //const user = useSelector((state: RootState) => state.signIn);
+  const [user, setUser] = useState({
+    type: '',
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserData();
+        setUser(prev => ({ ...prev, type: userData.type }));
+
+        return user;
+      } catch (err) {
+        console.error('Error fetching user data:', err);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   const handleRegionSelect = (regionName: string) => {
     if (user.type === 'driver') {
-      if (setSelectedRegions) {
-        setSelectedRegions(prev => {
-          if (prev) {
-            if (prev.includes(regionName)) {
-              return prev.filter(r => r !== regionName);
-            }
-            return [...prev, regionName];
-          }
-          return [regionName];
-        });
+      if (selectedRegions?.includes(regionName)) {
+        setSelectedRegions?.(selectedRegions.filter(region => region !== regionName));
+      } else {
+        setSelectedRegions?.([...(selectedRegions || []), regionName]);
       }
-      setSelectedRegions?.(() => [regionName]);
-    }
-
-    if (user.type === 'user') {
-      setSelectedRegions?.(() => [regionName]);
+    } else if (user.type === 'user') {
+      setSelectedRegions?.([regionName]);
     }
   };
 
   const handleMovingTypeSelect = (movingType: string) => {
-    setSelectedMovingType?.(() => [movingType]);
+    setSelectedMovingType?.([movingType]);
   };
 
   return (

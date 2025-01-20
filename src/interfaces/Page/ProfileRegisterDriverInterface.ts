@@ -1,10 +1,10 @@
 export interface RegisterDriverValues {
   nickname: string;
-  career: number | string;
+  career: Date;
   shortBio: string;
   description: string;
-  selectedRegion: string | null;
-  selectedMovingType: string | null;
+  selectedRegions: string[];
+  selectedMovingType: string[];
   name: string;
   email: string;
   number: string;

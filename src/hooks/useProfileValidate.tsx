@@ -6,11 +6,11 @@ import type { Errors, RegisterDriverValues, ValidateProps } from '@/interfaces/P
 export default function useProfileValidate(initialValues?: Partial<RegisterDriverValues>) {
   const [values, setValues] = useState<RegisterDriverValues>({
     nickname: '',
-    career: '',
+    career: new Date(),
     shortBio: '',
     description: '',
-    selectedRegion: null,
-    selectedMovingType: null,
+    selectedRegions: [],
+    selectedMovingType: [],
     name: '',
     email: '',
     number: '',
@@ -35,9 +35,9 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.nickname = '성함을 입력해주세요.';
     }
 
-    if (!values.career || isNaN(Number(values.career))) {
+    if (!values.career) {
       isValid = false;
-      newError.career = '숫자만 입력해주세요.';
+      newError.career = '경력 시작일을 입력해주세요.';
     }
 
     if (!values.shortBio?.trim() || values.shortBio.length < 8) {
@@ -50,7 +50,7 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.description = '10자 이상 입력해주세요.';
     }
 
-    if (!values.selectedRegion) {
+    if (!values.selectedRegions) {
       isValid = false;
       newError.selectedRegion = '* 1개 이상 선택해주세요.';
     }
@@ -60,22 +60,25 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.selectedMovingType = '* 1개 이상 선택해주세요.';
     }
 
-    if (!values.name.trim()) {
+    if (!values.name) {
       isEditNormalValid = false;
       newError.name = '이름을 입력해주세요.';
     }
 
-    if (!values.email.trim() || !emailRegex.test(values.email)) {
+    if (!values.email || !emailRegex.test(values.email)) {
       isEditNormalValid = false;
       newError.email = '이메일 형식이 아닙니다.';
     }
 
     if (!values.number || !numberRegex.test(values.number)) {
       isEditNormalValid = false;
-      newError.number = '숫자만 입력해주세요.';
+      newError.number = '핸드폰 번호 및 숫자만 입력해주세요.';
     }
 
-    //TODO: 추후에 nowPassword validation api로 비밀번호 받와서 검사하기
+    if (!values.nowPassword.trim() || !passwordRegex.test(values.nowPassword)) {
+      isEditNormalValid = false;
+      newError.nowPassword = '최소 8자 이상이며 영문, 숫자, 특수문자를 포함해야 합니다.';
+    }
 
     if (!values.newPassword.trim() || !passwordRegex.test(values.newPassword)) {
       isEditNormalValid = false;
@@ -84,7 +87,7 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
 
     if (!values.newPasswordChk.trim() || !(values.newPasswordChk === values.newPassword)) {
       isEditNormalValid = false;
-      newError.newPasswordChk = '비밀번호가 일치하지 않습니다.';
+      newError.newPasswordChk = '새 비밀번호가 일치하지 않습니다.';
     }
 
     setErrors(newError);

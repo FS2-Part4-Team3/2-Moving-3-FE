@@ -15,6 +15,6 @@ export interface ProfileChipProps {
   movingTypes?: MovingType[];
   selectedMovingType?: string[];
   selectedRegions?: string[];
-  setSelectedMovingType?: Dispatch<SetStateAction<string[]>>;
-  setSelectedRegions?: Dispatch<SetStateAction<string[]>>;
+  setSelectedMovingType?: (args: string[]) => void;
+  setSelectedRegions?: (args: string[]) => void;
 }

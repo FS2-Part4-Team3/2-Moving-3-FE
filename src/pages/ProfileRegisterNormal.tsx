@@ -4,18 +4,21 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
 import { patchUserData, putImage } from '@/api/UserService';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
+import { setUserSign } from '@/store/slices/SignInSlice';
 
 export default function ProfileRegisterNormal() {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const [selectedMovingType, setSelectedMovingType] = useState<string[]>([]);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -33,14 +36,26 @@ export default function ProfileRegisterNormal() {
 
   const userMutation = useMutation({
     mutationFn: async () => {
-      if (!selectedImg) return;
       let sampleImage = '';
-      const res = await patchUserData(sampleImage, selectedMovingType, selectedRegions);
+      if (selectedImg) {
+        sampleImage = selectedImg.name;
+      }
+      const response = await patchUserData(sampleImage, selectedMovingType, selectedRegions);
+      const { uploadUrl } = response;
 
-      //TODO image 처리 api를 모르겠어서 태영님께 질문 후 추후에 처리하겠습니다.
-      // const {uploadUrl} = res
+      if (selectedImg === null) return;
+      const image = await putImage(uploadUrl, selectedImg);
+      const res = await patchUserData(image, selectedMovingType, selectedRegions);
 
-      // return await putImage(uploadUrl, selectedImg)
+      dispatch(
+        setUserSign({
+          image: res.image,
+          serviceType: res.serviceType,
+          areas: res.areas,
+        }),
+      );
+
+      return await patchUserData(image, selectedMovingType, selectedRegions);
     },
     onSuccess: () => {
       router.push('/normal/match-driver');
@@ -50,7 +65,7 @@ export default function ProfileRegisterNormal() {
     },
   });
 
-  const handleImgSubmit = () => {
+  const handleSubmit = () => {
     userMutation.mutate();
   };
   return (
@@ -98,7 +113,7 @@ export default function ProfileRegisterNormal() {
           <ProfileChips regions={regions} selectedRegions={selectedRegions} setSelectedRegions={setSelectedRegions} />
         </div>
       </div>
-      <ButtonWrapper id="profile-register-normal" onClick={handleImgSubmit}>
+      <ButtonWrapper id="profile-register-normal" onClick={handleSubmit}>
         <ButtonWrapper.Button
           disabled={!selectedMovingType.length || !selectedRegions.length}
           className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"

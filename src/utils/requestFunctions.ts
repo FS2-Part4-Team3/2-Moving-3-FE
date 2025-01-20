@@ -47,13 +47,12 @@ export async function deleteRequest(url: string) {
   });
 }
 
-export async function putRequest(url: string, body: object = {}) {
-  const isBinary = body instanceof Blob || body instanceof File;
-  return fetchWrapper(url, {
+export async function putRequest(url: string, body: File) {
+  return fetch(url, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/octet-stream',
+      'Content-Type': body.type,
     },
-    body: isBinary ? body : JSON.stringify(body),
+    body: body,
   });
 }

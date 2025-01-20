@@ -25,6 +25,38 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
     });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        const refreshResponse = await fetch(`${BASE_URL}/auth/refresh`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!refreshResponse.ok) {
+          throw new CustomError('Failed to refresh token', await refreshResponse.json());
+        }
+
+        const { accessToken } = await refreshResponse.json();
+        localStorage.setItem('accessToken', accessToken);
+
+        const retryResponse = await fetch(`${BASE_URL}${url}`, {
+          ...options,
+          headers: {
+            ...headers,
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (!retryResponse.ok) {
+          const error = new CustomError(`HTTP error! status: ${retryResponse.status}`, await retryResponse.json());
+          throw error;
+        }
+
+        return retryResponse.json();
+      }
+
       console.error('Response not OK:', {
         status: response.status,
         statusText: response.statusText,

@@ -64,31 +64,31 @@ export default function SignInClient() {
       localStorage.setItem('accessToken', res.accessToken);
       dispatch(
         setUserSign({
-          id: res.id,
-          name: res.name,
-          nickname: userType === 'driver' ? res.nickname : undefined,
+          id: res.person.id,
+          name: res.person.name,
+          nickname: userType === 'driver' ? res.person.nickname : undefined,
           accessToken: res.accessToken,
-          email: res.email,
-          image: res.image,
-          phoneNumber: res.phoneNumber,
-          introduce: res.introduce,
-          description: res.description,
-          serviceTypes: res.serviceTypes,
-          availableAreas: userType === 'driver' ? res.availableAreas : undefined,
-          areas: userType === 'user' ? res.areas : undefined,
-          type: userType,
+          email: res.person.email,
+          image: res.person.image,
+          phoneNumber: res.person.phoneNumber,
+          introduce: res.person.introduce,
+          description: res.person.description,
+          serviceType: res.person.serviceType,
+          availableAreas: userType === 'driver' ? res.person.availableAreas : undefined,
+          areas: userType === 'user' ? res.person.areas : undefined,
+          type: res.person.type,
         }),
       );
-      if (userType === 'user' && (!res.image || !res.areas || !res.serviceTypes)) {
+      if (userType === 'user' && (!res.areas || !res.serviceType)) {
         router.push('/normal/profile-register');
-      } else if (userType === 'user' && res.image && res.areas && res.serviceTypes) {
+      } else if (userType === 'user' && res.areas && res.serviceType) {
         router.push('/normal/match-driver');
       } else if (
         userType === 'driver' &&
-        (!res.image || (!res.introduce && !res.description && !res.availableAreas && !res.nickname))
+        (!res.introduce || !res.description || !res.availableAreas || !res.nickname || !res.serviceType)
       ) {
         router.push('/driver/profile-register');
-      } else if (userType === 'driver' && res.image && res.introduce && res.description && res.availableAreas) {
+      } else if (userType === 'driver' && res.introduce && res.description && res.availableAreas && res.serviceType) {
         router.push('/driver/receive-quote');
       }
     } catch (error) {

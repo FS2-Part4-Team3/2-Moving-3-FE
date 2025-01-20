@@ -1,3 +1,4 @@
+import { UserUpdates } from '@/interfaces/API/UserServiceInterface';
 import { getRequest, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
 
 export const postSignInData = async (userType: string, email: string, password: string) => {
@@ -30,9 +31,9 @@ export const postSignUpData = async (userType: string, email: string, name: stri
   }
 };
 
-export const patchUserData = async (imgUrl: string, serviceTypes: string[], areas: string[]) => {
+export const patchUserData = async (imgUrl: string, serviceType: string[], areas: string[]) => {
   try {
-    const requestBody: any = { serviceTypes, areas };
+    const requestBody: any = { serviceType, areas };
     if (imgUrl) {
       requestBody.image = imgUrl;
     }
@@ -41,6 +42,51 @@ export const patchUserData = async (imgUrl: string, serviceTypes: string[], area
     return res || [];
   } catch (err) {
     console.error('Error patching user data: ', err);
+    return;
+  }
+};
+
+export const editUserData = async (
+  imgUrl: string,
+  serviceType: string[],
+  areas: string[],
+  name: string,
+  email: string,
+  phoneNumber: string,
+) => {
+  try {
+    const requestBody: any = { serviceType, areas, name, email, phoneNumber };
+    if (imgUrl) {
+      requestBody.image = imgUrl;
+    }
+
+    const res = await patchRequest('/users/update', requestBody);
+    return res || [];
+  } catch (err) {
+    console.error('Error patching user data: ', err);
+    return;
+  }
+};
+
+export const patchDriverData = async (
+  imgUrl: string,
+  nickname: string,
+  startAt: Date,
+  introduce: string,
+  description: string,
+  serviceType: string[],
+  availableAreas: string[],
+) => {
+  try {
+    const requestBody: any = { nickname, startAt, introduce, description, serviceType, availableAreas };
+    if (imgUrl) {
+      requestBody.image = imgUrl;
+    }
+
+    const res = await patchRequest('/drivers/update', requestBody);
+    return res || [];
+  } catch (err) {
+    console.error('Error patching driver data ', err);
     return;
   }
 };
@@ -55,14 +101,26 @@ export const getUserData = async () => {
   }
 };
 
-export const putImage = async (url: string, imageFile: Blob | File) => {
+export const putImage = async (url: string, imageFile: File) => {
   try {
-    if (!(imageFile instanceof File || imageFile instanceof Blob)) {
+    if (!(imageFile instanceof File)) {
       throw new Error('유효하지 않은 이미지 파일입니다.');
     }
     const res = await putRequest(url, imageFile);
+    const text = await res.text();
+    return text;
+  } catch (err) {
+    console.error('putImage 함수에서 발생한 에러:', err);
+    throw new Error();
+  }
+};
+
+export const patchPassword = async (oldPw: string, newPw: string) => {
+  try {
+    const res = await patchRequest('/auth/password', { oldPw, newPw });
     return res || [];
   } catch (err) {
-    throw new Error();
+    console.error('Error patching password data ', err);
+    return;
   }
 };

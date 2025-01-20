@@ -95,25 +95,25 @@ export default function DetailButtonClient({ type }: DetailButtonClientProps) {
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
-      {type === 'InfoEditDriver' && (
-        <ButtonWrapper id="my-profile-edit" onClick={handleEditProfile}>
-          <ButtonWrapper.Button
-            className="lg:w-[28rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white"
-            disabled={isCompleted}
-          >
+            {type === 'InfoEditDriver' && (
+        <ButtonWrapper id="basic-info-edit" onClick={handleEditBasicInfo}>
+          <ButtonWrapper.Button className="lg:w-[28rem] sm:w-full rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-gray-300 bg-white border border-gray-200">
             <div className="flex flex-row gap-[0.6rem] items-center justify-center">
-              <p>내 프로필 수정</p>
-              <Image src={edit_white} alt="edit" width={24} height={24} />
+              <p>기본 정보 수정</p>
+              <Image src={edit_gray} alt="edit" width={24} height={24} />
             </div>
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
       {type === 'InfoEditDriver' && (
-        <ButtonWrapper id="basic-info-edit" onClick={handleEditBasicInfo}>
-          <ButtonWrapper.Button className="lg:w-[28rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-gray-300 bg-background-200 border border-gray-200">
+        <ButtonWrapper id="my-profile-edit" onClick={handleEditProfile}>
+          <ButtonWrapper.Button
+            className="lg:w-[28rem] sm:w-full rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white"
+            disabled={isCompleted}
+          >
             <div className="flex flex-row gap-[0.6rem] items-center justify-center">
-              <p>기본 정보 수정</p>
-              <Image src={edit_gray} alt="edit" width={24} height={24} />
+              <p>내 프로필 수정</p>
+              <Image src={edit_white} alt="edit" width={24} height={24} />
             </div>
           </ButtonWrapper.Button>
         </ButtonWrapper>
