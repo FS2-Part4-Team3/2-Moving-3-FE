@@ -9,12 +9,8 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
 import type { InfoEditForDriverProps } from '@/interfaces/Page/InfoEditForDriver';
 
-export default function InfoEditForDriver({ values: { name, email, number } }: InfoEditForDriverProps) {
-  const { values, errors, validate, handleChange } = useProfileValidate({
-    name,
-    email,
-    number,
-  });
+export default function InfoEditForDriver() {
+  const { values, errors, validate, handleChange } = useProfileValidate();
   const [isTouched, setIsTouched] = useState({
     name: false,
     number: false,
