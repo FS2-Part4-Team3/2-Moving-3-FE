@@ -4,13 +4,13 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
+import { getUserData } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import type { InfoEditForDriverProps } from '@/interfaces/Page/InfoEditForDriver';
 
 export default function InfoEditForDriver() {
-  const { values, errors, validate, handleChange } = useProfileValidate();
+  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
   const [isTouched, setIsTouched] = useState({
     name: false,
     number: false,
@@ -26,6 +26,31 @@ export default function InfoEditForDriver() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const isDisabled = isFormValid;
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phoneNumber: '',
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserData();
+        setUser(userData);
+
+        setValues(prev => ({
+          ...prev,
+          name: userData.name,
+          number: userData.phoneNumber,
+          email: userData.email,
+        }));
+        return user;
+      } catch (err) {
+        console.error('Error fetching user data:', err);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     setIsFormValid(validate('EDIT'));
