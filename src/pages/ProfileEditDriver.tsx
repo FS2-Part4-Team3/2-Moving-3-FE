@@ -1,25 +1,25 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import dropdown from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
-import { getUserData } from '@/api/UserService';
+import { getUserData, patchDriverData, putImage } from '@/api/UserService';
+import CareerCalendarCard from '@/components/cards/CareerCalendarCard';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import type { ProfileEditDriverProps } from '@/interfaces/Page/ProfileEditDriverInterface';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
-export default function ProfileEditDriver({
-  values: { nickname, career, shortBio, description, selectedRegion, selectedMovingType },
-  imgUrl,
-}: ProfileEditDriverProps) {
+export default function ProfileEditDriver() {
   const { values, setValues, errors, validate, handleChange } = useProfileValidate();
-  const [selectedImg, setSelectedImg] = useState<File | null>();
-  const [previewUrl, setPreviewUrl] = useState<string | null>(imgUrl);
+  const [selectedImg, setSelectedImg] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isTouched, setIsTouched] = useState({
     nickname: false,
@@ -38,6 +38,8 @@ export default function ProfileEditDriver({
     availableAreas: [],
     serviceType: [],
   });
+  const [isCareerOpen, setIsCareerOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -49,7 +51,7 @@ export default function ProfileEditDriver({
           ...prev,
           nickname: userData.nickname,
           email: userData.email,
-          career: userData.startAt,
+          career: new Date(userData.startAt),
           shortBio: userData.introduce,
           description: userData.description,
           selectedRegions: userData.availableAreas,
@@ -86,16 +88,50 @@ export default function ProfileEditDriver({
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
-  const handleValuesSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //TODO: 추후에 api 연결
-    e.preventDefault();
+  const userMutation = useMutation({
+    mutationFn: async () => {
+      let sampleImage = '';
+      let image = '';
+
+      if (selectedImg instanceof File) {
+        sampleImage = selectedImg.name;
+        const response = await patchDriverData(
+          sampleImage,
+          values.nickname,
+          values.career,
+          values.shortBio,
+          values.description,
+          values.selectedMovingType,
+          values.selectedRegions,
+        );
+        const { uploadUrl } = response;
+        image = await putImage(uploadUrl, selectedImg);
+      }
+
+      return await patchDriverData(
+        image,
+        values.nickname,
+        values.career,
+        values.shortBio,
+        values.description,
+        values.selectedMovingType,
+        values.selectedRegions,
+      );
+    },
+    onSuccess: () => {
+      router.back();
+    },
+    onError: () => {
+      router.push('/not-found');
+    },
+  });
+
+  const handleValuesSubmit = () => {
+    userMutation.mutate();
   };
 
   return (
-    <form
-      className="lg:w-[135.2rem] lg:grid lg:grid-cols-2 lg:gap-x-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col"
-      onSubmit={handleValuesSubmit}
-    >
+    <div className="lg:w-[135.2rem] lg:grid lg:grid-cols-2 lg:gap-x-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col">
       <div className="lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper id="nickname" type="text" value={values.nickname} onChange={handleChange}>
@@ -136,14 +172,32 @@ export default function ProfileEditDriver({
               <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
                 경력 시작일
               </InputWrapper.Label>
-              <InputWrapper.Input
-                name="career"
-                className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
-                  errors.career && isTouched.career ? 'bg-white border-red-200 border' : 'bg-background-200'
-                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder="기사님의 경력 시작일을 입력해 주세요"
-                onBlur={() => handleInputBlur('career')}
-              />
+              <div className="lg:w-[64rem] lg:h-[6.4rem] flex relative">
+                <InputWrapper.Input
+                  disabled
+                  name="career"
+                  className={`w-full rounded-[1.6rem] p-[1.4rem] ${
+                    errors.career && isTouched.career ? 'bg-white border-red-200 border' : 'bg-background-200'
+                  } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
+                  placeholder="기사님의 경력 시작일을 입력해 주세요"
+                  onBlur={() => handleInputBlur('career')}
+                />
+                <Image
+                  src={dropdown}
+                  alt="open-calendar-btn"
+                  width={40}
+                  height={40}
+                  className="cursor-pointer absolute top-1/2 right-[1.5rem] transform -translate-y-1/2"
+                  onClick={() => setIsCareerOpen(prev => !prev)}
+                />
+              </div>
+              {isCareerOpen && (
+                <CareerCalendarCard
+                  setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
+                  setIsCareerOpen={setIsCareerOpen}
+                  initialCareerDate={values.career}
+                />
+              )}
               {errors.career && isTouched.career && (
                 <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                   {errors.career}
@@ -231,11 +285,11 @@ export default function ProfileEditDriver({
           <ProfileChips
             regions={regions}
             selectedRegions={values.selectedRegions}
-            setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegion: value }))}
+            setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegions: value }))}
           />
         </div>
       </div>
-      <ButtonWrapper id="profile-register-driver" type="submit">
+      <ButtonWrapper id="profile-register-driver" type="submit" onClick={() => router.back()}>
         <ButtonWrapper.Button
           disabled={!isDisabled}
           className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
@@ -243,7 +297,7 @@ export default function ProfileEditDriver({
           취소
         </ButtonWrapper.Button>
       </ButtonWrapper>
-      <ButtonWrapper id="profile-register-driver" type="submit">
+      <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleValuesSubmit}>
         <ButtonWrapper.Button
           disabled={!isDisabled}
           className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"
@@ -251,6 +305,6 @@ export default function ProfileEditDriver({
           수정하기
         </ButtonWrapper.Button>
       </ButtonWrapper>
-    </form>
+    </div>
   );
 }
