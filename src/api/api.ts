@@ -16,7 +16,7 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
     ...options.headers,
   };
 
-  // const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
+  const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
 
   try {
     const response = await fetch(`${BASE_URL}${url}`, {
@@ -26,17 +26,16 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
 
     if (!response.ok) {
       if (response.status === 401) {
-        const refreshToken = getCookie('refreshToken');
         const refreshResponse = await fetch(`${BASE_URL}/auth/refresh`, {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ refreshToken }),
         });
 
         if (!refreshResponse.ok) {
-          throw new CustomError('Failed to refresh Token', await refreshResponse.json());
+          throw new CustomError('Failed to refresh token', await refreshResponse.json());
         }
 
         const { accessToken } = await refreshResponse.json();
@@ -72,10 +71,4 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
     console.error('Fetch error:', error);
     throw error;
   }
-}
-
-function getCookie(name: string) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
 }
