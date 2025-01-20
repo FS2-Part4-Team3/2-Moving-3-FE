@@ -48,7 +48,7 @@ export default function DibsDriverPageClient() {
   }
 
   return (
-    <div>
+    <div className="pt-[2.4rem] lg:grid grid-cols-2 sm:flex flex-col gap-[3.2rem] w-full lg:px-[0rem] md:px-[7.2rem] sm:px-[3rem]">
       {dibsDrivers
         ? dibsDrivers.pages.flatMap(page =>
             page.list.map(driver => (
