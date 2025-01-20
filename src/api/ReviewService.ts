@@ -8,8 +8,7 @@ export const getMyReviewData = async (page: number, pageSize: number) => {
 
   try {
     const res = await getRequest('/reviews/my', params);
-    const data = await res.json();
-    return data;
+    return res || [];
   } catch (err) {
     console.error('Fetch my review data: ', err);
     throw err;

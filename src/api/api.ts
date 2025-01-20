@@ -12,9 +12,16 @@ export class CustomError extends Error {
 export async function fetchWrapper(url: string, options: RequestInit = {}) {
   const headers = {
     'Cache-Control': 'no-cache',
-    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    Authorization: '',
     ...options.headers,
   };
+
+  if (typeof window !== 'undefined') {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      headers.Authorization = `Bearer ${accessToken}`;
+    }
+  }
 
   const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
 
