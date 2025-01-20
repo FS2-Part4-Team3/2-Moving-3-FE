@@ -1,6 +1,9 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { postQuotation } from '@/api/QuotationService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
@@ -9,7 +12,7 @@ import { formatDate } from '@/utils/Format';
 export default function RequestForQuotation() {
   const [movingType, setMovingType] = useState('');
   const [isMovingType, setIsMovingType] = useState(false);
-  const [movingDate, setMovingDate] = useState<Date | null>(null);
+  const [movingDate, setMovingDate] = useState<Date>(new Date());
   const [isMovingDate, setIsMovingDate] = useState(false);
   const [regions, setRegions] = useState<{
     start: string;
@@ -19,6 +22,7 @@ export default function RequestForQuotation() {
     arrival: '',
   });
   const [windowWidth, setWindowWidth] = useState<number>(0);
+  const router = useRouter();
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
@@ -38,6 +42,22 @@ export default function RequestForQuotation() {
   const isMobileOrTablet = windowWidth < 1200;
 
   const formattedDate = movingDate ? formatDate(movingDate) : '';
+
+  const quotationMutation = useMutation({
+    mutationFn: async () => {
+      await postQuotation(movingType, movingDate.toISOString(), regions.start, regions.arrival);
+    },
+    onSuccess: () => {
+      router.push('/normal/my-quote/waiting');
+    },
+    onError: () => {
+      router.push('/not-found');
+    },
+  });
+
+  const handleSubmit = () => {
+    quotationMutation.mutate();
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -139,7 +159,7 @@ export default function RequestForQuotation() {
         <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[31.2rem] flex justify-end">
           {isMovingType && isMovingDate && (
             <div className="self-end mb-[10rem]">
-              <AddressCard regions={regions} setRegions={setRegions} />
+              <AddressCard regions={regions} setRegions={setRegions} handleSubmit={handleSubmit} />
             </div>
           )}
         </div>

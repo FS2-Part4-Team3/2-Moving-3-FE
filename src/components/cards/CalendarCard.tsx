@@ -11,7 +11,7 @@ import { ButtonWrapper } from '../common/headless/Button';
 
 export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMovingDate }: CalendarCardProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(initialMovingDate);
+  const [selectedDate, setSelectedDate] = useState<Date>(initialMovingDate);
 
   const handlePrev = () => {
     setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
@@ -37,10 +37,6 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
   const handleSelectComplte = () => {
     setMovingDate(selectedDate);
     setIsMovingDate(true);
-    if (selectedDate) {
-      return;
-      //TODO: 추후에 page에서 나타낼 props 설정
-    }
   };
 
   const daysInMonth = getDaysInMonth(currentMonth);

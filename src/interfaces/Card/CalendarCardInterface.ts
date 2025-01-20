@@ -10,9 +10,9 @@ export interface Weekdays {
 }
 
 export interface CalendarCardProps {
-  setMovingDate: Dispatch<SetStateAction<Date | null>>;
+  setMovingDate: Dispatch<SetStateAction<Date>>;
   setIsMovingDate: Dispatch<SetStateAction<boolean>>;
-  initialMovingDate: Date | null;
+  initialMovingDate: Date;
 }
 
 export interface CareerCalendarCardProps {
