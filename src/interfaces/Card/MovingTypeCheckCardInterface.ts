@@ -8,5 +8,6 @@ export interface MovingTypeCheckType {
 export interface MovingTypeCheckCardProps {
   setMovingType: Dispatch<SetStateAction<string>>;
   setIsMovingType: Dispatch<SetStateAction<boolean>>;
+  setViewMovingType: Dispatch<SetStateAction<string>>;
   initialMovingType: string;
 }
