@@ -57,10 +57,13 @@ describe('Estimation information card', () => {
   });
 
   it('render correctly with different move types', () => {
-    const moveType = [
+    const moveType: Array<{
+      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT';
+      expected: string;
+    }> = [
       { type: 'HOME', expected: '가정이사' },
       { type: 'OFFICE', expected: '사무실이사' },
-      { type: 'APPOINTMENT', expect: '지정 견적 요청' },
+      { type: 'APPOINTMENT', expected: '지정 견적 요청' },
     ];
 
     moveType.forEach(({ type, expected }) => {
