@@ -4,12 +4,14 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
 import { editDriverData, getUserData, patchPassword } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { RootState } from '@/store/store';
 
 export default function InfoEditForDriver() {
   const { values, setValues, errors, validate, handleChange } = useProfileValidate();
@@ -28,31 +30,16 @@ export default function InfoEditForDriver() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const isDisabled = isFormValid;
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    phoneNumber: '',
-  });
   const router = useRouter();
+  const user = useSelector((state: RootState) => state.signIn);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await getUserData();
-        setUser(userData);
-
-        setValues(prev => ({
-          ...prev,
-          name: userData.name,
-          number: userData.phoneNumber,
-          email: userData.email,
-        }));
-        return user;
-      } catch (err) {
-        console.error('Error fetching user data:', err);
-      }
-    };
-    fetchUserData();
+    setValues(prev => ({
+      ...prev,
+      name: user.name || '',
+      number: user.phoneNumber || '',
+      email: user.email || '',
+    }));
   }, []);
 
   useEffect(() => {
@@ -269,7 +256,7 @@ export default function InfoEditForDriver() {
           </InputWrapper>
         </div>
       </div>
-      <ButtonWrapper id="cancel-btn">
+      <ButtonWrapper id="cancel-btn" onClick={() => router.back()}>
         <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[6.4rem] md:mb-[4rem] sm:mb-[4rem] ">
           취소
         </ButtonWrapper.Button>

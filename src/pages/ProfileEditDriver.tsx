@@ -34,7 +34,7 @@ export default function ProfileEditDriver() {
   const [isCareerOpen, setIsCareerOpen] = useState(false);
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
-  console.log(user);
+
   useEffect(() => {
     setValues(prev => ({
       ...prev,
