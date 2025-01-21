@@ -9,7 +9,7 @@ import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 export default function SharingPageClient() {
   useEffect(() => {
     if (!window.Kakao?.isInitialized()) {
-      window.Kakao.init('YOUR_APP_KEY'); // Replace with Kakao JavaScript Key
+      window.Kakao.init('237ba56f7c285a35ad62f00795f81654');
     }
   }, []);
 
@@ -56,7 +56,7 @@ export default function SharingPageClient() {
   };
 
   return (
-    <div>
+    <>
       <Image src={clip} alt="share-clip" width={64} height={64} onClick={handleCopyToClipboard} className="cursor-pointer" />
       <Image src={kakao} alt="share-kakao" width={64} height={64} onClick={handleShareKakao} className="cursor-pointer" />
       <Image
@@ -67,6 +67,6 @@ export default function SharingPageClient() {
         onClick={handleShareFacebook}
         className="cursor-pointer"
       />
-    </div>
+    </>
   );
 }
