@@ -12,6 +12,7 @@ export default function MovingTypeCheckCard({
   setMovingType,
   setIsMovingType,
   initialMovingType = '',
+  setViewMovingType,
 }: MovingTypeCheckCardProps) {
   const [selectedMovingType, setSelectedMovingType] = useState<string | null>(initialMovingType);
 
@@ -30,13 +31,16 @@ export default function MovingTypeCheckCard({
       {movingTypesCheck.map(movingType => (
         <div
           key={movingType.type}
-          onClick={() => handleCheckClick(movingType.code)}
+          onClick={() => {
+            handleCheckClick(movingType.code);
+            setViewMovingType(movingType.type);
+          }}
           className={`flex items-center lg:w-[56rem] lg:h-[8.4rem] md:w-[28rem] md:h-[5.2rem] sm:w-[28rem] sm:h-[5.2rem] rounded-[1.6rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[1.6rem] md:py-[1.4rem] sm:px-[1.6rem] sm:py-[1.4rem] gap-[0.8rem] lg:mb-[1.6rem] md:mb-[0.8rem] sm:mb-[0.8rem] ${
             selectedMovingType === movingType.code ? 'border-blue-300 bg-blue-50 border' : 'bg-white border-line-200 border'
           }`}
         >
           <div className="lg:w-[3.6rem] lg:h-[3.6rem] md:w-[2.4rem] md:h-[2.4rem] sm:w-[2.4rem] sm:h-[2.4rem] relative cursor-pointer">
-            <Image src={selectedMovingType === movingType.type ? check : noCheck} alt="체크" fill />
+            <Image src={selectedMovingType === movingType.code ? check : noCheck} alt="체크" fill />
           </div>
           <span className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-semibold text-black-400">
             {movingType.type}
