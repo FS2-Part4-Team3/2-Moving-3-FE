@@ -1,4 +1,4 @@
-import type { ReviewCardEstimations, ReviewCardReviews } from '../Card/NormalReviewCardInterface';
+import type { MyReviews, ReviewCardEstimations } from '../Card/NormalReviewCardInterface';
 
 export interface WritingReviewModalProps {
   estimation: ReviewCardEstimations;
