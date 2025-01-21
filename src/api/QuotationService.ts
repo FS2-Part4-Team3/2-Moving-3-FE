@@ -14,3 +14,12 @@ export const postQuotation = async (serviceType: string, date: string, fromAddre
     console.error('Post quotation error: ', err);
   }
 };
+
+export const postEstimations = async (moveInfoId: string) => {
+  try {
+    const res = await postRequest(`/estimations/${moveInfoId}`);
+    return res;
+  } catch (err) {
+    console.error('Post estimations error: ', err);
+  }
+};

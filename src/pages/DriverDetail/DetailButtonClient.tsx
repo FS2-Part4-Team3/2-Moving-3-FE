@@ -2,45 +2,77 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import edit_white from '@/../../public/assets/common/ic_writing.svg';
 import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
-import { postDibDriver } from '@/api/DriverService';
+import { delDibDriver, getDibDriver, postDibDriver } from '@/api/DriverService';
+import { postEstimations } from '@/api/QuotationService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
 import type { DetailButtonClientProps } from '@/interfaces/Page/DriverDetailInterface';
+import { RootState } from '@/store/store';
 
 export default function DetailButtonClient({ type, id }: DetailButtonClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isCheckDib, setIsCheckDib] = useState(false);
+
+  const userType = useSelector((state: RootState) => state.signIn.type);
+  const moveInfoId = useSelector((state: RootState) => state.driverDetail.moveInfoId);
 
   const router = useRouter();
 
+  useEffect(() => {
+    const fetchDibStatus = async () => {
+      try {
+        const res = await getDibDriver(id);
+        setIsCheckDib(res);
+      } catch (err) {
+        console.error('찜 상태를 가져오는 데 실패했습니다:', err);
+      }
+    };
+
+    fetchDibStatus();
+  }, [id]);
+
   const handleFavorite = async () => {
-    // [비회원]
-    // 로그인 페이지로 이동
-    // [normal]
-    // 좋아요 이미지 변경
-    // 찜하기 api 연결
-    // 다시 누르면 둘다 취소
-    await postDibDriver(id);
+    if (!userType) {
+      router.push('/normal/signIn');
+      return;
+    }
+
+    try {
+      if (isCheckDib) {
+        await postDibDriver(id);
+      } else {
+        await delDibDriver(id);
+      }
+      setIsCheckDib(!isCheckDib);
+    } catch (err) {
+      console.error('찜하기 오류 발생:', err);
+    }
   };
 
-  const handleRequest = () => {
+  const handleRequest = async () => {
     if (isCompleted) return;
     try {
       if (type === 'quoteWaiting') {
         // 견적 확정하기 API 연결 예시
-        handleConfirmQuote('quote-1');
+        await handleConfirmQuote('quote-1');
       } else {
-        // [비회원]
-        // 로그인 페이지로 이동
-        // [normal]
-        // 만약 견적이 있다면, 지정 견적 요청 Api 연결 (post)
-        // 만약 견적이 없다면, Modal open
-        setIsModalOpen(true);
+        if (!userType) {
+          router.push('/normal/signIn');
+          return;
+        }
+
+        if (!moveInfoId) {
+          setIsModalOpen(true);
+        } else {
+          await postEstimations(moveInfoId);
+        }
       }
       setIsCompleted(true);
     } catch (err) {
@@ -71,7 +103,7 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
         <ButtonWrapper id="favorite-driver" onClick={handleFavorite}>
           <ButtonWrapper.Button className="lg:w-full h-[5.4rem] sm:w-[5.4rem] rounded-[1.6rem] p-[1rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-black bg-white border border-line-200">
             <div className="flex flex-row gap-[1rem] items-center justify-center">
-              <Image src={heart_black} alt="heart" width={24} height={24} />
+              <Image src={isCheckDib ? heart_red : heart_black} alt="heart" width={24} height={24} />
               <p className="lg:block sm:hidden">기사님 찜하기</p>
             </div>
           </ButtonWrapper.Button>
@@ -91,7 +123,7 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
         <ButtonWrapper id="favorite-driver" onClick={handleFavorite}>
           <ButtonWrapper.Button className="w-full h-[5.4rem] rounded-[1.6rem] p-[1rem] font-semibold text-[2rem] leading-[3.2rem] text-black bg-white border border-line-200">
             <div className="flex flex-row gap-[1rem] items-center justify-center">
-              <Image src={heart_black} alt="heart" width={24} height={24} />
+              <Image src={isCheckDib ? heart_red : heart_black} alt="heart" width={24} height={24} />
               <p>기사님 찜하기</p>
             </div>
           </ButtonWrapper.Button>
