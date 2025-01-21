@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import dropdown from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
 import { patchDriverData, putImage } from '@/api/UserService';
@@ -14,6 +15,7 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { setUserSign } from '@/store/slices/SignInSlice';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
 export default function ProfileRegisterDriver() {
@@ -31,6 +33,7 @@ export default function ProfileRegisterDriver() {
   const isDisabled = isFormValid;
   const [isCareerOpen, setIsCareerOpen] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsFormValid(validate('REGISTER'));
@@ -72,6 +75,28 @@ export default function ProfileRegisterDriver() {
       if (selectedImg === null) return;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await patchDriverData(
+        image,
+        values.nickname,
+        values.career,
+        values.shortBio,
+        values.description,
+        values.selectedMovingType,
+        values.selectedRegions,
+      );
+
+      dispatch(
+        setUserSign({
+          image: res.image,
+          nickname: res.nickname,
+          startAt: res.startAt,
+          introduce: res.introduce,
+          description: res.description,
+          serviceType: res.serviceType,
+          availableAreas: res.availableAreas,
+        }),
+      );
+
+      return await patchDriverData(
         image,
         values.nickname,
         values.career,
