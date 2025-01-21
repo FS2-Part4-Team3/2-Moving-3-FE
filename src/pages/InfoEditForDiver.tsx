@@ -1,20 +1,18 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
+import { editDriverData, getUserData, patchPassword } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import type { InfoEditForDriverProps } from '@/interfaces/Page/InfoEditForDriver';
 
-export default function InfoEditForDriver({ values: { name, email, number } }: InfoEditForDriverProps) {
-  const { values, errors, validate, handleChange } = useProfileValidate({
-    name,
-    email,
-    number,
-  });
+export default function InfoEditForDriver() {
+  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
   const [isTouched, setIsTouched] = useState({
     name: false,
     number: false,
@@ -30,6 +28,32 @@ export default function InfoEditForDriver({ values: { name, email, number } }: I
   const [isFormValid, setIsFormValid] = useState(false);
 
   const isDisabled = isFormValid;
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    phoneNumber: '',
+  });
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getUserData();
+        setUser(userData);
+
+        setValues(prev => ({
+          ...prev,
+          name: userData.name,
+          number: userData.phoneNumber,
+          email: userData.email,
+        }));
+        return user;
+      } catch (err) {
+        console.error('Error fetching user data:', err);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     setIsFormValid(validate('EDIT'));
@@ -39,8 +63,27 @@ export default function InfoEditForDriver({ values: { name, email, number } }: I
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
+  const userMutation = useMutation({
+    mutationFn: async () => {
+      await Promise.all([
+        editDriverData(values.name, values.email, values.number),
+        patchPassword(values.nowPassword, values.newPassword),
+      ]);
+    },
+    onSuccess: () => {
+      router.back();
+    },
+    onError: () => {
+      router.push('/not-found');
+    },
+  });
+
+  const handleSubmit = () => {
+    userMutation.mutate();
+  };
+
   return (
-    <form className="lg:grid lg:grid-cols-2 md:flex md:flex-col md:items-center sm:flex sm:flex-col sm:items-center lg:w-[135.2rem] md:w-[37.5rem] sm:w-[37.5rem] lg:gap-x-[22rem]">
+    <div className="lg:grid lg:grid-cols-2 md:flex md:flex-col md:items-center sm:flex sm:flex-col sm:items-center lg:w-[135.2rem] md:w-[37.5rem] sm:w-[37.5rem] lg:gap-x-[22rem]">
       <div className="flex flex-col ">
         <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper id="name" type="text" value={values.name} onChange={handleChange}>
@@ -74,9 +117,10 @@ export default function InfoEditForDriver({ values: { name, email, number } }: I
                 name="email"
                 className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
                   errors.email && isTouched.email ? 'bg-white border-red-200 border' : 'bg-background-200'
-                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
+                } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-gray-300 placeholder-gray-300 focus:outline-none`}
                 placeholder="이메일을 입력해 주세요"
                 onBlur={() => handleInputBlur('email')}
+                disabled
               />
               {errors.email && isTouched.email && (
                 <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
@@ -230,7 +274,7 @@ export default function InfoEditForDriver({ values: { name, email, number } }: I
           취소
         </ButtonWrapper.Button>
       </ButtonWrapper>
-      <ButtonWrapper id="fix-btn">
+      <ButtonWrapper id="fix-btn" onClick={handleSubmit}>
         <ButtonWrapper.Button
           disabled={!isDisabled}
           className="lg:order-2 md:order-1 sm:order-1 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[6.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
@@ -238,6 +282,6 @@ export default function InfoEditForDriver({ values: { name, email, number } }: I
           수정하기
         </ButtonWrapper.Button>
       </ButtonWrapper>
-    </form>
+    </div>
   );
 }
