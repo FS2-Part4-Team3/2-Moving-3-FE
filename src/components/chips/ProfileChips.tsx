@@ -27,7 +27,11 @@ export function ProfileChips({
   };
 
   const handleMovingTypeSelect = (movingType: string) => {
-    setSelectedMovingType?.([movingType]);
+    if (selectedMovingType?.includes(movingType)) {
+      setSelectedMovingType?.(selectedMovingType.filter(type => type !== movingType));
+    } else {
+      setSelectedMovingType?.([...(selectedMovingType || []), movingType]);
+    }
   };
 
   return (
