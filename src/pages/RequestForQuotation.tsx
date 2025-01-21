@@ -13,6 +13,7 @@ import { formatDate } from '@/utils/Format';
 
 export default function RequestForQuotation() {
   const [movingType, setMovingType] = useState('');
+  const [viewMovingType, setViewMovingType] = useState('');
   const [isMovingType, setIsMovingType] = useState(false);
   const [movingDate, setMovingDate] = useState<Date>(new Date());
   const [isMovingDate, setIsMovingDate] = useState(false);
@@ -107,12 +108,13 @@ export default function RequestForQuotation() {
                 setMovingType={setMovingType}
                 setIsMovingType={setIsMovingType}
                 initialMovingType={movingType}
+                setViewMovingType={setViewMovingType}
               />
             </div>
           ) : (
             <div className="flex flex-col gap-[0.6rem]">
               <div className="lg:max-w-[32.9rem] md:max-w-[23.4rem] sm:max-w-[23.4rem] rounded-[3rem] rounded-tr-none lg:px-[4rem] lg:py-[2rem] md:px-[2rem] md:py-[1.2rem] sm:px-[2rem] sm:py-[1.2rem] bg-blue-300 border-none lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-white ">
-                {movingType}
+                {viewMovingType}
               </div>
               <div
                 className="cursor-pointer lg:text-[1.6rem] md:text-[1.2rem] sm:text-[1.2rem] font-medium text-gray-500 self-end underline"
