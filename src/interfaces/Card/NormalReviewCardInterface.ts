@@ -1,22 +1,28 @@
 export interface ReviewCardEstimations {
   id: string;
+  createdAt: string;
+  comment: string;
+  score: number;
+
   driver: {
     name: string;
     image: string;
   };
-  moveInfo: {
-    type: MoveType;
-    date: string;
+
+  estimation: {
+    price: number;
+    moveInfos: {
+      serviceType: 'SMALL' | 'HOME' | 'OFFICE';
+      date: string;
+      isSpecificRequest: boolean;
+    };
   };
-  price: number;
 }
 
 export type MoveType = 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
 
 export interface ReviewCardProps {
-  estimation: ReviewCardEstimations;
   type: 'ABLE' | 'MY';
-  review: ReviewCardReviews;
 }
 
 export interface ReviewCardReviews {
@@ -24,4 +30,30 @@ export interface ReviewCardReviews {
   comment: string;
   score: number;
   createdAt: string;
+}
+
+export interface MyReviews {
+  totalCount: number;
+  list: [
+    {
+      id: string;
+      createdAt: string;
+      comment: string;
+      score: number;
+
+      driver: {
+        name: string;
+        image: string;
+      };
+
+      estimation: {
+        price: number;
+        moveInfos: {
+          serviceType: 'SMALL' | 'HOME' | 'OFFICE';
+          date: string;
+          isSpecificRequest: boolean;
+        };
+      };
+    },
+  ];
 }
