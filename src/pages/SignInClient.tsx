@@ -77,6 +77,7 @@ export default function SignInClient() {
           availableAreas: userType === 'driver' ? res.person.availableAreas : undefined,
           areas: userType === 'user' ? res.person.areas : undefined,
           type: res.person.type,
+          startAt: userType === 'driver' ? res.person.startAt : '',
         }),
       );
       if (userType === 'user' && (!res.areas || !res.serviceType)) {

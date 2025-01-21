@@ -3,6 +3,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { editUserData, getUserData, patchPassword, putImage } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import ProfileEditNormalLeft from '@/components/section/ProfileEditNormalLeft';
@@ -10,39 +11,9 @@ import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight'
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { RootState } from '@/store/store';
 
 export default function ProfileEditNormal() {
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    phoneNumber: '',
-  });
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await getUserData();
-        setUser(userData);
-
-        setValues(prev => ({
-          ...prev,
-          name: userData.name,
-          email: userData.email,
-          number: userData.phoneNumber,
-          selectedRegions: userData.areas,
-          selectedMovingType: userData.serviceType,
-        }));
-        setSelectedImg(userData.image);
-        setPreviewUrl(userData.image);
-
-        return user;
-      } catch (err) {
-        console.error('Error fetching user data:', err);
-      }
-    };
-    fetchUserData();
-  }, []);
-
   const { values, setValues, errors, validate, handleChange } = useProfileValidate();
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -57,6 +28,19 @@ export default function ProfileEditNormal() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const router = useRouter();
+  const user = useSelector((state: RootState) => state.signIn);
+
+  useEffect(() => {
+    setValues(prev => ({
+      ...prev,
+      name: user.name || '',
+      email: user.email || '',
+      number: user.phoneNumber || '',
+      selectedRegions: user.areas || [],
+      selectedMovingType: user.serviceType || [],
+    }));
+    setPreviewUrl(user.image || '');
+  }, []);
 
   useEffect(() => {
     setIsFormValid(validate('EDIT'));

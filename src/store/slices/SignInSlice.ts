@@ -15,6 +15,7 @@ interface SignInState {
   availableAreas?: string[]; // 기사님의 경우 서비스 가능 지역
   areas?: string[]; // 일반 유저의 경우 내가 사는 지역
   type?: string;
+  startAt?: string;
 }
 
 const initialState: SignInState = {
@@ -31,6 +32,7 @@ const initialState: SignInState = {
   availableAreas: [],
   areas: [],
   type: '',
+  startAt: '',
 };
 
 const signInSlice = createSlice({
@@ -53,10 +55,16 @@ const signInSlice = createSlice({
         state.nickname = action.payload.nickname;
         state.availableAreas = action.payload.availableAreas;
         state.areas = [];
+        state.description = action.payload.description;
+        state.introduce = action.payload.introduce;
+        state.startAt = action.payload.startAt;
       } else if (type === 'user') {
         state.areas = action.payload.areas;
         state.availableAreas = [];
         state.nickname = '';
+        state.startAt = '';
+        state.introduce = '';
+        state.description = '';
       }
     },
     setSignOut(state) {
