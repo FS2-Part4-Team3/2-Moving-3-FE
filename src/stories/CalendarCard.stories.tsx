@@ -17,7 +17,7 @@ export default {
 };
 
 const Template: StoryFn<CalendarCardProps> = args => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(args.initialMovingDate);
+  const [selectedDate, setSelectedDate] = useState<Date>(args.initialMovingDate);
   const [isMovingDate, setIsMovingDate] = useState(false);
 
   return (

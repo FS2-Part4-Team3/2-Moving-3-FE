@@ -10,7 +10,7 @@ export default {
 const mockEstimationData: ReviewCardEstimations = {
   id: '1',
   moveInfo: {
-    type: ['SMALL', 'APPOINTMENT'],
+    type: 'SMALL',
     date: '2025-01-20',
   },
   driver: {
