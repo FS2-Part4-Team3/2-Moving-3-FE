@@ -1,6 +1,11 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { getDibsDriverListData } from '@/api/DriverService';
 import DibsDriverCard from '@/components/cards/DibsDriverCard';
+
+jest.mock('@/api/DriverService', () => ({
+  getDibsDriverListData: jest.fn(),
+}));
 
 jest.mock('next/image', () => ({
   __esModule: true,
@@ -16,62 +21,77 @@ jest.mock('@/components/chips/SmallMovingTypeChips', () => {
 });
 
 describe('DibsDriverCard', () => {
-  const mockData = {
-    id: 'driver-1',
-    serviceType: ['HOME', 'SMALL'] as ('SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING')[],
-    introduce: '안녕하세요, 저는 경험이 많은 드라이버입니다.',
-    image: 'http://placehold.it/56x56',
-    name: '홍길동',
-    favoriteCount: 10,
-    score: 4.5,
-    reviewCount: 20,
-    career: 5,
-    applyCount: 15,
-  };
+  const mockDriverData = [
+    {
+      id: 'driver-1',
+      serviceType: ['HOME', 'SMALL'],
+      introduce: '안녕하세요, 저는 경험이 많은 드라이버입니다.',
+      image: 'http://placehold.it/56x56',
+      name: '홍길동',
+      favoriteCount: 10,
+      score: 4.5,
+      reviewCount: 20,
+      career: 5,
+      applyCount: 15,
+    },
+  ];
 
-  it('render service type chip correctly', () => {
-    render(<DibsDriverCard data={mockData} />);
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-    const chips = screen.getAllByTestId('moving-type-chip');
-    expect(chips).toHaveLength(mockData.serviceType.length);
-    mockData.serviceType.forEach((type, index) => {
-      expect(chips[index]).toHaveTextContent(type);
+  it('shows loading state initially', () => {
+    (getDibsDriverListData as jest.Mock).mockImplementation(() => new Promise(() => {}));
+
+    render(<DibsDriverCard />);
+    expect(screen.getByText('로딩중 ...')).toBeInTheDocument();
+  });
+
+  it('shows error message when API call fails', async () => {
+    (getDibsDriverListData as jest.Mock).mockRejectedValue(new Error('API Error'));
+
+    render(<DibsDriverCard />);
+
+    await waitFor(() => {
+      expect(screen.getByText('데이터를 가져오는데에 실패했습니다.')).toBeInTheDocument();
     });
   });
 
-  it('render driver introduction text', () => {
-    render(<DibsDriverCard data={mockData} />);
+  it('shows empty state message when no drivers exist', async () => {
+    (getDibsDriverListData as jest.Mock).mockResolvedValue([]);
 
-    const intro = screen.getByText(mockData.introduce);
-    expect(intro).toBeInTheDocument();
+    render(<DibsDriverCard />);
+
+    await waitFor(() => {
+      expect(screen.getByText('찜한 기사님이 없습니다.')).toBeInTheDocument();
+    });
   });
 
-  it('render driver profile information correctly', () => {
-    render(<DibsDriverCard data={mockData} />);
+  it('renders driver information correctly when API call succeeds', async () => {
+    (getDibsDriverListData as jest.Mock).mockResolvedValue(mockDriverData);
 
-    expect(screen.getByText(`${mockData.name} 기사님`)).toBeInTheDocument();
-    expect(screen.getByText(mockData.favoriteCount)).toBeInTheDocument();
-    expect(screen.getByText(mockData.score)).toBeInTheDocument();
-    expect(screen.getByText(`(${mockData.reviewCount})`)).toBeInTheDocument();
-    expect(screen.getByText(`${mockData.career}년`)).toBeInTheDocument();
-    expect(screen.getByText(`${mockData.applyCount}건`)).toBeInTheDocument();
-  });
+    render(<DibsDriverCard />);
 
-  it('render all images with correct attributes', () => {
-    render(<DibsDriverCard data={mockData} />);
+    await waitFor(() => {
+      const chips = screen.getAllByTestId('moving-type-chip');
+      expect(chips).toHaveLength(mockDriverData[0].serviceType.length);
+      mockDriverData[0].serviceType.forEach((type, index) => {
+        expect(chips[index]).toHaveTextContent(type);
+      });
 
-    const profileImage = screen.getByAltText('profile');
-    expect(profileImage).toHaveAttribute('src', mockData.image);
+      expect(screen.getByText(mockDriverData[0].introduce)).toBeInTheDocument();
 
-    const likeIcon = screen.getByAltText('like');
-    expect(likeIcon).toBeInTheDocument();
+      expect(screen.getByText(`${mockDriverData[0].name} 기사님`)).toBeInTheDocument();
+      expect(screen.getByText(mockDriverData[0].favoriteCount.toString())).toBeInTheDocument();
+      expect(screen.getByText(mockDriverData[0].score.toString())).toBeInTheDocument();
+      expect(screen.getByText(`(${mockDriverData[0].reviewCount})`)).toBeInTheDocument();
+      expect(screen.getByText(`${mockDriverData[0].career}년`)).toBeInTheDocument();
+      expect(screen.getByText(`${mockDriverData[0].applyCount}건`)).toBeInTheDocument();
 
-    const startIcon = screen.getByAltText('star');
-    expect(startIcon).toBeInTheDocument();
-  });
-
-  it('matches snapshot', () => {
-    const { container } = render(<DibsDriverCard data={mockData} />);
-    expect(container).toMatchSnapshot();
+      const profileImage = screen.getByAltText('profile');
+      expect(profileImage).toHaveAttribute('src', mockDriverData[0].image);
+      expect(screen.getByAltText('like')).toBeInTheDocument();
+      expect(screen.getByAltText('star')).toBeInTheDocument();
+    });
   });
 });
