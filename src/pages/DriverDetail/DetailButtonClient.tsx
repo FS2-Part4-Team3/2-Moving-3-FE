@@ -21,7 +21,7 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
   const [isCheckDib, setIsCheckDib] = useState(false);
 
   const userType = useSelector((state: RootState) => state.signIn.type);
-  const moveInfoId = useSelector((state: RootState) => state.driverDetail.moveInfoId);
+  const moveInfoId = useSelector((state: RootState) => state.myQuotation.id);
 
   const router = useRouter();
 
