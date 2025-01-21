@@ -41,7 +41,7 @@ export default function MovingTypeChips({ type, specificRequest }: MovingTypeChi
           </div>
         </div>
       )}
-      {(type === 'APPOINTMENT' || specificRequest === true) && (
+      {(type === 'APPOINTMENT' || specificRequest) && (
         <div className="w-fit">
           <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pl-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-red-100">
             <Image src={appointment} alt="logo" width={24} height={24} className="lg:block sm:hidden" />

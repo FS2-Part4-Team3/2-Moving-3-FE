@@ -96,7 +96,10 @@ export default function NormalReviewCard({ type }: ReviewCardProps) {
           className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white border-none flex flex-col shadow-custom3"
         >
           <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:w-[64rem] ">
-            <MovingTypeChips type={myReview.estimation.moveInfos.serviceType} />
+            <MovingTypeChips
+              type={myReview.estimation.moveInfos.serviceType}
+              specificRequest={myReview.estimation.moveInfos.isSpecificRequest}
+            />
 
             {type === 'MY' && (
               <span className="lg:flex md:hidden sm:hidden lg:text-[1.8rem] font-normal text-gray-300 items-center ml-auto">
