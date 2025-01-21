@@ -1,5 +1,5 @@
 import type { DriverListResponse } from '@/interfaces/API/DriverServiceInterface';
-import { getRequest } from '@/utils/requestFunctions';
+import { deleteRequest, getRequest, postRequest } from '@/utils/requestFunctions';
 
 export const getDriverData = async () => {
   try {
@@ -89,6 +89,26 @@ export const getDriverListData = async (
     return data;
   } catch (error) {
     console.error('Get Driver List Fetch error:', error);
+    throw error;
+  }
+};
+
+export const postDibDriver = async (driverId: string) => {
+  try {
+    const res = await postRequest(`/drivers/${driverId}/like`);
+    return res;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const delDibDriver = async (driverId: string) => {
+  try {
+    const res = await deleteRequest(`/drivers/${driverId}/like`);
+    return res;
+  } catch (error) {
+    console.log(error);
     throw error;
   }
 };

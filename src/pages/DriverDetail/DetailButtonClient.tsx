@@ -7,23 +7,25 @@ import edit_white from '@/../../public/assets/common/ic_writing.svg';
 import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
+import { postDibDriver } from '@/api/DriverService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
 import type { DetailButtonClientProps } from '@/interfaces/Page/DriverDetailInterface';
 
-export default function DetailButtonClient({ type }: DetailButtonClientProps) {
+export default function DetailButtonClient({ type, id }: DetailButtonClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
 
   const router = useRouter();
 
-  const handleFavorite = () => {
+  const handleFavorite = async () => {
     // [비회원]
     // 로그인 페이지로 이동
     // [normal]
     // 좋아요 이미지 변경
     // 찜하기 api 연결
     // 다시 누르면 둘다 취소
+    await postDibDriver(id);
   };
 
   const handleRequest = () => {
@@ -95,7 +97,7 @@ export default function DetailButtonClient({ type }: DetailButtonClientProps) {
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
-            {type === 'InfoEditDriver' && (
+      {type === 'InfoEditDriver' && (
         <ButtonWrapper id="basic-info-edit" onClick={handleEditBasicInfo}>
           <ButtonWrapper.Button className="lg:w-[28rem] sm:w-full rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-gray-300 bg-white border border-gray-200">
             <div className="flex flex-row gap-[0.6rem] items-center justify-center">
