@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import dropdown from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
 import { getUserData, patchDriverData, putImage } from '@/api/UserService';
@@ -14,6 +15,7 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { RootState } from '@/store/store';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
 export default function ProfileEditDriver() {
@@ -29,43 +31,22 @@ export default function ProfileEditDriver() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid;
-  const [user, setUser] = useState({
-    nickname: '',
-    image: '',
-    startAt: '',
-    introduce: '',
-    description: '',
-    availableAreas: [],
-    serviceType: [],
-  });
   const [isCareerOpen, setIsCareerOpen] = useState(false);
   const router = useRouter();
-
+  const user = useSelector((state: RootState) => state.signIn);
+  console.log(user);
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await getUserData();
-        setUser(userData);
-
-        setValues(prev => ({
-          ...prev,
-          nickname: userData.nickname,
-          email: userData.email,
-          career: new Date(userData.startAt),
-          shortBio: userData.introduce,
-          description: userData.description,
-          selectedRegions: userData.availableAreas,
-          selectedMovingType: userData.serviceType,
-        }));
-        setSelectedImg(userData.image);
-        setPreviewUrl(userData.image);
-
-        return user;
-      } catch (err) {
-        console.error('Error fetching user data', err);
-      }
-    };
-    fetchUserData();
+    setValues(prev => ({
+      ...prev,
+      nickname: user.nickname || '',
+      email: user.email || '',
+      career: new Date(user.startAt || ''),
+      shortBio: user.introduce || '',
+      description: user.description || '',
+      selectedRegions: user.availableAreas || [],
+      selectedMovingType: user.serviceType || [],
+    }));
+    setPreviewUrl(user.image || '');
   }, []);
 
   useEffect(() => {
