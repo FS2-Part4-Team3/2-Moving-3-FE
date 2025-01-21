@@ -3,8 +3,14 @@ export interface DriverReviewCardProps {
 }
 
 export interface Review {
+  id: string;
   score: number;
   createdAt: string;
-  owner: string;
+  updatedAt: string;
+  owner: Owner;
   comment: string;
+}
+
+export interface Owner {
+  name: string;
 }
