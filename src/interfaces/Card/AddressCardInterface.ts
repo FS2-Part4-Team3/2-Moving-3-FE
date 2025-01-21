@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from 'react';
 
 export interface AddressCardProps {
   regions: {
@@ -11,4 +11,5 @@ export interface AddressCardProps {
       arrival: string;
     }>
   >;
+  handleSubmit: () => void;
 }

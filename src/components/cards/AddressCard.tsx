@@ -5,7 +5,7 @@ import type { AddressCardProps } from '@/interfaces/Card/AddressCardInterface';
 import { ButtonWrapper } from '../common/headless/Button';
 import AddressModal from '../modal/AddressModal';
 
-export default function AddressCard({ regions, setRegions }: AddressCardProps) {
+export default function AddressCard({ regions, setRegions, handleSubmit }: AddressCardProps) {
   const [isStartModalOpen, setIsStartModalOpen] = useState(false);
   const [isArrivalModalOpen, setIsArrivalModalOpen] = useState(false);
 
@@ -52,7 +52,7 @@ export default function AddressCard({ regions, setRegions }: AddressCardProps) {
             </div>
           )}
         </div>
-        <ButtonWrapper id="quote-request-btn">
+        <ButtonWrapper id="quote-request-btn" onClick={handleSubmit}>
           <ButtonWrapper.Button className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white text-center">
             견적 확정하기
           </ButtonWrapper.Button>
