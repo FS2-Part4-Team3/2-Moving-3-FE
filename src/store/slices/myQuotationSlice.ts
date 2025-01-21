@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface MyQuotation {
-  id: string;
+  id?: string;
 }
 
 const initialState: MyQuotation = {

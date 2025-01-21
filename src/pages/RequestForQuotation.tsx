@@ -3,10 +3,12 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { postQuotation } from '@/api/QuotationService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
+import { setId } from '@/store/slices/myQuotationSlice';
 import { formatDate } from '@/utils/Format';
 
 export default function RequestForQuotation() {
@@ -23,6 +25,8 @@ export default function RequestForQuotation() {
   });
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const router = useRouter();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
@@ -45,7 +49,8 @@ export default function RequestForQuotation() {
 
   const quotationMutation = useMutation({
     mutationFn: async () => {
-      await postQuotation(movingType, movingDate.toISOString(), regions.start, regions.arrival);
+      const res = await postQuotation(movingType, movingDate.toISOString(), regions.start, regions.arrival);
+      dispatch(setId(res.id));
     },
     onSuccess: () => {
       router.push('/normal/my-quote/waiting');

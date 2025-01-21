@@ -4,17 +4,19 @@ import storageSession from 'redux-persist/lib/storage/session';
 import signInReducer from './slices/SignInSlice';
 import driversReducer from './slices/driversSlice';
 import movesReducer from './slices/movesSlice';
+import myQuotationReducer from './slices/myQuotationSlice';
 
 const persistConfig = {
   key: 'root',
   storage: storageSession,
-  whitelist: ['signIn'],
+  whitelist: ['signIn', 'myQuotation'],
 };
 
 const rootReducer = combineReducers({
   drivers: driversReducer,
   signIn: signInReducer,
   moves: movesReducer,
+  myQuotation: myQuotationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
