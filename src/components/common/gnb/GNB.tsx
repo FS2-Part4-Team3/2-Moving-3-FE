@@ -4,12 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import alarm from '@/../public/assets/common/gnb/alarm.svg';
 import profile from '@/../public/assets/common/gnb/default_profile.svg';
 import logo from '@/../public/assets/common/gnb/logo-icon-text.svg';
 import logo_sm from '@/../public/assets/common/gnb/logo-sm.svg';
 import menu from '@/../public/assets/common/gnb/menu.svg';
 import close from '@/../public/assets/common/icon_X.svg';
+import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
 
 export default function GNB() {
@@ -17,6 +19,7 @@ export default function GNB() {
 
   const router = useRouter();
   const pathname = usePathname();
+  const user = useSelector((state: RootState) => state.signIn);
 
   const isRequestQuote = pathname?.includes('request-quote'); // 견적 요청
   const isMatchDriver = pathname?.includes('match-driver'); // 기사님 찾기
@@ -29,7 +32,20 @@ export default function GNB() {
     router.push('/');
   };
 
-  const status: string = 'LogOut';
+  let status;
+
+  switch (user.type) {
+    case 'user':
+      status = 'General';
+      break;
+    case 'driver':
+      status = 'Driver';
+      break;
+    default:
+      status = 'LogOut';
+  }
+
+  // const status: string = 'LogOut';
   // const status: string = "General";
   // const status: string = "Driver";
 
