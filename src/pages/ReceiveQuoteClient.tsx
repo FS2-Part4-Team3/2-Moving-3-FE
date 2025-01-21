@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
-import { getMovesListData } from '@/api/DriverService';
+import { getMovesListData } from '@/api/MovesService';
 import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
 import Empty from '@/components/common/Empty/Empty';
 import { MovesListResponse } from '@/interfaces/API/MovesServiceInterface';

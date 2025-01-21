@@ -14,7 +14,7 @@ export default function InfoEditForDriverPage() {
       </div>
       <div className="lg:w-[135.2rem] md:w-[32.7rem] sm:w-[32.7rem] h-[0.1rem] bg-line-100"></div>
       <div>
-        <InfoEditForDriver values={values} />
+        <InfoEditForDriver />
       </div>
     </div>
   );

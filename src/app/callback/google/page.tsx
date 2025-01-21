@@ -30,7 +30,7 @@ export default function CallBackGoogle() {
           phoneNumber: res.phoneNumber,
           introduce: res.introduce,
           description: res.description,
-          serviceTypes: res.serviceTypes,
+          serviceType: res.serviceType,
           availableAreas: res.type === 'driver' ? res.availableAreas : undefined,
           areas: res.type === 'user' ? res.areas : undefined,
           type: res.type,
