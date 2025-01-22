@@ -86,4 +86,21 @@ describe('ModalWrapper', () => {
 
     consoleError.mockRestore();
   });
+
+  it('render desktop and mobile close button with correct size', () => {
+    render(
+      <ModalWrapper onClose={mockOnClose}>
+        <ModalWrapper.Header>Test Header</ModalWrapper.Header>
+      </ModalWrapper>,
+    );
+
+    const closeButtons = screen.getAllByAltText('close');
+    expect(closeButtons).toHaveLength(2);
+
+    expect(closeButtons[0]).toHaveAttribute('width', '36');
+    expect(closeButtons[0]).toHaveAttribute('height', '36');
+
+    expect(closeButtons[1]).toHaveAttribute('width', '24');
+    expect(closeButtons[1]).toHaveAttribute('height', '24');
+  });
 });
