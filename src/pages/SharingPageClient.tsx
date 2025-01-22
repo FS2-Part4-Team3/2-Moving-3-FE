@@ -9,7 +9,7 @@ import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 export default function SharingPageClient() {
   useEffect(() => {
     if (!window.Kakao?.isInitialized()) {
-      window.Kakao.init('237ba56f7c285a35ad62f00795f81654');
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
   }, []);
 
@@ -26,7 +26,7 @@ export default function SharingPageClient() {
       window.Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
-          title: '기사님 공유',
+          title: 'Moving 업체 기사님 공유',
           description: '이 기사님 정말 추천드려요!',
           imageUrl: '공유 이미지 URL',
           link: {
@@ -52,7 +52,7 @@ export default function SharingPageClient() {
   const handleShareFacebook = () => {
     const currentUrl = window.location.href;
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
-    window.open(facebookUrl, '_blank');
+    window.open(facebookUrl, '_blank', 'width=600,height=400');
   };
 
   return (
