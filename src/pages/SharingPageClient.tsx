@@ -7,6 +7,7 @@ import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 
 export default function SharingPageClient() {
+  const currentUrl = window.location.href;
   useEffect(() => {
     if (!window.Kakao?.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
@@ -15,10 +16,31 @@ export default function SharingPageClient() {
 
   const handleCopyToClipboard = () => {
     const currentUrl = window.location.href;
+
     navigator.clipboard
       .writeText(currentUrl)
-      .then(() => alert('주소가 복사되었습니다!'))
-      .catch(() => alert('복사에 실패했습니다.'));
+      .then(() => {
+        const successMessage = document.createElement('div');
+        successMessage.innerText = '주소가 복사되었습니다!';
+        successMessage.style.position = 'fixed';
+        successMessage.style.bottom = '20px';
+        successMessage.style.left = '50%';
+        successMessage.style.transform = 'translateX(-50%)';
+        successMessage.style.padding = '10px 20px';
+        successMessage.style.backgroundColor = '#1B92FF';
+        successMessage.style.color = 'white';
+        successMessage.style.borderRadius = '10px';
+        successMessage.style.fontSize = '16px';
+        successMessage.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+        document.body.appendChild(successMessage);
+
+        setTimeout(() => {
+          successMessage.remove();
+        }, 3000);
+      })
+      .catch(() => {
+        alert('복사에 실패했습니다. 다시 시도해주세요.');
+      });
   };
 
   const handleShareKakao = () => {
@@ -50,9 +72,8 @@ export default function SharingPageClient() {
   };
 
   const handleShareFacebook = () => {
-    const currentUrl = window.location.href;
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
-    window.open(facebookUrl, '_blank', 'width=600,height=400');
+    window.open(facebookUrl, '_blank', 'width=600,height=800');
   };
 
   return (
