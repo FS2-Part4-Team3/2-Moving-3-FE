@@ -80,7 +80,7 @@ export const getDriverListData = async (
 
 export const getDibDriver = async (driverId: string) => {
   try {
-    const res = await deleteRequest(`/drivers/${driverId}/like`);
+    const res = await getRequest(`/drivers/${driverId}/like`);
     return res;
   } catch (error) {
     console.log(error);

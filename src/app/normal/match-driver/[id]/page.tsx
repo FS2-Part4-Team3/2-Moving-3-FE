@@ -1,15 +1,12 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import clip from '@/../../public/assets/driver/ic_clip.svg';
-import facebook from '@/../../public/assets/driver/ic_facebook.svg';
-import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import DriverDetailChips from '@/components/chips/DriverDetailChips';
 import type { DriverDetailData } from '@/interfaces/Page/DriverDetailInterface';
 import DriverDetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import ReviewClient from '@/pages/DriverDetail/ReviewClient';
+import SharingPageClient from '@/pages/SharingPageClient';
 
 export default async function DriverDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -38,9 +35,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               <div className="flex flex-col gap-[0.8rem] md:px-[2.4rem] sm:px-0 py-[1rem]">
                 <p className="text-[1.4rem] leading-[2.4rem] font-semibold text-black-400">나만 알기엔 아쉬운 기사님인가요?</p>
                 <div className="flex flex-row gap-[1.6rem]">
-                  <Image src={clip} alt="share-clip" width={40} height={40} />
-                  <Image src={kakao} alt="share-kakao" width={40} height={40} />
-                  <Image src={facebook} alt="share-facebook" width={40} height={40} />
+                  <SharingPageClient />
                 </div>
               </div>
             </div>
@@ -90,9 +85,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             <div className="flex flex-col gap-[2.2rem]">
               <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400">나만 알기엔 아쉬운 기사님인가요?</p>
               <div className="flex flex-row gap-[1.6rem]">
-                <Image src={clip} alt="share-clip" width={64} height={64} />
-                <Image src={kakao} alt="share-kakao" width={64} height={64} />
-                <Image src={facebook} alt="share-facebook" width={64} height={64} />
+                <SharingPageClient />
               </div>
             </div>
           </div>
