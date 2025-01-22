@@ -64,4 +64,16 @@ describe('ModalWrapper', () => {
     const button = screen.getByText('Disabled button');
     expect(button).toBeDisabled();
   });
+
+  it('apply custom className to modal wrapper', () => {
+    const customClass = 'custom-modal-class';
+    render(
+      <ModalWrapper onClose={mockOnClose} className={customClass}>
+        <ModalWrapper.Content>Test Content</ModalWrapper.Content>
+      </ModalWrapper>,
+    );
+
+    const modalDiv = screen.getByText('Test Content').parentElement;
+    expect(modalDiv).toHaveClass(customClass);
+  });
 });
