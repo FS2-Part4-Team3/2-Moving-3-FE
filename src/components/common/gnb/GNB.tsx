@@ -24,7 +24,7 @@ export default function GNB() {
 
   const isRequestQuote = pathname?.includes('request-quote'); // 견적 요청
   const isMatchDriver = pathname?.includes('match-driver'); // 기사님 찾기
-  const isMyQuotes = pathname?.includes('my-quotes'); // 내 견적 관리
+  const isMyQuotes = pathname?.includes('my-quote'); // 내 견적 관리
   const isReceiveQuote = pathname?.includes('receive-quote'); // 받은 요청
 
   const [modalOpen, isModalOpen] = useState(false);
@@ -106,14 +106,14 @@ export default function GNB() {
               </Link>
             )}
             {status === 'Driver' && (
-              <Link href="/driver/my-quotes" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/driver/my-quote/rejected" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMyQuotes ? 'text-black-400' : 'text-gray-400'}`}>
                   내 견적 관리
                 </p>
               </Link>
             )}
             {status === 'General' && (
-              <Link href="/normal/my-quotes" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/normal/my-quote/waiting" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMyQuotes ? 'text-black-400' : 'text-gray-400'}`}>
                   내 견적 관리
                 </p>
@@ -145,7 +145,7 @@ export default function GNB() {
                   <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">{user.name}</p>
                 </div>
                 {isProfileModalOpen && (
-                  <div className="absolute top-[5rem] transform translate-x-[-15rem]">
+                  <div className="absolute top-[5rem] transform translate-x-[-15rem] z-[10]">
                     <Profile closeModal={handleCloseProfileModal} />
                   </div>
                 )}
@@ -198,14 +198,14 @@ export default function GNB() {
                 </Link>
               )}
               {status === 'Driver' && (
-                <Link href="/driver/request-quote" className="cursor-pointer">
+                <Link href="/driver/my-quote/rejected" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>
                 </Link>
               )}
               {status === 'General' && (
-                <Link href="/normal/request-quote" className="cursor-pointer">
+                <Link href="/normal/my-quote/waiting" className="cursor-pointer">
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>
