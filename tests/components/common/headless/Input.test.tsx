@@ -54,4 +54,15 @@ describe('InputWrapper and Components', () => {
     expect(input).toHaveClass(inputClass);
     expect(label).toHaveClass(labelClass);
   });
+
+  it('throws error when Input is used outside', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
+    expect(() => {
+      render(<InputWrapper.Input />);
+    }).toThrow('useInputContext must be used within an InputWrapper');
+
+    consoleSpy.mockRestore();
+  });
 });
