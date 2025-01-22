@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 
 describe('Button wrapper and Button components', () => {
@@ -11,12 +11,50 @@ describe('Button wrapper and Button components', () => {
 
   it('render Button Wrapper with Button correctly', () => {
     render(
-      <ButtonWrapper id="test-button" onClick={mockOnClick} type="button">
+      <ButtonWrapper id="test-button" onClick={mockOnClick}>
         <ButtonWrapper.Button>Click me</ButtonWrapper.Button>
       </ButtonWrapper>,
     );
 
     const button = screen.getByRole('button', { name: /click me/i });
     expect(button).toBeInTheDocument();
+  });
+
+  it('call onClick handler when button is clicked', () => {
+    render(
+      <ButtonWrapper id="test-button" onClick={mockOnClick}>
+        <ButtonWrapper.Button>Click me</ButtonWrapper.Button>
+      </ButtonWrapper>,
+    );
+
+    const button = screen.getByRole('button', { name: /click me/i });
+    fireEvent.click(button);
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('respect disabled state', () => {
+    render(
+      <ButtonWrapper id="test-button" onClick={mockOnClick}>
+        <ButtonWrapper.Button disabled>Click me</ButtonWrapper.Button>
+      </ButtonWrapper>,
+    );
+
+    const button = screen.getByRole('button', { name: /click me/i });
+    expect(button).toBeDisabled();
+
+    fireEvent.click(button);
+    expect(mockOnClick).not.toHaveBeenCalled();
+  });
+
+  it('applies custom className correctly', () => {
+    const customClass = 'custom-button-class';
+    render(
+      <ButtonWrapper id="test-button" onClick={mockOnClick}>
+        <ButtonWrapper.Button className={customClass}>Click me</ButtonWrapper.Button>
+      </ButtonWrapper>,
+    );
+
+    const button = screen.getByRole('button', { name: /click me/i });
+    expect(button).toHaveClass(customClass);
   });
 });
