@@ -20,19 +20,19 @@ export default function Profile({ closeModal }: ProfileProps) {
   };
 
   return (
-    <div className="bg-white rounded-[1.6rem] border border-line-200 pt-[1.6rem] pb-[0.6rem] px-[0.4rem] shadow-profileShadow">
+    <div className="bg-white rounded-[1.6rem] border border-line-200 lg:pt-[1.6rem] sm:pt-[1rem] pb-[0.6rem] lg:px-[0.4rem] sm:px-[0.6rem] shadow-profileShadow">
       <div className="flex flex-col">
-        <p className="w-[24rem] py-[1.4rem] px-[2.4rem] font-bold text-[1.8rem] leading-[2.6rem] text-black-300">
+        <p className="lg:w-[24rem] sm:w-[14rem] lg:py-[1.4rem] lg:px-[2.4rem] sm:py-[0.8rem] sm:px-[1.2rem] font-bold lg:text-[1.8rem] sm:text-[1.6rem] leading-[2.6rem] text-black-300">
           {userName} 고객님
         </p>
         <p
-          className="w-[24rem] py-[1.4rem] px-[2.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400"
+          className="lg:w-[24rem] sm:w-[14rem] lg:py-[1.4rem] lg:px-[2.4rem] sm:py-[0.8rem] sm:px-[1.2rem] font-medium lg:text-[1.6rem] sm:text-[1.4rem] leading-[2.6rem] text-black-400"
           onClick={closeModal}
         >
           <Link href={`/${status === 'user' ? 'normal' : 'driver'}/my-page/edit-profile`}>프로필 수정</Link>
         </p>
         <p
-          className="w-[24rem] py-[1.4rem] px-[2.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400"
+          className="lg:w-[24rem] sm:w-[14rem] lg:py-[1.4rem] lg:px-[2.4rem] sm:py-[0.8rem] sm:px-[1.2rem] font-medium lg:text-[1.6rem] sm:text-[1.4rem] leading-[2.6rem] text-black-400"
           onClick={closeModal}
         >
           <Link href={`/${status === 'user' ? 'normal/my-page/dibs-driver' : 'driver/my-page/edit-basic-info'}`}>
@@ -40,7 +40,7 @@ export default function Profile({ closeModal }: ProfileProps) {
           </Link>
         </p>
         <p
-          className="w-[24rem] pt-[1.4rem] pb-[2.4rem] px-[2.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400"
+          className="lg:w-[24rem] sm:w-[14rem] lg:pt-[1.4rem] lg:pb-[2.4rem] lg:px-[2.4rem] sm:pt-[0.8rem] sm:pb-[1.6rem] sm:px-[1.2rem] font-medium lg:text-[1.6rem] sm:text-[1.4rem] leading-[2.6rem] text-black-400"
           onClick={closeModal}
         >
           <Link href={`/${status === 'user' ? 'normal/my-page/written-review' : 'driver/my-page'}`}>
@@ -48,7 +48,7 @@ export default function Profile({ closeModal }: ProfileProps) {
           </Link>
         </p>
         <p
-          className="border-t border-line-100 pt-[1.4rem] pb-[0.8rem] px-[2.4rem] flex items-center justify-center font-normal text-[1.6rem] leading-[2.6rem] text-gray-500 cursor-pointer"
+          className="border-t border-line-100 lg:pt-[1.4rem] sm:pt-[1.2rem] pb-[0.8rem] lg:px-[2.4rem] sm:px-[1.2rem] flex items-center justify-center font-normal lg:text-[1.6rem] sm:text-[1.2rem] lg:leading-[2.6rem] sm:leading-[1.8rem] text-gray-500 cursor-pointer"
           onClick={handleLogout}
         >
           로그아웃

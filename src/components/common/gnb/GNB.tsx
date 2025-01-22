@@ -135,7 +135,21 @@ export default function GNB() {
             <div className="flex gap-[3.2rem] items-center justify-end w-full">
               <Image src={alarm} alt="alarm" width={36} height={36} className="lg:block sm:hidden" />
               <Image src={alarm} alt="alarm" width={24} height={24} className="lg:hidden sm:block" />
-              <Image src={profile} alt="profile" width={24} height={24} className="lg:hidden sm:block" />
+              <div className="flex relative">
+                <Image
+                  src={profile}
+                  alt="profile"
+                  width={24}
+                  height={24}
+                  className="lg:hidden sm:block cursor-pointer"
+                  onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                />
+                {isProfileModalOpen && (
+                  <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10]">
+                    <Profile closeModal={handleCloseProfileModal} />
+                  </div>
+                )}
+              </div>
               <div className="flex flex-col relative">
                 <div
                   className="flex lg:gap-[1.6rem] sm: gap-[2.4rem] items-center justify-center cursor-pointer"
@@ -145,7 +159,7 @@ export default function GNB() {
                   <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">{user.name}</p>
                 </div>
                 {isProfileModalOpen && (
-                  <div className="absolute top-[5rem] transform translate-x-[-15rem] z-[10]">
+                  <div className="absolute top-[5rem] transform translate-x-[-15rem] z-[10] lg:block sm:hidden">
                     <Profile closeModal={handleCloseProfileModal} />
                   </div>
                 )}
@@ -177,42 +191,42 @@ export default function GNB() {
             </div>
             <div>
               {status === 'General' && (
-                <Link href="/normal/request-quote" className="cursor-pointer">
+                <Link href="/normal/request-quote" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     견적 요청
                   </p>
                 </Link>
               )}
               {status !== 'Driver' && (
-                <Link href="/normal/match-driver" className="cursor-pointer">
+                <Link href="/normal/match-driver" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     기사님 찾기
                   </p>
                 </Link>
               )}
               {status === 'Driver' && (
-                <Link href="/driver/receive-quote" className="cursor-pointer">
+                <Link href="/driver/receive-quote" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     받은 요청
                   </p>
                 </Link>
               )}
               {status === 'Driver' && (
-                <Link href="/driver/my-quote/rejected" className="cursor-pointer">
+                <Link href="/driver/my-quote/rejected" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>
                 </Link>
               )}
               {status === 'General' && (
-                <Link href="/normal/my-quote/waiting" className="cursor-pointer">
+                <Link href="/normal/my-quote/waiting" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>
                 </Link>
               )}
               {status === 'LogOut' && (
-                <Link href="/normal/sign-in" className="cursor-pointer">
+                <Link href="/normal/sign-in" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     로그인
                   </p>
