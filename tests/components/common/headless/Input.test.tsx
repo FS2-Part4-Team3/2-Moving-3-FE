@@ -55,7 +55,7 @@ describe('InputWrapper and Components', () => {
     expect(label).toHaveClass(labelClass);
   });
 
-  it('throws error when Input is used outside', () => {
+  it('throw error when Input is used outside', () => {
     const consoleSpy = jest.spyOn(console, 'error');
     consoleSpy.mockImplementation(() => {});
 
@@ -64,5 +64,29 @@ describe('InputWrapper and Components', () => {
     }).toThrow('useInputContext must be used within an InputWrapper');
 
     consoleSpy.mockRestore();
+  });
+
+  it('handle different input types correctly', () => {
+    const { container } = render(
+      <InputWrapper id="test-input" value="" onChange={mockOnChange} type="password">
+        <InputWrapper.Input />
+      </InputWrapper>,
+    );
+
+    const input = container.querySelector('#test-input');
+    expect(input).toHaveAttribute('type', 'password');
+  });
+
+  it('pass additional props correctly', () => {
+    render(
+      <InputWrapper id="test-input" value="" onChange={mockOnChange}>
+        <InputWrapper.Input placeholder="Enter text" maxLength={10} />
+      </InputWrapper>,
+    );
+
+    const input = screen.getByRole('textbox');
+
+    expect(input).toHaveAttribute('placeholder', 'Enter text');
+    expect(input).toHaveAttribute('maxLength', '10');
   });
 });
