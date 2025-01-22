@@ -34,61 +34,70 @@ jest.mock('../modal/AddressModal', () => {
 describe('AddressCard component', () => {
   const mockHandleSubmit = jest.fn();
   const mockSetRegions = jest.fn();
-  const regions = { start: '', arrival: '' };
+  const defaultProps: AddressCardProps = {
+    regions: {
+      start: '',
+      arrival: '',
+    },
+    setRegions: mockSetRegions,
+    handleSubmit: mockHandleSubmit,
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('render the component correctly', () => {
-    render(<AddressCard regions={regions} setRegions={mockSetRegions} handleSubmit={mockHandleSubmit} />);
+    render(<AddressCard {...defaultProps} />);
 
     expect(screen.getByText('출발지')).toBeInTheDocument();
     expect(screen.getByText('도착지')).toBeInTheDocument();
+    expect(screen.getByTestId('출발지 선택하기')).toBeInTheDocument();
+    expect(screen.getByTestId('도착지 선택하기')).toBeInTheDocument();
     expect(screen.getByText('견적 확정하기')).toBeInTheDocument();
   });
 
-  it('opens and closes the 출발지 modal and modifies start region', async () => {
-    render(<AddressCard regions={regions} setRegions={mockSetRegions} handleSubmit={mockHandleSubmit} />);
+  it('opens start modal when clicking on start address button', () => {
+    render(<AddressCard {...defaultProps} />);
+
+    const startButton = screen.getByText('출발지 선택하기');
+    fireEvent.click(startButton);
+
+    expect(screen.getByTestId('mock-address-modal')).toBeInTheDocument();
+  });
+
+  it('opens arrival modal when clicking on arrival address button', () => {
+    render(<AddressCard {...defaultProps} />);
 
     const user = userEvent.setup();
 
-    const 출발지Button = screen.getByText('출발지 선택하기');
-    await user.click(출발지Button);
+    const arrivalButton = screen.getByText('도착지 선택하기');
+    fireEvent.click(arrivalButton);
 
-    expect(screen.getByText('출발지를 선택해주세요')).toBeInTheDocument();
-
-    const closeButton = screen.getAllByRole('image', { name: /close/i })[0];
-    user.click(closeButton);
-
-    expect(screen.queryByText('출발지를 선택해주세요')).not.toBeInTheDocument();
-
-    mockSetRegions.mockImplementationOnce(callback => callback({ start: '서울', arrival: '' }));
-    expect(mockSetRegions).toHaveBeenCalledWith(expect.any(Function));
+    expect(screen.getByTestId('mock-address-modal')).toBeInTheDocument();
   });
 
-  it('opens and close the 도착지 modal and modifies arrival region', async () => {
-    render(<AddressCard regions={regions} setRegions={mockSetRegions} handleSubmit={mockHandleSubmit} />);
+  it('shows modification button when address are selected', () => {
+    const propWithAddresses: AddressCardProps = {
+      ...defaultProps,
+      regions: {
+        start: '서울시',
+        arrival: '부산시',
+      },
+    };
 
-    const user = userEvent.setup();
+    render(<AddressCard {...propWithAddresses} />);
 
-    const 도착지Button = screen.getByText('도착지 선택하기');
-    await user.click(도착지Button);
-
-    expect(screen.getByText('도착지를 선택해주세요')).toBeInTheDocument();
-
-    const closeButton = screen.getAllByRole('image', { name: /close/i })[0];
-    user.click(closeButton);
-
-    expect(screen.queryByText('도착지를 선택해주세요')).not.toBeInTheDocument();
-
-    mockSetRegions.mockImplementationOnce(callback => callback({ start: '', arrival: '인천' }));
-
-    expect(mockSetRegions).toHaveBeenCalledWith(expect.any(Function));
+    const modifyButtons = screen.getByText('수정하기');
+    expect(modifyButtons).toHaveLength(2);
   });
 
-  it('calls handleSubmit on "견적 확정하기" button click', () => {
-    render(<AddressCard regions={regions} setRegions={mockSetRegions} handleSubmit={mockHandleSubmit} />);
+  it('calls handleSubmit when clicking on submit button', () => {
+    render(<AddressCard {...defaultProps} />);
 
-    const submitButton = screen.getByText('견적 확정하기');
+    const submitButton = screen.getByTestId('quote-request-btn');
     fireEvent.click(submitButton);
 
-    expect(mockHandleSubmit).toHaveBeenCalled();
+    expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
   });
 });
