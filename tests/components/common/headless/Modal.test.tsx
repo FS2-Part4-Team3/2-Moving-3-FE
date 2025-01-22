@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { ModalWrapper } from '@/components/common/headless/Modal';
 
 jest.mock('next/image', () => ({
@@ -28,5 +28,17 @@ describe('ModalWrapper', () => {
     expect(screen.getByText('Test Header')).toBeInTheDocument();
     expect(screen.getByText('Test Content')).toBeInTheDocument();
     expect(screen.getByText('Test Footer')).toBeInTheDocument();
+  });
+
+  it('call onClose when close button is clicked', () => {
+    render(
+      <ModalWrapper onClose={mockOnClose}>
+        <ModalWrapper.Header>Test Header</ModalWrapper.Header>
+      </ModalWrapper>,
+    );
+
+    const closeButtons = screen.getAllByAltText('close');
+    fireEvent.click(closeButtons[0]);
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
 });
