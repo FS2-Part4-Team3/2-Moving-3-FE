@@ -41,4 +41,16 @@ describe('ModalWrapper', () => {
     fireEvent.click(closeButtons[0]);
     expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
+
+  it('handle footer button click', () => {
+    render(
+      <ModalWrapper onClose={mockOnClose}>
+        <ModalWrapper.Footer isDisabled={false}>Click me</ModalWrapper.Footer>
+      </ModalWrapper>,
+    );
+
+    const button = screen.getByText('Click me');
+    fireEvent.click(button);
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
+  });
 });
