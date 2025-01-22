@@ -13,6 +13,7 @@ import menu from '@/../public/assets/common/gnb/menu.svg';
 import close from '@/../public/assets/common/icon_X.svg';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
+import Profile from './Profile';
 
 export default function GNB() {
   //TODO: 로그인 여부에 따라서 http://localhost:3000/match-driver 또는 http://localhost:3000/normal/match-driver 결정하기
@@ -27,6 +28,7 @@ export default function GNB() {
   const isReceiveQuote = pathname?.includes('receive-quote'); // 받은 요청
 
   const [modalOpen, isModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -45,12 +47,12 @@ export default function GNB() {
       status = 'LogOut';
   }
 
-  // const status: string = 'LogOut';
-  // const status: string = "General";
-  // const status: string = "Driver";
-
   const handleClick = () => {
     router.push('/sign-in');
+  };
+
+  const handleCloseProfileModal = () => {
+    setIsProfileModalOpen(false);
   };
 
   return (
@@ -134,9 +136,19 @@ export default function GNB() {
               <Image src={alarm} alt="alarm" width={36} height={36} className="lg:block sm:hidden" />
               <Image src={alarm} alt="alarm" width={24} height={24} className="lg:hidden sm:block" />
               <Image src={profile} alt="profile" width={24} height={24} className="lg:hidden sm:block" />
-              <div className="flex lg:gap-[1.6rem] sm: gap-[2.4rem] items-center justify-center">
-                <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
-                <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">이름 수정해주세요</p>
+              <div className="flex flex-col relative">
+                <div
+                  className="flex lg:gap-[1.6rem] sm: gap-[2.4rem] items-center justify-center cursor-pointer"
+                  onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                >
+                  <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                  <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">{user.name}</p>
+                </div>
+                {isProfileModalOpen && (
+                  <div className="absolute top-[5rem] transform translate-x-[-15rem]">
+                    <Profile closeModal={handleCloseProfileModal} />
+                  </div>
+                )}
               </div>
             </div>
           )}
