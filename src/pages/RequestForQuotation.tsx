@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postQuotation } from '@/api/QuotationService';
+import { postQuotation } from '@/api/MovesService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
