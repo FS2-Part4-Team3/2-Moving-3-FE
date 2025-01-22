@@ -72,7 +72,7 @@ describe('AddressModal Component', () => {
     );
 
     expect(screen.getByText('도착지를 선택해주세요')).toBeInTheDocument();
-    expect(screen.getByTestId('daum-poscode')).toBeInTheDocument();
+    expect(screen.getByTestId('daum-postcode')).toBeInTheDocument();
     expect(screen.getByText('선택완료')).toBeInTheDocument();
   });
 
@@ -194,5 +194,19 @@ describe('AddressModal Component', () => {
       start: 'Existing Departure',
       arrival: 'Seoul, Gangnam-gu',
     });
+  });
+
+  it('render empty header', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={false}
+        isArrivalModalOpen={false}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    const header = screen.getByTestId('modal-header');
+    expect(header.textContent).toBe('');
   });
 });
