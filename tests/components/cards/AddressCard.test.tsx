@@ -10,7 +10,7 @@ interface AddressModalProps {
   isArrivalModalOpen?: boolean;
 }
 
-jest.mock('../modal/AddressModal', () => {
+jest.mock('@/components/modal/AddressModal', () => {
   return function MockAddressModal({ handleModalClose, setRegions }: AddressModalProps) {
     return (
       <div data-testid="mock-address-modal">
@@ -52,8 +52,8 @@ describe('AddressCard component', () => {
 
     expect(screen.getByText('출발지')).toBeInTheDocument();
     expect(screen.getByText('도착지')).toBeInTheDocument();
-    expect(screen.getByTestId('출발지 선택하기')).toBeInTheDocument();
-    expect(screen.getByTestId('도착지 선택하기')).toBeInTheDocument();
+    expect(screen.getByText('출발지 선택하기')).toBeInTheDocument();
+    expect(screen.getByText('도착지 선택하기')).toBeInTheDocument();
     expect(screen.getByText('견적 확정하기')).toBeInTheDocument();
   });
 
@@ -86,7 +86,7 @@ describe('AddressCard component', () => {
 
     render(<AddressCard {...propWithAddresses} />);
 
-    const modifyButtons = screen.getByText('수정하기');
+    const modifyButtons = screen.getAllByText('수정하기');
     expect(modifyButtons).toHaveLength(2);
   });
 
@@ -99,7 +99,7 @@ describe('AddressCard component', () => {
     expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
   });
 
-  it('updates regions when modifying addresses', () => {
+  it('updates regions when modifying start addresses', () => {
     const propWithAddresses: AddressCardProps = {
       ...defaultProps,
       regions: {
@@ -114,5 +114,69 @@ describe('AddressCard component', () => {
     fireEvent.click(modifyButtons[0]);
 
     expect(mockSetRegions).toHaveBeenCalledWith(expect.any(Function));
+
+    const updateFunction = mockSetRegions.mock.calls[0][0];
+    const result = updateFunction({ start: '서울시', arrival: '부산시' });
+    expect(result.start).toBe('');
+  });
+
+  it('updates regions when modifying arrival address', () => {
+    const propsWithAddresses: AddressCardProps = {
+      ...defaultProps,
+      regions: {
+        start: '서울시',
+        arrival: '부산시',
+      },
+    };
+
+    render(<AddressCard {...propsWithAddresses} />);
+
+    const modifyButtons = screen.getAllByText('수정하기');
+    fireEvent.click(modifyButtons[1]);
+
+    expect(mockSetRegions).toHaveBeenCalledWith(expect.any(Function));
+
+    const updateFunction = mockSetRegions.mock.calls[0][0];
+    const result = updateFunction({ start: '서울시', arrival: '부산시' });
+    expect(result.arrival).toBe('');
+  });
+
+  it('displays selected address', () => {
+    const propWithAddresses: AddressCardProps = {
+      ...defaultProps,
+      regions: {
+        start: '서울시',
+        arrival: '부산시',
+      },
+    };
+
+    render(<AddressCard {...propWithAddresses} />);
+
+    expect(screen.getByText('서울시')).toBeInTheDocument();
+    expect(screen.getByText('부산시')).toBeInTheDocument();
+  });
+
+  it('closes start modal when selecting an address', () => {
+    render(<AddressCard {...defaultProps} />);
+
+    const startButton = screen.getByText('출발지 선택하기');
+    fireEvent.click(startButton);
+
+    const selectButton = screen.getByText('선택');
+    fireEvent.click(selectButton);
+
+    expect(screen.queryByTestId('mock-address-modal')).not.toBeInTheDocument();
+  });
+
+  it('close arrival modal when selecting an address', () => {
+    render(<AddressCard {...defaultProps} />);
+
+    const arrivalButton = screen.getByText('도착지 선택하기');
+    fireEvent.click(arrivalButton);
+
+    const selectButton = screen.getByText('선택');
+    fireEvent.click(selectButton);
+
+    expect(screen.queryByTestId('mock-address-modal')).not.toBeInTheDocument();
   });
 });
