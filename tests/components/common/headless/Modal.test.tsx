@@ -76,4 +76,14 @@ describe('ModalWrapper', () => {
     const modalDiv = screen.getByText('Test Content').parentElement;
     expect(modalDiv).toHaveClass(customClass);
   });
+
+  it('throw error when using context outside ModalWrapper', () => {
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    expect(() => {
+      render(<ModalWrapper.Header>Test Header</ModalWrapper.Header>);
+    }).toThrow('useModalContext must be used within a ModalWrapper');
+
+    consoleError.mockRestore();
+  });
 });
