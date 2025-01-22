@@ -1,13 +1,34 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
+import share from '@/../../public/assets/driver/ic_share.svg';
 
 export default function SharingPageClient() {
+  const [imageSize, setImageSize] = useState(64);
+
+  useEffect(() => {
+    const updateImageSize = () => {
+      if (window.innerWidth <= 1200) {
+        setImageSize(40);
+      } else {
+        setImageSize(64);
+      }
+    };
+
+    updateImageSize();
+    window.addEventListener('resize', updateImageSize);
+
+    return () => {
+      window.removeEventListener('resize', updateImageSize);
+    };
+  }, []);
+
   const currentUrl = window.location.href;
+
   useEffect(() => {
     if (!window.Kakao?.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
@@ -15,13 +36,11 @@ export default function SharingPageClient() {
   }, []);
 
   const handleCopyToClipboard = () => {
-    const currentUrl = window.location.href;
-
     navigator.clipboard
       .writeText(currentUrl)
       .then(() => {
         const successMessage = document.createElement('div');
-        successMessage.innerText = '주소가 복사되었습니다!';
+        successMessage.innerText = '주소가 복사되었습니다 !';
         successMessage.style.position = 'fixed';
         successMessage.style.bottom = '20px';
         successMessage.style.left = '50%';
@@ -49,7 +68,7 @@ export default function SharingPageClient() {
         objectType: 'feed',
         content: {
           title: 'Moving 업체 기사님 공유',
-          description: '이 기사님 정말 추천드려요!',
+          description: '이 기사님 정말 추천드려요 !',
           imageUrl: '공유 이미지 URL',
           link: {
             mobileWebUrl: window.location.href,
@@ -76,17 +95,61 @@ export default function SharingPageClient() {
     window.open(facebookUrl, '_blank', 'width=600,height=800');
   };
 
+  const handleGeneralShare = () => {
+    const title = '이사 소비자와 이사 전문가 매칭 서비스';
+    const text = '이사 전문가를 추천합니다. 지금 확인해 보세요 !';
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: title,
+          text: text,
+          url: currentUrl,
+        })
+        .then(() => alert('공유가 완료되었습니다!'))
+        .catch(err => {
+          if (err.name !== 'AbortError') {
+            alert('공유에 실패했습니다. 다시 시도해주세요.');
+          }
+        });
+    } else {
+      alert('이 브라우저에서는 기본 공유 기능을 지원하지 않습니다.');
+    }
+  };
+
   return (
     <>
-      <Image src={clip} alt="share-clip" width={64} height={64} onClick={handleCopyToClipboard} className="cursor-pointer" />
-      <Image src={kakao} alt="share-kakao" width={64} height={64} onClick={handleShareKakao} className="cursor-pointer" />
+      <Image
+        src={clip}
+        alt="share-clip"
+        width={imageSize}
+        height={imageSize}
+        onClick={handleCopyToClipboard}
+        className="cursor-pointer"
+      />
+      <Image
+        src={kakao}
+        alt="share-kakao"
+        width={imageSize}
+        height={imageSize}
+        onClick={handleShareKakao}
+        className="cursor-pointer"
+      />
       <Image
         src={facebook}
         alt="share-facebook"
-        width={64}
-        height={64}
+        width={imageSize}
+        height={imageSize}
         onClick={handleShareFacebook}
         className="cursor-pointer"
+      />
+      <Image
+        src={share}
+        alt="share-normal"
+        width={imageSize}
+        height={imageSize}
+        onClick={handleGeneralShare}
+        className="lg:p-[1rem] sm:p-[0.7rem] cursor-pointer border border-gray-100 lg:rounded-[1.6rem] sm:rounded-[1.1rem]"
       />
     </>
   );
