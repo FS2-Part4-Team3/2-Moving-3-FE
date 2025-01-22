@@ -1,5 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import heart from '@/../public/assets/driver/ic_empty_like.svg';
+import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import EstimateReceivedCard from '@/components/cards/EstimateReceivedCard';
 import { priceFormat } from '@/utils/Format';
 
@@ -54,5 +56,18 @@ describe('Estimate received card', () => {
     expect(screen.getByText(`${mockData.driver.applyCount}건`)).toBeInTheDocument();
 
     expect(screen.getByText(`${priceFormat(mockData.price)}원`)).toBeInTheDocument();
+  });
+
+  it('renders all required images', () => {
+    render(<EstimateReceivedCard data={mockData} />);
+
+    const profileImages = screen.getAllByAltText('profile');
+    expect(profileImages).toHaveLength(2);
+    profileImages.forEach(img => {
+      expect(img).toHaveAttribute('src', '/mock-image.jpg');
+    });
+
+    expect(screen.getByAltText('heart')).toBeInTheDocument();
+    expect(screen.getAllByAltText('star')).toHaveLength(2);
   });
 });
