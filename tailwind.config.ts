@@ -62,6 +62,7 @@ const config: Config = {
         customBoth: '4px 4px 10px 0px rgba(225, 225, 225, 0.102), inset 6px 6px 10px 0px rgba(244, 244, 244, 0.2)',
         chipServiceShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.25)',
         chipAreaShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.161)',
+        profileShadow: '2px 2px 8px 0px rgba(224,224,224,0.2)',
       },
     },
   },
