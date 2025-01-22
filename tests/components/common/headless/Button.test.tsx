@@ -81,4 +81,18 @@ describe('Button wrapper and Button components', () => {
     const button = screen.getByTestId('custom-button');
     expect(button).toHaveAttribute('aria-label', 'Custom-Button');
   });
+
+  it('render children correctly', () => {
+    render(
+      <ButtonWrapper id="test-button" onClick={mockOnClick}>
+        <ButtonWrapper.Button>
+          <span>Click</span>
+          <span>me</span>
+        </ButtonWrapper.Button>
+      </ButtonWrapper>,
+    );
+
+    expect(screen.getByText('Click')).toBeInTheDocument();
+    expect(screen.getByText('me')).toBeInTheDocument();
+  });
 });
