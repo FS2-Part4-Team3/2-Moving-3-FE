@@ -1,16 +1,6 @@
 import type { DriverListResponse } from '@/interfaces/API/DriverServiceInterface';
 import { deleteRequest, getRequest, postRequest } from '@/utils/requestFunctions';
 
-export const getDriverData = async () => {
-  try {
-    const res = await getRequest('/data/driversData.json');
-    return res || [];
-  } catch (error) {
-    console.error('Error fetching driver data:', error);
-    return;
-  }
-};
-
 export const getDriverDetailData = async (driverId: string) => {
   try {
     const res = await getRequest(`/drivers/${driverId}`);
@@ -31,19 +21,14 @@ export const getDriverReviewData = async (driverId: string, page: number, itemsP
   }
 };
 
-export const getMoveInfoData = async () => {
-  try {
-    const res = await getRequest('/data/moveInfosData.json');
-    return res || [];
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    return;
-  }
-};
-
 export const getEstimationData = async () => {
   try {
-    const res = await getRequest('/data/estimationsData.json');
+    const res = await fetch('http://localhost:3000/data/estimationsData.json', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return res || [];
   } catch (error) {
     console.error('Error fetching estimate data:', error);

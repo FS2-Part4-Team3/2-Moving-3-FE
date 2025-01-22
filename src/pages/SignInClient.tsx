@@ -80,17 +80,28 @@ export default function SignInClient() {
           startAt: userType === 'driver' ? res.person.startAt : '',
         }),
       );
-      if (userType === 'user' && (!res.areas || !res.serviceType)) {
-        router.push('/normal/profile-register');
-      } else if (userType === 'user' && res.areas && res.serviceType) {
+      if (userType === 'user' && res.person.areas?.length && res.person.serviceType?.length) {
         router.push('/normal/match-driver');
+      } else if (userType === 'user' && res.person.areas && res.person.serviceType) {
+        router.push('/normal/profile-register');
       } else if (
         userType === 'driver' &&
-        (!res.introduce || !res.description || !res.availableAreas || !res.nickname || !res.serviceType)
+        res.person.introduce &&
+        res.person.description &&
+        res.person.nickname &&
+        res.person.availableAreas?.length &&
+        res.person.serviceType?.length
+      ) {
+        router.push('/driver/receive-quote');
+      } else if (
+        userType === 'driver' &&
+        !res.person.introduce &&
+        !res.person.description &&
+        !res.person.nickname &&
+        res.person.availableAreas &&
+        res.person.serviceType
       ) {
         router.push('/driver/profile-register');
-      } else if (userType === 'driver' && res.introduce && res.description && res.availableAreas && res.serviceType) {
-        router.push('/driver/receive-quote');
       }
     } catch (error) {
       alert('이메일 또는 비밀번호가 일치하지 않습니다');
