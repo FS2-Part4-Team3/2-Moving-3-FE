@@ -64,7 +64,7 @@ describe('Button wrapper and Button components', () => {
 
     expect(() => {
       render(<ButtonWrapper.Button>Click me</ButtonWrapper.Button>);
-    }).toThrow('useButtonContest must be used within a Button Wrapper');
+    }).toThrow('useButtonContext must be used within a ButtonWrapper');
 
     consoleSpy.mockRestore();
   });
