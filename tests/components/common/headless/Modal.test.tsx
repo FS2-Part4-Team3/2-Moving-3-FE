@@ -53,4 +53,15 @@ describe('ModalWrapper', () => {
     fireEvent.click(button);
     expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
+
+  it('disable footer button', () => {
+    render(
+      <ModalWrapper onClose={mockOnClose}>
+        <ModalWrapper.Footer isDisabled={true}>Disabled button</ModalWrapper.Footer>
+      </ModalWrapper>,
+    );
+
+    const button = screen.getByText('Disabled button');
+    expect(button).toBeDisabled();
+  });
 });
