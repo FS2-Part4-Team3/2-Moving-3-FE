@@ -57,4 +57,15 @@ describe('Button wrapper and Button components', () => {
     const button = screen.getByRole('button', { name: /click me/i });
     expect(button).toHaveClass(customClass);
   });
+
+  it('throw error when button is used outside button wrapper', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
+    expect(() => {
+      render(<ButtonWrapper.Button>Click me</ButtonWrapper.Button>);
+    }).toThrow('useButtonContest must be used within a Button Wrapper');
+
+    consoleSpy.mockRestore();
+  });
 });
