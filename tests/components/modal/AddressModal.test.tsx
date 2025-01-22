@@ -119,4 +119,32 @@ describe('AddressModal Component', () => {
     });
     expect(mockHandleModalClose).toHaveBeenCalled();
   });
+
+  it('close departure modal', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={true}
+        isArrivalModalOpen={false}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    fireEvent.click(screen.getByTestId('close-button'));
+    expect(mockHandleModalClose).toHaveBeenCalled();
+  });
+
+  it('close arrival modal', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={false}
+        isArrivalModalOpen={true}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    fireEvent.click(screen.getByTestId('close-button'));
+    expect(mockHandleModalClose).toHaveBeenCalled();
+  });
 });
