@@ -179,4 +179,26 @@ describe('AddressCard component', () => {
 
     expect(screen.queryByTestId('mock-address-modal')).not.toBeInTheDocument();
   });
+
+  it('updates both start and arrival addresses when clicking modify button', () => {
+    const propWithAddress: AddressCardProps = {
+      ...defaultProps,
+      regions: {
+        start: '서울시',
+        arrival: '부산시',
+      },
+    };
+
+    render(<AddressCard {...propWithAddress} />);
+
+    const modifyButtons = screen.getAllByText('수정하기');
+    fireEvent.click(modifyButtons[0]);
+    const selectButton = screen.getByText('선택');
+    fireEvent.click(selectButton);
+
+    expect(mockSetRegions).toHaveBeenCalled();
+    const updateFunction = mockSetRegions.mock.calls[0][0];
+    const result = updateFunction({ start: '서울시', arrival: '부산시' });
+    expect(result).toEqual({ start: '', arrival: '부산시' });
+  });
 });
