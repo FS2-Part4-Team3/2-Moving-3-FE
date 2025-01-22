@@ -37,3 +37,42 @@ jest.mock('react-daum-postcode', () => {
     </div>
   ));
 });
+
+describe('AddressModal Component', () => {
+  const mockHandleModalClose = jest.fn();
+  const mockSetRegions = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('render departure modal', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={true}
+        isArrivalModalOpen={false}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    expect(screen.getByText('출발지를 선택해주세요')).toBeInTheDocument();
+    expect(screen.getByTestId('daum-postcode')).toBeInTheDocument();
+    expect(screen.getByText('선택완료')).toBeInTheDocument();
+  });
+
+  it('render arrival modal', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={false}
+        isArrivalModalOpen={true}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    expect(screen.getByText('도착지를 선택해주세요')).toBeInTheDocument();
+    expect(screen.getByTestId('daum-poscode')).toBeInTheDocument();
+    expect(screen.getByText('선택완료')).toBeInTheDocument();
+  });
+});
