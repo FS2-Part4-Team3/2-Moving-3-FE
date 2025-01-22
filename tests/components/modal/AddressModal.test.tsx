@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Address } from 'react-daum-postcode';
 
 jest.mock('@/components/common/headless/Modal', () => ({
   ModalWrapper: ({ children, onClose }: { children: ReactNode; onClose: () => void }) => (
@@ -11,3 +12,11 @@ jest.mock('@/components/common/headless/Modal', () => ({
     </div>
   ),
 }));
+
+jest.mock('react-daum-postcode', () => {
+  DaumPostcode: ({ onComplete }: { onComplete: (address: Partial<Address>) => void }) => (
+    <div>
+      <button onClick={() => onComplete({ address: '서울특별시 강남구' })}>Complete</button>
+    </div>
+  );
+});
