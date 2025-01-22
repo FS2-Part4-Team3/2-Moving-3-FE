@@ -1,22 +1,39 @@
-import { ReactNode } from 'react';
-import { Address } from 'react-daum-postcode';
+import { fireEvent, render, screen } from '@testing-library/react';
+import DaumPostcode, { type Address } from 'react-daum-postcode';
+import AddressModal from '@/components/modal/AddressModal';
+import type { AddressModalProps } from '@/interfaces/Modal/AddressModalInterface';
 
-jest.mock('@/components/common/headless/Modal', () => ({
-  ModalWrapper: ({ children, onClose }: { children: ReactNode; onClose: () => void }) => (
-    <div>
-      <div data-testid="modal-header">{children}</div>
-      <div data-testid="modal-content">{children}</div>
-      <div data-testid="modal-footer">
-        <button onClick={onClose}>Close</button>
-      </div>
-    </div>
-  ),
-}));
-
-jest.mock('react-daum-postcode', () => {
-  DaumPostcode: ({ onComplete }: { onComplete: (address: Partial<Address>) => void }) => (
-    <div>
-      <button onClick={() => onComplete({ address: '서울특별시 강남구' })}>Complete</button>
+// Mocking ModalWrapper
+jest.mock('@/components/common/headless/Modal', () => {
+  const MockModalWrapper = ({ children, onClose }: { children: React.ReactNode; onClose: () => void }) => (
+    <div data-testid="modal-wrapper">
+      <button onClick={onClose} data-testid="close-button">
+        Close
+      </button>
+      {children}
     </div>
   );
+
+  MockModalWrapper.Header = ({ children }: { children: React.ReactNode }) => <div data-testid="modal-header">{children}</div>;
+
+  MockModalWrapper.Content = ({ children }: { children: React.ReactNode }) => <div data-testid="modal-content">{children}</div>;
+
+  MockModalWrapper.Footer = ({ children, isDisabled }: { children: React.ReactNode; isDisabled: boolean }) => (
+    <div data-testid="modal-footer">{children}</div>
+  );
+
+  return {
+    ModalWrapper: MockModalWrapper,
+  };
+});
+
+// Mocking DaumPostcode
+jest.mock('react-daum-postcode', () => {
+  return jest.fn().mockImplementation(({ onComplete }: { onComplete: (address: Address) => void }) => (
+    <div data-testid="daum-postcode">
+      <button onClick={() => onComplete({ address: 'Seoul, Gangnam-gu' } as Address)} data-testid="select-address">
+        Select Address
+      </button>
+    </div>
+  ));
 });
