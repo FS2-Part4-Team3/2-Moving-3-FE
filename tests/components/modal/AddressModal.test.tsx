@@ -92,7 +92,7 @@ describe('AddressModal Component', () => {
     const result = setRegionsCall({ start: '', arrival: '' });
 
     expect(result).toEqual({
-      start: 'Seoul, Qangnam-gu',
+      start: 'Seoul, Gangnam-gu',
       arrival: '',
     });
     expect(mockHandleModalClose).toHaveBeenCalled();
@@ -146,5 +146,53 @@ describe('AddressModal Component', () => {
 
     fireEvent.click(screen.getByTestId('close-button'));
     expect(mockHandleModalClose).toHaveBeenCalled();
+  });
+
+  it('preserve current state when selecting departure address', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={true}
+        isArrivalModalOpen={false}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    fireEvent.click(screen.getByTestId('select-address'));
+
+    const setRegionsCall = mockSetRegions.mock.calls[0][0];
+    const result = setRegionsCall({
+      start: 'Existing Departure',
+      arrival: 'Existing Arrival',
+    });
+
+    expect(result).toEqual({
+      start: 'Seoul, Gangnam-gu',
+      arrival: 'Existing Arrival',
+    });
+  });
+
+  it('preserve current state when selecting arrival address', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={false}
+        isArrivalModalOpen={true}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    fireEvent.click(screen.getByTestId('select-address'));
+
+    const setRegionsCall = mockSetRegions.mock.calls[0][0];
+    const result = setRegionsCall({
+      start: 'Existing Departure',
+      arrival: 'Existing Arrival',
+    });
+
+    expect(result).toEqual({
+      start: 'Existing Departure',
+      arrival: 'Seoul, Gangnam-gu',
+    });
   });
 });
