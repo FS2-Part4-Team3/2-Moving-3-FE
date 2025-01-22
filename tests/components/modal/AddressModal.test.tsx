@@ -75,4 +75,48 @@ describe('AddressModal Component', () => {
     expect(screen.getByTestId('daum-poscode')).toBeInTheDocument();
     expect(screen.getByText('선택완료')).toBeInTheDocument();
   });
+
+  it('select departure address', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={true}
+        isArrivalModalOpen={false}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    fireEvent.click(screen.getByTestId('select-address'));
+
+    const setRegionsCall = mockSetRegions.mock.calls[0][0];
+    const result = setRegionsCall({ start: '', arrival: '' });
+
+    expect(result).toEqual({
+      start: 'Seoul, Qangnam-gu',
+      arrival: '',
+    });
+    expect(mockHandleModalClose).toHaveBeenCalled();
+  });
+
+  it('select arrival address', () => {
+    render(
+      <AddressModal
+        handleModalClose={mockHandleModalClose}
+        isStartModalOpen={false}
+        isArrivalModalOpen={true}
+        setRegions={mockSetRegions}
+      />,
+    );
+
+    fireEvent.click(screen.getByTestId('select-address'));
+
+    const setRegionsCall = mockSetRegions.mock.calls[0][0];
+    const result = setRegionsCall({ start: '', arrival: '' });
+
+    expect(result).toEqual({
+      start: '',
+      arrival: 'Seoul, Gangnam-gu',
+    });
+    expect(mockHandleModalClose).toHaveBeenCalled();
+  });
 });
