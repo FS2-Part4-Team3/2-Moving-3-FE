@@ -69,8 +69,6 @@ describe('AddressCard component', () => {
   it('opens arrival modal when clicking on arrival address button', () => {
     render(<AddressCard {...defaultProps} />);
 
-    const user = userEvent.setup();
-
     const arrivalButton = screen.getByText('도착지 선택하기');
     fireEvent.click(arrivalButton);
 
@@ -95,9 +93,26 @@ describe('AddressCard component', () => {
   it('calls handleSubmit when clicking on submit button', () => {
     render(<AddressCard {...defaultProps} />);
 
-    const submitButton = screen.getByTestId('quote-request-btn');
+    const submitButton = screen.getByText('견적 확정하기');
     fireEvent.click(submitButton);
 
     expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  it('updates regions when modifying addresses', () => {
+    const propWithAddresses: AddressCardProps = {
+      ...defaultProps,
+      regions: {
+        start: '서울시',
+        arrival: '부산시',
+      },
+    };
+
+    render(<AddressCard {...propWithAddresses} />);
+
+    const modifyButtons = screen.getAllByText('수정하기');
+    fireEvent.click(modifyButtons[0]);
+
+    expect(mockSetRegions).toHaveBeenCalledWith(expect.any(Function));
   });
 });
