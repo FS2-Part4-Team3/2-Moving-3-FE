@@ -68,4 +68,17 @@ describe('Button wrapper and Button components', () => {
 
     consoleSpy.mockRestore();
   });
+
+  it('passes additional props to button component', () => {
+    render(
+      <ButtonWrapper id="test-button" onClick={mockOnClick}>
+        <ButtonWrapper.Button data-testid="custom-button" aria-label="Custom-Button">
+          Click me
+        </ButtonWrapper.Button>
+      </ButtonWrapper>,
+    );
+
+    const button = screen.getByTestId('custom-button');
+    expect(button).toHaveAttribute('aria-label', 'Custom-Button');
+  });
 });
