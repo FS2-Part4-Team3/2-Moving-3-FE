@@ -1,5 +1,6 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -38,22 +39,30 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
     fetchDibStatus();
   }, [id]);
 
+  const toggleFavoriteMutation = useMutation({
+    mutationFn: async (isAdding: boolean) => {
+      if (isAdding) {
+        return await postDibDriver(id);
+      } else {
+        return await delDibDriver(id);
+      }
+    },
+    onSuccess: () => {
+      setIsCheckDib(prev => !prev);
+    },
+    onError: err => {
+      console.error('찜하기 처리 중 오류가 발생했습니다:', err);
+      alert('찜하기 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+    },
+  });
+
   const handleFavorite = async () => {
     if (!userType) {
       router.push('/normal/sign-in');
       return;
     }
 
-    try {
-      if (!isCheckDib) {
-        await postDibDriver(id);
-      } else {
-        await delDibDriver(id);
-      }
-      setIsCheckDib(!isCheckDib);
-    } catch (err) {
-      console.error('찜하기 오류 발생:', err);
-    }
+    toggleFavoriteMutation.mutate(!isCheckDib);
   };
 
   const handleRequest = async () => {
