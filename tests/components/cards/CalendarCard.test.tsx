@@ -86,4 +86,17 @@ describe('Calendar comp', () => {
     expect(mockSetIsMovingDate).toHaveBeenCalledWith(expect.any(Date));
     expect(mockSetIsMovingDate).toHaveBeenCalledWith(true);
   });
+
+  it('now allow selecting past date', () => {
+    jest.setSystemTime(new Date('2025-01-15'));
+    render(<CalendarCard {...defaultProps} />);
+
+    const pastDate = screen.getByText('1');
+    fireEvent.click(pastDate);
+
+    const selectBtn = screen.getByText('선택완료');
+    fireEvent.click(selectBtn);
+
+    expect(mockSetMovingDate).not.toHaveBeenCalledWith(expect.any(Date));
+  });
 });
