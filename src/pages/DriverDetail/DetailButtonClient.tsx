@@ -10,7 +10,7 @@ import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { delDibDriver, getDibDriver, postDibDriver } from '@/api/DriverService';
-import { postRequestDriver } from '@/api/MovesService';
+import { getCheckRequestDriver, postRequestDriver } from '@/api/MovesService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
 import type { DetailButtonClientProps } from '@/interfaces/Page/DriverDetailInterface';
@@ -32,11 +32,21 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
         const res = await getDibDriver(id);
         setIsCheckDib(res);
       } catch (err) {
-        console.error('찜 상태를 가져오는 데 실패했습니다:', err);
+        console.error('찜 상태를 가져오는 데 실패했습니다: ', err);
+      }
+    };
+
+    const fetchRequestStatus = async () => {
+      try {
+        const res = await getCheckRequestDriver(id);
+        setIsCompleted(!res.isRequestPossible);
+      } catch (err) {
+        console.error('요청 상태를 가져오는 데 실패했씁니다: ', err);
       }
     };
 
     fetchDibStatus();
+    fetchRequestStatus();
   }, [id]);
 
   const toggleFavoriteMutation = useMutation({

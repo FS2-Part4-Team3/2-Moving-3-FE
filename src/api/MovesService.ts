@@ -28,6 +28,16 @@ export const getMovesListData = async (
   }
 };
 
+export const getCheckRequestDriver = async (driverId: string) => {
+  try {
+    const res = await getRequest(`/requests/check/${driverId}`);
+    return res;
+  } catch (err) {
+    console.error(`Failed to fetch request status for driverId: ${driverId}`, err);
+    throw new Error('Failed to fetch request status. Please try again later.');
+  }
+};
+
 export const postRequestDriver = async (driverId: string) => {
   try {
     const res = await postRequest(`/requests/${driverId}`);
