@@ -2,10 +2,9 @@ import DriverSearchBar from '@/components/common/searchbar/DriverSearchBar';
 import DriverSortDropdown from '@/components/dropdown/DriverSortDropdown';
 import ReceiveQuoteClient from '@/pages/ReceiveQuoteClient';
 import ReceiveQuoteMovingTypeClient from '@/pages/ReceiveQuoteMovingTypeClient';
+import ReceiveQuoteTextClient from '@/pages/ReceiveQuoteTextClient';
 
 export default async function ReceiveQuote() {
-  //TODO : 전체 999999건은 임시 값임
-
   return (
     <div className="w-full flex items-center justify-center mb-[7rem]">
       <div className="lg:w-[120rem] sm:w-full items-start justify-center flex flex-col">
@@ -22,7 +21,7 @@ export default async function ReceiveQuote() {
                 <DriverSearchBar />
               </div>
               <div className="flex justify-between w-full items-center sm:px-[1rem]">
-                <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400">전체 999999건</p>
+                <ReceiveQuoteTextClient />
                 <div className="flex gap-[0.4rem] items-center">
                   <DriverSortDropdown />
                   <div className="lg:hidden sm:block">

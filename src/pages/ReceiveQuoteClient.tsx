@@ -4,14 +4,16 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovesListData } from '@/api/MovesService';
 import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
 import Empty from '@/components/common/Empty/Empty';
 import { MovesListResponse } from '@/interfaces/API/MovesServiceInterface';
+import { setMovesList } from '@/store/slices/movesSlice';
 import { RootState } from '@/store/store';
 
 export default function ReceiveQuoteClient() {
+  const dispatch = useDispatch();
   const { page, pageSize, keyword, orderBy, serviceType, serviceArea, designatedRequest } = useSelector(
     (state: RootState) => state.moves,
   );
@@ -41,6 +43,12 @@ export default function ReceiveQuoteClient() {
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
+
+  useEffect(() => {
+    if (moves && moves.pages) {
+      dispatch(setMovesList(moves.pages[0]));
+    }
+  }, [moves, dispatch]);
 
   if (movesLoading) {
     return <div>Loading...</div>;

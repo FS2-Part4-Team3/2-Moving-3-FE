@@ -145,7 +145,7 @@ export default function GNB() {
                   onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                 />
                 {isProfileModalOpen && (
-                  <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10]">
+                  <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10] lg:hidden sm:block">
                     <Profile closeModal={handleCloseProfileModal} />
                   </div>
                 )}

@@ -1,4 +1,9 @@
 export interface MovesListResponse {
+  counts: {
+    designatedRequestCount: number;
+    serviceAreaCount: number;
+    serviceTypeCounts: number;
+  };
   totalCount: number;
   list: {
     id: string;
