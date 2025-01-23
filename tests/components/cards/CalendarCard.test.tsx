@@ -99,4 +99,13 @@ describe('Calendar comp', () => {
 
     expect(mockSetMovingDate).not.toHaveBeenCalledWith(expect.any(Date));
   });
+
+  it('display weekdays', () => {
+    render(<CalendarCard {...defaultProps} />);
+
+    const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+    weekdays.forEach(day => {
+      expect(screen.getByText(day)).toBeInTheDocument();
+    });
+  });
 });
