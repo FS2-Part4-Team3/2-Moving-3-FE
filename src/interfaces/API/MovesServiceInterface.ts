@@ -2,7 +2,7 @@ export interface MovesListResponse {
   counts: {
     designatedRequestCount: number;
     serviceAreaCount: number;
-    serviceTypeCounts: number;
+    serviceTypeCounts: any[];
   };
   totalCount: number;
   list: {

@@ -2,17 +2,19 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import checkbox from '@/../public/assets/common/check-box/check-box.svg';
 import checkbox_blue from '@/../public/assets/common/check-box/check-box_blue.svg';
 import x from '@/../public/assets/common/icon_X.svg';
 import type { MediaTypeFilterDropdownProps } from '@/interfaces/Dropdown/MediaTypeFilterDropdownInterface';
 import { setDesignatedRequest, setServiceArea, setServiceType } from '@/store/slices/movesSlice';
+import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../common/headless/Button';
 
 export default function MovingTypeFilterDropdown({ onClick, filterState, onFilterChange }: MediaTypeFilterDropdownProps) {
   // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
   const dispatch = useDispatch();
+  const { movesList } = useSelector((state: RootState) => state.moves);
 
   const [isMenuClick, setIsMenuClick] = useState<'mov' | 'filter'>('mov');
 
@@ -95,7 +97,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
               <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
                 <p>소형이사</p>
-                <p>(10)</p>
+                <p>({movesList?.counts.serviceTypeCounts[0].count})</p>
               </div>
               <Image
                 src={filterState.smallMov ? checkbox_blue : checkbox}
@@ -111,7 +113,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
               <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
                 <p>가정이사</p>
-                <p>(50)</p>
+                <p>({movesList?.counts.serviceTypeCounts[1].count})</p>
               </div>
               <Image
                 src={filterState.homeMov ? checkbox_blue : checkbox}
@@ -127,7 +129,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
               <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
                 <p>사무실이사</p>
-                <p>(1999)</p>
+                <p>({movesList?.counts.serviceTypeCounts[2].count})</p>
               </div>
               <Image
                 src={filterState.officeMov ? checkbox_blue : checkbox}
@@ -161,7 +163,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
               <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
                 <p>서비스 가능 지역</p>
-                <p>(990)</p>
+                <p>({movesList?.counts.serviceAreaCount})</p>
               </div>
               <Image
                 src={filterState.serviceable ? checkbox_blue : checkbox}
@@ -177,7 +179,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
               <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
                 <p>지정 견적 요청</p>
-                <p>(50090)</p>
+                <p>({movesList?.counts.designatedRequestCount})</p>
               </div>
               <Image
                 src={filterState.appointRequest ? checkbox_blue : checkbox}
@@ -236,7 +238,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
                     <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                       <p>소형이사</p>
-                      <p>(10)</p>
+                      <p>({movesList?.counts.serviceTypeCounts[0].count})</p>
                     </div>
                     <Image
                       src={filterState.smallMov ? checkbox_blue : checkbox}
@@ -250,7 +252,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
                     <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                       <p>가정이사</p>
-                      <p>(50)</p>
+                      <p>({movesList?.counts.serviceTypeCounts[1].count})</p>
                     </div>
                     <Image
                       src={filterState.homeMov ? checkbox_blue : checkbox}
@@ -264,7 +266,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
                     <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                       <p>사무실이사</p>
-                      <p>(1999)</p>
+                      <p>({movesList?.counts.serviceTypeCounts[2].count})</p>
                     </div>
                     <Image
                       src={filterState.officeMov ? checkbox_blue : checkbox}
@@ -297,7 +299,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
                     <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                       <p>서비스 가능 지역</p>
-                      <p>(10)</p>
+                      <p>({movesList?.counts.serviceAreaCount})</p>
                     </div>
                     <Image
                       src={filterState.serviceable ? checkbox_blue : checkbox}
@@ -311,7 +313,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
                     <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                       <p>지정 견적 요청</p>
-                      <p>(50)</p>
+                      <p>({movesList?.counts.designatedRequestCount})</p>
                     </div>
                     <Image
                       src={filterState.appointRequest ? checkbox_blue : checkbox}
