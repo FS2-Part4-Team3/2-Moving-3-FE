@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import DaumPostcode, { type Address } from 'react-daum-postcode';
+import { type Address } from 'react-daum-postcode';
 import AddressModal from '@/components/modal/AddressModal';
-import type { AddressModalProps } from '@/interfaces/Modal/AddressModalInterface';
 
 // Mocking ModalWrapper
 jest.mock('@/components/common/headless/Modal', () => {
