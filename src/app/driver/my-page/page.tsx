@@ -1,15 +1,15 @@
 import { notFound } from 'next/navigation';
-import { getEstimationData } from '@/api/DriverService';
+import { getDriverDetailData } from '@/api/DriverService';
 import InfoEditDriverCard from '@/components/cards/InfoEditDriverCard';
+import { DriverDetailData } from '@/interfaces/Page/DriverDetailInterface';
 import ReviewClient from '@/pages/DriverDetail/ReviewClient';
 
-export default async function DriverMyPage() {
-  // Api 연결 필요
-  const quoteDatas = await getEstimationData();
-  const quoteData = quoteDatas[0];
-  const driverData = quoteData.driver;
+export default async function DriverMyPage({ searchParams }: { searchParams: { id: string } }) {
+  const id = searchParams.id;
 
-  if (!quoteData) {
+  const driverData: DriverDetailData = await getDriverDetailData(id);
+
+  if (driverData.id !== id || !driverData) {
     notFound();
   }
 
