@@ -73,4 +73,17 @@ describe('Calendar comp', () => {
 
     expect(screen.getByText('2025.02')).toBeInTheDocument();
   });
+
+  it('select a date', () => {
+    render(<CalendarCard {...defaultProps} />);
+
+    const dateElement = screen.getByText('20');
+    fireEvent.click(dateElement);
+
+    const selectBtn = screen.getByText('선택완료');
+    fireEvent.click(selectBtn);
+
+    expect(mockSetIsMovingDate).toHaveBeenCalledWith(expect.any(Date));
+    expect(mockSetIsMovingDate).toHaveBeenCalledWith(true);
+  });
 });
