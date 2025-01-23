@@ -15,5 +15,6 @@ export interface MovesListResponse {
     owner: {
       name: string;
     };
+    isSpecificRequest: boolean;
   }[];
 }
