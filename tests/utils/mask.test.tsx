@@ -1,4 +1,4 @@
-import { maskName } from '@/utils/maskUtils';
+import { maskName } from '@/utils/mask';
 
 describe('maskName Utility Function', () => {
   it('한국어 이름 기본', () => {

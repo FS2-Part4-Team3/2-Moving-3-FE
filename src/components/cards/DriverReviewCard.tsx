@@ -3,7 +3,7 @@ import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { DriverReviewCardProps } from '@/interfaces/Card/DriverReviewCardInterface';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
-import { maskName } from '@/utils/maskUtils';
+import { maskName } from '@/utils/mask';
 
 export default function DriverReviewCard({ review }: DriverReviewCardProps) {
   const renderStars = (score: number) => {
