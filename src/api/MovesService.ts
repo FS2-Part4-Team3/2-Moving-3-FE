@@ -1,4 +1,4 @@
-import { getRequest } from '@/utils/requestFunctions';
+import { getRequest, postRequest } from '@/utils/requestFunctions';
 
 export const getMovesListData = async (
   page: number,
@@ -25,5 +25,15 @@ export const getMovesListData = async (
   } catch (error) {
     console.error('Get Move List Fetch Error:', error);
     throw error;
+  }
+};
+
+export const postRequestDriver = async (driverId: string) => {
+  try {
+    const res = await postRequest(`/requests/${driverId}`);
+    return res;
+  } catch (err) {
+    console.error(`Failed to post a request for driverId: ${driverId}`, err);
+    throw new Error('Failed to submit your request. Please try again later.');
   }
 };

@@ -6,8 +6,8 @@ export const getDriverDetailData = async (driverId: string) => {
     const res = await getRequest(`/drivers/${driverId}`);
     return res;
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.error(`Error fetching driver detail for driverId: ${driverId}`, error);
+    throw new Error(`Failed to fetch driver details for driverId: ${driverId}. Please try again later.`);
   }
 };
 
@@ -16,8 +16,8 @@ export const getDriverReviewData = async (driverId: string, page: number, itemsP
     const res = await getRequest(`/reviews/${driverId}?page=${page}&pageSize=${itemsPerPage}`);
     return res;
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.error(`Error fetching reviews for driverId: ${driverId}, page: ${page}, pageSize: ${itemsPerPage}`, error);
+    throw new Error(`Failed to fetch reviews for driverId: ${driverId}. Please try again later.`);
   }
 };
 
@@ -83,8 +83,8 @@ export const getDibDriver = async (driverId: string) => {
     const res = await getRequest(`/drivers/${driverId}/like`);
     return res;
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.error(`Failed to fetch dib status for driverId: ${driverId}`, error);
+    throw new Error('Failed to fetch dib status. Please try again later.');
   }
 };
 
@@ -93,8 +93,8 @@ export const postDibDriver = async (driverId: string) => {
     const res = await postRequest(`/drivers/${driverId}/like`);
     return res;
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.error(`Failed to add dib for driverId: ${driverId}`, error);
+    throw new Error('Failed to add dib. Please try again later.');
   }
 };
 
@@ -103,7 +103,7 @@ export const delDibDriver = async (driverId: string) => {
     const res = await deleteRequest(`/drivers/${driverId}/like`);
     return res;
   } catch (error) {
-    console.log(error);
-    throw error;
+    console.error(`Failed to remove dib for driverId: ${driverId}`, error);
+    throw new Error('Failed to remove dib. Please try again later.');
   }
 };
