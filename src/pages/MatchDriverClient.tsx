@@ -12,8 +12,10 @@ import type { RootState } from '@/store/store';
 
 export default function MatchDriverClient() {
   const { page, pageSize, keyword, orderBy, area, serviceType } = useSelector((state: RootState) => state.drivers);
-
+  const { type } = useSelector((state: RootState) => state.signIn);
   const { ref, inView } = useInView();
+
+  const path = type === 'user' ? `/normal/match-driver/` : `/match-driver/`;
 
   const {
     data: drivers,
@@ -53,7 +55,7 @@ export default function MatchDriverClient() {
         {drivers
           ? drivers.pages.flatMap(page =>
               page.list.map(driver => (
-                <Link key={driver.id} href={`/normal/match-driver/${driver.id}`}>
+                <Link key={driver.id} href={`${path}/${driver.id}`}>
                   <FindDriverCard data={driver} />
                 </Link>
               )),

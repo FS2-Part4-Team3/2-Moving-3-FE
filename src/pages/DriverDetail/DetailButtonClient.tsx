@@ -9,7 +9,7 @@ import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { delDibDriver, getDibDriver, postDibDriver } from '@/api/DriverService';
-import { postEstimations } from '@/api/QuotationService';
+import { postRequestDriver } from '@/api/QuotationService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
 import type { DetailButtonClientProps } from '@/interfaces/Page/DriverDetailInterface';
@@ -40,12 +40,12 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
 
   const handleFavorite = async () => {
     if (!userType) {
-      router.push('/normal/signIn');
+      router.push('/normal/sign-in');
       return;
     }
 
     try {
-      if (isCheckDib) {
+      if (!isCheckDib) {
         await postDibDriver(id);
       } else {
         await delDibDriver(id);
@@ -58,20 +58,20 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
 
   const handleRequest = async () => {
     if (isCompleted) return;
+    if (!userType) {
+      router.push('/normal/sign-in');
+      return;
+    }
     try {
       if (type === 'quoteWaiting') {
         // 견적 확정하기 API 연결 예시
         await handleConfirmQuote('quote-1');
       } else {
-        if (!userType) {
-          router.push('/normal/signIn');
-          return;
-        }
-
         if (!moveInfoId) {
           setIsModalOpen(true);
+          return;
         } else {
-          await postEstimations(moveInfoId);
+          await postRequestDriver(id);
         }
       }
       setIsCompleted(true);
@@ -115,7 +115,7 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
             className="w-full lg:h-[6.4rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] flex items-center justify-center text-white"
             disabled={isCompleted}
           >
-            {type === 'quoteWaiting' ? '견적 확정하기' : '지정 견적 요청하기'}
+            {type === 'quoteWaiting' ? '견적 확정하기' : !isCompleted ? '지정 견적 요청하기' : '지정 견적 요청 완료'}
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}

@@ -15,11 +15,11 @@ export const postQuotation = async (serviceType: string, date: string, fromAddre
   }
 };
 
-export const postEstimations = async (moveInfoId: string) => {
+export const postRequestDriver = async (driverId: string) => {
   try {
-    const res = await postRequest(`/estimations/${moveInfoId}`);
+    const res = await postRequest(`/requests/${driverId}`);
     return res;
   } catch (err) {
-    console.error('Post estimations error: ', err);
+    console.error('Post request error: ', err);
   }
 };
