@@ -1,9 +1,9 @@
 export interface ReviewChartData {
-  score: number;
+  averageRating: number;
+  ratingCounts: number[];
 }
 
 export interface ReviewChartProps {
-  data: ReviewChartData[];
-  score: number;
-  reviewCount: number;
+  data: ReviewChartData;
+  totalCount: number;
 }

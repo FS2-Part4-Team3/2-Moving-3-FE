@@ -28,6 +28,16 @@ export const getMovesListData = async (
   }
 };
 
+export const postRequestDriver = async (driverId: string) => {
+  try {
+    const res = await postRequest(`/requests/${driverId}`);
+    return res;
+  } catch (err) {
+    console.error(`Failed to post a request for driverId: ${driverId}`, err);
+    throw new Error('Failed to submit your request. Please try again later.');
+  }
+};
+
 export const postQuotation = async (serviceType: string, date: string, fromAddress: string, toAddress: string) => {
   try {
     const requestBody = {

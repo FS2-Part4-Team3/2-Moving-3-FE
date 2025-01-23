@@ -3,14 +3,16 @@ import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { ReviewChartProps } from '@/interfaces/Card/ReviewChartInterface';
 
-export default function ReviewChart({ data, score, reviewCount }: ReviewChartProps) {
+export default function ReviewChart({ data, totalCount }: ReviewChartProps) {
   const chartData = [
-    { score: 5, count: data.filter(review => review.score === 5).length },
-    { score: 4, count: data.filter(review => review.score === 4).length },
-    { score: 3, count: data.filter(review => review.score === 3).length },
-    { score: 2, count: data.filter(review => review.score === 2).length },
-    { score: 1, count: data.filter(review => review.score === 1).length },
+    { score: 5, count: data.ratingCounts[4] },
+    { score: 4, count: data.ratingCounts[3] },
+    { score: 3, count: data.ratingCounts[2] },
+    { score: 2, count: data.ratingCounts[1] },
+    { score: 1, count: data.ratingCounts[0] },
   ];
+
+  const score = data.averageRating;
 
   return (
     <div className="flex lg:gap-0 md:gap-[5.6rem] md:flex-row justify-center items-center sm:flex-col sm:gap-[4rem]">
@@ -64,7 +66,7 @@ export default function ReviewChart({ data, score, reviewCount }: ReviewChartPro
                 <div
                   className="bg-yellow-100 h-full rounded-[1.5rem]"
                   style={{
-                    width: `${reviewCount ? (item.count / reviewCount) * 100 : 0}%`,
+                    width: `${totalCount ? (item.count / totalCount) * 100 : 0}%`,
                   }}
                 ></div>
               </div>
