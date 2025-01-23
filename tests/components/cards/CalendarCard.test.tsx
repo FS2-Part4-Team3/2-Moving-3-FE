@@ -108,4 +108,11 @@ describe('Calendar comp', () => {
       expect(screen.getByText(day)).toBeInTheDocument();
     });
   });
+
+  it('disable complete button as no date', () => {
+    render(<CalendarCard {...defaultProps} />);
+
+    const selectBtn = screen.getByTestId('calendar-button');
+    expect(selectBtn).toHaveAttribute('disabled');
+  });
 });
