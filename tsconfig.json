@@ -30,13 +30,13 @@
       "@store/*": ["./src/store/*"],
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"],
-      "@pages/*": ["./src/pages/*"],
+      "@_pages/*": ["./src/_pages/*"],
       "@constants/*": ["./src/constatns/*"]
     },
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/types/**/*.tsx", "global.d.ts"],
+  "exclude": ["node_modules", "cypress.config.ts"]
 }

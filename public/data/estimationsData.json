@@ -32,8 +32,8 @@
       "serviceType": ["SMALL", "HOME"],
       "availableAreas": ["SEOUL", "INCHEON"],
       "applyCount": 10,
-      "favoriteCount": 5,
-      "score": 4.8,
+      "likeCount": 5,
+      "rating": 4.8,
       "career": 9,
       "reviewCount": 200
     }
@@ -87,7 +87,7 @@
       "id": "moveinfo-3",
       "createdAt": "2025-01-03T12:00:00Z",
       "updatedAt": "2025-01-03T12:00:00Z",
-      "type": "LONG_DISTANCE",
+      "type": "HOME",
       "date": "2025-04-01T08:00:00Z",
       "fromAddress": "부산 해운대구 해운대로 50",
       "toAddress": "서울 송파구 올림픽로 300",
@@ -204,7 +204,7 @@
       "id": "moveinfo-6",
       "createdAt": "2025-01-06T12:00:00Z",
       "updatedAt": "2025-01-06T12:00:00Z",
-      "type": "LONG_DISTANCE",
+      "type": "HOME",
       "date": "2025-07-20T07:00:00Z",
       "fromAddress": "인천 연수구 송도국제대로 20",
       "toAddress": "광주 북구 비엔날레로 10",

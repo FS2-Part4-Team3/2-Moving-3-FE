@@ -3,14 +3,16 @@ import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { ReviewChartProps } from '@/interfaces/Card/ReviewChartInterface';
 
-export default function ReviewChart({ data, score, reviewCount }: ReviewChartProps) {
+export default function ReviewChart({ data, totalCount }: ReviewChartProps) {
   const chartData = [
-    { score: 5, count: data.filter(review => review.score === 5).length },
-    { score: 4, count: data.filter(review => review.score === 4).length },
-    { score: 3, count: data.filter(review => review.score === 3).length },
-    { score: 2, count: data.filter(review => review.score === 2).length },
-    { score: 1, count: data.filter(review => review.score === 1).length },
+    { score: 5, count: data.ratingCounts[4] },
+    { score: 4, count: data.ratingCounts[3] },
+    { score: 3, count: data.ratingCounts[2] },
+    { score: 2, count: data.ratingCounts[1] },
+    { score: 1, count: data.ratingCounts[0] },
   ];
+
+  const score = data.averageRating;
 
   return (
     <div className="flex lg:gap-0 md:gap-[5.6rem] md:flex-row justify-center items-center sm:flex-col sm:gap-[4rem]">
@@ -32,7 +34,7 @@ export default function ReviewChart({ data, score, reviewCount }: ReviewChartPro
         </div>
       </div>
 
-      <div className="flex flex-row bg-background-200 lg:rounded-[3.2rem] sm:rounded-[2.4rem] lg:px-[5.9rem] lg:py-[4rem] lg:gap-[8.3rem] sm:px-[1.8rem] sm:py-[1.6rem] sm:gap-[0.6rem] lg:w-[95.5rem] lg:h-[29.6rem] sm:w-[32.7rem] sm:h-[17.6rem] items-center justify-center">
+      <div className="flex flex-row bg-background-200 lg:rounded-[3.2rem] sm:rounded-[2.4rem] lg:px-[5.9rem] lg:py-[4rem] lg:gap-[8.3rem] sm:px-[1.8rem] sm:py-[1.6rem] sm:gap-[0.6rem] lg:w-full lg:h-[29.6rem] sm:w-[32.7rem] sm:h-[17.6rem] items-center justify-center">
         <div className="flex flex-col justify-center gap-[1.5rem] lg:block sm:hidden">
           <div className="flex flex-row gap-[0.8rem] justify-center items-center">
             <p className="text-black-400 text-[6.4rem] leading-[7.638rem] font-bold">{score.toFixed(1)}</p>
@@ -64,7 +66,7 @@ export default function ReviewChart({ data, score, reviewCount }: ReviewChartPro
                 <div
                   className="bg-yellow-100 h-full rounded-[1.5rem]"
                   style={{
-                    width: `${reviewCount ? (item.count / reviewCount) * 100 : 0}%`,
+                    width: `${totalCount ? (item.count / totalCount) * 100 : 0}%`,
                   }}
                 ></div>
               </div>

@@ -10,7 +10,7 @@ export default function EstimationSortDropdown() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   return (
-    <>
+    <div>
       <div
         className={`lg:w-[19rem] lg:h-[6.4rem] sm:w-[12.7rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] lg:py-[1.6rem] sm:py-[0.6rem] lg:px-[2.4rem] sm:pr-[1rem] sm:pl-[1.4rem] flex justify-between items-center cursor-pointer mb-[0.8rem] ${isDropdownOpen ? 'bg-blue-50 border border-blue-300' : 'bg-white border border-line-100'}`}
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -45,6 +45,6 @@ export default function EstimationSortDropdown() {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 }

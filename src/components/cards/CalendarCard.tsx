@@ -11,7 +11,7 @@ import { ButtonWrapper } from '../common/headless/Button';
 
 export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMovingDate }: CalendarCardProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(initialMovingDate);
+  const [selectedDate, setSelectedDate] = useState<Date>(initialMovingDate);
 
   const handlePrev = () => {
     setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
@@ -23,30 +23,30 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
 
   const handleDateClick = (day: Day) => {
     const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
-
+    selected.setHours(0, 0, 0, 0);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     if (!day.isCurrentMonth || selected < today) {
       return;
     }
-
     setSelectedDate(selected);
   };
 
   const handleSelectComplte = () => {
-    setMovingDate(selectedDate);
-    setIsMovingDate(true);
-    if (selectedDate) {
-      return;
-      //toDo: 추후에 page에서 나타낼 props 설정
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate >= today) {
+      setMovingDate(selectedDate);
+      setIsMovingDate(true);
     }
   };
 
   const daysInMonth = getDaysInMonth(currentMonth);
 
   return (
-    <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] flex flex-col items-center lg:rounded-[3.2rem] md:rounded-[1.6rem] sm:rounded-[1.6rem] lg:py-[2.4rem] md:py-[1.4rem] sm:py-[1.4rem] lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.6rem] bg-white border-none">
+    <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] flex flex-col items-center lg:rounded-[3.2rem] md:rounded-[1.6rem] sm:rounded-[1.6rem] lg:py-[2.4rem] md:py-[1.4rem] sm:py-[1.4rem] lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.6rem] bg-white border-none shadow-custom4">
       <div className="flex lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[6rem] md:h-[4.8rem] sm:h-[4.8rem] justify-between items-center px-[1.4rem] lg:py-[1.2rem] md:py-[1rem] sm:py-[1rem]">
         <div
           className="relative lg:w-[3.6rem] lg:h-[3.6rem] md:w-[2.4rem] md:h-[2.4rem] sm:w-[2.4rem] sm:h-[2.4rem] cursor-pointer"

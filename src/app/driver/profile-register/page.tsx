@@ -1,4 +1,4 @@
-import ProfileRegisterDriver from '@/pages/ProfileRegisterDriver';
+import ProfileRegisterDriver from '@/_pages/ProfileRegisterDriver';
 
 export default function ProfileRegisterDriverPage() {
   return (

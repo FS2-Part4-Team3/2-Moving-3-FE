@@ -1,27 +1,37 @@
+'use client';
+
+import { useSelector } from 'react-redux';
 import type { ProfileChipProps } from '@/interfaces/chip/ProfileChipInterface';
+import type { RootState } from '@/store/store';
 
 export function ProfileChips({
   regions,
   movingTypes,
-  selectedRegion,
+  selectedRegions,
   selectedMovingType,
-  setSelectedRegion,
+  setSelectedRegions,
   setSelectedMovingType,
 }: ProfileChipProps) {
+  const user = useSelector((state: RootState) => state.signIn);
+
   const handleRegionSelect = (regionName: string) => {
-    //toDo: user 정보 넣기
-    // if(user.role === driver) {
-    //    if(selectedRegions.includes(regionName)){
-    //     setSelectedRegions(selectedRegions.filter((r) => r != regionName));
-    //    } else {
-    //     setSelectedRegions([...selectedRegions, regionName])
-    //    }
-    //   }
-    setSelectedRegion?.(regionName);
+    if (user.type === 'driver') {
+      if (selectedRegions?.includes(regionName)) {
+        setSelectedRegions?.(selectedRegions.filter(region => region !== regionName));
+      } else {
+        setSelectedRegions?.([...(selectedRegions || []), regionName]);
+      }
+    } else if (user.type === 'user') {
+      setSelectedRegions?.([regionName]);
+    }
   };
 
   const handleMovingTypeSelect = (movingType: string) => {
-    setSelectedMovingType?.(movingType);
+    if (selectedMovingType?.includes(movingType)) {
+      setSelectedMovingType?.(selectedMovingType.filter(type => type !== movingType));
+    } else {
+      setSelectedMovingType?.([...(selectedMovingType || []), movingType]);
+    }
   };
 
   return (
@@ -30,12 +40,12 @@ export function ProfileChips({
         {regions &&
           regions.map(region => (
             <div
-              onClick={() => handleRegionSelect(region.name)}
+              onClick={() => handleRegionSelect(region.code)}
               key={region.name}
               className={`flex justify-center items-center lg:w-[7.2rem] lg:h-[4.6rem] md:w-[4.9rem] md:h-[3.6rem] sm:w-[4.9rem] sm:h-[3.6rem] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-normal border rounded-[10rem] cursor-pointer ${
-                selectedRegion === region.name
+                selectedRegions?.includes(region.code)
                   ? 'bg-blue-50 text-blue-300 border-blue-300'
-                  : 'bg-background-100 text-blue-400 border-gray-100' //toDo: 유저 정보 입력 후 다수의 지역 선택 시 css 반영
+                  : 'bg-background-100 text-blue-400 border-gray-100'
               }`}
             >
               {region.name}
@@ -46,10 +56,10 @@ export function ProfileChips({
         {movingTypes &&
           movingTypes.map(movingType => (
             <div
-              onClick={() => handleMovingTypeSelect(movingType.type)}
+              onClick={() => handleMovingTypeSelect(movingType.code)}
               key={movingType.type}
               className={`flex justify-center items-center lg:w-[10.3rem] lg:h-[4.6rem] md:w-[7.3rem] md:h-[3.6rem] sm:w-[7.3rem] sm:h-[3.6rem] lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-normal border rounded-[10rem] cursor-pointer ${
-                selectedMovingType === movingType.type
+                selectedMovingType?.includes(movingType.code)
                   ? 'bg-blue-50 text-blue-300 border-blue-300'
                   : 'bg-background-100 text-blue-400 border-gray-100'
               }`}

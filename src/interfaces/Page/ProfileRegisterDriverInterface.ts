@@ -1,10 +1,16 @@
 export interface RegisterDriverValues {
   nickname: string;
-  career: number | string;
+  career: Date;
   shortBio: string;
   description: string;
-  selectedRegion: string | null;
-  selectedMovingType: string | null;
+  selectedRegions: string[];
+  selectedMovingType: string[];
+  name: string;
+  email: string;
+  number: string;
+  nowPassword: string;
+  newPassword: string;
+  newPasswordChk: string;
 }
 
 export interface Errors {
@@ -14,4 +20,14 @@ export interface Errors {
   description?: string;
   selectedRegion?: string;
   selectedMovingType?: string;
+  name?: string;
+  email?: string;
+  number?: string;
+  nowPassword?: string;
+  newPassword?: string;
+  newPasswordChk?: string;
+}
+
+export interface ValidateProps {
+  type: 'REGISTER' | 'EDIT';
 }

@@ -9,15 +9,21 @@ export default {
 
 const mockEstimationData: ReviewCardEstimations = {
   id: '1',
-  moveInfo: {
-    type: ['SMALL', 'APPOINTMENT'],
-    date: '2025-01-20',
-  },
+  createdAt: '2025-01-15T08:00:00Z',
+  comment: '이사는 잘 마쳤습니다!',
+  score: 4,
   driver: {
     name: '김코드',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhNJEXqIaNHfAlHrN588FXk4quCwsg0mz19g&s',
   },
-  price: 150000,
+  estimation: {
+    price: 150000,
+    moveInfos: {
+      serviceType: 'SMALL',
+      date: '2025-01-20',
+      isSpecificRequest: false,
+    },
+  },
 };
 
 const mockReviewData: ReviewCardReviews = {
@@ -31,13 +37,10 @@ const Template: StoryFn<ReviewCardProps> = args => <NormalReviewCard {...args} /
 
 export const writable = Template.bind({});
 writable.args = {
-  estimation: mockEstimationData,
   type: 'ABLE',
 };
 
 export const written = Template.bind({});
 written.args = {
-  estimation: mockEstimationData,
   type: 'MY',
-  review: mockReviewData,
 };

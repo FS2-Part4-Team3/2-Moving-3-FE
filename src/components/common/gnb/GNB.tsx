@@ -4,37 +4,55 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import alarm from '@/../public/assets/common/gnb/alarm.svg';
 import profile from '@/../public/assets/common/gnb/default_profile.svg';
 import logo from '@/../public/assets/common/gnb/logo-icon-text.svg';
 import logo_sm from '@/../public/assets/common/gnb/logo-sm.svg';
 import menu from '@/../public/assets/common/gnb/menu.svg';
 import close from '@/../public/assets/common/icon_X.svg';
+import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
+import Profile from './Profile';
 
 export default function GNB() {
   //TODO: 로그인 여부에 따라서 http://localhost:3000/match-driver 또는 http://localhost:3000/normal/match-driver 결정하기
 
   const router = useRouter();
   const pathname = usePathname();
+  const user = useSelector((state: RootState) => state.signIn);
 
   const isRequestQuote = pathname?.includes('request-quote'); // 견적 요청
   const isMatchDriver = pathname?.includes('match-driver'); // 기사님 찾기
-  const isMyQuotes = pathname?.includes('my-quotes'); // 내 견적 관리
+  const isMyQuotes = pathname?.includes('my-quote'); // 내 견적 관리
   const isReceiveQuote = pathname?.includes('receive-quote'); // 받은 요청
 
   const [modalOpen, isModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const handleRouteLanding = () => {
     router.push('/');
   };
 
-  const status: string = 'LogOut';
-  // const status: string = "General";
-  // const status: string = "Driver";
+  let status;
+
+  switch (user.type) {
+    case 'user':
+      status = 'General';
+      break;
+    case 'driver':
+      status = 'Driver';
+      break;
+    default:
+      status = 'LogOut';
+  }
 
   const handleClick = () => {
     router.push('/sign-in');
+  };
+
+  const handleCloseProfileModal = () => {
+    setIsProfileModalOpen(false);
   };
 
   return (
@@ -88,14 +106,14 @@ export default function GNB() {
               </Link>
             )}
             {status === 'Driver' && (
-              <Link href="/driver/my-quotes" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/driver/my-quote/rejected" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMyQuotes ? 'text-black-400' : 'text-gray-400'}`}>
                   내 견적 관리
                 </p>
               </Link>
             )}
             {status === 'General' && (
-              <Link href="/normal/my-quotes" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/normal/my-quote/waiting" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMyQuotes ? 'text-black-400' : 'text-gray-400'}`}>
                   내 견적 관리
                 </p>
@@ -117,10 +135,34 @@ export default function GNB() {
             <div className="flex gap-[3.2rem] items-center justify-end w-full">
               <Image src={alarm} alt="alarm" width={36} height={36} className="lg:block sm:hidden" />
               <Image src={alarm} alt="alarm" width={24} height={24} className="lg:hidden sm:block" />
-              <Image src={profile} alt="profile" width={24} height={24} className="lg:hidden sm:block" />
-              <div className="flex lg:gap-[1.6rem] sm: gap-[2.4rem] items-center justify-center">
-                <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
-                <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">이름 수정해주세요</p>
+              <div className="flex relative">
+                <Image
+                  src={profile}
+                  alt="profile"
+                  width={24}
+                  height={24}
+                  className="lg:hidden sm:block cursor-pointer"
+                  onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                />
+                {isProfileModalOpen && (
+                  <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10]">
+                    <Profile closeModal={handleCloseProfileModal} />
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col relative">
+                <div
+                  className="flex lg:gap-[1.6rem] sm: gap-[2.4rem] items-center justify-center cursor-pointer"
+                  onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                >
+                  <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                  <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">{user.name}</p>
+                </div>
+                {isProfileModalOpen && (
+                  <div className="absolute top-[5rem] transform translate-x-[-15rem] z-[10] lg:block sm:hidden">
+                    <Profile closeModal={handleCloseProfileModal} />
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -149,42 +191,42 @@ export default function GNB() {
             </div>
             <div>
               {status === 'General' && (
-                <Link href="/normal/request-quote" className="cursor-pointer">
+                <Link href="/normal/request-quote" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     견적 요청
                   </p>
                 </Link>
               )}
               {status !== 'Driver' && (
-                <Link href="/normal/match-driver" className="cursor-pointer">
+                <Link href="/normal/match-driver" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     기사님 찾기
                   </p>
                 </Link>
               )}
               {status === 'Driver' && (
-                <Link href="/driver/receive-quote" className="cursor-pointer">
+                <Link href="/driver/receive-quote" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     받은 요청
                   </p>
                 </Link>
               )}
               {status === 'Driver' && (
-                <Link href="/driver/request-quote" className="cursor-pointer">
+                <Link href="/driver/my-quote/rejected" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>
                 </Link>
               )}
               {status === 'General' && (
-                <Link href="/normal/request-quote" className="cursor-pointer">
+                <Link href="/normal/my-quote/waiting" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>
                 </Link>
               )}
               {status === 'LogOut' && (
-                <Link href="/normal/sign-in" className="cursor-pointer">
+                <Link href="/normal/sign-in" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     로그인
                   </p>

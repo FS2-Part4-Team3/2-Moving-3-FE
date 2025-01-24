@@ -9,7 +9,7 @@ import MovingTypeChips from '../chips/MovingTypeChips';
 
 export default function EstimateReceivedCard({ data }: EstimateReceivedCardProps) {
   return (
-    <div className="w-full rounded-[1.6rem] border border-line-100 lg:pt-[2rem] lg:pb-[1.4rem] lg:px-[2.4rem] sm:pt-[1.6rem] sm:pb-[1rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] shadow-[0.2rem_0.2rem_1rem_rgba(220,220,220,0.14)]">
+    <div className="w-full rounded-[1.6rem] border border-line-100 lg:pt-[2rem] lg:pb-[1.4rem] lg:px-[2.4rem] sm:pt-[1.6rem] sm:pb-[1rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
       <MovingTypeChips type={data.moveInfo.type} />
       <p className="font-semibold lg:text-[2rem] sm:text-[1.4rem] lg:leading-[3.2rem] sm:leading-[2.4rem] text-black-300">
         {data.comment}
@@ -38,7 +38,7 @@ export default function EstimateReceivedCard({ data }: EstimateReceivedCardProps
             </p>
             <div className="flex gap-[0.2rem] items-center">
               <Image src={heart} alt="heart" width={24} height={24} />
-              <p className="font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.3rem] lg:leading-[2.2rem] text-blue-400">
+              <p className="font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.3rem] sm:leading-[2.2rem] text-blue-400">
                 {data.driver.favoriteCount}
               </p>
             </div>

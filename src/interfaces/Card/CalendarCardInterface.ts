@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from 'react';
 
 export interface Day {
   date: number;
@@ -10,7 +10,13 @@ export interface Weekdays {
 }
 
 export interface CalendarCardProps {
-  setMovingDate: Dispatch<SetStateAction<Date | null>>;
+  setMovingDate: Dispatch<SetStateAction<Date>>;
   setIsMovingDate: Dispatch<SetStateAction<boolean>>;
-  initialMovingDate: Date | null;
+  initialMovingDate: Date;
+}
+
+export interface CareerCalendarCardProps {
+  setCareerDate: (args: Date) => void;
+  setIsCareerOpen: Dispatch<SetStateAction<boolean>>;
+  initialCareerDate: Date | null;
 }

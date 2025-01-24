@@ -4,11 +4,13 @@ import google from '@/../public/assets/sign/ic_google.svg';
 import kakao from '@/../public/assets/sign/ic_kakao.svg';
 import naver from '@/../public/assets/sign/ic_naver.svg';
 import logo from '@/../public/assets/sign/sign-logo.svg';
-import SignInClient from '@/pages/SignInClient';
+import SignInClient from '@/_pages/SignInClient';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function SignIn() {
   return (
-    <div className="w-full min-h-screen flex items-center justify-center">
+    <div className="w-full py-[5.6rem] flex items-center justify-center">
       <div className="w-[120rem] flex flex-col items-center justify-center gap-[7.2rem]">
         <div className="flex flex-col lg:gap-[0.8rem] sm:gap-[0.4rem] lg:w-[68rem] sm:w-[32.7rem] items-center justify-center">
           <Image src={logo} alt="logo" width={140} height={80} className="p-[1rem] lg:block sm:hidden" />
@@ -45,7 +47,9 @@ export default function SignIn() {
           </p>
           <div className="lg:block sm:hidden">
             <div className="flex lg:gap-[3.2rem]">
-              <Image src={google} alt="google" width={72} height={72} />
+              <a href={`${BASE_URL}/auth/google/user`} rel="noopener noreferrer">
+                <Image src={google} alt="google" width={72} height={72} />
+              </a>
               <Image src={kakao} alt="kakao" width={72} height={72} />
               <Image src={naver} alt="naver" width={72} height={72} />
             </div>

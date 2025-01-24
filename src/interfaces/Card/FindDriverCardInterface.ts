@@ -1,16 +1,17 @@
 export interface FindDriverCardProps {
   data: FindDriverCardData;
+  type?: 'WAITING' | 'RECEIVED';
 }
 
-interface FindDriverCardData {
+export interface FindDriverCardData {
   id: string;
   serviceType: string[];
   introduce: string;
   name: string;
-  image: string;
-  score: number;
+  image?: string;
+  rating: number;
   career: number;
   applyCount: number;
-  favoriteCount: number;
+  likeCount: number;
   reviewCount: number;
 }

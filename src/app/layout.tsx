@@ -16,8 +16,6 @@ export const metadata: Metadata = {
   description: '이사 소비자와 이사 전문가 매칭 서비스',
 };
 
-// API 연결 후 Providers 안에 적용 <ReactQueryProviders></ReactQueryProviders>
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,12 +25,15 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
       </head>
       <body className={pretendard.className}>
         <div className="min-h-screen">
           <Providers>
-            <GNB />
-            {children}
+            <ReactQueryProviders>
+              <GNB />
+              {children}
+            </ReactQueryProviders>
           </Providers>
         </div>
       </body>

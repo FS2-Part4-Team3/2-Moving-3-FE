@@ -1,27 +1,31 @@
-import { fetchWrapper } from "@/api/api";
-
-interface Params {
-  [key: string]: string | number;
-}
+import { fetchWrapper } from '@/api/api';
+import type { Params } from '@/interfaces/API';
 
 export async function getRequest(url: string, params?: Params) {
-  if (params) {
-    const queryString = new URLSearchParams(
-      params as Record<string, string>
-    ).toString();
-    url += `?${queryString}`;
-  }
+  const queryString = params
+    ? new URLSearchParams(
+        Object.entries(params)
+          .filter(([_, v]) => v !== undefined)
+          .map(([k, v]) => [k, v!.toString()]),
+      ).toString()
+    : '';
 
-  return fetchWrapper(url, {
-    method: "GET",
+  const fullUrl = `${url}${queryString ? `?${queryString}` : ''}`;
+
+  return fetchWrapper(fullUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 }
 
 export async function postRequest(url: string, body: object = {}) {
   return fetchWrapper(url, {
-    method: "POST",
+    method: 'POST',
+    credentials: 'include',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
   });
@@ -29,9 +33,9 @@ export async function postRequest(url: string, body: object = {}) {
 
 export async function patchRequest(url: string, body: object = {}) {
   return fetchWrapper(url, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
   });
@@ -39,6 +43,16 @@ export async function patchRequest(url: string, body: object = {}) {
 
 export async function deleteRequest(url: string) {
   return fetchWrapper(url, {
-    method: "DELETE",
+    method: 'DELETE',
+  });
+}
+
+export async function putRequest(url: string, body: File) {
+  return fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': body.type,
+    },
+    body: body,
   });
 }

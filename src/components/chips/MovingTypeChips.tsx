@@ -5,7 +5,7 @@ import home_mov from '@/../public/assets/chips/ic_home_moving.svg';
 import small_mov from '@/../public/assets/chips/ic_small_moving.svg';
 import type { MovingTypeChipsProps } from '@/interfaces/chip/MovingTypeChipInterface';
 
-export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
+export default function MovingTypeChips({ type, specificRequest }: MovingTypeChipsProps) {
   return (
     <div>
       {type === 'SMALL' && (
@@ -41,7 +41,7 @@ export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
           </div>
         </div>
       )}
-      {type === 'APPOINTMENT' && (
+      {(type === 'APPOINTMENT' || specificRequest) && (
         <div className="w-fit">
           <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] lg:px-[0.5rem] sm:pr-[0.6rem] sm:pl-[0.2rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-red-100">
             <Image src={appointment} alt="logo" width={24} height={24} className="lg:block sm:hidden" />
@@ -52,11 +52,11 @@ export default function MovingTypeChips({ type }: MovingTypeChipsProps) {
           </div>
         </div>
       )}
-      {type === 'WAITING' && (
+      {(type === 'WAITING' || type === 'RECEIVED') && (
         <div className="w-fit">
-          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:px-[0.2rem] lg:px-[0.5rem] lg:gap-[0.4rem] sm:gap-[0.2rem] bg-[#F2F3F8]">
+          <div className="flex items-center rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-[#F2F3F8]">
             <p className="font-semibold lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-400">
-              견적 대기
+              {type === 'WAITING' ? '견적 대기' : '확정 견적'}
             </p>
           </div>
         </div>

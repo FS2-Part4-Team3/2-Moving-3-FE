@@ -3,8 +3,8 @@
   "image": "http://placehold.it/56x56",
   "name": "홍길동",
   "introduce": "5년 경력의 신뢰할 수 있는 기사입니다.",
-  "favoriteCount": 5,
-  "score": 4.8,
+  "likeCount": 5,
+  "rating": 4.8,
   "career": 9,
   "applyCount": 10,
 

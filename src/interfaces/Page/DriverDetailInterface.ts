@@ -3,8 +3,8 @@ export interface DriverDetailData {
   image: string;
   name: string;
   introduce: string;
-  favoriteCount: number;
-  score: number;
+  likeCount: number;
+  rating: number;
   career: number;
   applyCount: number;
   description: string;
@@ -14,19 +14,34 @@ export interface DriverDetailData {
 }
 
 export interface Review {
+  id: string;
   score: number;
   createdAt: string;
-  owner: string;
+  updatedAt: string;
+  owner: Owner;
   comment: string;
 }
 
+export interface Owner {
+  name: string;
+}
+
+export interface Stats {
+  averageRating: number;
+  ratingCounts: number[];
+}
+
 export interface DriverReviewData {
-  id: string;
-  score: number;
-  reviewCount: number;
-  reviews: Review[];
+  stats: Stats;
+  totalCount: number;
+  list: Review[];
 }
 
 export interface ReviewClientProps {
   id: string;
+}
+
+export interface DetailButtonClientProps {
+  id: string;
+  type?: 'quoteWaiting' | 'quoteReceived' | 'InfoEditDriver';
 }
