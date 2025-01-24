@@ -26,9 +26,13 @@ export default function ProfileEditNormal() {
     newPassword: false,
     newPasswordChk: false,
   });
-  const [isFormValid, setIsFormValid] = useState(false);
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
+  const disabled = Boolean(
+    values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions,
+  );
+
+  console.log(disabled);
 
   useEffect(() => {
     setValues(prev => ({
@@ -41,10 +45,6 @@ export default function ProfileEditNormal() {
     }));
     setPreviewUrl(user.image || '');
   }, []);
-
-  useEffect(() => {
-    setIsFormValid(validate('EDIT'));
-  }, [values]);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -136,7 +136,7 @@ export default function ProfileEditNormal() {
       </ButtonWrapper>
       <ButtonWrapper id="fix-btn" onClick={handleValuesSubmit}>
         <ButtonWrapper.Button
-          disabled={!isFormValid}
+          disabled={!disabled}
           className="lg:order-2 md:order-1 sm:order-1 lg:w-[66rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[15rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
         >
           수정하기
