@@ -4,6 +4,7 @@ export interface MoveItem {
   date: string;
   fromAddress: string;
   toAddress: string;
+  confirmedEstimationId: string;
 }
 
 export type MoveData = MoveItem[];

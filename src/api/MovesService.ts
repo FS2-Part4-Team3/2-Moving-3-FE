@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '@/utils/requestFunctions';
+import { getRequest, patchRequest, postRequest } from '@/utils/requestFunctions';
 
 export const getMovesListData = async (
   page: number,
@@ -66,6 +66,21 @@ export const postMove = async (serviceType: string, date: string, fromAddress: s
 export const getMoveCheck = async () => {
   try {
     const res = await getRequest('/moves/check');
+    return res;
+  } catch (err) {
+    throw new Error();
+  }
+};
+
+export const patchMove = async (moveId: string, serviceType: string, date: string, fromAddress: string, toAddress: string) => {
+  try {
+    const requestBody = {
+      serviceType,
+      date,
+      fromAddress,
+      toAddress,
+    };
+    const res = await patchRequest(`/moves/${moveId}`, requestBody);
     return res;
   } catch (err) {
     throw new Error();

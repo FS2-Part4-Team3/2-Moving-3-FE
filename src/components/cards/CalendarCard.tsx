@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import left from '@/../public/assets/calendar/arrow-left.svg';
 import right from '@/../public/assets/calendar/arrow-right.svg';
 import weekdays from '@/constants/weekdays';
@@ -12,6 +12,13 @@ import { ButtonWrapper } from '../common/headless/Button';
 export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMovingDate }: CalendarCardProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(initialMovingDate);
+
+  useEffect(() => {
+    if (initialMovingDate) {
+      setSelectedDate(initialMovingDate);
+      setIsMovingDate(prev => !prev);
+    }
+  }, [initialMovingDate]);
 
   const handlePrev = () => {
     setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getMoveCheck, postMove } from '@/api/MovesService';
@@ -30,6 +30,8 @@ export default function RequestForQuotation() {
   const [moveData, setMoveData] = useState<MoveData>([]);
   const router = useRouter();
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+  const edit = searchParams.get('edit') === 'true';
 
   useEffect(() => {
     const fetchCheckAPi = async () => {
@@ -43,6 +45,17 @@ export default function RequestForQuotation() {
     };
     fetchCheckAPi();
   }, []);
+
+  useEffect(() => {
+    if (edit && moveData.length) {
+      setMovingType(moveData[0].serviceType);
+      setMovingDate(new Date(moveData[0].date));
+      setRegions({
+        start: moveData[0].fromAddress,
+        arrival: moveData[0].toAddress,
+      });
+    }
+  }, [edit, moveData]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -80,10 +93,11 @@ export default function RequestForQuotation() {
   const handleSubmit = () => {
     quotationMutation.mutate();
   };
-
+  console.log('date', isMovingDate);
+  console.log('type', isMovingType);
   return (
     <>
-      {moveData.length ? (
+      {moveData.length && !edit ? (
         <div className="w-full h-screen flex flex-col bg-background-200">
           <div className="bg-white lg:px-[26rem] lg:py-[3.2rem] md:px-[7.2rem] md:py-[2.4rem] sm:px-[2.4rem] sm:py-[2.4rem] flex flex-col gap-[2.4rem] ">
             <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B]">견적요청</h1>
