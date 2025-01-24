@@ -99,7 +99,10 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
           </ButtonWrapper.Button>
         </ButtonWrapper>
         <ButtonWrapper id="return-button" onClick={() => setRejectQuote(!rejectQuote)}>
-          <ButtonWrapper.Button className="w-full md:h-[6.4rem] sm:h-fit rounded-[1.6rem] p-[1.6rem] flex items-center justify-center py-[1.6rem] px-[2.4rem] border border-blue-300 bg-white text-blue-300 font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem]">
+          <ButtonWrapper.Button
+            disabled={!data.isSpecificRequest}
+            className={`w-full md:h-[6.4rem] sm:h-fit rounded-[1.6rem] p-[1.6rem] flex items-center justify-center py-[1.6rem] px-[2.4rem]  ${data.isSpecificRequest ? 'bg-white border border-blue-300 text-blue-300' : 'bg-gray-100 text-white'}  font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem]`}
+          >
             반려
           </ButtonWrapper.Button>
         </ButtonWrapper>
