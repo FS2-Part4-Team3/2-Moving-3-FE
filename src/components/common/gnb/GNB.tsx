@@ -99,7 +99,7 @@ export default function GNB() {
               </Link>
             )}
             {status !== 'Driver' && (
-              <Link href="/normal/match-driver" className="lg:block sm:hidden cursor-pointer">
+              <Link href={`${status === 'General' ? '/normal' : ''}/match-driver`} className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMatchDriver ? 'text-black-400' : 'text-gray-400'}`}>
                   기사님 찾기
                 </p>
@@ -198,7 +198,11 @@ export default function GNB() {
                 </Link>
               )}
               {status !== 'Driver' && (
-                <Link href="/normal/match-driver" className="cursor-pointer" onClick={() => isModalOpen(false)}>
+                <Link
+                  href={`${status === 'General' ? '/normal' : ''}/match-driver`}
+                  className="cursor-pointer"
+                  onClick={() => isModalOpen(false)}
+                >
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     기사님 찾기
                   </p>
