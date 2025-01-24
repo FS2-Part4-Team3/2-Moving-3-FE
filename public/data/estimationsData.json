@@ -32,8 +32,8 @@
       "serviceType": ["SMALL", "HOME"],
       "availableAreas": ["SEOUL", "INCHEON"],
       "applyCount": 10,
-      "favoriteCount": 5,
-      "score": 4.8,
+      "likeCount": 5,
+      "rating": 4.8,
       "career": 9,
       "reviewCount": 200
     }
