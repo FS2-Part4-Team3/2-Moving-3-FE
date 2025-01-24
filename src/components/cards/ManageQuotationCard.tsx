@@ -7,7 +7,6 @@ import { ButtonWrapper } from '../common/headless/Button';
 
 export default function ManageQuotationCard({ data, status }: ManageQuotationCardProps) {
   // TODO: api 연결 시 변경되는 데이터 값에 관해서는 수정 예정입니다.
-  console.log(status);
   return (
     <>
       <div className="relative w-full rounded-[1.6rem] bg-white border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
