@@ -1,11 +1,9 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { getMovesListData } from '@/api/MovesService';
 import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
 import Empty from '@/components/common/Empty/Empty';
@@ -50,7 +48,7 @@ export default function ReceiveQuoteClient() {
       dispatch(setMovesList(moves.pages[0]));
     }
   }, [moves, dispatch]);
-    
+
   if (movesLoading) {
     return <div>Loading...</div>;
   }
