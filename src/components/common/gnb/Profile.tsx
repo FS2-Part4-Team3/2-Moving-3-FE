@@ -43,7 +43,7 @@ export default function Profile({ closeModal }: ProfileProps) {
           className="lg:w-[24rem] sm:w-[14rem] lg:pt-[1.4rem] lg:pb-[2.4rem] lg:px-[2.4rem] sm:pt-[0.8rem] sm:pb-[1.6rem] sm:px-[1.2rem] font-medium lg:text-[1.6rem] sm:text-[1.4rem] leading-[2.6rem] text-black-400"
           onClick={closeModal}
         >
-          <Link href={`/${status === 'user' ? 'normal/my-page/written-review' : 'driver/my-page'}`}>
+          <Link href={`/${status === 'user' ? 'normal/my-page/written-review' : `driver/my-page?id=${user.id}`}`}>
             {status === 'user' ? '이사 리뷰' : '마이페이지'}
           </Link>
         </p>

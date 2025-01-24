@@ -30,9 +30,9 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
               </p>
             </div>
           </div>
-          <div className='lg:block sm:hidden'>
+          <div className="lg:block sm:hidden">
             <div className="flex flex-row gap-[1.6rem]">
-              <DetailButtonClient type="InfoEditDriver" />
+              <DetailButtonClient type="InfoEditDriver" id={data.id} />
             </div>
           </div>
         </div>
@@ -87,9 +87,9 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
           </div>
         </div>
       </div>
-      <div className='lg:hidden sm:block'>
+      <div className="lg:hidden sm:block">
         <div className="flex md:flex-row sm:flex-col gap-[0.8rem] md:justify-between">
-          <DetailButtonClient type="InfoEditDriver" />
+          <DetailButtonClient type="InfoEditDriver" id={data.id} />
         </div>
       </div>
     </div>
