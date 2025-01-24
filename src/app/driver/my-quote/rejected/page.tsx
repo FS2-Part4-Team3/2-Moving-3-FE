@@ -1,11 +1,9 @@
-import { getEstimationData } from '@/api/DriverService';
+import moveInfoData from '@/../public/data/estimationsData.json';
 import ManageQuoteTab from '@/components/Tabs/ManageQuoteTab';
 import ManageQuotationCard from '@/components/cards/ManageQuotationCard';
 
 export default async function MyQuoteReject() {
-  const moveInfoData = await getEstimationData();
-
-  if (!Array.isArray(moveInfoData)) {
+  if (!moveInfoData) {
     return <div>Loading</div>;
   }
 

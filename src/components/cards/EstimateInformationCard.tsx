@@ -26,7 +26,7 @@ export default function EstimationInformationCard({ data }: EstimationInformatio
         </div>
         <div className="flex flex-col gap-[0.8rem] font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
           <p>{DateWithoutDayWeeKFormat(data.updatedAt)}</p>
-          <p>{MoveType[data.moveInfo.type]}</p>
+          <p>{MoveType[data.moveInfo.type as 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT']}</p>
           <p>{DateIncludeTimeFormat(data.moveInfo.date)}</p>
           <p>{data.moveInfo.fromAddress}</p>
           <p>{data.moveInfo.toAddress}</p>
