@@ -1,12 +1,12 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
+import DriverDetailButtonClient from '@/_pages/DriverDetail/DetailButtonClient';
+import ReviewClient from '@/_pages/DriverDetail/ReviewClient';
+import SharingPageClient from '@/_pages/SharingPageClient';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import DriverDetailChips from '@/components/chips/DriverDetailChips';
 import type { DriverDetailData } from '@/interfaces/Page/DriverDetailInterface';
-import DriverDetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
-import ReviewClient from '@/pages/DriverDetail/ReviewClient';
-import SharingPageClient from '@/pages/SharingPageClient';
 
 export default async function DriverDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;

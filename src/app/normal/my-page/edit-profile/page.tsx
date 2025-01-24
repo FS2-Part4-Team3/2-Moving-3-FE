@@ -1,4 +1,4 @@
-import ProfileEditNormal from '@/pages/ProfileEditNormal';
+import ProfileEditNormal from '@/_pages/ProfileEditNormal';
 
 export default function ProfileEditForNormalPage() {
   return (

@@ -1,7 +1,7 @@
+import MatchDriverClient from '@/_pages/MatchDriverClient';
 import SearchBar from '@/components/common/searchbar/SearchBar';
 import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
 import SortDropdown from '@/components/dropdown/SortDropdown';
-import MatchDriverClient from '@/pages/MatchDriverClient';
 
 export default function MatchDriver() {
   return (
