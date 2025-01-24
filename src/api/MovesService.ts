@@ -68,6 +68,6 @@ export const getMoveCheck = async () => {
     const res = await getRequest('/moves/check');
     return res;
   } catch (err) {
-    console.log('Get move check err: ', err);
+    throw new Error();
   }
 };
