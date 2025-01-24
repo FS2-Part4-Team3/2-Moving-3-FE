@@ -16,11 +16,10 @@ import { ButtonWrapper } from '../headless/Button';
 import Profile from './Profile';
 
 export default function GNB() {
-  //TODO: 로그인 여부에 따라서 http://localhost:3000/match-driver 또는 http://localhost:3000/normal/match-driver 결정하기
-
   const router = useRouter();
   const pathname = usePathname();
   const user = useSelector((state: RootState) => state.signIn);
+  console.log(user);
 
   const isRequestQuote = pathname?.includes('request-quote'); // 견적 요청
   const isMatchDriver = pathname?.includes('match-driver'); // 기사님 찾기
@@ -46,10 +45,6 @@ export default function GNB() {
     default:
       status = 'LogOut';
   }
-
-  const handleClick = () => {
-    router.push('/sign-in');
-  };
 
   const handleCloseProfileModal = () => {
     setIsProfileModalOpen(false);
@@ -123,7 +118,7 @@ export default function GNB() {
           {status === 'LogOut' && (
             <div className="lg:block sm:hidden">
               <Link href="/normal/sign-in" className="flex items-center justify-center cursor-pointer">
-                <ButtonWrapper id="login-button" onClick={handleClick}>
+                <ButtonWrapper id="login-button">
                   <ButtonWrapper.Button className="w-[11.6rem] h-[4.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 flex items-center justify-center font-semibold text-[1.8rem] leading-[2.6rem] text-white">
                     로그인
                   </ButtonWrapper.Button>
@@ -136,14 +131,25 @@ export default function GNB() {
               <Image src={alarm} alt="alarm" width={36} height={36} className="lg:block sm:hidden" />
               <Image src={alarm} alt="alarm" width={24} height={24} className="lg:hidden sm:block" />
               <div className="flex relative">
-                <Image
-                  src={profile}
-                  alt="profile"
-                  width={24}
-                  height={24}
-                  className="lg:hidden sm:block cursor-pointer"
-                  onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
-                />
+                {user.image ? (
+                  <Image
+                    src={user.image}
+                    alt="profile"
+                    width={24}
+                    height={24}
+                    className="lg:hidden sm:block cursor-pointer"
+                    onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                  />
+                ) : (
+                  <Image
+                    src={profile}
+                    alt="profile"
+                    width={24}
+                    height={24}
+                    className="lg:hidden sm:block cursor-pointer"
+                    onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                  />
+                )}
                 {isProfileModalOpen && (
                   <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10] lg:hidden sm:block">
                     <Profile closeModal={handleCloseProfileModal} />
@@ -155,7 +161,11 @@ export default function GNB() {
                   className="flex lg:gap-[1.6rem] sm: gap-[2.4rem] items-center justify-center cursor-pointer"
                   onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                 >
-                  <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                  {user.image ? (
+                    <Image src={user.image} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                  ) : (
+                    <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                  )}
                   <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">{user.name}</p>
                 </div>
                 {isProfileModalOpen && (
