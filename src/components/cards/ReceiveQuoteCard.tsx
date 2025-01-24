@@ -23,8 +23,6 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
     setSendQuote(!sendQuote);
   };
 
-  //TODO: 102번째줄 수정해야함, 아직 제작이 되지 않았음
-
   return (
     <div className="flex flex-col w-full border border-line-100 lg:pt-[2rem] lg:pb-[2.4rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] rounded-[1.6rem] gap-[1.6rem]">
       <div className="flex w-full justify-between items-center">
