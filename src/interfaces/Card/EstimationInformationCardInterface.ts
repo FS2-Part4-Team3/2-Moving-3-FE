@@ -2,7 +2,7 @@ export interface EstimationInformationCardProps {
   data: {
     updatedAt: string;
     moveInfo: {
-      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT';
+      type: string;
       date: string;
       fromAddress: string;
       toAddress: string;

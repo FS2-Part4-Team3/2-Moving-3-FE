@@ -1,11 +1,9 @@
-import { getEstimationData } from '@/api/DriverService';
+import driverData from '@/../public/data/estimationsData.json';
 import WaitingQuoteTab from '@/components/Tabs/WaitingQuoteTab';
 import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
 
 export default async function MyQuoteWaiting() {
-  const driverData = await getEstimationData();
-
-  if (!Array.isArray(driverData)) {
+  if (!driverData) {
     return <div>Loading</div>;
   }
 

@@ -1,11 +1,9 @@
-import { getEstimationData } from '@/api/DriverService';
+import moveInfoData from '@/../public/data/estimationsData.json';
 import WaitingQuoteTab from '@/components/Tabs/WaitingQuoteTab';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import MyQuoteEditClient from '@/pages/MyQuoteEditClient';
 
 export default async function MyQuoteEdit() {
-  const moveInfoData = await getEstimationData();
-
   return (
     <div className="w-full min-h-screen bg-background-100 flex flex-col items-center">
       <div className="w-full bg-white flex justify-center">
