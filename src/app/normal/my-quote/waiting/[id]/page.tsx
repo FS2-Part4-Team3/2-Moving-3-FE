@@ -4,11 +4,11 @@ import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import data from '@/../../public/data/estimationsData.json';
+import DetailButtonClient from '@/_pages/DriverDetail/DetailButtonClient';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
 import { EstimationInformationCardProps } from '@/interfaces/Card/EstimationInformationCardInterface';
 import { FindDriverCardData } from '@/interfaces/Card/FindDriverCardInterface';
-import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import { priceFormat } from '@/utils/Format';
 
 const data1: FindDriverCardData = {

@@ -1,4 +1,4 @@
-import InfoEditForDriver from '@/pages/InfoEditForDiver';
+import InfoEditForDriver from '@/_pages/InfoEditForDiver';
 
 export default function InfoEditForDriverPage() {
   // 예시 데이터

@@ -30,7 +30,7 @@
       "@store/*": ["./src/store/*"],
       "@styles/*": ["./src/styles/*"],
       "@utils/*": ["./src/utils/*"],
-      "@pages/*": ["./src/pages/*"],
+      "@_pages/*": ["./src/_pages/*"],
       "@constants/*": ["./src/constatns/*"]
     },
     "verbatimModuleSyntax": false,

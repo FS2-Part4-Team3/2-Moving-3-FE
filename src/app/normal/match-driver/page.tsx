@@ -1,8 +1,8 @@
+import MatchDriverClient from '@/_pages/MatchDriverClient';
 import DibsDriverCard from '@/components/cards/DibsDriverCard';
 import SearchBar from '@/components/common/searchbar/SearchBar';
 import RegionServiceDropdown from '@/components/dropdown/RegionServiceDropdown';
 import SortDropdown from '@/components/dropdown/SortDropdown';
-import MatchDriverClient from '@/pages/MatchDriverClient';
 
 export default async function MatchDriver() {
   return (
