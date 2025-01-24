@@ -1,4 +1,4 @@
-import DibsDriverPageClient from '@/pages/DibsDriverPageClient';
+import DibsDriverPageClient from '@/_pages/DibsDriverPageClient';
 
 export default function DibsDriverPage() {
   return (

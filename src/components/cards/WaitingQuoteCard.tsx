@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
+import WaitingQuoteCardClient from '@/_pages/WaitingQuoteCardClient';
 import type { WaitingQuoteCardProps } from '@/interfaces/Card/WaitingQuoteCardInterface';
-import WaitingQuoteCardClient from '@/pages/WaitingQuoteCardClient';
 import AddressFormat, { DateFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 

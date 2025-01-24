@@ -4,7 +4,7 @@ import google from '@/../public/assets/sign/ic_google.svg';
 import kakao from '@/../public/assets/sign/ic_kakao.svg';
 import naver from '@/../public/assets/sign/ic_naver.svg';
 import logo from '@/../public/assets/sign/sign-logo.svg';
-import SignUpClient from '@/pages/SignUpClient';
+import SignUpClient from '@/_pages/SignUpClient';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
