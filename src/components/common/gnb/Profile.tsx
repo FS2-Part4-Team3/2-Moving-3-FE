@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '@/api/api';
 import { ProfileProps } from '@/interfaces/CommonComp/GnbInterface';
 import { setSignOut } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
@@ -13,7 +14,8 @@ export default function Profile({ closeModal }: ProfileProps) {
   const userName = user.name;
   const status = user.type === 'user' ? 'user' : 'driver';
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    localStorage.removeItem('accessToken');
     dispatch(setSignOut());
     closeModal();
     router.push('/');
