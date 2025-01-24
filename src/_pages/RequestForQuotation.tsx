@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getMoveCheck, postMove } from '@/api/MovesService';
+import { getMoveCheck, patchMove, postMove } from '@/api/MovesService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
@@ -50,6 +50,7 @@ export default function RequestForQuotation() {
     if (edit && moveData.length) {
       setMovingType(moveData[0].serviceType);
       setMovingDate(new Date(moveData[0].date));
+      setIsMovingDate(!!movingDate);
       setRegions({
         start: moveData[0].fromAddress,
         arrival: moveData[0].toAddress,
@@ -90,11 +91,27 @@ export default function RequestForQuotation() {
     },
   });
 
+  const editMutation = useMutation({
+    mutationFn: async () => {
+      const res = await patchMove(moveData[0].id, movingType, movingDate.toISOString(), regions.start, regions.arrival);
+      dispatch(setId(res.id));
+    },
+    onSuccess: () => {
+      router.push('/normal/my-quote/edit');
+    },
+    onError: () => {
+      router.push('/not-found');
+    },
+  });
+
   const handleSubmit = () => {
     quotationMutation.mutate();
   };
-  console.log('date', isMovingDate);
-  console.log('type', isMovingType);
+
+  const handleEditSubmit = () => {
+    editMutation.mutate();
+  };
+
   return (
     <>
       {moveData.length && !edit ? (
@@ -211,7 +228,7 @@ export default function RequestForQuotation() {
             <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[31.2rem] flex justify-end">
               {isMovingType && isMovingDate && (
                 <div className="self-end mb-[10rem]">
-                  <AddressCard regions={regions} setRegions={setRegions} handleSubmit={handleSubmit} />
+                  <AddressCard regions={regions} setRegions={setRegions} handleSubmit={edit ? handleEditSubmit : handleSubmit} />
                 </div>
               )}
             </div>

@@ -16,7 +16,6 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
   useEffect(() => {
     if (initialMovingDate) {
       setSelectedDate(initialMovingDate);
-      setIsMovingDate(prev => !prev);
     }
   }, [initialMovingDate]);
 
