@@ -151,7 +151,7 @@ export default function RequestForQuotation() {
               ></div>
             </div>
           </div>
-          <div className=" w-full h-full bg-background-200 px-[26rem] lg:pt-[4rem] md:pt-[0.8rem] sm:pt-[0.8rem] flex flex-col items-center lg:gap-[2.4rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:pb-[18.4rem]">
+          <div className=" w-full h-screen bg-background-200 px-[26rem] lg:pt-[4rem] md:pt-[0.8rem] sm:pt-[0.8rem] flex flex-col items-center lg:gap-[2.4rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:pb-[18.4rem]">
             <div className="overflow-y-auto lg:w-[130rem] lg:h-[65rem] ">
               <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[31.2rem] flex flex-col gap-[2.4rem]">
                 <div className="lg:max-w-[52rem] md:max-w-[24.8rem] sm:max-w-[24.8rem] rounded-[3rem] rounded-tl-none lg:px-[4rem] lg:py-[2rem] md:px-[2rem] md:py-[1.2rem] sm:px-[2rem] sm:py-[1.2rem] bg-white border-none lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400">
