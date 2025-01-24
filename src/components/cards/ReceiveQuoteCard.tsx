@@ -26,8 +26,10 @@ export default function ReceiveQuoteCard({ data }: ReceiveQuoteCardProps) {
   return (
     <div className="flex flex-col w-full border border-line-100 lg:pt-[2rem] lg:pb-[2.4rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] rounded-[1.6rem] gap-[1.6rem]">
       <div className="flex w-full justify-between items-center">
-        <MovingTypeChips type={data.serviceType} />
-        {data.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
+        <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
+          <MovingTypeChips type={data.serviceType} />
+          {data.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
+        </div>
         <p className="font-normal text-[1.4rem] leading-[2.4rem] text-gray-500">{timeAgoFormat(data.updatedAt)}</p>
       </div>
       <Link key={data.id} href={`/driver/receive-quote/${data.id}`}>
