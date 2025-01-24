@@ -26,7 +26,7 @@ export default function SendQuotationModal({ onClose, data }: SendQuotationModal
         const res = await postDetailEstimationData(data.id, false, comment, price);
         alert('견적 보내기에 성공했습니다.');
       } catch (error: any) {
-        alert(error.data?.message || '회원가입에 실패하였습니다.');
+        alert(error.data?.message || '견적 보내기에 실패했습니다. 다시 시도해주세요.');
       }
     },
   });
@@ -189,7 +189,9 @@ export default function SendQuotationModal({ onClose, data }: SendQuotationModal
               </div>
             </div>
           </ModalSmallWrapper.Content>
-          <ModalSmallWrapper.Footer isDisabled={isDisabled}>견적 보내기</ModalSmallWrapper.Footer>
+          <ModalSmallWrapper.Footer isDisabled={isDisabled} onClick={handleSubmit}>
+            견적 보내기
+          </ModalSmallWrapper.Footer>
         </ModalSmallWrapper>
       </div>
     </>

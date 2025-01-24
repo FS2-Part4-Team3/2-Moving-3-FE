@@ -70,7 +70,6 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
         url: response.url,
       });
       const error = new CustomError(`HTTP error! status: ${response.status}`, await response.json());
-      console.log(error);
       throw error;
     }
 

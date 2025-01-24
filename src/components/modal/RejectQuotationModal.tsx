@@ -1,7 +1,9 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import AddressFormat, { DateFormat } from '@utils/Format';
+import { postDetailEstimationData } from '@/api/EstimationService';
 import type { RejectQuotationModalProps } from '@/interfaces/Modal/RejectQuotationModalInterface';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { InputWrapper } from '../common/headless/Input';
@@ -15,6 +17,22 @@ export default function RejectQuotationModal({ onClose, data }: RejectQuotationM
   useEffect(() => {
     setIsDisabled(!(reason.length >= 10));
   }, [reason]);
+
+  const rejectQuoteMutation = useMutation({
+    mutationFn: async () => {
+      try {
+        const res = await postDetailEstimationData(data.id, true, reason, '0');
+        alert('반려 되었습니다.');
+      } catch (error: any) {
+        alert(error.data.message || '반려에 실패했습니다. 다시 시도해주세요.');
+      }
+    },
+  });
+
+  const handleSubmit = () => {
+    rejectQuoteMutation.mutate();
+    onClose();
+  };
 
   return (
     <>
@@ -79,7 +97,9 @@ export default function RejectQuotationModal({ onClose, data }: RejectQuotationM
               </div>
             </div>
           </ModalWrapper.Content>
-          <ModalWrapper.Footer isDisabled={isDisabled}>반려하기</ModalWrapper.Footer>
+          <ModalWrapper.Footer isDisabled={isDisabled} onClick={handleSubmit}>
+            반려하기
+          </ModalWrapper.Footer>
         </ModalWrapper>
       </div>
       <div className="sm:block md:hidden">
@@ -139,7 +159,9 @@ export default function RejectQuotationModal({ onClose, data }: RejectQuotationM
               </div>
             </div>
           </ModalSmallWrapper.Content>
-          <ModalSmallWrapper.Footer isDisabled={isDisabled}>반려하기</ModalSmallWrapper.Footer>
+          <ModalSmallWrapper.Footer isDisabled={isDisabled} onClick={handleSubmit}>
+            반려하기
+          </ModalSmallWrapper.Footer>
         </ModalSmallWrapper>
       </div>
     </>
