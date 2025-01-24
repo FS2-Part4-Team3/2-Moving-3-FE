@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { getEstimationData } from '@/api/DriverService';
+import EstimateData from '@/../public/data/estimationsData.json';
 import WaitingQuoteTab from '@/components/Tabs/WaitingQuoteTab';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import EstimateReceivedCard from '@/components/cards/EstimateReceivedCard';
 import EstimationSortDropdown from '@/components/dropdown/EstimationSortDropdown';
 
 export default async function MyQuoteReceived() {
-  const EstimateData = await getEstimationData();
   return (
     <div className="w-full items-center justify-center flex flex-col md:bg-background-100">
       <div className="w-full bg-white justify-center flex">

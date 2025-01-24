@@ -1,10 +1,13 @@
 import Link from 'next/link';
-import { getEstimationData } from '@/api/DriverService';
+import moveInfoData from '@/../public/data/estimationsData.json';
 import ManageQuoteTab from '@/components/Tabs/ManageQuoteTab';
 import ManageQuotationCard from '@/components/cards/ManageQuotationCard';
 
 export default async function MyQuoteSent() {
-  const moveInfoData = await getEstimationData();
+  if (!moveInfoData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="w-full items-center justify-center flex flex-col bg-background-100">
       <div className="w-full bg-white justify-center flex border-b border-line-100 md:shadow-[0rem_0.2rem_1rem_rgba(220,220,220,0.3)]">
