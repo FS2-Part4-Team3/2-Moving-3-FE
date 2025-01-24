@@ -1,7 +1,9 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import AddressFormat, { DateFormat } from '@utils/Format';
+import { postDetailEstimationData } from '@/api/EstimationService';
 import type { SendQuotationModalProps } from '@/interfaces/Modal/SendQuotationModalInterface';
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { InputWrapper } from '../common/headless/Input';
@@ -17,6 +19,22 @@ export default function SendQuotationModal({ onClose, data }: SendQuotationModal
   useEffect(() => {
     setIsDisabled(!(price.length && Number(price) && comment.length >= 10));
   }, [price, comment]);
+
+  const sendQuoteMutation = useMutation({
+    mutationFn: async () => {
+      try {
+        const res = await postDetailEstimationData(data.id, false, comment, price);
+        alert('견적 보내기에 성공했습니다.');
+      } catch (error: any) {
+        alert(error.data?.message || '회원가입에 실패하였습니다.');
+      }
+    },
+  });
+
+  const handleSubmit = () => {
+    sendQuoteMutation.mutate();
+    onClose();
+  };
 
   return (
     <>
@@ -95,7 +113,9 @@ export default function SendQuotationModal({ onClose, data }: SendQuotationModal
               </div>
             </div>
           </ModalWrapper.Content>
-          <ModalWrapper.Footer isDisabled={isDisabled}>견적 보내기</ModalWrapper.Footer>
+          <ModalWrapper.Footer isDisabled={isDisabled} onClick={handleSubmit}>
+            견적 보내기
+          </ModalWrapper.Footer>
         </ModalWrapper>
       </div>
       <div className="sm:block md:hidden">

@@ -1,6 +1,6 @@
 import { postRequest } from '@/utils/requestFunctions';
 
-export const PostDetailEstimationData = async (movesId: string, reject: boolean, comment: string, price = '') => {
+export const postDetailEstimationData = async (movesId: string, reject: boolean, comment: string, price = '') => {
   const params = {
     reject: reject,
     comment: comment,
