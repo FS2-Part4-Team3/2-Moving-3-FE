@@ -71,7 +71,10 @@ export default function ReceiveQuoteClient() {
         {moves
           ? moves.pages.flatMap(page =>
               page.list.map(driver => (
-                <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
+                <div
+                  key={driver.id}
+                  className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col"
+                >
                   <ReceiveQuoteCard data={driver} />
                 </div>
               )),
