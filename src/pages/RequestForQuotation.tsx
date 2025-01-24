@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postQuotation } from '@/api/MovesService';
+import { postMove } from '@/api/MovesService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
@@ -50,7 +50,7 @@ export default function RequestForQuotation() {
 
   const quotationMutation = useMutation({
     mutationFn: async () => {
-      const res = await postQuotation(movingType, movingDate.toISOString(), regions.start, regions.arrival);
+      const res = await postMove(movingType, movingDate.toISOString(), regions.start, regions.arrival);
       dispatch(setId(res.id));
     },
     onSuccess: () => {
