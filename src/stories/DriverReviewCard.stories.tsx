@@ -12,8 +12,10 @@ const Template: StoryFn<DriverReviewCardProps> = args => <DriverReviewCard {...a
 export const Default = Template.bind({});
 Default.args = {
   review: {
-    owner: '홍길동',
+    id: 'id-1',
+    owner: { name: '홍길동' },
     createdAt: '2025-01-09T14:48:00.000Z',
+    updatedAt: '2025-01-09T14:48:00.000Z',
     score: 4,
     comment: '좋은 서비스였습니다!',
   },

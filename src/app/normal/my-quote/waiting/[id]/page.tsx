@@ -3,18 +3,44 @@ import { notFound } from 'next/navigation';
 import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
-import { getEstimationData } from '@/api/DriverService';
+import data from '@/../../public/data/estimationsData.json';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
+import { EstimationInformationCardProps } from '@/interfaces/Card/EstimationInformationCardInterface';
+import { FindDriverCardData } from '@/interfaces/Card/FindDriverCardInterface';
 import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 import { priceFormat } from '@/utils/Format';
+
+const data1: FindDriverCardData = {
+  id: 'driver-1',
+  name: '김철수',
+  image: 'https://example.com/driver1.jpg',
+  introduce: '5년 경력의 신뢰할 수 있는 기사입니다.',
+  serviceType: ['SMALL', 'HOME'],
+  applyCount: 10,
+  likeCount: 5,
+  rating: 4.8,
+  career: 9,
+  reviewCount: 200,
+};
+
+const data2: EstimationInformationCardProps = {
+  data: {
+    updatedAt: '2025-01-01T12:00:00Z',
+    moveInfo: {
+      type: 'HOME',
+      date: '2025-02-01T12:00:00Z',
+      fromAddress: '서울 중구 삼일대로 343',
+      toAddress: '서울 중구 청계천로 100',
+    },
+  },
+};
 
 export default async function MyQuoteWaitingDetail({ params }: { params: { id: string } }) {
   const { id } = params;
 
   // Api 연결 필요
-  const quoteDatas = await getEstimationData();
-  const quoteData = quoteDatas[0];
+  const quoteData = data[0];
   const driverData = quoteData.driver;
 
   if (quoteData.id !== id || !quoteData) {
@@ -30,7 +56,7 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
       </div>
       <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
-          <FindDriverCard key={driverData.id} data={driverData} type="WAITING" />
+          <FindDriverCard key={driverData.id} data={data1} type="WAITING" />
           <div className="lg:hidden sm:block">
             <div className="border border-line-100 w-full mb-[2.4rem]"></div>
             <div className="flex flex-col gap-[1.6rem] py-[1rem]">
@@ -54,12 +80,12 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
             </p>
           </div>
           <div className="border border-line-100 w-full"></div>
-          <EstimationInformationCard data={quoteData} />
+          <EstimationInformationCard data={data2.data} />
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[32.8rem] gap-[4rem]">
             <div className="flex flex-col gap-[3.2rem]">
-              <DetailButtonClient type="quoteWaiting" />
+              <DetailButtonClient type="quoteWaiting" id={id} />
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col gap-[2.2rem]">
@@ -76,7 +102,7 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
-            <DetailButtonClient type="quoteWaiting" />
+            <DetailButtonClient type="quoteWaiting" id={id} />
           </div>
         </div>
       </div>

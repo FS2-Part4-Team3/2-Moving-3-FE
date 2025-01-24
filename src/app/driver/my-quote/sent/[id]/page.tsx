@@ -3,24 +3,55 @@ import { notFound } from 'next/navigation';
 import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
-import { getEstimationData } from '@/api/DriverService';
+import data from '@/../../public/data/estimationsData.json';
 import ClientQuoteCard from '@/components/cards/ClientQuoteCard';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
+import { ClientQuoteCardProps } from '@/interfaces/Card/ClientQuoteCardInterface';
+import { EstimationInformationCardProps } from '@/interfaces/Card/EstimationInformationCardInterface';
 import { priceFormat } from '@/utils/Format';
+
+const data1: ClientQuoteCardProps = {
+  data: {
+    id: 'estimation-1',
+    updatedAt: '2025-01-01T12:00:00Z',
+    price: 200000,
+    moveInfo: {
+      id: 'moveinfo-1',
+      updatedAt: '2025-01-01T12:00:00Z',
+      type: 'HOME',
+      date: '2025-02-01T12:00:00Z',
+      fromAddress: '서울 중구 삼일대로 343',
+      toAddress: '서울 중구 청계천로 100',
+      progress: 'PENDING',
+      owner: '김재원',
+    },
+  },
+};
+
+const data2: EstimationInformationCardProps = {
+  data: {
+    updatedAt: '2025-01-01T12:00:00Z',
+    moveInfo: {
+      type: 'HOME',
+      date: '2025-02-01T12:00:00Z',
+      fromAddress: '서울 중구 삼일대로 343',
+      toAddress: '서울 중구 청계천로 100',
+    },
+  },
+};
 
 export default async function MyQuoteSentDetail({ params }: { params: { id: string } }) {
   const { id } = params;
 
   // Api 연결 필요
-  const quoteDatas = await getEstimationData();
-  const quoteData = quoteDatas[0];
+  const quoteData = data[0];
 
   // moveinfo에 progress 나 confirmedEstimation로 확정 견적인지 데이터 이용해서 기사님 카드 컴포넌트 페이지에 띄우기.
   // quoteData.moveInfo ~
 
-  if (quoteData.id !== id || !quoteData) {
-    notFound();
-  }
+  // if (quoteData.id !== id || !quoteData) {
+  //   notFound();
+  // }
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -31,7 +62,7 @@ export default async function MyQuoteSentDetail({ params }: { params: { id: stri
       </div>
       <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
-          <ClientQuoteCard key={quoteData.id} data={quoteData} />
+          <ClientQuoteCard key={quoteData.id} data={data1.data} />
           <div className="lg:hidden sm:block">
             <div className="border border-line-100 w-full mb-[2.4rem]"></div>
             <div className="flex flex-col gap-[1.6rem] py-[1rem]">
@@ -55,7 +86,7 @@ export default async function MyQuoteSentDetail({ params }: { params: { id: stri
             </p>
           </div>
           <div className="border border-line-100 w-full"></div>
-          <EstimationInformationCard data={quoteData} />
+          <EstimationInformationCard data={data2.data} />
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col gap-[2.2rem]">

@@ -3,7 +3,7 @@ export interface FindDriverCardProps {
   type?: 'WAITING' | 'RECEIVED';
 }
 
-interface FindDriverCardData {
+export interface FindDriverCardData {
   id: string;
   serviceType: string[];
   introduce: string;
