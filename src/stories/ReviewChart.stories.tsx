@@ -11,53 +11,36 @@ const Template: StoryFn<ReviewChartProps> = args => <ReviewChart {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  score: 4.2,
-  reviewCount: 24,
-  data: [
-    { score: 5 },
-    { score: 4 },
-    { score: 3 },
-    { score: 5 },
-    { score: 4 },
-    { score: 2 },
-    { score: 1 },
-    { score: 5 },
-    { score: 4 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-    { score: 5 },
-  ],
+  totalCount: 24,
+  data: {
+    averageRating: 4.2,
+    ratingCounts: [4, 5, 4, 5, 6],
+  },
 };
 
 export const HighScore = Template.bind({});
 HighScore.args = {
-  score: 4.9,
-  reviewCount: 6,
-  data: [{ score: 5 }, { score: 5 }, { score: 5 }, { score: 5 }, { score: 5 }, { score: 4 }],
+  totalCount: 6,
+  data: {
+    averageRating: 4.9,
+    ratingCounts: [5, 1, 0, 0, 0],
+  },
 };
 
 export const LowScore = Template.bind({});
 LowScore.args = {
-  score: 1.5,
-  reviewCount: 7,
-  data: [{ score: 1 }, { score: 1 }, { score: 2 }, { score: 3 }, { score: 1 }, { score: 2 }, { score: 1 }],
+  totalCount: 7,
+  data: {
+    averageRating: 1.5,
+    ratingCounts: [0, 0, 1, 2, 4],
+  },
 };
 
 export const NoReviews = Template.bind({});
 NoReviews.args = {
-  score: 0,
-  reviewCount: 0,
-  data: [],
+  totalCount: 0,
+  data: {
+    averageRating: 0,
+    ratingCounts: [0, 0, 0, 0, 0],
+  },
 };
