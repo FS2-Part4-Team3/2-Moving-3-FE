@@ -1,8 +1,8 @@
+import ReceiveQuoteClient from '@/_pages/ReceiveQuoteClient';
+import ReceiveQuoteMovingTypeClient from '@/_pages/ReceiveQuoteMovingTypeClient';
+import ReceiveQuoteTextClient from '@/_pages/ReceiveQuoteTextClient';
 import DriverSearchBar from '@/components/common/searchbar/DriverSearchBar';
 import DriverSortDropdown from '@/components/dropdown/DriverSortDropdown';
-import ReceiveQuoteClient from '@/pages/ReceiveQuoteClient';
-import ReceiveQuoteMovingTypeClient from '@/pages/ReceiveQuoteMovingTypeClient';
-import ReceiveQuoteTextClient from '@/pages/ReceiveQuoteTextClient';
 
 export default async function ReceiveQuote() {
   return (

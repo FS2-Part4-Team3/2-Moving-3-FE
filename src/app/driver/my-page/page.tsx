@@ -1,9 +1,9 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
+import ReviewClient from '@/_pages/DriverDetail/ReviewClient';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
 import InfoEditDriverCard from '@/components/cards/InfoEditDriverCard';
 import { DriverDetailData } from '@/interfaces/Page/DriverDetailInterface';
-import ReviewClient from '@/pages/DriverDetail/ReviewClient';
 
 export default async function DriverMyPage({ searchParams }: { searchParams: { id: string } }) {
   const id = searchParams.id;

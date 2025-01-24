@@ -5,7 +5,7 @@ import lg_3 from '@/../public/assets/landing/img_landing_lg_03.svg';
 import sm_1 from '@/../public/assets/landing/img_landing_sm_01.svg';
 import sm_2 from '@/../public/assets/landing/img_landing_sm_02.svg';
 import sm_3 from '@/../public/assets/landing/img_landing_sm_03.svg';
-import LandingClient from '@/pages/LandingClient';
+import LandingClient from '@/_pages/LandingClient';
 
 export default function Home() {
   return (

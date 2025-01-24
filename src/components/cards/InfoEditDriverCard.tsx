@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
+import DetailButtonClient from '@/_pages/DriverDetail/DetailButtonClient';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import { InfoEditDriverCardProps } from '@/interfaces/Card/InfoEditDriverCardInterface';
-import DetailButtonClient from '@/pages/DriverDetail/DetailButtonClient';
 
 export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
   return (
