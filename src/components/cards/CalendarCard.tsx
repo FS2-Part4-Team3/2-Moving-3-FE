@@ -23,20 +23,24 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
 
   const handleDateClick = (day: Day) => {
     const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
-
+    selected.setHours(0, 0, 0, 0);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     if (!day.isCurrentMonth || selected < today) {
       return;
     }
-
     setSelectedDate(selected);
   };
 
   const handleSelectComplte = () => {
-    setMovingDate(selectedDate);
-    setIsMovingDate(true);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate >= today) {
+      setMovingDate(selectedDate);
+      setIsMovingDate(true);
+    }
   };
 
   const daysInMonth = getDaysInMonth(currentMonth);
