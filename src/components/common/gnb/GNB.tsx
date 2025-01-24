@@ -19,7 +19,6 @@ export default function GNB() {
   const router = useRouter();
   const pathname = usePathname();
   const user = useSelector((state: RootState) => state.signIn);
-  console.log(user);
 
   const isRequestQuote = pathname?.includes('request-quote'); // 견적 요청
   const isMatchDriver = pathname?.includes('match-driver'); // 기사님 찾기
@@ -101,7 +100,7 @@ export default function GNB() {
               </Link>
             )}
             {status === 'Driver' && (
-              <Link href="/driver/my-quote/rejected" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/driver/my-quote/sent" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMyQuotes ? 'text-black-400' : 'text-gray-400'}`}>
                   내 견적 관리
                 </p>
@@ -226,7 +225,7 @@ export default function GNB() {
                 </Link>
               )}
               {status === 'Driver' && (
-                <Link href="/driver/my-quote/rejected" className="cursor-pointer" onClick={() => isModalOpen(false)}>
+                <Link href="/driver/my-quote/sent" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>
