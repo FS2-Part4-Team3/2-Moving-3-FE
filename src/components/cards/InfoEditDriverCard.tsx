@@ -17,7 +17,7 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
               alt="driver"
               width={46}
               height={46}
-              objectFit="cover"
+              style={{ objectFit: 'cover' }}
               className="w-[4.6rem] h-[4.6rem] border-2 border-blue-400 rounded-full lg:hidden sm:block"
             />
             <div className="flex flex-col gap-[0.8rem]">
@@ -41,7 +41,7 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
             alt="driver"
             width={80}
             height={80}
-            objectFit="cover"
+            style={{ objectFit: 'cover' }}
             className="w-[8rem] h-[8rem] border-2 border-blue-400 rounded-full lg:block sm:hidden"
           />
           <div className="flex flex-col gap-[1.6rem]">
