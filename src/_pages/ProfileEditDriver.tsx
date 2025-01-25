@@ -112,7 +112,7 @@ export default function ProfileEditDriver() {
   };
 
   return (
-    <div className="lg:w-[135.2rem] lg:grid lg:grid-cols-2 lg:gap-x-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col">
+    <div className="lg:w-[120rem] lg:grid lg:grid-cols-2 lg:gap-x-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col">
       <div className="lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper id="nickname" type="text" value={values.nickname} onChange={handleChange}>
@@ -122,7 +122,7 @@ export default function ProfileEditDriver() {
               </InputWrapper.Label>
               <InputWrapper.Input
                 name="nickname"
-                className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
+                className={`lg:w-[54rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
                   errors.nickname && isTouched.nickname ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="사이트에 노출될 이름을 입력해 주세요"
@@ -153,7 +153,7 @@ export default function ProfileEditDriver() {
               <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
                 경력 시작일
               </InputWrapper.Label>
-              <div className="lg:w-[64rem] lg:h-[6.4rem] flex relative">
+              <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
                 <InputWrapper.Input
                   disabled
                   name="career"
@@ -195,7 +195,7 @@ export default function ProfileEditDriver() {
               </InputWrapper.Label>
               <InputWrapper.Input
                 name="shortBio"
-                className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
+                className={`lg:w-[54rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
                   errors.shortBio && isTouched.shortBio ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
                 placeholder="한 줄 소개를 입력해 주세요"
@@ -219,7 +219,7 @@ export default function ProfileEditDriver() {
             onChange={handleChange}
             placeholder="상세 내용을 입력해 주세요"
             onBlur={() => handleInputBlur('description')}
-            className={`lg:w-[64rem] lg:h-[16rem] md:w-[32.7rem] md:h-[16rem] sm:w-[32.7rem] sm:h-[16rem] rounded-[1.6rem] px-[2.4rem] py-[1.4rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal ${
+            className={`lg:w-[54rem] lg:h-[16rem] md:w-[32.7rem] md:h-[16rem] sm:w-[32.7rem] sm:h-[16rem] rounded-[1.6rem] px-[2.4rem] py-[1.4rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal ${
               errors.description && isTouched.description ? 'bg-white border-red-200 border' : 'bg-background-200'
             } text-black-400 placeholder-gray-300 resize-none focus:outline-none overflow-y: auto`}
           ></textarea>
@@ -273,7 +273,7 @@ export default function ProfileEditDriver() {
       <ButtonWrapper id="profile-register-driver" type="submit" onClick={() => router.back()}>
         <ButtonWrapper.Button
           disabled={!isDisabled}
-          className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
+          className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
         >
           취소
         </ButtonWrapper.Button>
@@ -281,7 +281,7 @@ export default function ProfileEditDriver() {
       <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleValuesSubmit}>
         <ButtonWrapper.Button
           disabled={!isDisabled}
-          className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"
+          className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"
         >
           수정하기
         </ButtonWrapper.Button>
