@@ -32,8 +32,6 @@ export default function ProfileEditNormal() {
     values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions,
   );
 
-  console.log(user);
-
   useEffect(() => {
     setValues(prev => ({
       ...prev,

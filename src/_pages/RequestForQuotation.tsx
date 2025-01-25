@@ -30,8 +30,6 @@ export default function RequestForQuotation() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.signIn);
 
-  console.log(user);
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
