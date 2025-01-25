@@ -4,13 +4,14 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
 import { editDriverData, getUserData, patchPassword } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { setUserSign } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
 
 export default function InfoEditForDriver() {
@@ -27,11 +28,10 @@ export default function InfoEditForDriver() {
   const [isViewNew, setIsViewNew] = useState(false);
   const [isViewNewChk, setIsViewNewChk] = useState(false);
 
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  const isDisabled = isFormValid;
+  const isDisabled = Boolean(values.name && values.number && values.nowPassword);
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setValues(prev => ({
@@ -42,20 +42,24 @@ export default function InfoEditForDriver() {
     }));
   }, []);
 
-  useEffect(() => {
-    setIsFormValid(validate('EDIT'));
-  }, [values]);
-
   const handleInputBlur = (field: keyof typeof isTouched) => {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
   const userMutation = useMutation({
     mutationFn: async () => {
-      await Promise.all([
-        editDriverData(values.name, values.email, values.number),
-        patchPassword(values.nowPassword, values.newPassword),
-      ]);
+      const res = await editDriverData(values.name, values.email, values.number);
+      dispatch(
+        setUserSign({
+          name: res.name,
+          email: res.email,
+          phoneNumber: res.phoneNumber,
+        }),
+      );
+
+      if (!values.newPassword) return;
+
+      patchPassword(values.nowPassword, values.newPassword);
     },
     onSuccess: () => {
       router.back();

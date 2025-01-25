@@ -15,7 +15,7 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setUserSign } from '@/store/slices/SignInSlice';
+import { setProfile, setProfileNoImg, setUserSign } from '@/store/slices/SignInSlice';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
 export default function ProfileRegisterDriver() {
@@ -72,6 +72,17 @@ export default function ProfileRegisterDriver() {
       );
       const { uploadUrl } = response;
 
+      dispatch(
+        setProfileNoImg({
+          nickname: response.nickname,
+          startAt: response.startAt,
+          introduce: response.introduce,
+          description: response.description,
+          serviceType: response.serviceType,
+          availableAreas: response.availableAreas,
+        }),
+      );
+
       if (selectedImg === null) return;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await patchDriverData(
@@ -85,7 +96,7 @@ export default function ProfileRegisterDriver() {
       );
 
       dispatch(
-        setUserSign({
+        setProfile({
           image: res.image,
           nickname: res.nickname,
           startAt: res.startAt,
@@ -94,16 +105,6 @@ export default function ProfileRegisterDriver() {
           serviceType: res.serviceType,
           availableAreas: res.availableAreas,
         }),
-      );
-
-      return await patchDriverData(
-        image,
-        values.nickname,
-        values.career,
-        values.shortBio,
-        values.description,
-        values.selectedMovingType,
-        values.selectedRegions,
       );
     },
     onSuccess: () => {
