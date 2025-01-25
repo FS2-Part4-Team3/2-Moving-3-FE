@@ -1,13 +1,13 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import WrittenReviewClient from '@/_pages/WrittenReviewClient';
 import { getMyReviewData } from '@/api/ReviewService';
 import ReviewTabs from '@/components/Tabs/ReviewTabs';
-import NormalReviewCard from '@/components/cards/NormalReviewCard';
 
 export default async function WrittenReviewPage() {
   const queryClient = new QueryClient();
 
   queryClient.prefetchQuery({
-    queryKey: ['my-reviews'],
+    queryKey: ['myReviews'],
     queryFn: () => getMyReviewData(1, 6),
   });
 
@@ -19,7 +19,7 @@ export default async function WrittenReviewPage() {
         <div className="w-full flex justify-center">
           <ReviewTabs />
         </div>
-        <NormalReviewCard type="MY" />
+        <WrittenReviewClient />
       </>
     </HydrationBoundary>
   );
