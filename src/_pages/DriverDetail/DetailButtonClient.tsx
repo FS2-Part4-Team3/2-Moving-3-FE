@@ -45,8 +45,12 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
       }
     };
 
-    fetchDibStatus();
-    fetchRequestStatus();
+    if (!type || type === 'quoteWaiting' || type === 'quoteReceived') {
+      fetchDibStatus();
+    }
+    if (type === 'quoteWaiting') {
+      fetchRequestStatus();
+    }
   }, [id]);
 
   const toggleFavoriteMutation = useMutation({
