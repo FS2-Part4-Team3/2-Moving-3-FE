@@ -53,7 +53,10 @@ export default function AddressCard({ regions, setRegions, handleSubmit }: Addre
           )}
         </div>
         <ButtonWrapper id="quote-request-btn" onClick={handleSubmit}>
-          <ButtonWrapper.Button className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white text-center">
+          <ButtonWrapper.Button
+            disabled={!(regions.start && regions.arrival)}
+            className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white text-center"
+          >
             견적 확정하기
           </ButtonWrapper.Button>
         </ButtonWrapper>
