@@ -5,17 +5,15 @@ import AddressFormat, { DateFormat, priceFormat, timeAgoFormat } from '@/utils/F
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
 
-export default function ManageQuotationCard({ data }: ManageQuotationCardProps) {
+export default function ManageQuotationCard({ data, status }: ManageQuotationCardProps) {
   // TODO: api 연결 시 변경되는 데이터 값에 관해서는 수정 예정입니다.
-  // let status: string = 'end';
-  let status: string = 'abandon';
   return (
     <>
-      <div className="relative w-full rounded-[1.6rem] border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
-        {(status === 'end' || 'abandon') && (
+      <div className="relative w-full rounded-[1.6rem] bg-white border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
+        {status === 'end' || status === 'abandon' ? (
           <div className="absolute inset-0 bg-black bg-opacity-60 rounded-[1.6rem]">
             <div className="flex items-center justify-center flex-col w-full h-full bg-opacity-100 gap-[1.6rem]">
-              {status === 'end' ? (
+              {status === 'end' && (
                 <>
                   <p className="font-semibold lg:text-[1.8rem] sm:text-[1.4rem] leading-[2.6rem] text-white">
                     이사 완료된 견적이에요
@@ -26,13 +24,13 @@ export default function ManageQuotationCard({ data }: ManageQuotationCardProps) 
                     </ButtonWrapper.Button>
                   </ButtonWrapper>
                 </>
-              ) : (
+              )}
+              {status === 'abandon' && (
                 <p className="font-semibold lg:text-[1.8rem] sm:text-[1.4rem] leading-[2.6rem] text-white">반려된 요청이에요</p>
               )}
             </div>
           </div>
-        )}
-
+        ) : null}
         <div className="flex flex-col gap-[1.6rem]">
           <div className="flex justify-between">
             <div className="flex gap-[1.2rem] items-center">

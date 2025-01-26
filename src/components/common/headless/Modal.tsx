@@ -45,11 +45,17 @@ const ModalHeader = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const ModalFooter = ({ children, isDisabled }: { children: React.ReactNode; isDisabled: boolean }) => {
-  const { onClose } = useModalContext();
-
+const ModalFooter = ({
+  children,
+  isDisabled,
+  onClick,
+}: {
+  children: React.ReactNode;
+  isDisabled: boolean;
+  onClick?: () => void;
+}) => {
   return (
-    <ButtonWrapper id="modal-button" onClick={onClose}>
+    <ButtonWrapper id="modal-button" onClick={onClick}>
       <ButtonWrapper.Button
         className="lg:w-[56rem] lg:h-[6.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white flex items-center justify-center"
         disabled={isDisabled}

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import standardProfile from '@/../public/assets/common/gnb/standard_profile.svg';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import WaitingQuoteCardClient from '@/_pages/WaitingQuoteCardClient';
@@ -16,24 +17,49 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
         </div>
         <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
           <div className="flex w-full lg:gap-[2.4rem] sm:gap-[1.2rem] py-[1.6rem] lg:px-[1.8rem] sm:px-[1rem] border border-line-100 rounded-[0.6rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
-            <div className="w-[5.6rem] h-[5.6rem] lg:block sm:hidden">
-              <Image
-                src={data.driver.image}
-                alt="profile"
-                width={56}
-                height={56}
-                className="border-2 border-blue-400 rounded-full"
-              />
-            </div>
-            <div className="w-[4.6rem] h-[4.6rem] lg:hidden sm:block">
-              <Image
-                src={data.driver.image}
-                alt="profile"
-                width={46}
-                height={46}
-                className="border-2 border-blue-400 rounded-full"
-              />
-            </div>
+            {data.driver.image ? (
+              <>
+                <div className="w-[5.6rem] h-[5.6rem] lg:block sm:hidden">
+                  <Image
+                    src={data.driver.image}
+                    alt="profile"
+                    width={56}
+                    height={56}
+                    className="border-2 border-blue-400 rounded-full"
+                  />
+                </div>
+                <div className="w-[4.6rem] h-[4.6rem] lg:hidden sm:block">
+                  <Image
+                    src={data.driver.image}
+                    alt="profile"
+                    width={46}
+                    height={46}
+                    className="border-2 border-blue-400 rounded-full"
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="w-[5.6rem] h-[5.6rem] lg:block sm:hidden">
+                  <Image
+                    src={standardProfile}
+                    alt="profile"
+                    width={56}
+                    height={56}
+                    className="border-2 border-blue-400 rounded-full"
+                  />
+                </div>
+                <div className="w-[4.6rem] h-[4.6rem] lg:hidden sm:block">
+                  <Image
+                    src={standardProfile}
+                    alt="profile"
+                    width={46}
+                    height={46}
+                    className="border-2 border-blue-400 rounded-full"
+                  />
+                </div>
+              </>
+            )}
             <div className="w-full flex flex-col items-center lg:gap-[0.8rem] sm:gap-[1.6rem]">
               <div className="w-full flex justify-between items-center">
                 <p className="font-semibold lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">

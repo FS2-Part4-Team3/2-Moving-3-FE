@@ -46,8 +46,8 @@ export default async function MyQuoteSentDetail({ params }: { params: { id: stri
   // Api 연결 필요
   const quoteData = data[0];
 
-  // moveinfo에 progress 나 confirmedEstimation로 확정 견적인지 데이터 이용해서 기사님 카드 컴포넌트 페이지에 띄우기.
-  // quoteData.moveInfo ~
+  //   // moveinfo에 progress 나 confirmedEstimation로 확정 견적인지 데이터 이용해서 기사님 카드 컴포넌트 페이지에 띄우기.
+  //   // quoteData.moveInfo ~
 
   // if (quoteData.id !== id || !quoteData) {
   //   notFound();

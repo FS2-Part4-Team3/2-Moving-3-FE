@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import default_profile from '@/../public/assets/common/gnb/standard_profile.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import DetailButtonClient from '@/_pages/DriverDetail/DetailButtonClient';
 import movingTypes from '@/constants/movingType';
@@ -11,16 +12,14 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
       <div className="w-full flex flex-col border-[0.05rem] border-gray-100 bg-background-100 rounded-[1.6rem] lg:p-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] lg:gap-[2.4rem] sm:gap-[1.6rem]">
         <div className="w-full justify-between flex flex-row items-center">
           <div className="flex flex-row gap-[1.6rem] items-center">
-            {data.image && (
-              <Image
-                src={data.image}
-                alt="driver"
-                width={46}
-                height={46}
-                objectFit="cover"
-                className="w-[4.6rem] h-[4.6rem] border-2 border-blue-400 rounded-full lg:hidden sm:block"
-              />
-            )}
+            <Image
+              src={data.image || default_profile}
+              alt="driver"
+              width={46}
+              height={46}
+              style={{ objectFit: 'cover' }}
+              className="w-[4.6rem] h-[4.6rem] border-2 border-blue-400 rounded-full lg:hidden sm:block"
+            />
             <div className="flex flex-col gap-[0.8rem]">
               <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-black-300">
                 {data.name}
@@ -37,16 +36,14 @@ export default function InfoEditDriverCard({ data }: InfoEditDriverCardProps) {
           </div>
         </div>
         <div className="w-full flex flex-row lg:px-[1.8rem] lg:py-[2.4rem] sm:p-[1rem] lg:gap-[2.4rem] sm:gap-[1.4rem] bg-background-100 border border-line-200 rounded-[0.6rem] shadow-custom11">
-          {data.image && (
-            <Image
-              src={data.image}
-              alt="driver"
-              width={80}
-              height={80}
-              objectFit="cover"
-              className="w-[8rem] h-[8rem] border-2 border-blue-400 rounded-full lg:block sm:hidden"
-            />
-          )}
+          <Image
+            src={data.image || default_profile}
+            alt="driver"
+            width={80}
+            height={80}
+            style={{ objectFit: 'cover' }}
+            className="w-[8rem] h-[8rem] border-2 border-blue-400 rounded-full lg:block sm:hidden"
+          />
           <div className="flex flex-col gap-[1.6rem]">
             <div className="flex flex-row gap-[1.6rem] items-center font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem]">
               <div className="flex flex-row lg:gap-[0.6rem] sm:gap-[0.2rem] items-center">

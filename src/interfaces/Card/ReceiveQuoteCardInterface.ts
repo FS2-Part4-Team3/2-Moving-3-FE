@@ -12,4 +12,5 @@ interface ReceiveQuoteCardData {
   toAddress: string;
   serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
   updatedAt: string;
+  isSpecificRequest: boolean;
 }

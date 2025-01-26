@@ -11,7 +11,7 @@ import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
-import { setUserSign } from '@/store/slices/SignInSlice';
+import { setProfile, setProfileNoImg } from '@/store/slices/SignInSlice';
 
 export default function ProfileRegisterNormal() {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
@@ -43,19 +43,24 @@ export default function ProfileRegisterNormal() {
       const response = await patchUserData(sampleImage, selectedMovingType, selectedRegions);
       const { uploadUrl } = response;
 
+      dispatch(
+        setProfileNoImg({
+          serviceType: response.serviceType,
+          areas: response.areas,
+        }),
+      );
+
       if (selectedImg === null) return;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await patchUserData(image, selectedMovingType, selectedRegions);
 
       dispatch(
-        setUserSign({
+        setProfile({
           image: res.image,
           serviceType: res.serviceType,
           areas: res.areas,
         }),
       );
-
-      return await patchUserData(image, selectedMovingType, selectedRegions);
     },
     onSuccess: () => {
       router.push('/normal/match-driver');
@@ -65,8 +70,8 @@ export default function ProfileRegisterNormal() {
     },
   });
 
-  const handleSubmit = () => {
-    userMutation.mutate();
+  const handleSubmit = async () => {
+    await userMutation.mutate();
   };
   return (
     <div className="flex flex-col justify-center items-center">

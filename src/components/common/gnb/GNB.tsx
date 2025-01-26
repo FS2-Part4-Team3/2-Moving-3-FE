@@ -16,8 +16,6 @@ import { ButtonWrapper } from '../headless/Button';
 import Profile from './Profile';
 
 export default function GNB() {
-  //TODO: 로그인 여부에 따라서 http://localhost:3000/match-driver 또는 http://localhost:3000/normal/match-driver 결정하기
-
   const router = useRouter();
   const pathname = usePathname();
   const user = useSelector((state: RootState) => state.signIn);
@@ -46,10 +44,6 @@ export default function GNB() {
     default:
       status = 'LogOut';
   }
-
-  const handleClick = () => {
-    router.push('/sign-in');
-  };
 
   const handleCloseProfileModal = () => {
     setIsProfileModalOpen(false);
@@ -99,14 +93,14 @@ export default function GNB() {
               </Link>
             )}
             {status !== 'Driver' && (
-              <Link href="/normal/match-driver" className="lg:block sm:hidden cursor-pointer">
+              <Link href={`${status === 'General' ? '/normal' : ''}/match-driver`} className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMatchDriver ? 'text-black-400' : 'text-gray-400'}`}>
                   기사님 찾기
                 </p>
               </Link>
             )}
             {status === 'Driver' && (
-              <Link href="/driver/my-quote/rejected" className="lg:block sm:hidden cursor-pointer">
+              <Link href="/driver/my-quote/sent" className="lg:block sm:hidden cursor-pointer">
                 <p className={`font-bold text-[1.8rem] leading-[2.6rem] ${isMyQuotes ? 'text-black-400' : 'text-gray-400'}`}>
                   내 견적 관리
                 </p>
@@ -123,7 +117,7 @@ export default function GNB() {
           {status === 'LogOut' && (
             <div className="lg:block sm:hidden">
               <Link href="/normal/sign-in" className="flex items-center justify-center cursor-pointer">
-                <ButtonWrapper id="login-button" onClick={handleClick}>
+                <ButtonWrapper id="login-button">
                   <ButtonWrapper.Button className="w-[11.6rem] h-[4.4rem] rounded-[1.6rem] p-[1.6rem] bg-blue-300 flex items-center justify-center font-semibold text-[1.8rem] leading-[2.6rem] text-white">
                     로그인
                   </ButtonWrapper.Button>
@@ -136,16 +130,27 @@ export default function GNB() {
               <Image src={alarm} alt="alarm" width={36} height={36} className="lg:block sm:hidden" />
               <Image src={alarm} alt="alarm" width={24} height={24} className="lg:hidden sm:block" />
               <div className="flex relative">
-                <Image
-                  src={profile}
-                  alt="profile"
-                  width={24}
-                  height={24}
-                  className="lg:hidden sm:block cursor-pointer"
-                  onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
-                />
+                {user.image ? (
+                  <Image
+                    src={user.image}
+                    alt="profile"
+                    width={24}
+                    height={24}
+                    className="lg:hidden sm:block cursor-pointer"
+                    onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                  />
+                ) : (
+                  <Image
+                    src={profile}
+                    alt="profile"
+                    width={24}
+                    height={24}
+                    className="lg:hidden sm:block cursor-pointer"
+                    onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
+                  />
+                )}
                 {isProfileModalOpen && (
-                  <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10]">
+                  <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10] lg:hidden sm:block">
                     <Profile closeModal={handleCloseProfileModal} />
                   </div>
                 )}
@@ -155,7 +160,11 @@ export default function GNB() {
                   className="flex lg:gap-[1.6rem] sm: gap-[2.4rem] items-center justify-center cursor-pointer"
                   onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                 >
-                  <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                  {user.image ? (
+                    <Image src={user.image} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                  ) : (
+                    <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                  )}
                   <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">{user.name}</p>
                 </div>
                 {isProfileModalOpen && (
@@ -198,7 +207,11 @@ export default function GNB() {
                 </Link>
               )}
               {status !== 'Driver' && (
-                <Link href="/normal/match-driver" className="cursor-pointer" onClick={() => isModalOpen(false)}>
+                <Link
+                  href={`${status === 'General' ? '/normal' : ''}/match-driver`}
+                  className="cursor-pointer"
+                  onClick={() => isModalOpen(false)}
+                >
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     기사님 찾기
                   </p>
@@ -212,7 +225,7 @@ export default function GNB() {
                 </Link>
               )}
               {status === 'Driver' && (
-                <Link href="/driver/my-quote/rejected" className="cursor-pointer" onClick={() => isModalOpen(false)}>
+                <Link href="/driver/my-quote/sent" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     내 견적 관리
                   </p>

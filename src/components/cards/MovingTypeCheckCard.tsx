@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import check from '@/../public/assets/rfq/ellipse_active.svg';
 import noCheck from '@/../public/assets/rfq/ellipse_inactive.svg';
 import movingTypesCheck from '@/constants/movingTypeCheckCard';
@@ -11,10 +11,22 @@ import { ButtonWrapper } from '../common/headless/Button';
 export default function MovingTypeCheckCard({
   setMovingType,
   setIsMovingType,
-  initialMovingType = '',
+  initialMovingType,
   setViewMovingType,
 }: MovingTypeCheckCardProps) {
   const [selectedMovingType, setSelectedMovingType] = useState<string | null>(initialMovingType);
+
+  useEffect(() => {
+    if (initialMovingType) {
+      setSelectedMovingType(initialMovingType);
+      const matchingType = movingTypesCheck.find(movingType => movingType.code === initialMovingType);
+
+      if (matchingType) {
+        setViewMovingType(matchingType.type);
+      }
+      setIsMovingType(prev => !prev);
+    }
+  }, [initialMovingType, setViewMovingType]);
 
   const handleCheckClick = (movingType: string) => {
     setSelectedMovingType(movingType);

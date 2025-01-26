@@ -14,4 +14,5 @@ export interface ManageQuotationCardProps {
       owner: string;
     };
   };
+  status: 'abandon' | 'end' | 'ongoing';
 }

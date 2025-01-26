@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { MovesListResponse } from '@/interfaces/API/MovesServiceInterface';
 
 interface MovesState {
   page: number;
@@ -8,7 +9,7 @@ interface MovesState {
   serviceType: string;
   serviceArea: 'Active' | 'Inactive';
   designatedRequest: 'Active' | 'Inactive';
-  movesList: any[];
+  movesList?: MovesListResponse;
   loading: boolean;
   error: string | null;
 }
@@ -21,7 +22,7 @@ const initialState: MovesState = {
   serviceType: '',
   serviceArea: 'Inactive',
   designatedRequest: 'Inactive',
-  movesList: [],
+  movesList: undefined,
   loading: false,
   error: null,
 };
@@ -51,7 +52,7 @@ const movesSlice = createSlice({
     setDesignatedRequest(state, action: PayloadAction<'Active' | 'Inactive'>) {
       state.designatedRequest = action.payload;
     },
-    setMovesList(state, action: PayloadAction<any[]>) {
+    setMovesList(state, action: PayloadAction<MovesListResponse>) {
       state.movesList = action.payload;
     },
     setLoading(state, action: PayloadAction<boolean>) {

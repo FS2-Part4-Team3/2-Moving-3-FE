@@ -2,13 +2,15 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import standardProfile from '@/../public/assets/common/gnb/standard_profile.svg';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import { getDibsDriverListData } from '@/api/DriverService';
+import { DibsDriverCardProps } from '@/interfaces/Card/DibsDriverCardInterface';
 import SmallMovingTypeChips from '../chips/SmallMovingTypeChips';
 
 export default function DibsDriverCard() {
-  const [dibsDrivers, setDibsDrivers] = useState([]);
+  const [dibsDrivers, setDibsDrivers] = useState<DibsDriverCardProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,7 +37,7 @@ export default function DibsDriverCard() {
     return <div>{error}</div>;
   }
 
-  if (!dibsDrivers.length) {
+  if (!dibsDrivers?.totalCount) {
     return (
       <div className="w-[32.7rem] flex items-center justify-center pt-[3rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
         찜한 기사님이 없습니다.
@@ -45,7 +47,7 @@ export default function DibsDriverCard() {
 
   return (
     <>
-      {dibsDrivers.map((driver: any) => (
+      {dibsDrivers.list.map((driver: any) => (
         <div className="w-[32.7rem] flex flex-col rounded-[1.6rem] border border-line-100 py-[1.6rem] px-[1.4rem] gap-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]">
           <div className="flex gap-[0.4rem]">
             {driver.serviceType.map((item: string, index: number) => (
@@ -55,7 +57,23 @@ export default function DibsDriverCard() {
           <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300">{driver.introduce}</p>
           <div className="w-full flex rounded-[0.6rem] border border-line-100 p-[1rem] gap-[1.2rem]">
             <div className="w-[4.6rem] h-[4.6rem]">
-              <Image src={driver.image} alt="profile" width={46} height={46} className="border-2 border-blue-400 rounded-full" />
+              {driver.image ? (
+                <Image
+                  src={driver.image}
+                  alt="profile"
+                  width={46}
+                  height={46}
+                  className="border-2 border-blue-400 rounded-full"
+                />
+              ) : (
+                <Image
+                  src={standardProfile}
+                  alt="profile"
+                  width={46}
+                  height={46}
+                  className="border-2 border-blue-400 rounded-full"
+                />
+              )}
             </div>
             <div className="w-full flex flex-col gap-[1.2rem]">
               <div className="flex items-center justify-between">
