@@ -19,5 +19,6 @@ Default.args = {
     fromAddress: '서울 중구 삼일대로 343',
     toAddress: '서울 중구 청계천로 100',
     owner: { name: '홍길동' },
+    isSpecificRequest: true,
   },
 };
