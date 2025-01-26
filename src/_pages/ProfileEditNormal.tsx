@@ -3,7 +3,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editUserData, getUserData, patchPassword, putImage } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import ProfileEditNormalLeft from '@/components/section/ProfileEditNormalLeft';
@@ -11,6 +11,7 @@ import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight'
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { setProfile, setProfileNoImg, setUserSign } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
 
 export default function ProfileEditNormal() {
@@ -29,6 +30,7 @@ export default function ProfileEditNormal() {
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
   const disabled = values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setValues(prev => ({
@@ -61,26 +63,56 @@ export default function ProfileEditNormal() {
   const userMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
-      let image = '';
-
-      if (selectedImg instanceof File) {
+      if (selectedImg) {
         sampleImage = selectedImg.name;
-        const response = await editUserData(
-          sampleImage,
-          values.selectedMovingType,
-          values.selectedRegions,
-          values.name,
-          values.email,
-          values.number,
-        );
-        const { uploadUrl } = response;
-        image = await putImage(uploadUrl, selectedImg);
       }
+      const response = await editUserData(
+        sampleImage,
+        values.selectedMovingType,
+        values.selectedRegions,
+        values.name,
+        values.email,
+        values.number,
+      );
+      const { uploadUrl } = response;
 
-      await Promise.all([
-        editUserData(image, values.selectedMovingType, values.selectedRegions, values.name, values.email, values.number),
-        patchPassword(values.nowPassword, values.newPassword),
-      ]);
+      dispatch(
+        setProfileNoImg({
+          serviceType: response.serviceType,
+          areas: response.areas,
+        }),
+        setUserSign({
+          name: response.name,
+          phoneNumber: response.phoneNumber,
+        }),
+      );
+
+      if (selectedImg === null) return;
+
+      const image = await putImage(uploadUrl, selectedImg);
+      const res = await editUserData(
+        image,
+        values.selectedMovingType,
+        values.selectedRegions,
+        values.name,
+        values.email,
+        values.number,
+      );
+
+      dispatch(
+        setProfile({
+          image: res.image,
+          serviceType: res.serviceType,
+          areas: res.areas,
+        }),
+        setUserSign({
+          name: response.name,
+          phoneNumber: response.phoneNumber,
+        }),
+      );
+
+      if (!values.newPassword) return;
+      await patchPassword(values.nowPassword, values.newPassword);
     },
     onSuccess: () => {
       router.push('/normal/match-driver');
