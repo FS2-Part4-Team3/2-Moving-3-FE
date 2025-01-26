@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import standardProfile from '@/../public/assets/common/gnb/standard_profile.svg';
 import redHeart from '@/../public/assets/driver/ic_like_on.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import { DibsDriverPageCardProps } from '@/interfaces/Card/DibsDriverPageCardInterface';
@@ -14,7 +15,7 @@ export default function DibsDriverPageCard({ data }: DibsDriverPageCardProps) {
       </div>
       <div className="w-full rounded-[0.6rem] border border-line-100 lg:py-[1.6rem] lg:px-[1.8rem] sm:p-[1rem] flex lg:gap-[2.4rem] sm:gap-[1.2rem] shadow-custom5">
         <div>
-          {data.image && (
+          {data.image ? (
             <>
               <Image
                 src={data.image}
@@ -25,6 +26,23 @@ export default function DibsDriverPageCard({ data }: DibsDriverPageCardProps) {
               />
               <Image
                 src={data.image}
+                alt="profile"
+                width={46}
+                height={46}
+                className="border-2 border-blue-400 rounded-full lg:hidden sm:block"
+              />
+            </>
+          ) : (
+            <>
+              <Image
+                src={standardProfile}
+                alt="profile"
+                width={80}
+                height={80}
+                className="border-2 border-blue-400 rounded-full lg:block sm:hidden"
+              />
+              <Image
+                src={standardProfile}
                 alt="profile"
                 width={46}
                 height={46}

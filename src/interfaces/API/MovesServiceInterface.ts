@@ -1,4 +1,9 @@
 export interface MovesListResponse {
+  counts: {
+    designatedRequestCount: number;
+    serviceAreaCount: number;
+    serviceTypeCounts: any[];
+  };
   totalCount: number;
   list: {
     id: string;
@@ -10,5 +15,6 @@ export interface MovesListResponse {
     owner: {
       name: string;
     };
+    isSpecificRequest: boolean;
   }[];
 }

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import standardProfile from '@/../public/assets/common/gnb/standard_profile.svg';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { FindDriverCardProps } from '@/interfaces/Card/FindDriverCardInterface';
@@ -23,9 +24,18 @@ export default function FindDriverCard({ data, type }: FindDriverCardProps) {
         </p>
         <div className="flex items-start w-full rounded-[0.6rem] border border-line-100 lg:py-[1.6rem] lg:px-[1.8rem] lg:gap-[2.4rem] sm:p-[1rem] sm:gap-[1.2rem]">
           <div className="relative w-[5.6rem] h-[5.6rem] lg:block sm:hidden">
-            {data.image && (
+            {data.image ? (
               <Image
                 src={data.image}
+                alt="driver"
+                width={56}
+                height={56}
+                objectFit="cover"
+                className="border-2 border-blue-400 rounded-full"
+              />
+            ) : (
+              <Image
+                src={standardProfile}
                 alt="driver"
                 width={56}
                 height={56}
@@ -35,9 +45,18 @@ export default function FindDriverCard({ data, type }: FindDriverCardProps) {
             )}
           </div>
           <div className="relative w-[4.6rem] h-[4.6rem] lg:hidden sm:block">
-            {data.image && (
+            {data.image ? (
               <Image
                 src={data.image}
+                alt="driver"
+                width={46}
+                height={46}
+                objectFit="cover"
+                className="border-2 border-blue-400 rounded-full"
+              />
+            ) : (
+              <Image
+                src={standardProfile}
                 alt="driver"
                 width={46}
                 height={46}

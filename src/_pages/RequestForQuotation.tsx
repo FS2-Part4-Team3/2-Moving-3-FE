@@ -3,7 +3,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMoveCheck, patchMove, postMove } from '@/api/MovesService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
@@ -11,6 +11,7 @@ import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
 import Empty from '@/components/common/Empty/Empty';
 import { MoveData } from '@/interfaces/Page/RequestForQuotationInterface';
 import { setId } from '@/store/slices/myQuotationSlice';
+import { RootState } from '@/store/store';
 import { formatDate } from '@/utils/Format';
 
 export default function RequestForQuotation() {

@@ -67,11 +67,33 @@ const signInSlice = createSlice({
         state.description = '';
       }
     },
+    setProfile(state, action: PayloadAction<SignInState>) {
+      const { image, serviceType, areas, nickname, startAt, introduce, description, availableAreas } = action.payload;
+
+      state.image = image;
+      state.serviceType = serviceType;
+      state.areas = areas;
+      state.nickname = nickname;
+      state.introduce = introduce;
+      state.description = description;
+      state.startAt = startAt;
+      state.availableAreas = availableAreas;
+    },
+    setProfileNoImg(state, action: PayloadAction<SignInState>) {
+      const { serviceType, areas, nickname, startAt, introduce, description, availableAreas } = action.payload;
+      state.serviceType = serviceType;
+      state.areas = areas;
+      state.nickname = nickname;
+      state.introduce = introduce;
+      state.description = description;
+      state.startAt = startAt;
+      state.availableAreas = availableAreas;
+    },
     setSignOut(state) {
       Object.assign(state, initialState);
     },
   },
 });
 
-export const { setUserSign, setSignOut } = signInSlice.actions;
+export const { setUserSign, setProfile, setProfileNoImg, setSignOut } = signInSlice.actions;
 export default signInSlice.reducer;
