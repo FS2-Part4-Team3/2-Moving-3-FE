@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '@/utils/requestFunctions';
+import { getRequest, patchRequest, postRequest } from '@/utils/requestFunctions';
 
 export const getMovesListData = async (
   page: number,
@@ -48,7 +48,7 @@ export const postRequestDriver = async (driverId: string) => {
   }
 };
 
-export const postQuotation = async (serviceType: string, date: string, fromAddress: string, toAddress: string) => {
+export const postMove = async (serviceType: string, date: string, fromAddress: string, toAddress: string) => {
   try {
     const requestBody = {
       serviceType,
@@ -59,6 +59,30 @@ export const postQuotation = async (serviceType: string, date: string, fromAddre
     const data = await postRequest('/moves', requestBody);
     return data;
   } catch (err) {
-    console.error('Post quotation error: ', err);
+    console.error('Post move error: ', err);
+  }
+};
+
+export const getMoveCheck = async () => {
+  try {
+    const res = await getRequest('/moves/check');
+    return res;
+  } catch (err) {
+    throw new Error();
+  }
+};
+
+export const patchMove = async (moveId: string, serviceType: string, date: string, fromAddress: string, toAddress: string) => {
+  try {
+    const requestBody = {
+      serviceType,
+      date,
+      fromAddress,
+      toAddress,
+    };
+    const res = await patchRequest(`/moves/${moveId}`, requestBody);
+    return res;
+  } catch (err) {
+    throw new Error();
   }
 };

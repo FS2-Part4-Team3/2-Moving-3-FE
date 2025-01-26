@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import folder from '@/../public/assets/common/empty/empty_folder_img.svg';
 import profile from '@/../public/assets/common/empty/empty_profile_img.svg';
 import truck from '@/../public/assets/common/empty/empty_truck_img.svg';
@@ -8,6 +9,7 @@ import type { EmptyProps } from '@/interfaces/CommonComp/EmptyInterface';
 import { ButtonWrapper } from '../headless/Button';
 
 export default function Empty({ type }: EmptyProps) {
+  const router = useRouter();
   let image;
   let text;
   let text2;
@@ -44,19 +46,29 @@ export default function Empty({ type }: EmptyProps) {
       text = '현재 진행 중인 이사 견적이 있어요!';
       text2 = '진행중인 이사 완료 후 새로운 견적을 받아보세요.';
       buttonText = '받은 견적 보러가기';
+      link = () => router.push('/normal/my-quote/received');
       break;
   }
 
   return (
     <div className="flex flex-col gap-[3.2rem] items-center">
-      <Image src={image} alt="empty" width={184} height={136} className="lg:block sm:hidden" />
-      <Image src={image} alt="empty" width={110} height={82} className="lg:hidden sm:block" />
-      <div className="flex flex-col items-center font-normal lg:text-[2rem] sm:text-[1.4rem] lg:leading-[3.2rem] sm:leading-[2.4rem] text-gray-400">
+      {type === 'RequestQuote' ? (
+        <>
+          <Image src={image} alt="empty" width={378} height={140} className="lg:block sm:hidden" />
+          <Image src={image} alt="empty" width={228} height={96} className="lg:hidden sm:block" />
+        </>
+      ) : (
+        <>
+          <Image src={image} alt="empty" width={184} height={136} className="lg:block sm:hidden" />
+          <Image src={image} alt="empty" width={110} height={82} className="lg:hidden sm:block" />
+        </>
+      )}
+      <div className="flex flex-col items-center font-normal lg:text-[2rem] sm:text-[1.4rem] lg:leading-[3.2rem] sm:leading-[2.4rem] text-gray-400 text-nowrap ">
         <p>{text}</p>
         {text2 && <p>{text2}</p>}
       </div>
       {buttonText && (
-        <ButtonWrapper id="empty-button">
+        <ButtonWrapper id="empty-button" onClick={link}>
           <ButtonWrapper.Button className="lg:h-[6.5rem] sm:h-[5.4rem] lg:p-[1.6rem] sm:py-[1.6rem] sm:px-[2.4rem] rounded-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white">
             {buttonText}
           </ButtonWrapper.Button>
