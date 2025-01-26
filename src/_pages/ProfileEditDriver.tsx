@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import dropdown from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
 import { getUserData, patchDriverData, putImage } from '@/api/UserService';
@@ -15,6 +15,7 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
+import { setProfile, setProfileNoImg } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
@@ -34,6 +35,7 @@ export default function ProfileEditDriver() {
   const [isCareerOpen, setIsCareerOpen] = useState(false);
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setValues(prev => ({
@@ -72,24 +74,37 @@ export default function ProfileEditDriver() {
   const userMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
-      let image = '';
 
-      if (selectedImg instanceof File) {
+      if (selectedImg) {
         sampleImage = selectedImg.name;
-        const response = await patchDriverData(
-          sampleImage,
-          values.nickname,
-          values.career,
-          values.shortBio,
-          values.description,
-          values.selectedMovingType,
-          values.selectedRegions,
-        );
-        const { uploadUrl } = response;
-        image = await putImage(uploadUrl, selectedImg);
       }
 
-      return await patchDriverData(
+      const response = await patchDriverData(
+        sampleImage,
+        values.nickname,
+        values.career,
+        values.shortBio,
+        values.description,
+        values.selectedMovingType,
+        values.selectedRegions,
+      );
+      const { uploadUrl } = response;
+
+      dispatch(
+        setProfileNoImg({
+          nickname: response.nickname,
+          startAt: response.startAt,
+          introduce: response.introduce,
+          description: response.description,
+          serviceType: response.serviceType,
+          availableAreas: response.availableAreas,
+        }),
+      );
+
+      if (selectedImg === null) return;
+      const image = await putImage(uploadUrl, selectedImg);
+
+      const res = await patchDriverData(
         image,
         values.nickname,
         values.career,
@@ -97,6 +112,18 @@ export default function ProfileEditDriver() {
         values.description,
         values.selectedMovingType,
         values.selectedRegions,
+      );
+
+      dispatch(
+        setProfile({
+          image: res.image,
+          nickname: res.nickname,
+          startAt: res.startAt,
+          introduce: res.introduce,
+          description: res.description,
+          serviceType: res.serviceType,
+          availableAreas: res.availableAreas,
+        }),
       );
     },
     onSuccess: () => {
