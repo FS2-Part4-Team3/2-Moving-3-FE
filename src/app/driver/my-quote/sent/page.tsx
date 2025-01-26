@@ -19,7 +19,7 @@ export default async function MyQuoteSent() {
         <div className="lg:max-w-[140rem] lg:min-x-[120rem] lg:grid lg:grid-cols-2 lg:gap-[2.4rem] sm:gap-[1.6rem] sm:flex sm:flex-col w-full lg:px-[1rem] md:px-[7.2rem] sm:px-[2.4rem]">
           {moveInfoData.map((item: any) => (
             <Link key={item.id} href={`/driver/my-quote/sent/${item.id}`}>
-              <ManageQuotationCard data={item} />
+              <ManageQuotationCard data={item} status="ongoing" />
             </Link>
           ))}
         </div>

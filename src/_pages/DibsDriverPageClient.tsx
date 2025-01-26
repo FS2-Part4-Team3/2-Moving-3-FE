@@ -52,8 +52,8 @@ export default function DibsDriverPageClient() {
       {dibsDrivers
         ? dibsDrivers.pages.flatMap(page =>
             page.list.map(driver => (
-              <Link key={driver.id} href={`/driver/receive-quote/${driver.id}`}>
-                <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
+              <Link key={driver.id} href={`/match-driver/${driver.id}`}>
+                <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col bg-white">
                   <DibsDriverPageCard data={driver} />
                 </div>
               </Link>

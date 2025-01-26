@@ -29,7 +29,6 @@ export const getDibsDriverListData = async (page: number, pageSize: number) => {
 
   try {
     const data = await getRequest('/drivers/like', params);
-    console.log(data);
     return data;
   } catch (error) {
     console.error('Fetch Dibs Driver Error', error);
