@@ -28,9 +28,7 @@ export default function ProfileEditNormal() {
   });
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
-  const disabled = Boolean(
-    values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions,
-  );
+  const disabled = values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions;
 
   useEffect(() => {
     setValues(prev => ({

@@ -28,7 +28,7 @@ export default function InfoEditForDriver() {
   const [isViewNew, setIsViewNew] = useState(false);
   const [isViewNewChk, setIsViewNewChk] = useState(false);
 
-  const isDisabled = Boolean(values.name && values.number && values.nowPassword);
+  const isDisabled = values.name && values.number && values.nowPassword;
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
   const dispatch = useDispatch();
