@@ -11,8 +11,8 @@ export default function ProfileEditNormalRight({
   chipProps,
 }: ProfileEditNormlRightProps) {
   return (
-    <div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] border-line-100 lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
+    <div className="lg:mb-[23rem]">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] border-line-100 lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
         <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[2.4rem]">
           프로필 이미지
         </h3>
@@ -23,7 +23,7 @@ export default function ProfileEditNormalRight({
           </div>
         </button>
       </div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[0.8rem] ">
           이용 서비스 <span className="text-blue-300">*</span>
         </h3>
@@ -36,7 +36,7 @@ export default function ProfileEditNormalRight({
           setSelectedMovingType={chipProps.setSelectedMovingType}
         />
       </div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] lg:mb-[6.8rem] md:mb-[2.4rem] sm:mb-[2.4rem]">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] lg:mb-[6.8rem] md:mb-[2.4rem] sm:mb-[2.4rem]">
         <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[0.8rem]">
           서비스 가능 지역 <span className="text-blue-300">*</span>
         </h3>

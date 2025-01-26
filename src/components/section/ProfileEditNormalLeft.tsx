@@ -20,7 +20,7 @@ export default function ProfileEditNormalLeft({
 
   return (
     <div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="name" type="text" value={values.name} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -28,7 +28,7 @@ export default function ProfileEditNormalLeft({
             </InputWrapper.Label>
             <InputWrapper.Input
               name="name"
-              className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
+              className={`lg:w-[54rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
                 errors.name && isTouched.name ? 'bg-white border-red-200 border' : 'bg-background-200'
               } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
               placeholder="성함을 입력해 주세요"
@@ -42,7 +42,7 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="email" type="text" value={values.email} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -50,7 +50,7 @@ export default function ProfileEditNormalLeft({
             </InputWrapper.Label>
             <InputWrapper.Input
               name="email"
-              className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] 
+              className={`lg:w-[54rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] 
               lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-gray-300 focus:outline-none`}
               onBlur={() => handleInputBlur('email')}
               disabled
@@ -58,7 +58,7 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="number" type="text" value={values.number} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
@@ -66,7 +66,7 @@ export default function ProfileEditNormalLeft({
             </InputWrapper.Label>
             <InputWrapper.Input
               name="number"
-              className={`lg:w-[64rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
+              className={`lg:w-[54rem] lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] ${
                 errors.number && isTouched.number ? 'bg-white border-red-200 border' : 'bg-background-200'
               } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
               placeholder="전화번호를 입력해 주세요"
@@ -80,13 +80,13 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="nowPassword" type={isViewNow ? 'text' : 'password'} value={values.nowPassword} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
               현재 비밀번호
             </InputWrapper.Label>
-            <div className="lg:w-[64rem] lg:h-[6.4rem] flex relative">
+            <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
               <InputWrapper.Input
                 name="nowPassword"
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
@@ -113,13 +113,13 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="newPassword" type={isViewNew ? 'text' : 'password'} value={values.newPassword} onChange={handleChange}>
           <div className="flex flex-col">
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
               새 비밀번호
             </InputWrapper.Label>
-            <div className="lg:w-[64rem] lg:h-[6.4rem] flex relative">
+            <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
               <InputWrapper.Input
                 name="newPassword"
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
@@ -146,7 +146,7 @@ export default function ProfileEditNormalLeft({
           </div>
         </InputWrapper>
       </div>
-      <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
+      <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
         <InputWrapper
           id="newPasswordChk"
           type={isViewNewChk ? 'text' : 'password'}
@@ -157,7 +157,7 @@ export default function ProfileEditNormalLeft({
             <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
               새 비밀번호 확인
             </InputWrapper.Label>
-            <div className="lg:w-[64rem] lg:h-[6.4rem] flex relative">
+            <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
               <InputWrapper.Input
                 name="newPasswordChk"
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
