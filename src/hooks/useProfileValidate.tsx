@@ -50,12 +50,12 @@ export default function useProfileValidate(initialValues?: Partial<RegisterDrive
       newError.description = '10자 이상 입력해주세요.';
     }
 
-    if (!values.selectedRegions) {
+    if (!values.selectedRegions.length) {
       isValid = false;
       newError.selectedRegion = '* 1개 이상 선택해주세요.';
     }
 
-    if (!values.selectedMovingType) {
+    if (!values.selectedMovingType.length) {
       isValid = false;
       newError.selectedMovingType = '* 1개 이상 선택해주세요.';
     }
