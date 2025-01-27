@@ -28,7 +28,7 @@ export default function RootLayout({
         <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
       </head>
       <body className={pretendard.className}>
-        <div className="min-h-screen flex flex-col items-center overflow-x-hidden">
+        <div className="min-h-screen overflow-x-hidden">
           <Providers>
             <ReactQueryProviders>
               <GNB />

@@ -126,7 +126,7 @@ export default function RequestForQuotation() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center ">
           <div className="bg-white lg:py-[3.2rem] md:py-[2.4rem] sm:py-[2.4rem] flex flex-col gap-[2.4rem] ">
             <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B]">견적요청</h1>
             <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[31.2rem] lg:h-[0.8rem] md:h-[0.6rem] sm:h-[0.6rem] rounded-[3rem] bg-line-200">
@@ -153,7 +153,7 @@ export default function RequestForQuotation() {
             </div>
           </div>
           <div className=" w-screen h-screen bg-background-200 lg:pt-[4rem] md:pt-[0.8rem] sm:pt-[0.8rem] flex justify-center">
-            <div className="lg:overflow-y-auto lg:h-[65rem] lg:pr-[2rem] md:pr-0 sm:pr-0 flex flex-col items-center lg:gap-y-[2.4rem] md:gap-y-[0.8rem] sm:gap-y-[0.8rem]">
+            <div className="lg:overflow-y-auto md:overflow-y-auto sm:overflow-y-hidden overflow-x-hidden lg:h-[calc(100vh-5rem)] lg:pr-[2rem] md:pr-0 sm:pr-0 flex flex-col items-center lg:gap-y-[2.4rem] md:gap-y-[0.8rem] sm:gap-y-[0.8rem]">
               <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[31.2rem] flex flex-col gap-[2.4rem]">
                 <div className="lg:max-w-[52rem] md:max-w-[24.8rem] sm:max-w-[24.8rem] rounded-[3rem] rounded-tl-none lg:px-[4rem] lg:py-[2rem] md:px-[2rem] md:py-[1.2rem] sm:px-[2rem] sm:py-[1.2rem] bg-white border-none lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400">
                   몇 가지 정보만 알려주시면 최대 5개의 견적을 받을 수 있어요 :)
