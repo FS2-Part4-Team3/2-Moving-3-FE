@@ -110,9 +110,6 @@ export default function ProfileEditNormal() {
           phoneNumber: response.phoneNumber,
         }),
       );
-
-      if (!values.newPassword) return;
-      await patchPassword(values.nowPassword, values.newPassword);
     },
     onSuccess: () => {
       router.push('/normal/match-driver');
@@ -122,8 +119,17 @@ export default function ProfileEditNormal() {
     },
   });
 
+  const passwordMutation = useMutation({
+    mutationFn: async () => {
+      await patchPassword(values.nowPassword, values.newPassword);
+    },
+  });
+
   const handleValuesSubmit = () => {
     userMutation.mutate();
+    if (values?.newPassword.length) {
+      passwordMutation.mutate();
+    }
   };
   return (
     <div className="lg:grid lg:grid-cols-2 md:flex md:flex-col md:items-center sm:flex sm:flex-col sm:items-center lg:w-[120rem] md:w-[37.5rem] sm:w-[37.5rem] lg:gap-x-[12rem]">

@@ -7,11 +7,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
-import { editDriverData, getUserData, patchPassword } from '@/api/UserService';
+import { editDriverData, patchPassword } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setUserSign } from '@/store/slices/SignInSlice';
+import { setInfo } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
 
 export default function InfoEditForDriver() {
@@ -50,16 +50,12 @@ export default function InfoEditForDriver() {
     mutationFn: async () => {
       const res = await editDriverData(values.name, values.email, values.number);
       dispatch(
-        setUserSign({
+        setInfo({
           name: res.name,
           email: res.email,
           phoneNumber: res.phoneNumber,
         }),
       );
-
-      if (!values.newPassword) return;
-
-      patchPassword(values.nowPassword, values.newPassword);
     },
     onSuccess: () => {
       router.back();
@@ -69,8 +65,17 @@ export default function InfoEditForDriver() {
     },
   });
 
+  const passwordMutation = useMutation({
+    mutationFn: async () => {
+      patchPassword(values.nowPassword, values.newPassword);
+    },
+  });
+
   const handleSubmit = () => {
     userMutation.mutate();
+    if (values?.newPassword.length) {
+      passwordMutation.mutate();
+    }
   };
 
   return (
