@@ -219,7 +219,7 @@ export default function ProfileRegisterDriver() {
         </div>
       </div>
       <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
-        <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
+        <div className="flex flex-col border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
             상세 설명 <span className="text-blue-300">*</span>
           </h3>
@@ -234,7 +234,7 @@ export default function ProfileRegisterDriver() {
             } text-black-400 placeholder-gray-300 resize-none focus:outline-none`}
           ></textarea>
           {errors.description && isTouched.description && (
-            <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
+            <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-start">
               {errors.description}
             </span>
           )}
