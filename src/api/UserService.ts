@@ -1,5 +1,7 @@
 import { UserUpdates } from '@/interfaces/API/UserServiceInterface';
-import { getRequest, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
+import { deleteRequest, getRequest, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const postSignInData = async (userType: string, email: string, password: string) => {
   const params = {
@@ -133,5 +135,15 @@ export const patchPassword = async (oldPw: string, newPw: string) => {
   } catch (err) {
     console.error('Error patching password data ', err);
     return;
+  }
+};
+
+export const deleteRefresh = async () => {
+  try {
+    const res = await deleteRequest('/auth/signOut');
+    return res;
+  } catch (error) {
+    console.error('Sign out Error', error);
+    throw error;
   }
 };

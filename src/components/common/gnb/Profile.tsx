@@ -1,6 +1,8 @@
+import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteRefresh } from '@/api/UserService';
 import { ProfileProps } from '@/interfaces/CommonComp/GnbInterface';
 import { setSignOut } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
@@ -13,10 +15,24 @@ export default function Profile({ closeModal }: ProfileProps) {
   const userName = user.name;
   const status = user.type === 'user' ? 'user' : 'driver';
 
-  const handleLogout = () => {
-    dispatch(setSignOut());
-    closeModal();
-    router.push('/');
+  const signOutMutation = useMutation({
+    mutationFn: async () => {
+      await deleteRefresh();
+      localStorage.removeItem('accessToken');
+      dispatch(setSignOut());
+      closeModal();
+      router.push('/');
+    },
+    onSuccess: () => {
+      alert('로그아웃 되었습니다.');
+    },
+    onError: () => {
+      alert('로그아웃에 실패했습니다. 다시 시도해주세요.');
+    },
+  });
+
+  const handleLogout = async () => {
+    signOutMutation.mutate();
   };
 
   return (

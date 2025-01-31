@@ -73,6 +73,10 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
       throw error;
     }
 
+    if (response.status === 204) {
+      return;
+    }
+
     return response.json();
   } catch (error) {
     console.error('Fetch error:', error);

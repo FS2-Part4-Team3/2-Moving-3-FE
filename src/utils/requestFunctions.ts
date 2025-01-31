@@ -44,6 +44,10 @@ export async function patchRequest(url: string, body: object = {}) {
 export async function deleteRequest(url: string) {
   return fetchWrapper(url, {
     method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
   });
 }
 
