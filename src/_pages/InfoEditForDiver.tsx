@@ -52,13 +52,12 @@ export default function InfoEditForDriver() {
       dispatch(
         setInfo({
           name: res.name,
-          email: res.email,
           phoneNumber: res.phoneNumber,
         }),
       );
     },
     onSuccess: () => {
-      router.back();
+      router.push(`/driver/my-page?id=${user.id}`);
     },
     onError: () => {
       router.push('/not-found');
