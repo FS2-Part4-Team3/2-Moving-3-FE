@@ -3,18 +3,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { io } from 'socket.io-client';
 import alarm from '@/../public/assets/common/gnb/alarm.svg';
 import profile from '@/../public/assets/common/gnb/default_profile.svg';
 import logo from '@/../public/assets/common/gnb/logo-icon-text.svg';
 import logo_sm from '@/../public/assets/common/gnb/logo-sm.svg';
 import menu from '@/../public/assets/common/gnb/menu.svg';
 import close from '@/../public/assets/common/icon_X.svg';
+import { getNotification } from '@/api/NotificationService';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
 import Notification from './Notification';
 import Profile from './Profile';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function GNB() {
   const router = useRouter();
@@ -29,6 +33,35 @@ export default function GNB() {
   const [modalOpen, isModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [notificationModalOpen, setNotificationsModalOpen] = useState(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const data = await getNotification();
+        setNotifications(data);
+      } catch (error) {
+        console.error('알림 가져오는 중 오류 발생', error);
+      }
+    };
+
+    fetchNotifications();
+
+    const newSocket = io(`${BASE_URL}`, {
+      auth: { token: user.accessToken },
+      transports: ['websocket'],
+    });
+
+    newSocket.on('connect', () => {
+      newSocket.emit('subscribe');
+    });
+
+    newSocket.on('notification', (data: any) => {
+      console.log('알림 수신:', data);
+      setNotifications(prev => [...prev, data]);
+    });
+  }, []);
+  console.log('gnb', notifications);
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -147,7 +180,7 @@ export default function GNB() {
               />
               {notificationModalOpen && (
                 <div className="absolute top-[8.1rem] transform translate-x-[-15rem] z-[10]">
-                  <Notification />
+                  <Notification notifications={notifications} onClose={() => setNotificationsModalOpen(false)} />
                 </div>
               )}
               <div className="flex relative">

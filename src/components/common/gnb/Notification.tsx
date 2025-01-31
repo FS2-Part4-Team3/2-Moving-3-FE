@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import xIcon from '@/../public/assets/common/icon_X.svg';
+import { NotificationProps } from '@/interfaces/CommonComp/GnbInterface';
 
-export default function Notification() {
+export default function Notification({ notifications, onClose }: NotificationProps) {
+  console.log('notification', notifications);
   return (
-    <div className="flex flex-col rounded-[2.4rem] border border-line-200 py-[1rem] px-[1.6rem] w-fit h-[40.2rem] bg-white">
+    <div className="flex flex-col rounded-[2.4rem] border border-line-200 py-[1rem] px-[1.6rem] w-[38rem] h-[40.2rem] bg-white">
       <div className="flex w-full items-center justify-between py-[1.4rem] pr-[1.2rem] pl-[2.4rem]">
         <p className="font-bold text-[1.8rem] leading-[2.6rem] text-black-400">알림</p>
-        <Image src={xIcon} alt="x" width={24} height={24} className="cursor-pointer" />
+        <Image src={xIcon} alt="x" width={24} height={24} className="cursor-pointer" onClick={onClose} />
       </div>
       <div className="overflow-y-auto">
         <div className="flex flex-col w-full pr-[0.5rem]">
