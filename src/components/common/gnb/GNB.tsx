@@ -13,6 +13,7 @@ import menu from '@/../public/assets/common/gnb/menu.svg';
 import close from '@/../public/assets/common/icon_X.svg';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
+import Notification from './Notification';
 import Profile from './Profile';
 
 export default function GNB() {
@@ -27,6 +28,7 @@ export default function GNB() {
 
   const [modalOpen, isModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [notificationModalOpen, setNotificationsModalOpen] = useState(false);
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -127,8 +129,27 @@ export default function GNB() {
           )}
           {status !== 'LogOut' && (
             <div className="flex gap-[3.2rem] items-center justify-end w-full">
-              <Image src={alarm} alt="alarm" width={36} height={36} className="lg:block sm:hidden" />
-              <Image src={alarm} alt="alarm" width={24} height={24} className="lg:hidden sm:block" />
+              <Image
+                src={alarm}
+                alt="alarm"
+                width={36}
+                height={36}
+                className="lg:block sm:hidden cursor-pointer"
+                onClick={() => setNotificationsModalOpen(!notificationModalOpen)}
+              />
+              <Image
+                src={alarm}
+                alt="alarm"
+                width={24}
+                height={24}
+                className="lg:hidden sm:block cursor-pointer"
+                onClick={() => setNotificationsModalOpen(!notificationModalOpen)}
+              />
+              {notificationModalOpen && (
+                <div className="absolute top-[8.1rem] transform translate-x-[-15rem] z-[10]">
+                  <Notification />
+                </div>
+              )}
               <div className="flex relative">
                 {user.image ? (
                   <Image
@@ -136,7 +157,7 @@ export default function GNB() {
                     alt="profile"
                     width={24}
                     height={24}
-                    className="lg:hidden sm:block cursor-pointer"
+                    className="lg:hidden sm:block cursor-pointer rounded-full"
                     onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                   />
                 ) : (
@@ -145,7 +166,7 @@ export default function GNB() {
                     alt="profile"
                     width={24}
                     height={24}
-                    className="lg:hidden sm:block cursor-pointer"
+                    className="lg:hidden sm:block cursor-pointer rounded-full"
                     onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                   />
                 )}
