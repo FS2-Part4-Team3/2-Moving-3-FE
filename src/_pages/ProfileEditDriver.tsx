@@ -127,7 +127,7 @@ export default function ProfileEditDriver() {
       );
     },
     onSuccess: () => {
-      router.back();
+      router.push(`/driver/my-page?id=${user.id}`);
     },
     onError: () => {
       router.push('/not-found');
