@@ -88,7 +88,7 @@ export default function RequestForQuotation() {
       dispatch(setId(res.id));
     },
     onSuccess: () => {
-      alert('견적 요청이 완료됬습니다!');
+      alert('견적 요청이 완료됐습니다!');
       router.push('/normal/my-quote/waiting');
     },
     onError: () => {

@@ -108,7 +108,7 @@ export default function ProfileRegisterDriver() {
       );
     },
     onSuccess: () => {
-      alert('프로필 등록이 완료됬습니다!')
+      alert('프로필 등록이 완료됐습니다!');
       router.push('/driver/receive-quote');
     },
     onError: () => {
