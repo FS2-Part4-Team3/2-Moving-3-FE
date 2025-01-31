@@ -11,7 +11,7 @@ import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight'
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setProfile, setProfileNoImg, setUserSign } from '@/store/slices/SignInSlice';
+import { setInfo, setProfile, setProfileNoImg, setUserSign } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
 
 export default function ProfileEditNormal() {
@@ -59,6 +59,7 @@ export default function ProfileEditNormal() {
   const handleInputBlur = (field: keyof typeof isTouched) => {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
+  console.log(user);
 
   const userMutation = useMutation({
     mutationFn: async () => {
@@ -81,7 +82,9 @@ export default function ProfileEditNormal() {
           serviceType: response.serviceType,
           areas: response.areas,
         }),
-        setUserSign({
+      );
+      dispatch(
+        setInfo({
           name: response.name,
           phoneNumber: response.phoneNumber,
         }),
@@ -105,7 +108,9 @@ export default function ProfileEditNormal() {
           serviceType: res.serviceType,
           areas: res.areas,
         }),
-        setUserSign({
+      );
+      dispatch(
+        setInfo({
           name: response.name,
           phoneNumber: response.phoneNumber,
         }),
