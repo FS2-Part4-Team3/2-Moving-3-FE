@@ -104,6 +104,7 @@ export default function RequestForQuotation() {
       dispatch(setId(res.id));
     },
     onSuccess: () => {
+      alert('견적 수정이 완료됐습니다!');
       router.push('/normal/my-quote/edit');
     },
     onError: () => {

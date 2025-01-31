@@ -12,6 +12,7 @@ import { ButtonWrapper } from '../common/headless/Button';
 export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMovingDate }: CalendarCardProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(initialMovingDate);
+  const [selectedTime, setSelectedTime] = useState<{ hours: number; minutes: number }>({ hours: 0, minutes: 0 });
 
   useEffect(() => {
     if (initialMovingDate) {
@@ -37,6 +38,7 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
       return;
     }
     setSelectedDate(selected);
+    setSelectedTime({ hours: 0, minutes: 0 });
   };
 
   const handleSelectComplte = () => {
@@ -44,7 +46,9 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
     today.setHours(0, 0, 0, 0);
 
     if (selectedDate >= today) {
-      setMovingDate(selectedDate);
+      const finalDate = new Date(selectedDate);
+      finalDate.setHours(selectedTime.hours, selectedTime.minutes, 0, 0);
+      setMovingDate(finalDate);
       setIsMovingDate(true);
     }
   };
@@ -106,6 +110,30 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
             </div>
           );
         })}
+      </div>
+      <div className="flex items-center justify-center gap-[7rem] mt-4 ">
+        <select
+          className="w-[8rem] h-[3rem] text-[1.6rem] cursor-pointer font-medium"
+          value={selectedTime.hours}
+          onChange={e => setSelectedTime({ ...selectedTime, hours: Number(e.target.value) })}
+        >
+          {Array.from({ length: 24 }, (_, i) => (
+            <option key={i} value={i}>
+              {String(i).padStart(2, '0')}시
+            </option>
+          ))}
+        </select>
+        <select
+          className="w-[8rem] h-[3rem] text-[1.6rem] cursor-pointer font-medium"
+          value={selectedTime.minutes}
+          onChange={e => setSelectedTime({ ...selectedTime, minutes: Number(e.target.value) })}
+        >
+          {Array.from({ length: 12 }, (_, i) => i * 5).map(min => (
+            <option key={min} value={min}>
+              {String(min).padStart(2, '0')}분
+            </option>
+          ))}
+        </select>
       </div>
       <ButtonWrapper id="calendar button">
         <ButtonWrapper.Button
