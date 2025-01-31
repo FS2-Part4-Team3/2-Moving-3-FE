@@ -14,7 +14,7 @@ import menu from '@/../public/assets/common/gnb/menu.svg';
 import red_alarm from '@/../public/assets/common/gnb/red_alarm.svg';
 import close from '@/../public/assets/common/icon_X.svg';
 import { getNotification } from '@/api/NotificationService';
-import { NotificationData, NotificationResponse } from '@/interfaces/CommonComp/GnbInterface';
+import { NotificationData, NotificationDataStructure, NotificationResponse } from '@/interfaces/CommonComp/GnbInterface';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
 import Notification from './Notification';
@@ -58,9 +58,14 @@ export default function GNB() {
       newSocket.emit('subscribe');
     });
 
-    newSocket.on('notification', (data: NotificationData) => {
+    newSocket.on('notification', (data: NotificationDataStructure) => {
       console.log('알림 수신:', data);
-      setNotifications(prev => [data, ...prev]);
+
+      if (data.type === 'NOTIFICATIONS_READ') {
+        return;
+      } else if (data.type === 'NEW_NOTIFICATION') {
+        setNotifications(prev => [data.data, ...prev]);
+      }
     });
 
     return () => {

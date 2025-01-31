@@ -38,6 +38,9 @@ export default function Notification({ notifications, onClose, onNotificationCli
 
   const handleClick = (notificationId: string) => {
     console.log('click!', notificationId);
+
+    const clickedNotification = notifications.find(notification => notification.id === notificationId);
+
     singleReadMutation.mutate(notificationId, {
       onSuccess: () => {
         onNotificationClick(notificationId);
