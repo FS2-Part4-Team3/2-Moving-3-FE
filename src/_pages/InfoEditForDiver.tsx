@@ -82,7 +82,7 @@ export default function InfoEditForDriver() {
       setIsPasswordCheck(true);
     },
     onError: () => {
-      alert('비밀번호가 틀렸습니다.');
+      alert('비밀번호가 올바르지 않습니다.');
     },
   });
 
