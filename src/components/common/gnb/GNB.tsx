@@ -13,6 +13,7 @@ import logo_sm from '@/../public/assets/common/gnb/logo-sm.svg';
 import menu from '@/../public/assets/common/gnb/menu.svg';
 import close from '@/../public/assets/common/icon_X.svg';
 import { getNotification } from '@/api/NotificationService';
+import { NotificationData, NotificationResponse } from '@/interfaces/CommonComp/GnbInterface';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
 import Notification from './Notification';
@@ -33,13 +34,13 @@ export default function GNB() {
   const [modalOpen, isModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [notificationModalOpen, setNotificationsModalOpen] = useState(false);
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<NotificationData[]>([]);
 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const data = await getNotification();
-        setNotifications(data);
+        const data: NotificationResponse = await getNotification();
+        setNotifications(data.list);
       } catch (error) {
         console.error('알림 가져오는 중 오류 발생', error);
       }
@@ -56,12 +57,15 @@ export default function GNB() {
       newSocket.emit('subscribe');
     });
 
-    newSocket.on('notification', (data: any) => {
+    newSocket.on('notification', (data: NotificationData) => {
       console.log('알림 수신:', data);
-      setNotifications(prev => [...prev, data]);
+      setNotifications(prev => [data, ...prev]);
     });
+
+    return () => {
+      newSocket.disconnect();
+    };
   }, []);
-  console.log('gnb', notifications);
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -83,6 +87,7 @@ export default function GNB() {
   const handleCloseProfileModal = () => {
     setIsProfileModalOpen(false);
   };
+  console.log('gnb', notifications);
 
   return (
     <>
