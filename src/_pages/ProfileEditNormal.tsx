@@ -116,6 +116,7 @@ export default function ProfileEditNormal() {
       );
     },
     onSuccess: () => {
+      alert('프로필 수정이 완료됐습니다!');
       router.push('/normal/match-driver');
     },
     onError: () => {

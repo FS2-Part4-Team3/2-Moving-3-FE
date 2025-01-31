@@ -127,6 +127,7 @@ export default function ProfileEditDriver() {
       );
     },
     onSuccess: () => {
+      alert('프로필 수정이 완료됐습니다!');
       router.push(`/driver/my-page?id=${user.id}`);
     },
     onError: () => {
