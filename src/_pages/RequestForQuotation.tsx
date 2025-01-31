@@ -32,7 +32,6 @@ export default function RequestForQuotation() {
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
-  // TODO: type으로 small, home, office 가 들어오는데 이걸 이용해서 견적요청 페이지에서 이미 선택된 상태로 시작할 수 있도록 부탁드립니다 도엽님 !
   const type = searchParams.get('type');
   const edit = searchParams.get('edit') === 'true';
 
@@ -59,6 +58,9 @@ export default function RequestForQuotation() {
         start: moveData[0].fromAddress,
         arrival: moveData[0].toAddress,
       });
+    }
+    if (type) {
+      setMovingType(type);
     }
   }, [edit, moveData]);
 

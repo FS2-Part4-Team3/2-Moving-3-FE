@@ -64,7 +64,7 @@ export default function ProfileRegisterNormal() {
     },
     onSuccess: () => {
       alert('프로필 등록이 완료됐습니다!');
-      router.push('/normal/match-driver');
+      router.push('/');
     },
     onError: () => {
       router.push('/not-found');
