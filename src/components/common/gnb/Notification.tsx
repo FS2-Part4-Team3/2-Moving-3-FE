@@ -6,8 +6,6 @@ import { NotificationProps } from '@/interfaces/CommonComp/GnbInterface';
 import { timeAgoFormat } from '@/utils/Format';
 
 export default function Notification({ notifications, onClose, onNotificationClick }: NotificationProps) {
-  console.log('notification', notifications);
-
   // TODO: 기사님 이름 수정 필요
   // TODO: 이사 종류 수정 필요
   // TODO: 어디에서 어디로 이사하는지 수정 필요
@@ -37,10 +35,6 @@ export default function Notification({ notifications, onClose, onNotificationCli
   });
 
   const handleClick = (notificationId: string) => {
-    console.log('click!', notificationId);
-
-    const clickedNotification = notifications.find(notification => notification.id === notificationId);
-
     singleReadMutation.mutate(notificationId, {
       onSuccess: () => {
         onNotificationClick(notificationId);

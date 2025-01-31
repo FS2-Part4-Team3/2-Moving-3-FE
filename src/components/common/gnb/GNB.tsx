@@ -59,8 +59,6 @@ export default function GNB() {
     });
 
     newSocket.on('notification', (data: NotificationDataStructure) => {
-      console.log('알림 수신:', data);
-
       if (data.type === 'NOTIFICATIONS_READ') {
         return;
       } else if (data.type === 'NEW_NOTIFICATION') {
@@ -97,7 +95,6 @@ export default function GNB() {
   const handleNotificationClick = (notificationId: string) => {
     setNotifications(prevNotifications => prevNotifications.filter(notification => notification.id !== notificationId));
   };
-  // console.log('gnb', notifications);
 
   return (
     <>
