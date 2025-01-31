@@ -52,13 +52,13 @@ export default function InfoEditForDriver() {
       dispatch(
         setInfo({
           name: res.name,
-          email: res.email,
           phoneNumber: res.phoneNumber,
         }),
       );
     },
     onSuccess: () => {
-      router.back();
+      alert('기본정보 수정이 완료됐습니다!');
+      router.push(`/driver/my-page?id=${user.id}`);
     },
     onError: () => {
       router.push('/not-found');

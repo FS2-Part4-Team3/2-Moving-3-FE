@@ -90,9 +90,8 @@ const signInSlice = createSlice({
       state.availableAreas = availableAreas;
     },
     setInfo(state, action: PayloadAction<SignInState>) {
-      const { name, email, phoneNumber } = action.payload;
+      const { name, phoneNumber } = action.payload;
       state.name = name;
-      state.email = email;
       state.phoneNumber = phoneNumber;
     },
     setSignOut(state) {
