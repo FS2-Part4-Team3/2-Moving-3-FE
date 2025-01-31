@@ -60,6 +60,9 @@ export default function RequestForQuotation() {
         arrival: moveData[0].toAddress,
       });
     }
+    if (type) {
+      setMovingType(type);
+    }
   }, [edit, moveData]);
 
   useEffect(() => {

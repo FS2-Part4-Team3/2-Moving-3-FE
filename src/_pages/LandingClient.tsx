@@ -40,7 +40,7 @@ export default function LandingClient() {
   return (
     <>
       <div className="flex lg:flex-row sm:flex-col lg:py-[4.8rem] sm:py-[4.4rem] lg:gap-[2.4rem] sm:gap-[3.6rem]">
-        <Link href={`/normal/request-quote?type=small`} onClick={e => handleLinkClick(e)}>
+        <Link href={`/normal/request-quote?type=SMALL`} onClick={e => handleLinkClick(e)}>
           <div className="lg:w-[43.2rem] lg:h-[59.8rem] sm:w-[32.7rem] sm:h-[24rem] shadow-customBoth rounded-[2.4rem] bg-blue-100 overflow-hidden relative">
             <div className="pl-[3rem] pt-[2.4rem] lg:gap-[0.8rem] sm:gap-[0.4rem]">
               <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black">
@@ -67,7 +67,7 @@ export default function LandingClient() {
           </div>
         </Link>
         <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[3.6rem]">
-          <Link href={`/normal/request-quote?type=home`} onClick={e => handleLinkClick(e)}>
+          <Link href={`/normal/request-quote?type=HOME`} onClick={e => handleLinkClick(e)}>
             <div className="lg:w-[76.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-custom1 rounded-[2.4rem] bg-white overflow-hidden relative">
               <div className="pl-[3rem] pt-[2.4rem] lg:gap-[0.8rem] sm:gap-[0.4rem]">
                 <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black">
@@ -93,7 +93,7 @@ export default function LandingClient() {
               />
             </div>
           </Link>
-          <Link href={`/normal/request-quote?type=office`} onClick={e => handleLinkClick(e)}>
+          <Link href={`/normal/request-quote?type=OFFICE`} onClick={e => handleLinkClick(e)}>
             <div className="lg:w-[76.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-customBoth rounded-[2.4rem] bg-white overflow-hidden relative">
               <div className="pl-[3rem] pt-[2.4rem] lg:gap-[0.8rem] sm:gap-[0.4rem]">
                 <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black">
