@@ -184,7 +184,7 @@ export default function GNB() {
                 onClick={() => setNotificationsModalOpen(!notificationModalOpen)}
               />
               {notificationModalOpen && (
-                <div className="absolute top-[8.1rem] transform translate-x-[-15rem] z-[10]">
+                <div className="absolute lg:top-[8.1rem] transform lg:translate-x-[-15rem] z-[10] md:top-[6.5rem] md:translate-x-[-3rem] sm:top-[6.1rem] sm:translate-x-[3rem]">
                   <Notification notifications={notifications} onClose={() => setNotificationsModalOpen(false)} />
                 </div>
               )}
