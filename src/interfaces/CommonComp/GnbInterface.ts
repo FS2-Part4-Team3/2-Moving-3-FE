@@ -5,6 +5,7 @@ export interface ProfileProps {
 export interface NotificationProps {
   notifications: NotificationData[];
   onClose: () => void;
+  onNotificationClick: (notificationId: string) => void;
 }
 
 export interface NotificationResponse {
