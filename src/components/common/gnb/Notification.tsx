@@ -18,7 +18,7 @@ export default function Notification({ notifications, onClose }: NotificationPro
       </div>
       <div className="overflow-y-auto">
         <div className="flex flex-col w-full pr-[0.5rem]">
-          {notifications.map(notification => {
+          {notifications.map((notification, index) => {
             let fir_message = '';
             let blue_message = '';
             let sec_message = '';
@@ -76,7 +76,9 @@ export default function Notification({ notifications, onClose }: NotificationPro
             return (
               <div
                 key={notification.id}
-                className="flex flex-col border-b border-line-200 py-[1.6rem] px-[2.4rem] gap-[0.2rem] cursor-pointer"
+                className={`flex flex-col py-[1.6rem] px-[2.4rem] gap-[0.2rem] cursor-pointer ${
+                  index !== notifications.length - 1 ? 'border-b border-line-200' : ''
+                }`}
               >
                 <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                   {fir_message}
