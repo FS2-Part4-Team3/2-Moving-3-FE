@@ -59,7 +59,6 @@ export default function ProfileEditNormal() {
   const handleInputBlur = (field: keyof typeof isTouched) => {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
-  console.log(user);
 
   const userMutation = useMutation({
     mutationFn: async () => {
