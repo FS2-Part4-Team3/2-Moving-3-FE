@@ -27,29 +27,31 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
   const router = useRouter();
 
   useEffect(() => {
-    const fetchDibStatus = async () => {
-      try {
-        const res = await getDibDriver(id);
-        setIsCheckDib(res);
-      } catch (err) {
-        console.error('찜 상태를 가져오는 데 실패했습니다: ', err);
-      }
-    };
+    if (userType === 'user') {
+      const fetchDibStatus = async () => {
+        try {
+          const res = await getDibDriver(id);
+          setIsCheckDib(res);
+        } catch (err) {
+          console.error('찜 상태를 가져오는 데 실패했습니다: ', err);
+        }
+      };
 
-    const fetchRequestStatus = async () => {
-      try {
-        const res = await getCheckRequestDriver(id);
-        setIsCompleted(!res.isRequestPossible);
-      } catch (err) {
-        console.error('요청 상태를 가져오는 데 실패했씁니다: ', err);
-      }
-    };
+      const fetchRequestStatus = async () => {
+        try {
+          const res = await getCheckRequestDriver(id);
+          setIsCompleted(!res.isRequestPossible);
+        } catch (err) {
+          console.error('요청 상태를 가져오는 데 실패했씁니다: ', err);
+        }
+      };
 
-    if (!type || type === 'quoteWaiting' || type === 'quoteReceived') {
-      fetchDibStatus();
-    }
-    if (type === 'quoteWaiting') {
-      fetchRequestStatus();
+      if (!type || type === 'quoteWaiting' || type === 'quoteReceived') {
+        fetchDibStatus();
+      }
+      if (!type) {
+        fetchRequestStatus();
+      }
     }
   }, [id]);
 
