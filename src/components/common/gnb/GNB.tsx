@@ -39,7 +39,7 @@ export default function GNB() {
 
   const fetchNotifications = async () => {
     try {
-      const data: NotificationResponse = await getNotification();
+      const data: NotificationResponse = await getNotification(1, 100);
       setNotifications(data.list);
     } catch (error) {
       console.error('알림 가져오는 중 오류 발생', error);

@@ -10,6 +10,8 @@ export default function Notification({ notifications, onClose, onNotificationCli
   // TODO: 이사 종류 수정 필요
   // TODO: 어디에서 어디로 이사하는지 수정 필요
 
+  console.log('notification', notifications);
+
   const queryClient = useQueryClient();
 
   const singleReadMutation = useMutation({
@@ -34,12 +36,16 @@ export default function Notification({ notifications, onClose, onNotificationCli
     },
   });
 
-  const handleClick = (notificationId: string) => {
-    singleReadMutation.mutate(notificationId, {
-      onSuccess: () => {
-        onNotificationClick(notificationId);
-      },
-    });
+  const handleClick = (notificationId: string, isRead: boolean) => {
+    if (!isRead) {
+      singleReadMutation.mutate(notificationId, {
+        onSuccess: () => {
+          onNotificationClick(notificationId);
+        },
+      });
+    } else {
+      return;
+    }
   };
 
   return (
@@ -112,7 +118,7 @@ export default function Notification({ notifications, onClose, onNotificationCli
                   className={`flex flex-col py-[1.6rem] px-[2.4rem] gap-[0.2rem] cursor-pointer 
                   ${notification.isRead ? 'bg-background-300' : 'bg-white'} 
                   ${index !== notifications.length - 1 ? 'border-b border-line-200' : ''}`}
-                  onClick={() => handleClick(notification.id)}
+                  onClick={() => handleClick(notification.id, notification.isRead)}
                 >
                   <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
                     {fir_message}
