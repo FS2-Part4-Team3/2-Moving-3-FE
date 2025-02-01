@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import xIcon from '@/../public/assets/common/icon_X.svg';
+import { getMovesDetailData } from '@/api/MovesService';
 import { postNotificationSingleRead } from '@/api/NotificationService';
 import { NotificationProps } from '@/interfaces/CommonComp/GnbInterface';
-import { timeAgoFormat } from '@/utils/Format';
+import { NotificationAddressFormat, timeAgoFormat } from '@/utils/Format';
 
 export default function Notification({ notifications, onClose, onNotificationClick }: NotificationProps) {
   // TODO: 기사님 이름 수정 필요
@@ -13,6 +15,7 @@ export default function Notification({ notifications, onClose, onNotificationCli
   console.log('notification', notifications);
 
   const queryClient = useQueryClient();
+  const [moveInfo, setMoveInfo] = useState<{ fromAddress?: string; toAddress?: string }>({});
 
   const singleReadMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -36,6 +39,28 @@ export default function Notification({ notifications, onClose, onNotificationCli
     },
   });
 
+  const getMovesInfoMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await getMovesDetailData(id);
+      const { fromAddress, toAddress } = res;
+      return { fromAddress, toAddress };
+    },
+    onSuccess: data => {
+      setMoveInfo(data);
+    },
+  });
+
+  useEffect(() => {
+    notifications.forEach(notification => {
+      if (['D_7', 'D_1', 'D_DAY'].includes(notification.type)) {
+        const dataId = notification.moveInfoId;
+        if (dataId) {
+          getMovesInfoMutation.mutate(dataId);
+        }
+      }
+    });
+  }, [notifications]);
+
   const handleClick = (notificationId: string, isRead: boolean) => {
     if (!isRead) {
       singleReadMutation.mutate(notificationId, {
@@ -43,8 +68,6 @@ export default function Notification({ notifications, onClose, onNotificationCli
           onNotificationClick(notificationId);
         },
       });
-    } else {
-      return;
     }
   };
 
@@ -61,6 +84,7 @@ export default function Notification({ notifications, onClose, onNotificationCli
               let fir_message = '';
               let blue_message = '';
               let sec_message = '';
+              let id: string;
 
               switch (notification.type) {
                 case 'MOVE_INFO_EXPIRED':
@@ -94,18 +118,30 @@ export default function Notification({ notifications, onClose, onNotificationCli
                   break;
                 case 'D_7':
                   fir_message = '일주일 뒤에 ';
-                  blue_message = '경기(일산) → 서울(영등포) 이사 예정일';
+                  blue_message =
+                    moveInfo.fromAddress && moveInfo.toAddress
+                      ? `${NotificationAddressFormat(moveInfo.fromAddress)} → ${NotificationAddressFormat(moveInfo.toAddress)} 이사 예정일`
+                      : '이사 예정일';
                   sec_message = '이에요.';
+                  id = notification.moveInfoId || '';
                   break;
                 case 'D_1':
                   fir_message = '내일은 ';
-                  blue_message = '경기(일산) → 서울(영등포) 이사 예정일';
+                  blue_message =
+                    moveInfo.fromAddress && moveInfo.toAddress
+                      ? `${NotificationAddressFormat(moveInfo.fromAddress)} → ${NotificationAddressFormat(moveInfo.toAddress)} 이사 예정일`
+                      : '이사 예정일';
                   sec_message = '이에요.';
+                  id = notification.moveInfoId || '';
                   break;
                 case 'D_DAY':
                   fir_message = '오늘은 ';
-                  blue_message = '경기(일산) → 서울(영등포) 이사 예정일';
+                  blue_message =
+                    moveInfo.fromAddress && moveInfo.toAddress
+                      ? `${NotificationAddressFormat(moveInfo.fromAddress)} → ${NotificationAddressFormat(moveInfo.toAddress)} 이사 예정일`
+                      : '이사 예정일';
                   sec_message = '이에요.';
+                  id = notification.moveInfoId || '';
                   break;
                 default:
                   blue_message = '새로운 알림';

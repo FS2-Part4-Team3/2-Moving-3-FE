@@ -39,7 +39,7 @@ export default function GNB() {
 
   const fetchNotifications = async () => {
     try {
-      const data: NotificationResponse = await getNotification(1, 100);
+      const data: NotificationResponse = await getNotification();
       setNotifications(data.list);
     } catch (error) {
       console.error('알림 가져오는 중 오류 발생', error);
@@ -70,6 +70,8 @@ export default function GNB() {
       newSocket.disconnect();
     };
   }, [user.accessToken]);
+
+  // console.log(notifications);
 
   const handleRouteLanding = () => {
     router.push('/');
