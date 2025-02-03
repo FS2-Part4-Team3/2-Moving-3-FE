@@ -28,12 +28,12 @@ export default function LandingClient() {
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!userType) {
-      e.preventDefault();
       alert('로그인을 진행해 주세요 !');
+      e.preventDefault();
       router.push('/normal/sign-in');
     } else if (userType === 'driver') {
-      e.preventDefault();
       alert('일반 유저만 이사 서비스 요청이 가능합니다 !');
+      e.preventDefault();
     }
   };
 
