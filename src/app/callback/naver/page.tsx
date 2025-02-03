@@ -19,6 +19,7 @@ export default function CallBackNaver() {
       }
 
       const res = await getUserData();
+      console.log(res);
       dispatch(
         setUserSign({
           id: res.id,
@@ -36,14 +37,23 @@ export default function CallBackNaver() {
           type: res.type,
         }),
       );
-      if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
+      if (res.type === 'user' && (!res.areas || !res.serviceType.length)) {
+        console.log(1);
         router.push('/normal/profile-register');
-      } else if (res.type === 'user' && res.areas && res.serviceTypes) {
+      } else if (res.type === 'user' && res.areas && res.serviceType.length) {
+        console.log(2);
         router.push('/normal/match-driver');
-      } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas && !res.nickname) {
+      } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas.length && !res.nickname) {
+        console.log(3);
         router.push('/driver/profile-register');
-      } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas) {
+      } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas.length) {
+        console.log(4);
         router.push('/driver/receive-quote');
+      } else {
+        console.log(5);
+        console.log(res.type);
+        console.log(!res.areas);
+        console.log(!res.serviceType.length);
       }
     };
 
