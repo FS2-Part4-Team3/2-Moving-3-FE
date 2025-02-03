@@ -10,7 +10,7 @@ export default function WaitingQuotePageClient() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery<WaitingQuoteListResponse>({
+  } = useInfiniteQuery<WaitingQuoteListResponse[]>({
     queryKey: ['waitingQuote'],
     queryFn: ({ pageParam }) => {
       return getUserEstimationData(pageParam as number, 5);
@@ -22,6 +22,18 @@ export default function WaitingQuotePageClient() {
     },
     initialPageParam: 1,
   });
+
+  if (waitingQuoteLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (waitingQuoteError) {
+    return <div>Error</div>;
+  }
+
+  if (!waitingQuote || waitingQuote.pages[0].length === 0) {
+    return <div>Empty</div>;
+  }
 
   return (
     <div>
