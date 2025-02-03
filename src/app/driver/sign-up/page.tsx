@@ -50,14 +50,22 @@ export default function SignUp() {
               <a href={`${BASE_URL}/auth/google/driver`} rel="noopener noreferrer">
                 <Image src={google} alt="google" width={72} height={72} />
               </a>
-              <Image src={kakao} alt="kakao" width={72} height={72} />
+              <a href={`${BASE_URL}/auth/kakao/driver`} rel="noopener noreferrer">
+                {/* <a href={`http://localhost:3000/auth/kakao/user`} rel="noopener noreferrer"> */}
+                <Image src={kakao} alt="kakao" width={72} height={72} />
+              </a>
               <Image src={naver} alt="naver" width={72} height={72} />
             </div>
           </div>
           <div className="lg:hidden sm:block">
             <div className="flex sm:gap-[2.4rem]">
-              <Image src={google} alt="google" width={54} height={54} />
-              <Image src={kakao} alt="kakao" width={54} height={54} />
+              <a href={`${BASE_URL}/auth/google/driver`} rel="noopener noreferrer">
+                <Image src={google} alt="google" width={54} height={54} />
+              </a>
+              <a href={`${BASE_URL}/auth/kakao/driver`} rel="noopener noreferrer">
+                {/* <a href={`http://localhost:3000/auth/kakao/user`} rel="noopener noreferrer"> */}
+                <Image src={kakao} alt="kakao" width={54} height={54} />
+              </a>
               <Image src={naver} alt="naver" width={54} height={54} />
             </div>
           </div>
