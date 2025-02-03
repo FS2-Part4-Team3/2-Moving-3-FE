@@ -105,30 +105,30 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
             </div>
           </div>
           <div className="flex lg:flex-row sm:flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] items-center">
-            <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem] items-center sm:w-full lg:w-auto">
-              <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.6rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
+            <div className="flex gap-[0.6rem] items-center sm:w-full lg:w-auto">
+              <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                 이사일
               </p>
-              <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+              <p className="font-medium lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
                 {DateFormat(data.moveInfo.date)}
               </p>
             </div>
             <div className="h-[1.6rem] border border-line-200 sm:hidden lg:block" />
             <div className="flex sm:flex-row lg:gap-[1.6rem] sm:gap-[1.4rem] sm:justify-start sm:w-full lg:w-auto items-center">
-              <div className="flex gap-[1.2rem] items-center">
-                <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.6rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
+              <div className="flex gap-[0.6rem] items-center">
+                <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                   출발
                 </p>
-                <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+                <p className="font-medium lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
                   {AddressFormat(data.moveInfo.fromAddress)}
                 </p>
               </div>
               <div className="h-[1.6rem] border border-line-200" />
-              <div className="flex gap-[1.2rem] items-center">
-                <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.6rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
+              <div className="flex gap-[0.6rem] items-center">
+                <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                   도착
                 </p>
-                <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+                <p className="font-medium lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
                   {AddressFormat(data.moveInfo.toAddress)}
                 </p>
               </div>
