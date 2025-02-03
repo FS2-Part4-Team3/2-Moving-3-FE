@@ -1,8 +1,16 @@
+'use client';
+
 import { useInfiniteQuery } from '@tanstack/react-query';
+import Link from 'next/link';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { getUserEstimationData } from '@/api/EstimationService';
+import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
 import { WaitingQuoteListResponse } from '@/interfaces/Page/WaitingQuoteClientInterface';
 
 export default function WaitingQuotePageClient() {
+  const { ref, inView } = useInView();
+
   const {
     data: waitingQuote,
     isLoading: waitingQuoteLoading,
@@ -23,6 +31,10 @@ export default function WaitingQuotePageClient() {
     initialPageParam: 1,
   });
 
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
+  }, [inView]);
+
   if (waitingQuoteLoading) {
     return <div>Loading...</div>;
   }
@@ -36,8 +48,19 @@ export default function WaitingQuotePageClient() {
   }
 
   return (
-    <div>
-      <div></div>
+    <div className="pt-[2.4rem] lg:grid grid-cols-2 sm:flex flex-col gap-[3.2rem] w-full lg:px-[0rem] md:px-[7.2rem] sm:px-[3rem]">
+      {waitingQuote
+        ? waitingQuote.pages.flatMap(page =>
+            page.map(quote => (
+              <Link key={quote.estimationInfo.estimationId} href={`/match-driver/${quote.estimationInfo.estimationId}`}>
+                <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col bg-white">
+                  <WaitingQuoteCard data={quote} />
+                </div>
+              </Link>
+            )),
+          )
+        : []}
+      {hasNextPage && <div ref={ref}>Loading...</div>}
     </div>
   );
 }
