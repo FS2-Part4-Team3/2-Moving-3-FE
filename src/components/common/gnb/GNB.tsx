@@ -11,6 +11,7 @@ import logo from '@/../public/assets/common/gnb/logo-icon-text.svg';
 import logo_sm from '@/../public/assets/common/gnb/logo-sm.svg';
 import menu from '@/../public/assets/common/gnb/menu.svg';
 import close from '@/../public/assets/common/icon_X.svg';
+import { ModeToggle } from '@/components/dropdown/ModeToggle';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
 import Profile from './Profile';
@@ -113,6 +114,7 @@ export default function GNB() {
                 </p>
               </Link>
             )}
+            <ModeToggle />
           </div>
           {status === 'LogOut' && (
             <div className="lg:block sm:hidden">

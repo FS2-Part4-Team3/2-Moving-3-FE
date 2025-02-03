@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import '@styles/globals.css';
 import GNB from '@/components/common/gnb/GNB';
+import { ModeToggle } from '@/components/dropdown/ModeToggle';
+import { ThemeProviders } from '@/hooks/theme-provider';
 import ReactQueryProviders from '@/hooks/useReactQuery';
 import { Providers } from '@/store/providers';
 
@@ -31,8 +33,10 @@ export default function RootLayout({
         <div className="min-h-screen overflow-x-hidden">
           <Providers>
             <ReactQueryProviders>
-              <GNB />
-              {children}
+              <ThemeProviders>
+                <GNB />
+                {children}
+              </ThemeProviders>
             </ReactQueryProviders>
           </Providers>
         </div>
