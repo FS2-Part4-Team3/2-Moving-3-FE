@@ -13,7 +13,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
       <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
         <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
           <MovingTypeChips type="WAITING" />
-          <MovingTypeChips type={data.moveInfo.type} />
+          <MovingTypeChips type={data.moveInfo.serviceType} />
         </div>
         <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
           <div className="flex w-full lg:gap-[2.4rem] sm:gap-[1.2rem] py-[1.6rem] lg:px-[1.8rem] sm:px-[1rem] border border-line-100 rounded-[0.6rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
@@ -68,7 +68,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
                 <div className="flex lg:gap-[0.4rem] sm:gap-[0.2rem] items-center">
                   <Image src={like} alt="like" width={24} height={24} />
                   <p className="font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.3rem] sm:leading-[2.2rem] text-blue-400">
-                    {data.driver.favoriteCount}
+                    {data.driver.likeCount}
                   </p>
                 </div>
               </div>
@@ -77,7 +77,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
                   <Image src={star} alt="star" width={24} height={24} className="lg:block sm:hidden" />
                   <Image src={star} alt="star" width={20} height={20} className="lg:hidden sm:block" />
                   <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-black-300">
-                    {data.driver.score}
+                    {data.driver.rating}
                   </p>
                   <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.3rem] sm:leading-[2.2rem] text-gray-300">
                     ({data.driver.reviewCount})
@@ -141,10 +141,10 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
           견적 금액
         </p>
         <p className="font-bold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.8rem] sm:leading-[2.6rem] text-black-400">
-          {priceFormat(data.price)}원
+          {priceFormat(data.estimationInfo.price)}원
         </p>
       </div>
-      <WaitingQuoteCardClient dataId={data.id} />
+      <WaitingQuoteCardClient dataId={data.estimationInfo.estimationId} />
     </div>
   );
 }

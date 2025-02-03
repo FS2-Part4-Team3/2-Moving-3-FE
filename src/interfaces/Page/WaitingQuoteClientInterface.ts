@@ -15,7 +15,7 @@ export interface WaitingQuoteListResponse {
   };
   moveInfo: {
     date: string;
-    serviceType: string;
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
     fromAddress: string;
     toAddress: string;
   };
