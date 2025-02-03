@@ -16,7 +16,7 @@ export const postDetailEstimationData = async (movesId: string, reject: boolean,
   }
 };
 
-export const getUserEstimationData = async (page: number, pageSize: number) => {
+export const getUserEstimationData = async (page?: number, pageSize?: number) => {
   const params = {
     page: page,
     pageSize: pageSize,
