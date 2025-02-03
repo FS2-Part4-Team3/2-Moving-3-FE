@@ -16,14 +16,14 @@ export default async function MyQuoteWaiting() {
         </div>
       </div>
       <div className="lg:min-w-[119rem] lg:max-w-[140rem] sm:w-full justify-center flex flex-col mt-[4rem]">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-[2.4rem] sm:flex flex-col md:gap-[3.2rem] md:px-[7.2rem] sm:gap-[2.4rem] sm:px-[2.4rem]">
-          {/* {driverData.map((driver: any, index: number) => (
+        {/* <div className="lg:grid lg:grid-cols-2 lg:gap-[2.4rem] sm:flex flex-col md:gap-[3.2rem] md:px-[7.2rem] sm:gap-[2.4rem] sm:px-[2.4rem]"> */}
+        {/* {driverData.map((driver: any, index: number) => (
             <div key={index}>
               <WaitingQuoteCard data={driver} />
             </div>
           ))} */}
-          <WaitingQuotePageClient />
-        </div>
+        <WaitingQuotePageClient />
+        {/* </div> */}
       </div>
     </div>
   );

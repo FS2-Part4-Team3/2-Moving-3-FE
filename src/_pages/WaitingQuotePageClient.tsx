@@ -24,8 +24,10 @@ export default function WaitingQuotePageClient() {
       return getUserEstimationData(pageParam as number, 5);
     },
     getNextPageParam: (lastPage, allPages) => {
+      console.log(lastPage.length, allPages.length, '1');
       const currentPage = allPages.length;
-      const totalPages = Math.ceil(lastPage.length / 10);
+      const totalPages = Math.ceil(lastPage.length / 5);
+      console.log(currentPage, totalPages, '2');
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
     initialPageParam: 1,
@@ -47,8 +49,10 @@ export default function WaitingQuotePageClient() {
     return <div>Empty</div>;
   }
 
+  console.log(waitingQuote);
+
   return (
-    <div className="pt-[2.4rem] lg:grid grid-cols-2 sm:flex flex-col gap-[3.2rem] w-full lg:px-[0rem] md:px-[7.2rem] sm:px-[3rem]">
+    <div className="lg:grid lg:grid-cols-2 lg:gap-[2.4rem] sm:flex flex-col md:gap-[3.2rem] md:px-[7.2rem] sm:gap-[2.4rem] sm:px-[2.4rem]">
       {waitingQuote
         ? waitingQuote.pages.flatMap(page =>
             page.map(quote => (
