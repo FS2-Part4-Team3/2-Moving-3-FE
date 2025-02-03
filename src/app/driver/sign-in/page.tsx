@@ -47,11 +47,10 @@ export default function SignIn() {
           </p>
           <div className="lg:block sm:hidden">
             <div className="flex lg:gap-[3.2rem]">
-              <a href={`${BASE_URL}/auth/google/user`} rel="noopener noreferrer">
+              <a href={`${BASE_URL}/auth/google/driver`} rel="noopener noreferrer">
                 <Image src={google} alt="google" width={72} height={72} />
               </a>
-              <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
-                {/* <a href={`http://localhost:3000/auth/kakao/user`} rel="noopener noreferrer"> */}
+              <a href={`${BASE_URL}/auth/kakao/driver`} rel="noopener noreferrer">
                 <Image src={kakao} alt="kakao" width={72} height={72} />
               </a>
               <Image src={naver} alt="naver" width={72} height={72} />
@@ -59,11 +58,10 @@ export default function SignIn() {
           </div>
           <div className="lg:hidden sm:block">
             <div className="flex sm:gap-[2.4rem]">
-              <a href={`${BASE_URL}/auth/google/user`} rel="noopener noreferrer">
+              <a href={`${BASE_URL}/auth/google/driver`} rel="noopener noreferrer">
                 <Image src={google} alt="google" width={54} height={54} />
               </a>
-              <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
-                {/* <a href={`http://localhost:3000/auth/kakao/user`} rel="noopener noreferrer"> */}
+              <a href={`${BASE_URL}/auth/kakao/driver`} rel="noopener noreferrer">
                 <Image src={kakao} alt="kakao" width={54} height={54} />
               </a>
               <Image src={naver} alt="naver" width={54} height={54} />

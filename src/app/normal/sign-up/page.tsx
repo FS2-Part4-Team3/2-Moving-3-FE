@@ -63,7 +63,6 @@ export default function SignUp() {
                 <Image src={google} alt="google" width={54} height={54} />
               </a>
               <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
-                {/* <a href={`http://localhost:3000/auth/kakao/user`} rel="noopener noreferrer"> */}
                 <Image src={kakao} alt="kakao" width={54} height={54} />
               </a>
               <Image src={naver} alt="naver" width={54} height={54} />
