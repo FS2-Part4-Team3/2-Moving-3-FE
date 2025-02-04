@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteRefresh } from '@/api/UserService';
 import { ProfileProps } from '@/interfaces/CommonComp/GnbInterface';
 import { setSignOut } from '@/store/slices/SignInSlice';
+import { setDriverDataInitialization } from '@/store/slices/driversSlice';
+import { setMovesDataInitialization } from '@/store/slices/movesSlice';
 import { RootState } from '@/store/store';
 
 export default function Profile({ closeModal }: ProfileProps) {
@@ -20,6 +22,8 @@ export default function Profile({ closeModal }: ProfileProps) {
       await deleteRefresh();
       localStorage.removeItem('accessToken');
       dispatch(setSignOut());
+      dispatch(setMovesDataInitialization());
+      dispatch(setDriverDataInitialization());
       closeModal();
       router.push('/');
     },

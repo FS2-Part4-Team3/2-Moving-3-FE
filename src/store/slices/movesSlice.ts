@@ -68,6 +68,9 @@ const movesSlice = createSlice({
       state.serviceArea = 'Inactive';
       state.designatedRequest = 'Inactive';
     },
+    setMovesDataInitialization(state) {
+      Object.assign(state, initialState);
+    },
   },
 });
 
@@ -84,5 +87,6 @@ export const {
   setError,
   resetMovingType,
   resetFilter,
+  setMovesDataInitialization,
 } = movesSlice.actions;
 export default movesSlice.reducer;
