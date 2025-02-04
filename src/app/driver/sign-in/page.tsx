@@ -50,7 +50,9 @@ export default function SignIn() {
               <a href={`${BASE_URL}/auth/google/driver`} rel="noopener noreferrer">
                 <Image src={google} alt="google" width={72} height={72} />
               </a>
-              <Image src={kakao} alt="kakao" width={72} height={72} />
+              <a href={`${BASE_URL}/auth/kakao/driver`} rel="noopener noreferrer">
+                <Image src={kakao} alt="kakao" width={72} height={72} />
+              </a>
               <a href={`${BASE_URL}/auth/naver/driver`} rel="noopener noreferrer">
                 <Image src={naver} alt="naver" width={72} height={72} />
               </a>
@@ -61,7 +63,9 @@ export default function SignIn() {
               <a href={`${BASE_URL}/auth/google/driver`} rel="noopener noreferrer">
                 <Image src={google} alt="google" width={54} height={54} />
               </a>
-              <Image src={kakao} alt="kakao" width={54} height={54} />
+              <a href={`${BASE_URL}/auth/kakao/driver`} rel="noopener noreferrer">
+                <Image src={kakao} alt="kakao" width={54} height={54} />
+              </a>
               <a href={`${BASE_URL}/auth/naver/driver`} rel="noopener noreferrer">
                 <Image src={naver} alt="naver" width={54} height={54} />
               </a>
