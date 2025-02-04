@@ -12,8 +12,6 @@ export default function Notification({ notifications, onClose, onNotificationCli
   // TODO: 이사 종류 수정 필요
   // TODO: 어디에서 어디로 이사하는지 수정 필요
 
-  console.log('notification', notifications);
-
   const queryClient = useQueryClient();
   const [moveInfo, setMoveInfo] = useState<{ fromAddress?: string; toAddress?: string }>({});
 

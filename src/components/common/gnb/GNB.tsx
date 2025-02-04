@@ -71,8 +71,6 @@ export default function GNB() {
     };
   }, [user.accessToken]);
 
-  // console.log(notifications);
-
   const handleRouteLanding = () => {
     router.push('/');
   };
