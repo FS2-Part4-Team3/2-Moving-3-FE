@@ -35,7 +35,7 @@ export default function ReviewChart({ data, totalCount }: ReviewChartProps) {
       </div>
 
       <div
-        className="flex flex-row bg-background-200 lg:rounded-[3.2rem] sm:rounded-[2.4rem] lg:px-[5.9rem] lg:py-[4rem] lg:gap-[8.3rem] sm:px-[1.8rem] sm:py-[1.6rem] sm:gap-[0.6rem] lg:w-full lg:h-[29.6rem] sm:w-[32.7rem] sm:h-[17.6rem] items-center justify-center"
+        className="flex flex-row bg-background-200 lg:rounded-[3.2rem] sm:rounded-[2.4rem] lg:px-[2.5rem] lg:py-[4rem] lg:gap-[6rem] sm:px-[1.8rem] sm:py-[1.6rem] sm:gap-[0.6rem] lg:w-full lg:h-[29.6rem] sm:w-[32.7rem] sm:h-[17.6rem] items-center justify-center"
         data-testid="main-chart"
       >
         <div className="flex flex-col justify-center gap-[1.5rem] lg:block sm:hidden">
