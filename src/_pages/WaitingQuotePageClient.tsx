@@ -11,6 +11,9 @@ import { WaitingQuoteListResponse } from '@/interfaces/Page/WaitingQuoteClientIn
 export default function WaitingQuotePageClient() {
   const { ref, inView } = useInView();
 
+  // TODO: 31번째 줄 API 수정 되면 lastPage.length에서 lastPage.totalCount로 변경 예정.
+  // TODO: 현재는 백엔드측 오류로 페이지 넘어가는 기능이 정상작동하지 않습니다. API 수정 반영시 해당 코드도 그에 따라 수정 예정입니다.
+
   const {
     data: waitingQuote,
     isLoading: waitingQuoteLoading,
