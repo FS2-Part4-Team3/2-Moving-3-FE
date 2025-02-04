@@ -68,7 +68,7 @@ export default function LandingClient() {
         </Link>
         <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[3.6rem]">
           <Link href={`/normal/request-quote?type=HOME`} onClick={e => handleLinkClick(e)}>
-            <div className="lg:w-[76.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-custom1 rounded-[2.4rem] bg-white overflow-hidden relative">
+            <div className="lg:w-[66.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-custom1 rounded-[2.4rem] bg-white overflow-hidden relative">
               <div className="pl-[3rem] pt-[2.4rem] lg:gap-[0.8rem] sm:gap-[0.4rem]">
                 <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black">
                   가정이사
@@ -94,7 +94,7 @@ export default function LandingClient() {
             </div>
           </Link>
           <Link href={`/normal/request-quote?type=OFFICE`} onClick={e => handleLinkClick(e)}>
-            <div className="lg:w-[76.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-customBoth rounded-[2.4rem] bg-white overflow-hidden relative">
+            <div className="lg:w-[66.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-customBoth rounded-[2.4rem] bg-white overflow-hidden relative">
               <div className="pl-[3rem] pt-[2.4rem] lg:gap-[0.8rem] sm:gap-[0.4rem]">
                 <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black">
                   기업, 사무실 이사
