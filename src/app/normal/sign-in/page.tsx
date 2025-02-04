@@ -53,7 +53,9 @@ export default function SignIn() {
               <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
                 <Image src={kakao} alt="kakao" width={72} height={72} />
               </a>
-              <Image src={naver} alt="naver" width={72} height={72} />
+              <a href={`${BASE_URL}/auth/naver/user`} rel="noopener noreferrer">
+                <Image src={naver} alt="naver" width={72} height={72} />
+              </a>
             </div>
           </div>
           <div className="lg:hidden sm:block">
@@ -64,7 +66,9 @@ export default function SignIn() {
               <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
                 <Image src={kakao} alt="kakao" width={54} height={54} />
               </a>
-              <Image src={naver} alt="naver" width={54} height={54} />
+              <a href={`${BASE_URL}/auth/naver/user`} rel="noopener noreferrer">
+                <Image src={naver} alt="naver" width={54} height={54} />
+              </a>
             </div>
           </div>
         </div>
