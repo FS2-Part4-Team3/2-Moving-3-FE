@@ -1,7 +1,11 @@
+'use client';
+
 import { useInfiniteQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getMovesEstimationsData } from '@/api/MovesService';
+import EstimateReceivedCard from '@/components/cards/EstimateReceivedCard';
 import { ReceivedQuoteResponse } from '@/interfaces/Page/ReceiveQuoteInterface';
 
 export default function ReceivedQuotePageClient() {
@@ -14,14 +18,14 @@ export default function ReceivedQuotePageClient() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery<ReceivedQuoteResponse[]>({
+  } = useInfiniteQuery<ReceivedQuoteResponse>({
     queryKey: ['receivedQuote'],
     queryFn: ({ pageParam }) => {
       return getMovesEstimationsData('all', pageParam as number, 5);
     },
     getNextPageParam: (lastPage, allPages) => {
       const currentPage = allPages.length;
-      const totalPages = Math.ceil(lastPage.length / 5);
+      const totalPages = Math.ceil(lastPage.totalCount / 5);
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
     initialPageParam: 1,
@@ -39,7 +43,34 @@ export default function ReceivedQuotePageClient() {
     return <div>Error</div>;
   }
 
-  if (!receivedQuote || !receivedQuote.pages[0].length) {
+  console.log(receivedQuote?.pages[0]);
+
+  if (!receivedQuote || !receivedQuote.pages[0].list.length) {
     return <div>Empty</div>;
   }
+
+  console.log(receivedQuote.pages[0]);
+
+  return (
+    <div>
+      {receivedQuote
+        ? receivedQuote.pages.flatMap(page =>
+            page.list.map(quote => (
+              <Link key={quote.id} href={`/normal/my-quote/received/${quote.id}`}>
+                {quote.confirmedEstimationId ? (
+                  <div>
+                    <EstimateReceivedCard data={quote.confirmedEstimation} />
+                  </div>
+                ) : (
+                  <div>
+                    <EstimateReceivedCard data={quote.estimations} />
+                  </div>
+                )}
+              </Link>
+            )),
+          )
+        : []}
+      {hasNextPage && <div ref={ref}>Loading...</div>}
+    </div>
+  );
 }

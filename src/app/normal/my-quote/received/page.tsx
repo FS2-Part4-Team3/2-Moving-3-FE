@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import EstimateData from '@/../public/data/estimationsData.json';
+import ReceivedQuotePageClient from '@/_pages/ReceivedQuotePageClient';
 import WaitingQuoteTab from '@/components/Tabs/WaitingQuoteTab';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import EstimateReceivedCard from '@/components/cards/EstimateReceivedCard';
@@ -22,11 +23,12 @@ export default async function MyQuoteReceived() {
             </p>
             <EstimationSortDropdown />
             <div className="flex flex-col lg:gap-[5.4rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
-              {EstimateData.map((item: any) => (
+              {/* {EstimateData.map((item: any) => (
                 <Link key={item.id} href={`/normal/my-quote/received/${item.id}`}>
                   <EstimateReceivedCard data={item} />
                 </Link>
-              ))}
+              ))} */}
+              <ReceivedQuotePageClient />
             </div>
           </div>
         </div>

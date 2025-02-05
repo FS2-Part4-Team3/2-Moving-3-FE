@@ -8,25 +8,28 @@ export interface ReceiveQuoteData {
 }
 
 export interface ReceivedQuoteResponse {
-  id: string;
-  createdAt: string;
-  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
-  date: string;
-  fromAddress: string;
-  toAddress: string;
-  confirmedEstimation: {
+  totalCount: number;
+  list: {
     id: string;
     createdAt: string;
-    price: string;
-    comment: string;
-    driver: Driver;
-  };
-  estimations: {
-    id: string;
-    createdAt: string;
-    price: number;
-    comment: string;
-    driver: Driver;
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
+    date: string;
+    fromAddress: string;
+    toAddress: string;
+    confirmedEstimationId: string | null;
+    progress: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
+    confirmedEstimation: {
+      id: string;
+      price: number;
+      comment: string;
+      driver: Driver;
+    };
+    estimations: {
+      id: string;
+      price: number;
+      comment: string;
+      driver: Driver;
+    }[];
   }[];
 }
 

@@ -1,21 +1,27 @@
 export interface EstimateReceivedCardProps {
   data: {
-    id: string;
-    price: number;
-    comment: string;
-    moveInfo: {
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
+    confirmedEstimation: {
       id: string;
-      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
+      price: number;
+      comment: string;
+      driver: Driver;
     };
-    driver: {
+    estimations: {
       id: string;
-      name: string;
-      image: string;
-      applyCount: number;
-      favoriteCount: number;
-      score: number;
-      career: number;
-      reviewCount: number;
-    };
+      price: number;
+      comment: string;
+      driver: Driver;
+    }[];
   };
+}
+
+interface Driver {
+  name: string;
+  image: string;
+  applyCount: number;
+  likeCount: number;
+  rating: number;
+  reviewCount: number;
+  career: number;
 }
