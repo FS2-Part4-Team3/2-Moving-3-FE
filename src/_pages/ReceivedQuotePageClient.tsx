@@ -59,11 +59,15 @@ export default function ReceivedQuotePageClient() {
               <Link key={quote.id} href={`/normal/my-quote/received/${quote.id}`}>
                 {quote.confirmedEstimationId ? (
                   <div>
-                    <EstimateReceivedCard data={quote.confirmedEstimation} />
+                    <EstimateReceivedCard data={quote.confirmedEstimation} serviceType={quote.serviceType} />
                   </div>
                 ) : (
                   <div>
-                    <EstimateReceivedCard data={quote.estimations} />
+                    {quote.estimations.map((data, index) => (
+                      <div key={index}>
+                        <EstimateReceivedCard data={data} serviceType={quote.serviceType} />
+                      </div>
+                    ))}
                   </div>
                 )}
               </Link>

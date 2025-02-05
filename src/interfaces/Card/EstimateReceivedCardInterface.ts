@@ -1,18 +1,10 @@
 export interface EstimateReceivedCardProps {
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
   data: {
-    serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
-    confirmedEstimation: {
-      id: string;
-      price: number;
-      comment: string;
-      driver: Driver;
-    };
-    estimations: {
-      id: string;
-      price: number;
-      comment: string;
-      driver: Driver;
-    }[];
+    id: string;
+    price: number;
+    comment: string;
+    driver: Driver;
   };
 }
 
