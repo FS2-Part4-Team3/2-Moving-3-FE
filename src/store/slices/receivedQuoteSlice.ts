@@ -8,6 +8,7 @@ interface receivedQuoteState {
   fromAddress: string;
   toAddress: string;
   progress?: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
+  filter?: 'all' | 'confirmed';
 }
 
 const initialState: receivedQuoteState = {
@@ -18,6 +19,7 @@ const initialState: receivedQuoteState = {
   fromAddress: '',
   toAddress: '',
   progress: undefined,
+  filter: 'all',
 };
 
 const receivedQuoteSlice = createSlice({
@@ -35,8 +37,16 @@ const receivedQuoteSlice = createSlice({
       state.toAddress = toAddress;
       state.progress = progress;
     },
+
+    setFilterDropdown(state, action: PayloadAction<'all' | 'confirmed'>) {
+      state.filter = action.payload;
+    },
+
+    setReceivedQuoteInitialization(state) {
+      Object.assign(state, initialState);
+    },
   },
 });
 
-export const { setData } = receivedQuoteSlice.actions;
+export const { setData, setFilterDropdown, setReceivedQuoteInitialization } = receivedQuoteSlice.actions;
 export default receivedQuoteSlice.reducer;

@@ -97,7 +97,7 @@ export const patchMove = async (moveId: string, serviceType: string, date: strin
   }
 };
 
-export const getMovesEstimationsData = async (filter: 'all' | 'confirmed', page?: number, pageSize?: number) => {
+export const getMovesEstimationsData = async (page?: number, pageSize?: number, filter?: 'all' | 'confirmed') => {
   try {
     const params = {
       page: page,

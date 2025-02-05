@@ -4,14 +4,16 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovesEstimationsData } from '@/api/MovesService';
 import EstimateReceivedCard from '@/components/cards/EstimateReceivedCard';
 import { ReceivedQuoteResponse } from '@/interfaces/Page/ReceiveQuoteInterface';
 import { setData } from '@/store/slices/receivedQuoteSlice';
+import { RootState } from '@/store/store';
 
 export default function ReceivedQuotePageClient() {
   const dispatch = useDispatch();
+  const { filter } = useSelector((state: RootState) => state.receiveQuote);
   const { ref, inView } = useInView();
 
   const {
@@ -22,9 +24,9 @@ export default function ReceivedQuotePageClient() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery<ReceivedQuoteResponse>({
-    queryKey: ['receivedQuote'],
+    queryKey: ['receivedQuote', filter],
     queryFn: ({ pageParam }) => {
-      return getMovesEstimationsData('all', pageParam as number, 5);
+      return getMovesEstimationsData(pageParam as number, 5, filter);
     },
     getNextPageParam: (lastPage, allPages) => {
       const currentPage = allPages.length;
