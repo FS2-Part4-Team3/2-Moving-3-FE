@@ -20,4 +20,9 @@ describe('maskName Utility Function', () => {
     const result = maskName('Jane Doe');
     expect(result).toBe('J**e D*e');
   });
+
+  it('1글자 이름', () => {
+    const result = maskName('A');
+    expect(result).toBe('A');
+  });
 });
