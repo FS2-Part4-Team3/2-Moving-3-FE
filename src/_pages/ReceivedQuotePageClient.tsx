@@ -4,11 +4,14 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useDispatch } from 'react-redux';
 import { getMovesEstimationsData } from '@/api/MovesService';
 import EstimateReceivedCard from '@/components/cards/EstimateReceivedCard';
 import { ReceivedQuoteResponse } from '@/interfaces/Page/ReceiveQuoteInterface';
+import { setData } from '@/store/slices/receivedQuoteSlice';
 
 export default function ReceivedQuotePageClient() {
+  const dispatch = useDispatch();
   const { ref, inView } = useInView();
 
   const {
@@ -35,6 +38,32 @@ export default function ReceivedQuotePageClient() {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
 
+  console.log(receivedQuote?.pages[0].list[0]);
+  useEffect(() => {
+    if (receivedQuote && receivedQuote.pages) {
+      console.log(
+        receivedQuote.pages[0].list[0].id,
+        receivedQuote.pages[0].list[0].createdAt,
+        receivedQuote.pages[0].list[0].serviceType,
+        receivedQuote.pages[0].list[0].date,
+        receivedQuote.pages[0].list[0].fromAddress,
+        receivedQuote.pages[0].list[0].toAddress,
+        receivedQuote.pages[0].list[0].progress,
+      );
+      dispatch(
+        setData({
+          id: receivedQuote.pages[0].list[0].id,
+          createdAt: receivedQuote.pages[0].list[0].createdAt,
+          serviceType: receivedQuote.pages[0].list[0].serviceType,
+          date: receivedQuote.pages[0].list[0].date,
+          fromAddress: receivedQuote.pages[0].list[0].fromAddress,
+          toAddress: receivedQuote.pages[0].list[0].toAddress,
+          progress: receivedQuote.pages[0].list[0].progress,
+        }),
+      );
+    }
+  }, [dispatch]);
+
   if (receivedQuoteLoading) {
     return <div>Loading...</div>;
   }
@@ -43,13 +72,9 @@ export default function ReceivedQuotePageClient() {
     return <div>Error</div>;
   }
 
-  console.log(receivedQuote?.pages[0]);
-
   if (!receivedQuote || !receivedQuote.pages[0].list.length) {
     return <div>Empty</div>;
   }
-
-  console.log(receivedQuote.pages[0]);
 
   return (
     <div>

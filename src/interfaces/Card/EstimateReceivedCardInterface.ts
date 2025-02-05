@@ -1,5 +1,5 @@
 export interface EstimateReceivedCardProps {
-  serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE';
   data: {
     id: string;
     price: number;

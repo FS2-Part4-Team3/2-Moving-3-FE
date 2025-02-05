@@ -12,7 +12,7 @@ export interface ReceivedQuoteResponse {
   list: {
     id: string;
     createdAt: string;
-    serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE';
     date: string;
     fromAddress: string;
     toAddress: string;
