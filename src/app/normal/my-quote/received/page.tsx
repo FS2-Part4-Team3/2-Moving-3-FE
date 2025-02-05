@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import EstimateData from '@/../public/data/estimationsData.json';
 import ReceivedQuotePageClient from '@/_pages/ReceivedQuotePageClient';
 import WaitingQuoteTab from '@/components/Tabs/WaitingQuoteTab';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
@@ -7,7 +5,7 @@ import EstimationSortDropdown from '@/components/dropdown/EstimationSortDropdown
 
 export default async function MyQuoteReceived() {
   return (
-    <div className="w-full items-center justify-center flex flex-col md:bg-background-100">
+    <div className="w-full min-h-screen items-center flex flex-col md:bg-background-100">
       <div className="w-full bg-white justify-center flex">
         <div className="w-[120rem] flex justify-start items-center">
           <WaitingQuoteTab />
@@ -21,9 +19,7 @@ export default async function MyQuoteReceived() {
               견적서 목록
             </p>
             <EstimationSortDropdown />
-            <div className="flex flex-col lg:gap-[5.4rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
-              <ReceivedQuotePageClient />
-            </div>
+            <ReceivedQuotePageClient />
           </div>
         </div>
       </div>

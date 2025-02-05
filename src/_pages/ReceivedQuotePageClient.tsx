@@ -38,18 +38,8 @@ export default function ReceivedQuotePageClient() {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
 
-  console.log(receivedQuote?.pages[0].list[0]);
   useEffect(() => {
     if (receivedQuote && receivedQuote.pages) {
-      console.log(
-        receivedQuote.pages[0].list[0].id,
-        receivedQuote.pages[0].list[0].createdAt,
-        receivedQuote.pages[0].list[0].serviceType,
-        receivedQuote.pages[0].list[0].date,
-        receivedQuote.pages[0].list[0].fromAddress,
-        receivedQuote.pages[0].list[0].toAddress,
-        receivedQuote.pages[0].list[0].progress,
-      );
       dispatch(
         setData({
           id: receivedQuote.pages[0].list[0].id,
@@ -77,7 +67,7 @@ export default function ReceivedQuotePageClient() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col lg:gap-[5.4rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
       {receivedQuote
         ? receivedQuote.pages.flatMap(page =>
             page.list.map(quote => (
