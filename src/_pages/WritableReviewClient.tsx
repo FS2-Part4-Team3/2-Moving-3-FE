@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getReviewableEstimations } from '@/api/EstimationService';
 import NormalReviewCard from '@/components/cards/NormalReviewCard';
+import WritableReviewCard from '@/components/cards/WritableReviewCard';
+import WrittenReviewCard from '@/components/cards/WrittenReviewCard';
 import Empty from '@/components/common/Empty/Empty';
 import Pagination from '@/components/common/pagination/pagination';
 import { ReviewableEstimations } from '@/interfaces/Card/NormalReviewCardInterface';
@@ -76,7 +78,7 @@ export default function WritableReviewClient() {
     <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 ">
       {reviewableEstimations?.estimations.length ? (
         <div className="lg:grid lg:grid-cols-2 lg:gap-y-12 lg:gap-x-6 md:flex md:flex-col sm:flex sm:flex-col md:gap-y-8 sm:gap-y-8">
-          {reviewableEstimations?.estimations.map(estimation => <NormalReviewCard type="ABLE" myReview={estimation} />)}
+          {reviewableEstimations?.estimations.map(estimation => <WritableReviewCard estimation={estimation} />)}
           <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
       ) : (

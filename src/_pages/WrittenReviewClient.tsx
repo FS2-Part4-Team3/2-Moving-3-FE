@@ -4,7 +4,7 @@ import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-quer
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getMyReviewData } from '@/api/ReviewService';
-import NormalReviewCard from '@/components/cards/NormalReviewCard';
+import WrittenReviewCard from '@/components/cards/WrittenReviewCard';
 import Empty from '@/components/common/Empty/Empty';
 import Pagination from '@/components/common/pagination/pagination';
 import { MyReviews } from '@/interfaces/Card/NormalReviewCardInterface';
@@ -76,7 +76,7 @@ export default function WrittenReviewClient() {
     <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 ">
       {myReviews?.list.length ? (
         <div className="lg:grid lg:grid-cols-2 lg:gap-y-12 lg:gap-x-6 md:flex md:flex-col sm:flex sm:flex-col md:gap-y-8 sm:gap-y-8">
-          {myReviews?.list.map(myReview => <NormalReviewCard type="MY" myReview={myReview} />)}
+          {myReviews?.list.map(myReview => <WrittenReviewCard myReview={myReview} />)}
           <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
       ) : (
