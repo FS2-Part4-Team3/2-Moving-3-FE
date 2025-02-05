@@ -22,13 +22,11 @@ export interface ReviewCardEstimations {
 export type MoveType = 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
 
 export interface ReviewCardProps {
-  type: 'ABLE' | 'MY';
   myReview: MyReviewItem;
 }
 
 export interface ReviewCardEstimationsProps {
-  type: 'ABLE' | 'MY';
-  myReview: EstimationItem;
+  estimation: EstimationItem;
 }
 
 export interface ReviewCardReviews {
