@@ -27,3 +27,18 @@ export const getReviewableEstimations = async (page: number, pageSize: number) =
     throw err;
   }
 };
+
+export const getUserEstimationData = async (page?: number, pageSize?: number) => {
+  const params = {
+    page: page,
+    pageSize: pageSize,
+  };
+
+  try {
+    const res = await getRequest('/estimations/user', params);
+    return res;
+  } catch (error) {
+    console.error('Get User Estimation Data Fetch Error', error);
+    throw error;
+  }
+};

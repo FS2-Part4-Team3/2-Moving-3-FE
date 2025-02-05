@@ -60,6 +60,9 @@ const driverSlice = createSlice({
       state.area = undefined;
       state.serviceType = undefined;
     },
+    setDriverDataInitialization(state) {
+      Object.assign(state, initialState);
+    },
   },
 });
 
@@ -74,5 +77,6 @@ export const {
   setLoading,
   setError,
   resetSelection,
+  setDriverDataInitialization,
 } = driverSlice.actions;
 export default driverSlice.reducer;

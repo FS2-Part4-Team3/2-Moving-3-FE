@@ -1,23 +1,25 @@
 export interface WaitingQuoteCardProps {
   data: {
-    id: string;
-    price: number;
     driver: {
       id: string;
       name: string;
       image: string;
       applyCount: number;
-      favoriteCount: number;
-      score: number;
+      likeCount: number;
+      rating: number;
       career: number;
       reviewCount: number;
     };
     moveInfo: {
-      id: string;
       date: string;
       fromAddress: string;
       toAddress: string;
-      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
+      serviceType: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
     };
+    estimationInfo: {
+      estimationId: string;
+      price: number;
+    };
+    designatedRequest: 'Active' | 'Inactive';
   };
 }

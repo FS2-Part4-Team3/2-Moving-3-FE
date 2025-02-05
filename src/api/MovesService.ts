@@ -28,6 +28,16 @@ export const getMovesListData = async (
   }
 };
 
+export const getMovesDetailData = async (moveInfoId: string) => {
+  try {
+    const res = await getRequest(`/moves/${moveInfoId}`);
+    return res;
+  } catch (error) {
+    console.error('Failed to Get Moves Detail Data', error);
+    throw error;
+  }
+};
+
 export const getCheckRequestDriver = async (driverId: string) => {
   try {
     const res = await getRequest(`/requests/check/${driverId}`);

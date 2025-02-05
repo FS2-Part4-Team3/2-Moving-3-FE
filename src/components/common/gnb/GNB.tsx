@@ -3,17 +3,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { io } from 'socket.io-client';
 import alarm from '@/../public/assets/common/gnb/alarm.svg';
 import profile from '@/../public/assets/common/gnb/default_profile.svg';
 import logo from '@/../public/assets/common/gnb/logo-icon-text.svg';
 import logo_sm from '@/../public/assets/common/gnb/logo-sm.svg';
 import menu from '@/../public/assets/common/gnb/menu.svg';
+import red_alarm from '@/../public/assets/common/gnb/red_alarm.svg';
 import close from '@/../public/assets/common/icon_X.svg';
+import { getNotification } from '@/api/NotificationService';
+import { NotificationData, NotificationDataStructure, NotificationResponse } from '@/interfaces/CommonComp/GnbInterface';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
+import Notification from './Notification';
 import Profile from './Profile';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function GNB() {
   const router = useRouter();
@@ -27,6 +34,42 @@ export default function GNB() {
 
   const [modalOpen, isModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [notificationModalOpen, setNotificationsModalOpen] = useState(false);
+  const [notifications, setNotifications] = useState<NotificationData[]>([]);
+
+  const fetchNotifications = async () => {
+    try {
+      const data: NotificationResponse = await getNotification();
+      setNotifications(data.list);
+    } catch (error) {
+      console.error('알림 가져오는 중 오류 발생', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+
+    const newSocket = io(`${BASE_URL}`, {
+      auth: { token: user.accessToken },
+      transports: ['websocket'],
+    });
+
+    newSocket.on('connect', () => {
+      newSocket.emit('subscribe');
+    });
+
+    newSocket.on('notification', (data: NotificationDataStructure) => {
+      if (data.type === 'NOTIFICATIONS_READ') {
+        return;
+      } else if (data.type === 'NEW_NOTIFICATION') {
+        setNotifications(prev => [data.data, ...prev]);
+      }
+    });
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user.accessToken]);
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -47,6 +90,10 @@ export default function GNB() {
 
   const handleCloseProfileModal = () => {
     setIsProfileModalOpen(false);
+  };
+
+  const handleNotificationClick = (notificationId: string) => {
+    setNotifications(prevNotifications => prevNotifications.filter(notification => notification.id !== notificationId));
   };
 
   return (
@@ -127,8 +174,31 @@ export default function GNB() {
           )}
           {status !== 'LogOut' && (
             <div className="flex gap-[3.2rem] items-center justify-end w-full">
-              <Image src={alarm} alt="alarm" width={36} height={36} className="lg:block sm:hidden" />
-              <Image src={alarm} alt="alarm" width={24} height={24} className="lg:hidden sm:block" />
+              <Image
+                src={notifications.some(n => !n.isRead) ? red_alarm : alarm}
+                alt="alarm"
+                width={36}
+                height={36}
+                className="lg:block sm:hidden cursor-pointer"
+                onClick={() => setNotificationsModalOpen(!notificationModalOpen)}
+              />
+              <Image
+                src={notifications.some(n => !n.isRead) ? red_alarm : alarm}
+                alt="alarm"
+                width={24}
+                height={24}
+                className="lg:hidden sm:block cursor-pointer"
+                onClick={() => setNotificationsModalOpen(!notificationModalOpen)}
+              />
+              {notificationModalOpen && (
+                <div className="absolute lg:top-[8.1rem] transform lg:translate-x-[-15rem] z-[10] md:top-[6.5rem] md:translate-x-[-3rem] sm:top-[6.1rem] sm:translate-x-[3rem]">
+                  <Notification
+                    notifications={notifications}
+                    onClose={() => setNotificationsModalOpen(false)}
+                    onNotificationClick={handleNotificationClick}
+                  />
+                </div>
+              )}
               <div className="flex relative">
                 {user.image ? (
                   <Image
@@ -136,7 +206,7 @@ export default function GNB() {
                     alt="profile"
                     width={24}
                     height={24}
-                    className="lg:hidden sm:block cursor-pointer"
+                    className="lg:hidden sm:block cursor-pointer rounded-full"
                     onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                   />
                 ) : (
@@ -145,7 +215,7 @@ export default function GNB() {
                     alt="profile"
                     width={24}
                     height={24}
-                    className="lg:hidden sm:block cursor-pointer"
+                    className="lg:hidden sm:block cursor-pointer rounded-full"
                     onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                   />
                 )}

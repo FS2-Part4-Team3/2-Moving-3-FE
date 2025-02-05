@@ -34,7 +34,10 @@ export default function ReviewChart({ data, totalCount }: ReviewChartProps) {
         </div>
       </div>
 
-      <div className="flex flex-row bg-background-200 lg:rounded-[3.2rem] sm:rounded-[2.4rem] lg:px-[5.9rem] lg:py-[4rem] lg:gap-[8.3rem] sm:px-[1.8rem] sm:py-[1.6rem] sm:gap-[0.6rem] lg:w-full lg:h-[29.6rem] sm:w-[32.7rem] sm:h-[17.6rem] items-center justify-center">
+      <div
+        className="flex flex-row bg-background-200 lg:rounded-[3.2rem] sm:rounded-[2.4rem] lg:px-[5.9rem] lg:py-[4rem] lg:gap-[8.3rem] sm:px-[1.8rem] sm:py-[1.6rem] sm:gap-[0.6rem] lg:w-full lg:h-[29.6rem] sm:w-[32.7rem] sm:h-[17.6rem] items-center justify-center"
+        data-testid="main-chart"
+      >
         <div className="flex flex-col justify-center gap-[1.5rem] lg:block sm:hidden">
           <div className="flex flex-row gap-[0.8rem] justify-center items-center">
             <p className="text-black-400 text-[6.4rem] leading-[7.638rem] font-bold">{score.toFixed(1)}</p>

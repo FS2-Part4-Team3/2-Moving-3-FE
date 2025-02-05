@@ -13,7 +13,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
       <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
         <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
           <MovingTypeChips type="WAITING" />
-          <MovingTypeChips type={data.moveInfo.type} />
+          <MovingTypeChips type={data.moveInfo.serviceType} />
         </div>
         <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
           <div className="flex w-full lg:gap-[2.4rem] sm:gap-[1.2rem] py-[1.6rem] lg:px-[1.8rem] sm:px-[1rem] border border-line-100 rounded-[0.6rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
@@ -68,7 +68,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
                 <div className="flex lg:gap-[0.4rem] sm:gap-[0.2rem] items-center">
                   <Image src={like} alt="like" width={24} height={24} />
                   <p className="font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.3rem] sm:leading-[2.2rem] text-blue-400">
-                    {data.driver.favoriteCount}
+                    {data.driver.likeCount}
                   </p>
                 </div>
               </div>
@@ -77,7 +77,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
                   <Image src={star} alt="star" width={24} height={24} className="lg:block sm:hidden" />
                   <Image src={star} alt="star" width={20} height={20} className="lg:hidden sm:block" />
                   <p className="font-medium lg:text-[1.6rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-black-300">
-                    {data.driver.score}
+                    {data.driver.rating}
                   </p>
                   <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.3rem] sm:leading-[2.2rem] text-gray-300">
                     ({data.driver.reviewCount})
@@ -105,30 +105,30 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
             </div>
           </div>
           <div className="flex lg:flex-row sm:flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] items-center">
-            <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem] items-center sm:w-full lg:w-auto">
-              <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.6rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
+            <div className="flex gap-[0.6rem] items-center sm:w-full lg:w-auto">
+              <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                 이사일
               </p>
-              <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+              <p className="font-medium lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
                 {DateFormat(data.moveInfo.date)}
               </p>
             </div>
             <div className="h-[1.6rem] border border-line-200 sm:hidden lg:block" />
             <div className="flex sm:flex-row lg:gap-[1.6rem] sm:gap-[1.4rem] sm:justify-start sm:w-full lg:w-auto items-center">
-              <div className="flex gap-[1.2rem] items-center">
-                <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.6rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
+              <div className="flex gap-[0.6rem] items-center">
+                <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                   출발
                 </p>
-                <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+                <p className="font-medium lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
                   {AddressFormat(data.moveInfo.fromAddress)}
                 </p>
               </div>
               <div className="h-[1.6rem] border border-line-200" />
-              <div className="flex gap-[1.2rem] items-center">
-                <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.6rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
+              <div className="flex gap-[0.6rem] items-center">
+                <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                   도착
                 </p>
-                <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+                <p className="font-medium lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
                   {AddressFormat(data.moveInfo.toAddress)}
                 </p>
               </div>
@@ -141,10 +141,10 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
           견적 금액
         </p>
         <p className="font-bold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.8rem] sm:leading-[2.6rem] text-black-400">
-          {priceFormat(data.price)}원
+          {priceFormat(data.estimationInfo.price)}원
         </p>
       </div>
-      <WaitingQuoteCardClient dataId={data.id} />
+      <WaitingQuoteCardClient dataId={data.estimationInfo.estimationId} />
     </div>
   );
 }
