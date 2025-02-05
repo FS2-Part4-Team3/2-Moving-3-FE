@@ -61,6 +61,17 @@ describe('Pagination Component', () => {
       fireEvent.click(lastButton);
       expect(mockOnPageChange).toHaveBeenCalledWith(1);
     });
+
+    it('resize 후에도 화면 크기에 맞는 페이지네이션이 렌더링됨', () => {
+      Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 800 });
+      act(() => {
+        window.dispatchEvent(new Event('resize'));
+      });
+
+      expect(screen.queryByText('4')).toBeInTheDocument();
+      expect(screen.queryByText('6')).toBeInTheDocument();
+      expect(screen.queryByText('7')).not.toBeInTheDocument();
+    });
   });
 
   describe('maxVisiblePages = 3 (1200px 미만)', () => {
