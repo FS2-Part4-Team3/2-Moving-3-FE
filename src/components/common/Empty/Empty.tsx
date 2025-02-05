@@ -35,6 +35,12 @@ export default function Empty({ type }: EmptyProps) {
       text2 = '';
       buttonText = '리뷰 작성하러 가기';
       break;
+    case 'ReviewAble':
+      image = folder;
+      text = '작성 가능한 리뷰가 없어요!';
+      text2 = '';
+      buttonText = '';
+      break;
     case 'Driver':
       image = folder;
       text = '아직 등록된 리뷰가 없어요!';
