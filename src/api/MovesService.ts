@@ -96,3 +96,18 @@ export const patchMove = async (moveId: string, serviceType: string, date: strin
     throw new Error();
   }
 };
+
+export const getMovesEstimationsData = async (filter: 'all' | 'confirmed', page?: number, pageSize?: number) => {
+  try {
+    const params = {
+      page: page,
+      pageSize: pageSize,
+      filter: filter,
+    };
+    const res = await getRequest('/moves/estimations', params);
+    return res;
+  } catch (error) {
+    console.error('Get Moves Estimations Data', error);
+    throw error;
+  }
+};
