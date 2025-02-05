@@ -26,6 +26,11 @@ export interface ReviewCardProps {
   myReview: MyReviewItem;
 }
 
+export interface ReviewCardEstimationsProps {
+  type: 'ABLE' | 'MY';
+  myReview: EstimationItem;
+}
+
 export interface ReviewCardReviews {
   owner: string;
   comment: string;
@@ -55,4 +60,25 @@ export interface MyReviewItem {
 export interface MyReviews {
   totalCount: number;
   list: MyReviewItem[];
+}
+
+export interface EstimationItem {
+  driver: {
+    image: string;
+    name: string;
+  };
+  moveInfo: {
+    date: string;
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE';
+  };
+  estimationInfo: {
+    estimationId: string;
+    price: number;
+  };
+  designatedRequest: 'Active' | 'Inactive';
+}
+
+export interface ReviewableEstimations {
+  totalCount: number;
+  estimations: EstimationItem[];
 }
