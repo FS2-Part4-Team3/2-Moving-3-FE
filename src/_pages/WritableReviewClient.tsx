@@ -4,9 +4,7 @@ import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-quer
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getReviewableEstimations } from '@/api/EstimationService';
-import NormalReviewCard from '@/components/cards/NormalReviewCard';
 import WritableReviewCard from '@/components/cards/WritableReviewCard';
-import WrittenReviewCard from '@/components/cards/WrittenReviewCard';
 import Empty from '@/components/common/Empty/Empty';
 import Pagination from '@/components/common/pagination/pagination';
 import { ReviewableEstimations } from '@/interfaces/Card/NormalReviewCardInterface';
