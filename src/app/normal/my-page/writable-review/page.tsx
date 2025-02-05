@@ -1,4 +1,5 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import WritableReviewClient from '@/_pages/WritableReviewClient';
 import { getReviewableEstimations } from '@/api/EstimationService';
 import ReviewTabs from '@/components/Tabs/ReviewTabs';
 
@@ -18,7 +19,7 @@ export default async function WritableReviewPage() {
         <div className="w-full flex justify-center">
           <ReviewTabs />
         </div>
-        <WritableReviewPage />
+        <WritableReviewClient />
       </>
     </HydrationBoundary>
   );
