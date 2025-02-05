@@ -21,6 +21,7 @@ export default function WritingReviewModal({ estimation, setIsModalOpen }: Writi
     },
     onSuccess: () => {
       alert('리뷰 등록이 완료되었습니다.');
+      setIsModalOpen(false);
     },
     onError: () => {
       alert('리뷰 등록이 실패했습니다.');
