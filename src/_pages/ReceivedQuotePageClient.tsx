@@ -1,8 +1,12 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { getMovesEstimationsData } from '@/api/MovesService';
 import { ReceivedQuoteResponse } from '@/interfaces/Page/ReceiveQuoteInterface';
 
 export default function ReceivedQuotePageClient() {
+  const { ref, inView } = useInView();
+
   const {
     data: receivedQuote,
     isLoading: receivedQuoteLoading,
@@ -22,4 +26,20 @@ export default function ReceivedQuotePageClient() {
     },
     initialPageParam: 1,
   });
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
+  }, [inView]);
+
+  if (receivedQuoteLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (receivedQuoteError) {
+    return <div>Error</div>;
+  }
+
+  if (!receivedQuote || !receivedQuote.pages[0].length) {
+    return <div>Empty</div>;
+  }
 }
