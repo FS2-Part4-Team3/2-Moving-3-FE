@@ -1,13 +1,13 @@
 import type { StoryFn } from '@storybook/react';
 import WritableReviewCard from '@/components/cards/WritableReviewCard';
-import { ReviewCardEstimationsProps } from '@/interfaces/Card/NormalReviewCardInterface';
+import { EstimationItem, ReviewCardEstimationsProps } from '@/interfaces/Card/NormalReviewCardInterface';
 
 export default {
   title: 'Components/Cards/WritableReviewCard',
   component: WritableReviewCard,
 };
 
-const mockEstimationData: ReviewCardEstimationsProps = {
+const mockEstimationData: EstimationItem = {
   driver: {
     image: '/mock-driver-image.jpg',
     name: '홍길동',
