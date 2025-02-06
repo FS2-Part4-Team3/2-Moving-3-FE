@@ -1,21 +1,21 @@
-export interface EstimateReceivedCardProps {
+export interface EstimationInformationCard {
   data: {
     id: string;
-    price: number;
-    comment: string;
-    moveInfo: {
-      id: string;
-      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
-    };
-    driver: {
-      id: string;
-      name: string;
-      image: string;
-      applyCount: number;
-      favoriteCount: number;
-      score: number;
-      career: number;
-      reviewCount: number;
-    };
+    createdAt: string;
+    serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
+    date: string;
+    fromAddress: string;
+    toAddress: string;
+    progress?: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
   };
+}
+
+interface Driver {
+  name: string;
+  image: string;
+  applyCount: number;
+  likeCount: number;
+  rating: number;
+  reviewCount: number;
+  career: number;
 }
