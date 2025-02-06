@@ -44,19 +44,23 @@ export default function ReceivedQuotePageClient({ data }: ReceivedQuotePageProps
 
   useEffect(() => {
     if (data) {
+      console.log('33333', data);
       dispatch(
-        setData({
-          id: data.id,
-          createdAt: data.createdAt,
-          serviceType: data.serviceType,
-          date: data.date,
-          fromAddress: data.fromAddress,
-          toAddress: data.toAddress,
-          progress: data.progress,
-        }),
+        setData(
+          {
+            id: data.id,
+            createdAt: data.createdAt,
+            serviceType: data.serviceType,
+            date: data.date,
+            fromAddress: data.fromAddress,
+            toAddress: data.toAddress,
+            progress: data.progress,
+          },
+          // data,
+        ),
       );
     }
-  }, [dispatch]);
+  }, [dispatch, data]);
 
   // if (receivedQuoteLoading) {
   //   return <div>Loading...</div>;
@@ -81,7 +85,7 @@ export default function ReceivedQuotePageClient({ data }: ReceivedQuotePageProps
               <EstimateReceivedCard data={data.confirmedEstimation} serviceType={data.serviceType} />
             </div>
           )}
-          <div>
+          <div className="flex flex-col lg:gap-[5.4rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
             {data.estimations.map((item, index) => (
               <div key={index}>
                 <EstimateReceivedCard data={item} serviceType={data.serviceType} />

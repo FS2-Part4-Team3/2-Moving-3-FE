@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface receivedQuoteState {
+interface receivedQuote {
   id: string;
   createdAt: string;
   serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
@@ -8,17 +8,15 @@ interface receivedQuoteState {
   fromAddress: string;
   toAddress: string;
   progress?: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
+}
+
+interface receiveQuoteState {
+  quotes: receivedQuote[];
   filter?: 'all' | 'confirmed';
 }
 
-const initialState: receivedQuoteState = {
-  id: '',
-  createdAt: '',
-  serviceType: undefined,
-  date: '',
-  fromAddress: '',
-  toAddress: '',
-  progress: undefined,
+const initialState: receiveQuoteState = {
+  quotes: [],
   filter: 'all',
 };
 
@@ -26,16 +24,18 @@ const receivedQuoteSlice = createSlice({
   name: 'ReceivedQuote',
   initialState,
   reducers: {
-    setData(state, action: PayloadAction<receivedQuoteState>) {
-      const { id, createdAt, serviceType, date, fromAddress, toAddress, progress } = action.payload;
+    setData(state, action: PayloadAction<receivedQuote>) {
+      const newQuote = action.payload;
+      console.log('newQuote in Reducer', newQuote);
+      console.log('STATE', state);
+      console.log('quotes in Reducer', state.quotes);
+      const index = state.quotes.findIndex(quote => quote.id === newQuote.id);
 
-      state.id = id;
-      state.createdAt = createdAt;
-      state.serviceType = serviceType;
-      state.date = date;
-      state.fromAddress = fromAddress;
-      state.toAddress = toAddress;
-      state.progress = progress;
+      if (index >= 0) {
+        state.quotes[index] = newQuote;
+      } else {
+        state.quotes.push(newQuote);
+      }
     },
 
     setFilterDropdown(state, action: PayloadAction<'all' | 'confirmed'>) {
