@@ -1,7 +1,5 @@
 'use client';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
 import { DateIncludeTimeFormat, DateWithoutDayWeeKFormat } from '@/utils/Format';
 
 enum MoveType {
@@ -11,9 +9,19 @@ enum MoveType {
   APPOINTMENT = '지정 견적 요청',
 }
 
-export default function EstimationInformationCard() {
-  const data = useSelector((state: RootState) => state.receiveQuote);
+interface EstimationInformationCard {
+  data: {
+    id: string;
+    createdAt: string;
+    serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
+    date: string;
+    fromAddress: string;
+    toAddress: string;
+    progress?: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
+  };
+}
 
+export default function EstimationInformationCard({ data }: EstimationInformationCard) {
   return (
     <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
       <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-black-400">

@@ -25,17 +25,15 @@ export default function ReceivedQuotePageStructureClient() {
   } = useInfiniteQuery<ReceivedQuoteResponse>({
     queryKey: ['receiveQuoteData', filter],
     queryFn: ({ pageParam }) => {
-      return getMovesEstimationsData(pageParam as number, 1, filter);
+      return getMovesEstimationsData(pageParam as number, 3, filter);
     },
     getNextPageParam: (lastPage, allPages) => {
       const currentPage = allPages.length;
-      const totalPages = Math.ceil(lastPage.totalCount / 1);
+      const totalPages = Math.ceil(lastPage.totalCount / 3);
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
     initialPageParam: 1,
   });
-
-  console.log('receive quote data!!!', receiveQuoteData);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
@@ -58,8 +56,8 @@ export default function ReceivedQuotePageStructureClient() {
       {receiveQuoteData
         ? receiveQuoteData.pages.flatMap(page =>
             page.list.map(quote => (
-              <div key={quote.id}>
-                <EstimationInformationCard />
+              <div key={quote.id} className="flex flex-col lg:gap-[4.8rem] sm:gap-[3.2rem]">
+                <EstimationInformationCard data={quote} />
                 <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
                   <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] text-black-400 sm:text-[1.6rem] sm:leading-[2.6rem]">
                     견적서 목록
