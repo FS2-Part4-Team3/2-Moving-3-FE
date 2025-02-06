@@ -7,13 +7,19 @@ import { maskName } from '@/utils/mask';
 
 export default function DriverReviewCard({ review }: DriverReviewCardProps) {
   const renderStars = (score: number) => {
-    const totalStars = 5;
-    const emptyStars = totalStars - score;
-    const fullStars = score;
-
-    const stars = [...Array(fullStars).fill(star_yellow), ...Array(emptyStars).fill(star_gray)];
-
-    return stars.map((star, index) => <Image key={index} src={star} alt="star" width={20} height={20} />);
+    return (
+      <>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Image
+            key={i}
+            src={i < score ? star_yellow : star_gray}
+            alt={i < score ? 'Yellow Star' : 'Gray Star'}
+            width={20}
+            height={20}
+          />
+        ))}
+      </>
+    );
   };
 
   return (

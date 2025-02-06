@@ -2,12 +2,24 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import blueArrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
 import arrow from '@/../public/assets/common/dropdown/chevron-down.svg';
+import { setFilterDropdown } from '@/store/slices/receivedQuoteSlice';
 
 export default function EstimationSortDropdown() {
+  const dispatch = useDispatch();
+
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const handleMenuClick = (args: '전체' | '확정한 견적서') => {
+    if (args === '전체') {
+      dispatch(setFilterDropdown('all'));
+    } else if (args === '확정한 견적서') {
+      dispatch(setFilterDropdown('confirmed'));
+    }
+  };
 
   return (
     <div>
@@ -30,6 +42,7 @@ export default function EstimationSortDropdown() {
             onClick={() => {
               setSelectedOption('전체');
               setIsDropdownOpen(false);
+              handleMenuClick('전체');
             }}
           >
             전체
@@ -39,6 +52,7 @@ export default function EstimationSortDropdown() {
             onClick={() => {
               setSelectedOption('확정한 견적서');
               setIsDropdownOpen(false);
+              handleMenuClick('확정한 견적서');
             }}
           >
             확정한 견적서
