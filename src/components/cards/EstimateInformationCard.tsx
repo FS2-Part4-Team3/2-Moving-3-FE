@@ -1,5 +1,6 @@
 'use client';
 
+import type { EstimationInformationCard } from '@/interfaces/Card/EstimateReceivedCardInterface';
 import { DateIncludeTimeFormat, DateWithoutDayWeeKFormat } from '@/utils/Format';
 
 enum MoveType {
@@ -7,18 +8,6 @@ enum MoveType {
   HOME = '가정이사',
   OFFICE = '사무실이사',
   APPOINTMENT = '지정 견적 요청',
-}
-
-interface EstimationInformationCard {
-  data: {
-    id: string;
-    createdAt: string;
-    serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
-    date: string;
-    fromAddress: string;
-    toAddress: string;
-    progress?: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
-  };
 }
 
 export default function EstimationInformationCard({ data }: EstimationInformationCard) {

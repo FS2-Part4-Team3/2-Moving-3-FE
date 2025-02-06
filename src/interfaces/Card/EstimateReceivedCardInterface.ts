@@ -1,11 +1,12 @@
-export interface EstimateReceivedCardProps {
-  serviceType: 'SMALL' | 'HOME' | 'OFFICE';
+export interface EstimationInformationCard {
   data: {
     id: string;
-    price: number;
-    comment: string;
-    driver: Driver;
-    isSpecificRequest: boolean;
+    createdAt: string;
+    serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
+    date: string;
+    fromAddress: string;
+    toAddress: string;
+    progress?: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
   };
 }
 
