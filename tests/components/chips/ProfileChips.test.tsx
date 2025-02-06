@@ -79,4 +79,18 @@ describe('ProfileChips', () => {
     fireEvent.click(screen.getByText('경기'));
     expect(mockSetSelectedRegions).toHaveBeenCalledWith(['R2']);
   });
+
+  it('handles moving type selection', () => {
+    render(
+      <Provider store={mockStoreDriver}>
+        <ProfileChips {...defaultProps} />
+      </Provider>,
+    );
+
+    fireEvent.click(screen.getByText('소형'));
+    expect(mockSetSelectedMovingType).toHaveBeenCalledWith(['M1']);
+
+    fireEvent.click(screen.getByText('가정'));
+    expect(mockSetSelectedMovingType).toHaveBeenCalledWith(['M1', 'M2']);
+  });
 });
