@@ -11,7 +11,7 @@ jest.mock('@/_pages/DriverDetail/DetailButtonClient', () => {
   };
 });
 
-const mockDriverData = {
+const mockDriverData: InfoEditDriverCardProps['data'] = {
   id: 'test-driver-1',
   name: '홍길동',
   introduce: '친절한 기사님',
@@ -47,18 +47,18 @@ describe('InfoEditDriverCard', () => {
     expect(screen.getByText('서울, 인천')).toBeInTheDocument();
 
     // 프로필 이미지 - 이미지가 없으면 defaultProfile
-    const profileImage = screen.getByAltText('driver');
-    const imgElement = profileImage.closest('img');
+    const profileImages = screen.getAllByAltText('driver');
+    const imgElement = profileImages[0].closest('img');
     expect(imgElement).toHaveAttribute('src', expect.stringContaining('image.jpg'));
   });
 
-  // it('should render the default profile image if no image is provided', () => {
+  // it('프로필 이미지가 없을 경우 기본 이미지가 렌더링되어야 한다', () => {
   //   const noImageData = { ...mockDriverData, image: '' };
   //   render(<InfoEditDriverCard data={noImageData} />);
 
   //   // 기본 프로필 이미지가 표시되는지 확인
-  //   const profileImage = screen.getByAltText('driver');
-  //   const imgElement = profileImage.closest('img');
+  //   const profileImages = screen.getAllByAltText('driver');
+  //   const imgElement = profileImages[0].closest('img');
   //   expect(imgElement).toHaveAttribute('src', expect.stringContaining('standard_profile.svg'));
   // });
 
@@ -82,5 +82,18 @@ describe('InfoEditDriverCard', () => {
   //   // 실제 동작은 `DetailButtonClient` 컴포넌트 내부에서 정의된 동작에 따라 다를 수 있습니다.
   //   // 해당 컴포넌트의 클릭 이벤트 핸들러를 모킹하거나 실제 동작을 테스트할 수 있습니다.
   //   // 예를 들어, 'click' 이벤트 후 예상되는 페이지 이동이나 API 호출 등을 확인할 수 있습니다.
+  // });
+
+  // it('type이 InfoEditDriver일 때 수정 버튼이 렌더링되어야 한다', () => {
+  //   render(<InfoEditDriverCard data={mockDriverData} />);
+  //   expect(screen.getByText('기본 정보 수정')).toBeInTheDocument();
+  //   expect(screen.getByText('내 프로필 수정')).toBeInTheDocument();
+  // });
+
+  // it('기본 정보 수정 버튼을 클릭하면 동작해야 한다', async () => {
+  //   render(<InfoEditDriverCard data={mockDriverData} />);
+  //   const button = screen.getByText('기본 정보 수정');
+  //   await userEvent.click(button);
+  //   expect(button).toBeInTheDocument();
   // });
 });
