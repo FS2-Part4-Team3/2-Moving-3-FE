@@ -50,4 +50,21 @@ describe('MovingTypeCheckCard', () => {
     expect(mockSetIsMovingType).toHaveBeenCalledWith(firstType.type);
     expect(screen.getByText(firstType.type).parentElement).toHaveClass('bg-blue-50');
   });
+
+  it('completes selection when button is clicked', () => {
+    render(<MovingTypeCheckCard {...defaultProps} />);
+    const firstType = movingTypesCheck[0];
+
+    fireEvent.click(screen.getByText(firstType.type));
+
+    fireEvent.click(screen.getByTestId('complete-button'));
+
+    expect(mockSetMovingType).toHaveBeenCalledWith(firstType.type);
+    expect(mockSetIsMovingType).toHaveBeenCalledWith(true);
+  });
+
+  it('disables complete button when no type is selected', () => {
+    render(<MovingTypeCheckCard {...defaultProps} />);
+    expect(screen.getByTestId('complete-button')).toBeDisabled();
+  });
 });
