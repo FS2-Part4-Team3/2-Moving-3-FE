@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
 import movingTypesCheck from '@/constants/movingTypeCheckCard';
 
@@ -40,5 +40,14 @@ describe('MovingTypeCheckCard', () => {
     movingTypesCheck.forEach(type => {
       expect(screen.getByText(type.type)).toBeInTheDocument();
     });
+  });
+
+  it('selects moving type on click', () => {
+    render(<MovingTypeCheckCard {...defaultProps} />);
+    const firstType = movingTypesCheck[0];
+    fireEvent.click(screen.getByText(firstType.type));
+
+    expect(mockSetIsMovingType).toHaveBeenCalledWith(firstType.type);
+    expect(screen.getByText(firstType.type).parentElement).toHaveClass('bg-blue-50');
   });
 });
