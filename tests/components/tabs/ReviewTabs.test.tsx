@@ -42,18 +42,28 @@ describe('ReviewTabs', () => {
     expect(myTab).toHaveClass('text-black-400', 'border-blue-400');
   });
 
-  it('updates selected tab on click', () => {
+  it('updates "able" tab on click', () => {
     (usePathname as jest.Mock).mockReturnValue('/normal/my-page/writable-review');
     render(<ReviewTabs />);
 
-    const myReviewTab = screen.getByText('작성 가능한 리뷰');
+    const ableTab = screen.getByText('작성 가능한 리뷰');
+    fireEvent.click(ableTab);
+
+    expect(ableTab.parentElement).toHaveClass('text-black-400', 'border-blue-400');
+  });
+
+  it('updates "my" tab on click', () => {
+    (usePathname as jest.Mock).mockReturnValue('/normal/my-page/written-review');
+    render(<ReviewTabs />);
+
+    const myReviewTab = screen.getByText('내가 작성한 리뷰');
     fireEvent.click(myReviewTab);
 
     expect(myReviewTab.parentElement).toHaveClass('text-black-400', 'border-blue-400');
   });
 
   it('contains correct href attributes', () => {
-    (usePathname as jest.Mock).mockRejectedValue('/normal/my-page/writable-review');
+    (usePathname as jest.Mock).mockReturnValue('/normal/my-page/writable-review');
     render(<ReviewTabs />);
 
     expect(screen.getByText('작성 가능한 리뷰').closest('a')).toHaveAttribute('href', '/normal/my-page/writable-review');
