@@ -206,6 +206,8 @@ export default function GNB() {
                     notifications={notifications}
                     onClose={() => setNotificationsModalOpen(false)}
                     onNotificationClick={handleNotificationClick}
+                    onMorePage={loadMoreNotifications}
+                    loading={loading}
                   />
                 </div>
               )}

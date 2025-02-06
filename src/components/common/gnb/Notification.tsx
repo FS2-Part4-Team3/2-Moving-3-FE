@@ -1,13 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import loading_img from '@/../public/assets/common/gnb/notification-loading.gif';
 import xIcon from '@/../public/assets/common/icon_X.svg';
 import { getMovesDetailData } from '@/api/MovesService';
 import { postNotificationSingleRead } from '@/api/NotificationService';
 import { NotificationProps } from '@/interfaces/CommonComp/GnbInterface';
 import { NotificationAddressFormat, timeAgoFormat } from '@/utils/Format';
+import { ButtonWrapper } from '../headless/Button';
 
-export default function Notification({ notifications, onClose, onNotificationClick }: NotificationProps) {
+export default function Notification({ notifications, onClose, onNotificationClick, onMorePage, loading }: NotificationProps) {
   // TODO: 기사님 이름 수정 필요
   // TODO: 이사 종류 수정 필요
   // TODO: 어디에서 어디로 이사하는지 수정 필요
@@ -70,14 +72,14 @@ export default function Notification({ notifications, onClose, onNotificationCli
   };
 
   return (
-    <div className="flex flex-col rounded-[2.4rem] border border-line-200 py-[1rem] px-[1.6rem] md:w-[38rem] sm:w-[30rem] h-[40.2rem] bg-white">
+    <div className="flex flex-col rounded-[2.4rem] border border-line-200 pt-[1rem] pb-[1.8rem] px-[1.6rem] md:w-[38rem] sm:w-[30rem] h-[40.2rem] bg-white">
       <div className="flex w-full items-center justify-between py-[1.4rem] pr-[1.2rem] pl-[2.4rem]">
         <p className="font-bold text-[1.8rem] leading-[2.6rem] text-black-400">알림</p>
         <Image src={xIcon} alt="x" width={24} height={24} className="cursor-pointer" onClick={onClose} />
       </div>
       {notifications.length ? (
         <div className="overflow-y-auto">
-          <div className="flex flex-col w-full pr-[0.5rem]">
+          <div className="flex flex-col w-full pr-[0.5rem] items-center">
             {notifications.map((notification, index) => {
               let fir_message = '';
               let blue_message = '';
@@ -165,6 +167,12 @@ export default function Notification({ notifications, onClose, onNotificationCli
                 </div>
               );
             })}
+            <ButtonWrapper id="notification-page-load" onClick={onMorePage}>
+              <ButtonWrapper.Button className="bg-white rounded-[0.8rem] gap-[0.4rem] flex w-fit mt-[1rem] p-[1rem] font-semibold text-[1.8rem] leading-[2.6rem] border border-line-200">
+                더보기
+                {loading && <Image src={loading_img} alt="loading" width={24} height={24} />}
+              </ButtonWrapper.Button>
+            </ButtonWrapper>
           </div>
         </div>
       ) : (

@@ -6,6 +6,8 @@ export interface NotificationProps {
   notifications: NotificationData[];
   onClose: () => void;
   onNotificationClick: (notificationId: string) => void;
+  onMorePage: () => void;
+  loading: boolean;
 }
 
 export interface NotificationResponse {
