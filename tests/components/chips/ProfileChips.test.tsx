@@ -55,7 +55,7 @@ describe('ProfileChips', () => {
   it('handles single region selection for user', () => {
     render(
       <Provider store={mockStoreUser}>
-        <ProfileChips {...defaultProps} />
+        <ProfileChips {...defaultProps} selectedRegions={undefined} />
       </Provider>,
     );
 
@@ -63,7 +63,18 @@ describe('ProfileChips', () => {
     expect(mockSetSelectedRegions).toHaveBeenCalledWith(['R1']);
   });
 
-  it('handles multiple regions selection for driver', () => {
+  it('handles single region selection for driver', () => {
+    render(
+      <Provider store={mockStoreDriver}>
+        <ProfileChips {...defaultProps} selectedRegions={undefined} />
+      </Provider>,
+    );
+
+    fireEvent.click(screen.getByText('서울'));
+    expect(mockSetSelectedRegions).toHaveBeenCalledWith(['R1']);
+  });
+
+  it('handles multiple regions selection', () => {
     render(
       <Provider store={mockStoreDriver}>
         <ProfileChips {...defaultProps} selectedRegions={['R1']} />
@@ -77,7 +88,7 @@ describe('ProfileChips', () => {
   it('handles single moving type selection', () => {
     render(
       <Provider store={mockStoreDriver}>
-        <ProfileChips {...defaultProps} />
+        <ProfileChips {...defaultProps} selectedMovingType={undefined} />
       </Provider>,
     );
 
@@ -117,7 +128,10 @@ describe('ProfileChips', () => {
       </Provider>,
     );
 
-    expect(screen.getByText('서울').parentElement).toHaveClass('bg-blue-50');
-    expect(screen.getByText('소형').parentElement).toHaveClass('bg-blue-50');
+    const regionElement = screen.getByText('서울');
+    const movingTypeElement = screen.getByText('소형');
+
+    expect(regionElement).toHaveClass('bg-blue-50');
+    expect(movingTypeElement).toHaveClass('bg-blue-50');
   });
 });
