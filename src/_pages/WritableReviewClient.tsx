@@ -3,13 +3,13 @@
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getMyReviewData } from '@/api/ReviewService';
-import WrittenReviewCard from '@/components/cards/WrittenReviewCard';
+import { getReviewableEstimations } from '@/api/EstimationService';
+import WritableReviewCard from '@/components/cards/WritableReviewCard';
 import Empty from '@/components/common/Empty/Empty';
 import Pagination from '@/components/common/pagination/pagination';
-import { MyReviews } from '@/interfaces/Card/NormalReviewCardInterface';
+import { ReviewableEstimations } from '@/interfaces/Card/NormalReviewCardInterface';
 
-export default function WrittenReviewClient() {
+export default function WritableReviewClient() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const queryClient = useQueryClient();
@@ -34,16 +34,16 @@ export default function WrittenReviewClient() {
   }, []);
 
   const {
-    data: myReviews,
+    data: reviewableEstimations,
     isLoading,
     isError,
     isPlaceholderData,
-  } = useQuery<MyReviews>({
-    queryKey: ['myReviews', currentPage, itemsPerPage],
-    queryFn: () => getMyReviewData(currentPage, itemsPerPage),
+  } = useQuery<ReviewableEstimations>({
+    queryKey: ['reviewable-estimations', currentPage, itemsPerPage],
+    queryFn: () => getReviewableEstimations(currentPage, itemsPerPage),
     placeholderData: keepPreviousData,
   });
-  const totalPages = myReviews ? Math.ceil(myReviews.totalCount / itemsPerPage) : 1;
+  const totalPages = reviewableEstimations ? Math.ceil(reviewableEstimations.totalCount / itemsPerPage) : 1;
   const hasMore = currentPage < totalPages;
 
   useEffect(() => {
@@ -53,8 +53,8 @@ export default function WrittenReviewClient() {
 
       for (let i = nextPage; i < nextPage + pagesToPrefetch && i <= totalPages; i++) {
         queryClient.prefetchQuery({
-          queryKey: ['myReviews', i, itemsPerPage],
-          queryFn: () => getMyReviewData(i, itemsPerPage),
+          queryKey: ['reviewable-estimations', i, itemsPerPage],
+          queryFn: () => getReviewableEstimations(i, itemsPerPage),
         });
       }
     }
@@ -74,14 +74,14 @@ export default function WrittenReviewClient() {
 
   return (
     <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 ">
-      {myReviews?.list.length ? (
+      {reviewableEstimations?.estimations?.length ? (
         <div className="lg:grid lg:grid-cols-2 lg:gap-y-12 lg:gap-x-6 md:flex md:flex-col sm:flex sm:flex-col md:gap-y-8 sm:gap-y-8">
-          {myReviews?.list.map(myReview => <WrittenReviewCard myReview={myReview} />)}
+          {reviewableEstimations?.estimations.map(estimation => <WritableReviewCard estimation={estimation} />)}
           <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
       ) : (
         <div className="lg:pt-[30rem] md:pt-[19.4rem] sm:pt-[19.4rem]">
-          <Empty type="Review" />
+          <Empty type="ReviewAble" />
         </div>
       )}
     </div>

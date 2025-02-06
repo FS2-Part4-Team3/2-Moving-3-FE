@@ -16,6 +16,18 @@ export const postDetailEstimationData = async (movesId: string, reject: boolean,
   }
 };
 
+export const getReviewableEstimations = async (page: number, pageSize: number) => {
+  const params = { page, pageSize };
+
+  try {
+    const data = await getRequest('/estimations/reviewable', params);
+    return data;
+  } catch (err) {
+    console.log('Fetch error getting reviewable estimation data: ', err);
+    throw err;
+  }
+};
+
 export const getUserEstimationData = async (page?: number, pageSize?: number) => {
   const params = {
     page: page,

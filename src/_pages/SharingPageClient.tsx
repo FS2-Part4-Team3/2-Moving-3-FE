@@ -12,7 +12,7 @@ export default function SharingPageClient() {
 
   useEffect(() => {
     const updateImageSize = () => {
-      if (window.innerWidth <= 1200) {
+      if (window.innerWidth < 1200) {
         setImageSize(40);
       } else {
         setImageSize(64);
