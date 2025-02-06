@@ -42,3 +42,28 @@ interface Driver {
   reviewCount: number;
   career: number;
 }
+
+export interface ReceivedQuotePageProps {
+  data: {
+    id: string;
+    createdAt: string;
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE';
+    date: string;
+    fromAddress: string;
+    toAddress: string;
+    confirmedEstimationId: string | null;
+    progress: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
+    confirmedEstimation: {
+      id: string;
+      price: number;
+      comment: string;
+      driver: Driver;
+    };
+    estimations: {
+      id: string;
+      price: number;
+      comment: string;
+      driver: Driver;
+    }[];
+  };
+}
