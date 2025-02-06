@@ -24,7 +24,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
       >
         <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:w-[64rem] ">
           <MovingTypeChips type={myReview.estimation.moveInfos.serviceType} />
-          {myReview.estimation.moveInfos.isSpecificRequest === true && <MovingTypeChips type="APPOINTMENT" />}
+          {myReview.estimation.moveInfos.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
 
           <span className="lg:flex md:hidden sm:hidden lg:text-[1.8rem] font-normal text-gray-300 items-center ml-auto">
             작성일 {DateWithoutDayWeeKFormat(myReview.createdAt)}
