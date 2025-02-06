@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 import ReviewTabs from '@/components/Tabs/ReviewTabs';
 
@@ -10,7 +10,7 @@ jest.mock('next/navigation', () => ({
 //Mock next/link
 jest.mock('next/link', () => ({
   __esModule: true,
-  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}></a>,
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
 }));
 
 describe('ReviewTabs', () => {
@@ -40,5 +40,23 @@ describe('ReviewTabs', () => {
 
     const myTab = screen.getByText('내가 작성한 리뷰').parentElement;
     expect(myTab).toHaveClass('text-black-400', 'border-blue-400');
+  });
+
+  it('updates selected tab on click', () => {
+    (usePathname as jest.Mock).mockReturnValue('/normal/my-page/writable-review');
+    render(<ReviewTabs />);
+
+    const myReviewTab = screen.getByText('작성 가능한 리뷰');
+    fireEvent.click(myReviewTab);
+
+    expect(myReviewTab.parentElement).toHaveClass('text-black-400', 'border-blue-400');
+  });
+
+  it('contains correct href attributes', () => {
+    (usePathname as jest.Mock).mockRejectedValue('/normal/my-page/writable-review');
+    render(<ReviewTabs />);
+
+    expect(screen.getByText('작성 가능한 리뷰').closest('a')).toHaveAttribute('href', '/normal/my-page/writable-review');
+    expect(screen.getByText('내가 작성한 리뷰').closest('a')).toHaveAttribute('href', '/normal/my-page/written-review');
   });
 });
