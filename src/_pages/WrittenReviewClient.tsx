@@ -69,7 +69,7 @@ export default function WrittenReviewClient() {
   }
 
   if (isError) {
-    router.push('/not-found');
+    alert('에러가 발생했습니다. 다시 한 번 시도해주세요!');
   }
 
   return (
