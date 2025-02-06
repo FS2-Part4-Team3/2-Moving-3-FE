@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import WritingReviewModal from '@/components/modal/WritingReviewModal';
 
 // Mock the external dependencies
@@ -55,5 +55,18 @@ describe('WritingReviewModal', () => {
 
     const submitButton = screen.getByText('리뷰 등록');
     expect(submitButton).toBeDisabled();
+  });
+
+  it('enables submit button when valid input is provided', () => {
+    renderComponent();
+
+    const stars = screen.getAllByAltText('star');
+    fireEvent.click(stars[4]);
+
+    const textarea = screen.getByPlaceholderText('최소 10자 이상 입력해주세요');
+    fireEvent.change(textarea, { target: { value: '이사 서비스가 매우 만족스러웠습니다!' } });
+
+    const submitButton = screen.getByText('리뷰 등록');
+    expect(submitButton).not.toBeDisabled();
   });
 });
