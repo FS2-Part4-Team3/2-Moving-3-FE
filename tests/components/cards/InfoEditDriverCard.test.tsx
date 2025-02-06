@@ -11,6 +11,8 @@ jest.mock('@/_pages/DriverDetail/DetailButtonClient', () => {
   };
 });
 
+jest.mock('@/../public/assets/common/gnb/standard_profile.svg', () => '/assets/common/gnb/standard_profile.svg');
+
 const mockDriverData: InfoEditDriverCardProps['data'] = {
   id: 'test-driver-1',
   name: '홍길동',
@@ -46,21 +48,20 @@ describe('InfoEditDriverCard', () => {
     expect(screen.getByText('소형이사, 사무실이사')).toBeInTheDocument();
     expect(screen.getByText('서울, 인천')).toBeInTheDocument();
 
-    // 프로필 이미지 - 이미지가 없으면 defaultProfile
+    // 프로필 이미지
     const profileImages = screen.getAllByAltText('driver');
     const imgElement = profileImages[0].closest('img');
     expect(imgElement).toHaveAttribute('src', expect.stringContaining('image.jpg'));
   });
 
-  // it('프로필 이미지가 없을 경우 기본 이미지가 렌더링되어야 한다', () => {
-  //   const noImageData = { ...mockDriverData, image: '' };
-  //   render(<InfoEditDriverCard data={noImageData} />);
+  it('프로필 이미지가 없을 경우 기본 이미지가 렌더링되어야 한다', () => {
+    const noImageData = { ...mockDriverData, image: '' };
+    render(<InfoEditDriverCard data={noImageData} />);
 
-  //   // 기본 프로필 이미지가 표시되는지 확인
-  //   const profileImages = screen.getAllByAltText('driver');
-  //   const imgElement = profileImages[0].closest('img');
-  //   expect(imgElement).toHaveAttribute('src', expect.stringContaining('standard_profile.svg'));
-  // });
+    const profileImages = screen.getAllByAltText('driver');
+    const imgElement = profileImages[0].closest('img');
+    expect(imgElement).toHaveAttribute('src', '/assets/common/gnb/standard_profile.svg');
+  });
 
   // it('should render the DetailButtonClient component correctly', () => {
   //   render(<InfoEditDriverCard data={mockDriverData} />);
