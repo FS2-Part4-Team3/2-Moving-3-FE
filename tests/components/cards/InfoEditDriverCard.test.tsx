@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import InfoEditDriverCard from '@/components/cards/InfoEditDriverCard';
 import { InfoEditDriverCardProps } from '@/interfaces/Card/InfoEditDriverCardInterface';
 
@@ -19,10 +18,6 @@ jest.mock('@/_pages/DriverDetail/DetailButtonClient', () => {
     );
   };
 });
-
-jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
-}));
 
 jest.mock('@/../public/assets/common/gnb/standard_profile.svg', () => '/assets/common/gnb/standard_profile.svg');
 
@@ -88,30 +83,11 @@ describe('InfoEditDriverCard', () => {
     expect(profileEditButton).toBeInTheDocument();
   });
 
-  // it('should trigger DetailButtonClient click event', async () => {
-  //   render(<InfoEditDriverCard data={mockDriverData} />);
+  it('이사 종류 및 지역에 유효하지 않은 코드가 있을 경우 그대로 반환되어야 한다', () => {
+    const unknownData = { ...mockDriverData, serviceType: ['HOME', 'UNKNOWN'], availableAreas: ['DAEGU', 'UNKNOWN'] };
+    render(<InfoEditDriverCard data={unknownData} />);
 
-  //   // 수정 버튼 클릭
-  //   const user = userEvent.setup();
-  //   const detailButton = screen.getByRole('button', { name: /수정/i });
-  //   await user.click(detailButton);
-
-  //   // 여기서는 버튼 클릭 후의 동작을 시뮬레이션할 수 있지만,
-  //   // 실제 동작은 `DetailButtonClient` 컴포넌트 내부에서 정의된 동작에 따라 다를 수 있습니다.
-  //   // 해당 컴포넌트의 클릭 이벤트 핸들러를 모킹하거나 실제 동작을 테스트할 수 있습니다.
-  //   // 예를 들어, 'click' 이벤트 후 예상되는 페이지 이동이나 API 호출 등을 확인할 수 있습니다.
-  // });
-
-  // it('type이 InfoEditDriver일 때 수정 버튼이 렌더링되어야 한다', () => {
-  //   render(<InfoEditDriverCard data={mockDriverData} />);
-  //   expect(screen.getByText('기본 정보 수정')).toBeInTheDocument();
-  //   expect(screen.getByText('내 프로필 수정')).toBeInTheDocument();
-  // });
-
-  // it('기본 정보 수정 버튼을 클릭하면 동작해야 한다', async () => {
-  //   render(<InfoEditDriverCard data={mockDriverData} />);
-  //   const button = screen.getByText('기본 정보 수정');
-  //   await userEvent.click(button);
-  //   expect(button).toBeInTheDocument();
-  // });
+    expect(screen.getByText('가정이사, UNKNOWN')).toBeInTheDocument();
+    expect(screen.getByText('대구, UNKNOWN')).toBeInTheDocument();
+  });
 });
