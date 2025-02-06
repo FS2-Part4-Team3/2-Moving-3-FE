@@ -2,8 +2,6 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
-import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import { ReviewCardEstimationsProps } from '@/interfaces/Card/NormalReviewCardInterface';
 import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
@@ -13,16 +11,6 @@ import WritingReviewModal from '../modal/WritingReviewModal';
 export default function WritableReviewCard({ estimation }: ReviewCardEstimationsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const renderStars = (score: number) => {
-    const totalStars = 5;
-    const emptyStars = totalStars - score;
-    const fullStars = score;
-
-    const stars = [...Array(fullStars).fill(star_yellow), ...Array(emptyStars).fill(star_gray)];
-
-    return stars.map((star, index) => <Image key={index} src={star} alt="star" width={20} height={20} />);
-  };
-
   return (
     <>
       <div
@@ -30,10 +18,8 @@ export default function WritableReviewCard({ estimation }: ReviewCardEstimations
         className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white border-none flex flex-col shadow-custom3"
       >
         <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:w-[64rem] ">
-          <MovingTypeChips
-            type={estimation.moveInfo.serviceType}
-            specificRequest={estimation.designatedRequest === 'Active' ? true : false}
-          />
+          <MovingTypeChips type={estimation.moveInfo.serviceType} />
+          {estimation.designatedRequest === 'Active' && <MovingTypeChips type="APPOINTMENT" />}
         </div>
         <div className="flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[64rem] lg:h-[12.8rem] rounded-[0.6rem] border lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.8rem] md:py-[1.3rem] sm:px-0 sm:py-[1.3rem] bg-white border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
           <div className="lg:w-[9.6rem] lg:h-[9.6rem] md:w-[4.6rem] md:h-[4.6rem] sm:w-[4.6rem] sm:h-[4.6rem] relative ">
