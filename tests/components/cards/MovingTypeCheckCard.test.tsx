@@ -1,3 +1,7 @@
+import { render, screen } from '@testing-library/react';
+import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
+import movingTypesCheck from '@/constants/movingTypeCheckCard';
+
 // Mock ButtonWrapper component
 jest.mock('@/components/common/headless/Button', () => ({
   ButtonWrapper: {
@@ -29,5 +33,12 @@ describe('MovingTypeCheckCard', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('renders all moving types', () => {
+    render(<MovingTypeCheckCard {...defaultProps} />);
+    movingTypesCheck.forEach(type => {
+      expect(screen.getByText(type.type)).toBeInTheDocument();
+    });
   });
 });
