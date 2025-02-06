@@ -93,4 +93,18 @@ describe('ProfileChips', () => {
     fireEvent.click(screen.getByText('가정'));
     expect(mockSetSelectedMovingType).toHaveBeenCalledWith(['M1', 'M2']);
   });
+
+  it('deselects selected items', () => {
+    render(
+      <Provider store={mockStoreDriver}>
+        <ProfileChips {...defaultProps} selectedRegions={['R1']} selectedMovingType={['M1']} />
+      </Provider>,
+    );
+
+    fireEvent.click(screen.getByText('서울'));
+    expect(mockSetSelectedRegions).toHaveBeenCalledWith([]);
+
+    fireEvent.click(screen.getByText('소형'));
+    expect(mockSetSelectedMovingType).toHaveBeenCalledWith([]);
+  });
 });
