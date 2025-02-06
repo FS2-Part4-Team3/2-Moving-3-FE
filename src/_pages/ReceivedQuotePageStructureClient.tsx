@@ -12,6 +12,9 @@ import { RootState } from '@/store/store';
 import ReceivedQuotePageClient from './ReceivedQuotePageClient';
 
 export default function ReceivedQuotePageStructureClient() {
+  // TODO: 백엔드측에서 filter 관련 로직 수정 필요. -> 수정되면 한 번 더 체크하기.
+  // TODO: 백엔드측에서 찜한 기사님 여부 로직 수정 필요. -> 수정되면 한 번 더 체크하기.
+
   const { ref, inView } = useInView();
   const { filter } = useSelector((state: RootState) => state.receiveQuote);
 

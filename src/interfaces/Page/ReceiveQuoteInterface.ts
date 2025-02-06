@@ -23,12 +23,14 @@ export interface ReceivedQuoteResponse {
       price: number;
       comment: string;
       driver: Driver;
+      isSpecificRequest: boolean;
     };
     estimations: {
       id: string;
       price: number;
       comment: string;
       driver: Driver;
+      isSpecificRequest: boolean;
     }[];
   }[];
 }
@@ -58,12 +60,14 @@ export interface ReceivedQuotePageProps {
       price: number;
       comment: string;
       driver: Driver;
+      isSpecificRequest: boolean;
     };
     estimations: {
       id: string;
       price: number;
       comment: string;
       driver: Driver;
+      isSpecificRequest: boolean;
     }[];
   };
 }

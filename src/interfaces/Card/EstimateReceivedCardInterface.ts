@@ -5,6 +5,7 @@ export interface EstimateReceivedCardProps {
     price: number;
     comment: string;
     driver: Driver;
+    isSpecificRequest: boolean;
   };
 }
 
