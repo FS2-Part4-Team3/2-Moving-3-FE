@@ -7,9 +7,22 @@ jest.mock('next/image', () => ({ src, alt }: { src: string; alt: string }) => <i
 
 jest.mock('@/_pages/DriverDetail/DetailButtonClient', () => {
   return function MockDetailButtonClient({ type }: { type: string }) {
-    return <button>{type === 'InfoEditDriver' ? '기본 정보 수정' : '내 프로필 수정'}</button>;
+    return (
+      <>
+        {type === 'InfoEditDriver' && (
+          <>
+            <button>기본 정보 수정</button>
+            <button>내 프로필 수정</button>
+          </>
+        )}
+      </>
+    );
   };
 });
+
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
 
 jest.mock('@/../public/assets/common/gnb/standard_profile.svg', () => '/assets/common/gnb/standard_profile.svg');
 
@@ -63,13 +76,17 @@ describe('InfoEditDriverCard', () => {
     expect(imgElement).toHaveAttribute('src', '/assets/common/gnb/standard_profile.svg');
   });
 
-  // it('should render the DetailButtonClient component correctly', () => {
-  //   render(<InfoEditDriverCard data={mockDriverData} />);
+  it('DetailButtonClient 버튼이 두 번 렌더링되어야 한다', () => {
+    render(<InfoEditDriverCard data={mockDriverData} />);
 
-  //   // DetailButtonClient가 제대로 렌더링되는지 확인
-  //   const detailButton = screen.getByRole('button', { name: /수정/i });
-  //   expect(detailButton).toBeInTheDocument();
-  // });
+    // '기본 정보 수정' 버튼이 하나만 있는지 확인
+    const basicEditButton = screen.getAllByRole('button', { name: /기본 정보 수정/i })[0];
+    expect(basicEditButton).toBeInTheDocument();
+
+    // '내 프로필 수정' 버튼이 하나만 있는지 확인
+    const profileEditButton = screen.getAllByRole('button', { name: /내 프로필 수정/i })[0];
+    expect(profileEditButton).toBeInTheDocument();
+  });
 
   // it('should trigger DetailButtonClient click event', async () => {
   //   render(<InfoEditDriverCard data={mockDriverData} />);
