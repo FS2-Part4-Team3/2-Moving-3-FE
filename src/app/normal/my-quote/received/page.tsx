@@ -9,7 +9,7 @@ export default async function MyQuoteReceived() {
           <WaitingQuoteTab />
         </div>
       </div>
-      <div className="lg:min-w-[119rem] lg:max-w-[140rem] sm:w-full lg:px-[0rem] md:px-[7.2rem] justify-center flex flex-col lg:mt-[4rem] md:mt-[3.2rem] sm:mt-[2.4rem]">
+      <div className="lg:min-w-[119rem] lg:max-w-[140rem] sm:w-full lg:px-[0rem] md:px-[7.2rem] justify-center flex flex-col lg:my-[4rem] md:my-[3.2rem] sm:my-[2.4rem]">
         <div className="bg-white lg:rounded-[4rem] sm:rounded-[3.2rem] lg:py-[4.8rem] lg:px-[4rem] sm:py-[1.6rem] md:px-[3.2rem] sm:px-[2.4rem] flex flex-col lg:gap-[4.8rem] sm:gap-[3.2rem] md:border border-line-100 md:shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]">
           <ReceivedQuotePageStructureClient />
         </div>
