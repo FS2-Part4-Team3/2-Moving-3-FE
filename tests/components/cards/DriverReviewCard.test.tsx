@@ -16,17 +16,17 @@ describe('DriverReviewCard Component', () => {
     comment: '이사 기사님이 너무 친절하셨어요!',
   };
 
-  // it('이름이 마스킹되어 표시됨', () => {
-  //   render(<DriverReviewCard review={mockReview} />);
-  //   const maskedName = maskName(mockReview.owner.name);
-  //   expect(screen.getByText(maskedName)).toBeInTheDocument();
-  // });
+  it('이름이 마스킹되어 표시됨', () => {
+    render(<DriverReviewCard review={mockReview} />);
+    const maskedName = maskName(mockReview.owner.name);
+    expect(screen.getByText(maskedName)).toBeInTheDocument();
+  });
 
-  // it('작성 날짜가 YYYY-MM-DD 포맷으로 표시됨', () => {
-  //   render(<DriverReviewCard review={mockReview} />);
-  //   const formattedDate = DateFormatToYYYYMMDD(mockReview.createdAt);
-  //   expect(screen.getByText(formattedDate)).toBeInTheDocument();
-  // });
+  it('작성 날짜가 YYYY-MM-DD 포맷으로 표시됨', () => {
+    render(<DriverReviewCard review={mockReview} />);
+    const formattedDate = DateFormatToYYYYMMDD(mockReview.createdAt);
+    expect(screen.getByText(formattedDate)).toBeInTheDocument();
+  });
 
   it('별점이 올바르게 렌더링됨', () => {
     render(<DriverReviewCard review={mockReview} />);
