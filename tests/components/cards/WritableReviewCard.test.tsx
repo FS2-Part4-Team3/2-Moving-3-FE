@@ -59,14 +59,12 @@ describe('WritableReviewCard', () => {
   it('renders basic component', () => {
     render(<WritableReviewCard estimation={mockEstimation} />);
 
+    const driverImage = screen.getByAltText(mockEstimation.driver.name);
+
+    expect(driverImage).toBeInTheDocument();
     expect(screen.getByText(/홍길동 기사님/)).toBeInTheDocument();
     expect(screen.getByTestId('moving-type-chip-SMALL')).toBeInTheDocument();
     expect(screen.getByTestId('moving-type-chip-APPOINTMENT')).toBeInTheDocument();
-  });
-
-  it('displays formatted date and price', () => {
-    render(<WritableReviewCard estimation={mockEstimation} />);
-
     expect(screen.getByText('2024년 2월 6일')).toBeInTheDocument();
     expect(screen.getByText('150,000원')).toBeInTheDocument();
     expect(DateWithoutDayWeeKFormat).toHaveBeenCalledWith(mockEstimation.moveInfo.date);
