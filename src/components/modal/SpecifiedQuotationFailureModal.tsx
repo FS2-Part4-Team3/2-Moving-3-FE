@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import type { SpecifiedQuotationFailureModalProps } from '@/interfaces/Modal/SpecifiedQuotationFailureModalInterface';
-import { ButtonWrapper } from '../common/headless/Button';
 import { ModalWrapper } from '../common/headless/Modal';
 
 export default function SpecifiedQuotationFailureModal({ onClose }: SpecifiedQuotationFailureModalProps) {
@@ -20,8 +19,8 @@ export default function SpecifiedQuotationFailureModal({ onClose }: SpecifiedQuo
           일반 견적 요청을 먼저 진행해 주세요.
         </p>
       </ModalWrapper.Content>
-      <ModalWrapper.Footer isDisabled={false}>
-        <ButtonWrapper.Button onClick={handleRequestQuotation}>일반 견적 요청하기</ButtonWrapper.Button>
+      <ModalWrapper.Footer isDisabled={false} onClick={handleRequestQuotation}>
+        일반 견적 요청하기
       </ModalWrapper.Footer>
     </ModalWrapper>
   );
