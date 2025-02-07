@@ -25,21 +25,12 @@ describe('SpecifiedQuotationFailureModal', () => {
     expect(buttons[0]).toBeInTheDocument();
   });
 
-  // it('버튼 클릭 시 /normal/request-quote 페이지로 이동해야 한다', async () => {
-  //   render(<SpecifiedQuotationFailureModal onClose={mockOnClose} />);
+  it('버튼 클릭 시 /normal/request-quote 페이지로 이동해야 한다', async () => {
+    render(<SpecifiedQuotationFailureModal onClose={mockOnClose} />);
 
-  //   const button = screen.getByRole('button', { name: '일반 견적 요청하기' });
-  //   await userEvent.click(button);
+    const buttons = screen.getAllByRole('button', { name: '일반 견적 요청하기' });
+    await userEvent.click(buttons[0]);
 
-  //   expect(mockPush).toHaveBeenCalledWith('/normal/request-quote');
-  // });
-
-  // it('onClose가 정상적으로 호출되어야 한다', async () => {
-  //   render(<SpecifiedQuotationFailureModal onClose={mockOnClose} />);
-
-  //   const modalHeader = screen.getByText('지정 견적 요청하기');
-  //   await userEvent.click(modalHeader);
-
-  //   expect(mockOnClose).toHaveBeenCalled();
-  // });
+    expect(mockPush).toHaveBeenCalledWith('/normal/request-quote');
+  });
 });
