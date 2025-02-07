@@ -7,6 +7,7 @@ import { ProfileProps } from '@/interfaces/CommonComp/GnbInterface';
 import { setSignOut } from '@/store/slices/SignInSlice';
 import { setDriverDataInitialization } from '@/store/slices/driversSlice';
 import { setMovesDataInitialization } from '@/store/slices/movesSlice';
+import { setReceivedQuoteInitialization } from '@/store/slices/receivedQuoteSlice';
 import { RootState } from '@/store/store';
 
 export default function Profile({ closeModal }: ProfileProps) {
@@ -24,6 +25,7 @@ export default function Profile({ closeModal }: ProfileProps) {
       dispatch(setSignOut());
       dispatch(setMovesDataInitialization());
       dispatch(setDriverDataInitialization());
+      dispatch(setReceivedQuoteInitialization());
       closeModal();
       router.push('/');
     },

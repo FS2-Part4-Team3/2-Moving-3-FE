@@ -5,11 +5,12 @@ import signInReducer from './slices/SignInSlice';
 import driversReducer from './slices/driversSlice';
 import movesReducer from './slices/movesSlice';
 import myQuotationReducer from './slices/myQuotationSlice';
+import receiveQuoteReducer from './slices/receivedQuoteSlice';
 
 const persistConfig = {
   key: 'root',
   storage: storageSession,
-  whitelist: ['signIn', 'myQuotation'],
+  whitelist: ['signIn', 'myQuotation', 'receiveQuote'],
 };
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   signIn: signInReducer,
   moves: movesReducer,
   myQuotation: myQuotationReducer,
+  receiveQuote: receiveQuoteReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
