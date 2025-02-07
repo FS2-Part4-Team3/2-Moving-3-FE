@@ -146,4 +146,26 @@ describe('CalendarCard', () => {
       expect(screen.getByText(day)).toBeInTheDocument();
     });
   });
+
+  it('sets both hours and minutes correctly', () => {
+    render(<CalendarCard {...defaultProps} />);
+
+    const [hourSelect, minuteSelect] = screen.getAllByRole('combobox', { name: '' });
+
+    fireEvent.change(hourSelect, { target: { value: '15' } });
+    fireEvent.change(minuteSelect, { target: { value: '45' } });
+
+    const completeButton = screen.getByText('선택완료');
+    fireEvent.click(completeButton);
+
+    expect(mockSetMovingDate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        getHours: expect.any(Function),
+        getMinutes: expect.any(Function),
+      }),
+    );
+    const calledDate = mockSetMovingDate.mock.calls[0][0];
+    expect(calledDate.getHours()).toBe(15);
+    expect(calledDate.getMinutes()).toBe(45);
+  });
 });
