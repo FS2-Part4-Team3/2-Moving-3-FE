@@ -33,4 +33,13 @@ describe('SpecifiedQuotationFailureModal', () => {
 
     expect(mockPush).toHaveBeenCalledWith('/normal/request-quote');
   });
+
+  it('onClose가 정상적으로 호출되어야 한다', async () => {
+    render(<SpecifiedQuotationFailureModal onClose={mockOnClose} />);
+
+    const closeButton = screen.getAllByAltText('close')[0]; // 닫기 버튼 찾기
+    await userEvent.click(closeButton);
+
+    expect(mockOnClose).toHaveBeenCalled();
+  });
 });
