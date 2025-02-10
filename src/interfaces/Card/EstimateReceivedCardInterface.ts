@@ -28,5 +28,6 @@ export interface EstimateReceivedCardProps {
     driver: Driver;
     price: number;
   };
+  isConfirmed: boolean;
   serviceType: 'SMALL' | 'HOME' | 'OFFICE';
 }

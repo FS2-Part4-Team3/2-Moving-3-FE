@@ -9,12 +9,14 @@ export default function ReceivedQuotePageClient({ data, filter }: ReceivedQuoteP
     <div className="flex flex-col lg:gap-[5.4rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
       {data ? (
         <Link key={data.id} href={`/normal/my-quote/received/${data.id}`}>
-          {data.confirmedEstimationId && <EstimateReceivedCard data={data.confirmedEstimation} serviceType={data.serviceType} />}
+          {data.confirmedEstimationId && (
+            <EstimateReceivedCard data={data.confirmedEstimation} serviceType={data.serviceType} isConfirmed={true} />
+          )}
           <div className="flex flex-col lg:gap-[5.4rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
             {filter === 'all' &&
               data.estimations.map((item, index) => (
                 <div key={index}>
-                  <EstimateReceivedCard data={item} serviceType={data.serviceType} />
+                  <EstimateReceivedCard data={item} serviceType={data.serviceType} isConfirmed={false} />
                 </div>
               ))}
           </div>
