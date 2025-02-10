@@ -14,7 +14,7 @@ export interface SentQuoteResponse {
       name: string;
     };
     designatedRequest: 'Active' | 'InActive';
-    progress: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
+    progress: 'EXPIRED' | 'CANCELED' | 'COMPLETE' | 'OPEN';
   }[];
   totalCount: number;
 }

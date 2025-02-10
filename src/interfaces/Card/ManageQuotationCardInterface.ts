@@ -1,18 +1,20 @@
 export interface ManageQuotationCardProps {
   data: {
-    id: string;
-    updatedAt: string;
-    price: number;
+    estimationInfo: {
+      estimationId: string;
+      price: number;
+    };
+    // createdAt: string;
     moveInfo: {
-      id: string;
-      updatedAt: string;
-      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
       date: string;
+      serviceType: 'SMALL' | 'HOME' | 'OFFICE';
       fromAddress: string;
       toAddress: string;
-      progress: string;
-      owner: string;
     };
+    user: {
+      name: string;
+    };
+    designatedRequest: 'Active' | 'InActive';
+    progress: 'EXPIRED' | 'CANCELED' | 'COMPLETE' | 'OPEN' | 'CONFIRMED';
   };
-  status: 'abandon' | 'end' | 'ongoing';
 }
