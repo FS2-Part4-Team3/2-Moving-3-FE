@@ -8,12 +8,23 @@ import MovingTypeChips from '../chips/MovingTypeChips';
 export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
   const renderStars = (score: number) => {
     const totalStars = 5;
-    const emptyStars = totalStars - score;
-    const fullStars = score;
 
-    const stars = [...Array(fullStars).fill(star_yellow), ...Array(emptyStars).fill(star_gray)];
+    return Array.from({ length: totalStars }, (_, index) => {
+      const yellowStar = index < score;
 
-    return stars.map((star, index) => <Image key={index} src={star} alt="star" width={20} height={20} />);
+      return (
+        <div key={index} className="lg:w-[4rem] lg:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[2rem] sm:h-[2rem] relative">
+          <Image
+            src={yellowStar ? star_yellow : star_gray}
+            alt="star"
+            data-starType={yellowStar ? 'yellow' : 'gray'}
+            width={20}
+            height={20}
+            style={{ cursor: 'pointer' }}
+          />
+        </div>
+      );
+    });
   };
 
   return (
