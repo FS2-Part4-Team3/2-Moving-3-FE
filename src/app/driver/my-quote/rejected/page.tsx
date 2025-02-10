@@ -1,6 +1,5 @@
 import MyQuoteRejectPageClient from '@/_pages/MyQuoteRejectPageClient';
 import ManageQuoteTab from '@/components/Tabs/ManageQuoteTab';
-import ManageQuotationCard from '@/components/cards/ManageQuotationCard';
 
 export default async function MyQuoteReject() {
   return (
@@ -11,11 +10,6 @@ export default async function MyQuoteReject() {
         </div>
       </div>
       <div className="w-full flex items-center justify-center mt-[4rem]">
-        {/* {moveInfoData.map((item: any, index: number) => (
-            <div key={index}>
-              <ManageQuotationCard data={item} isRejected={true} />
-            </div>
-          ))} */}
         <MyQuoteRejectPageClient />
       </div>
     </div>

@@ -47,8 +47,6 @@ export default function MyQuoteSentPageClient() {
     return <div>Empty</div>;
   }
 
-  console.log(sentQuoteData);
-
   return (
     <div className="lg:max-w-[140rem] lg:min-x-[120rem] lg:grid lg:grid-cols-2 lg:gap-[2.4rem] sm:gap-[1.6rem] sm:flex sm:flex-col w-full lg:px-[1rem] md:px-[7.2rem] sm:px-[2.4rem]">
       {sentQuoteData
