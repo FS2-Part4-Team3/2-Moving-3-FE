@@ -17,4 +17,5 @@ export interface ManageQuotationCardProps {
     designatedRequest: 'Active' | 'InActive';
     progress: 'EXPIRED' | 'CANCELED' | 'COMPLETE' | 'OPEN' | 'CONFIRMED';
   };
+  isRejected: boolean;
 }

@@ -5,9 +5,9 @@ import AddressFormat, { DateFormat, priceFormat, timeAgoFormat } from '@/utils/F
 import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
 
-export default function ManageQuotationCard({ data }: ManageQuotationCardProps) {
-  // TODO: 백엔드측에서 updatedAt, createdAt 추가시 확인 필요
-  // TODO: 기사가 반려한 경우 상태값 확인 필요 (36번 째 줄, 53번 째 줄)
+export default function ManageQuotationCard({ data, isRejected }: ManageQuotationCardProps) {
+  // TODO: 백엔드측에서 updatedAt, createdAt 추가시 확인 필요 (52번 째 줄)
+  // TODO: EMPTY일 경우 보여질 ui
 
   return (
     <>
@@ -33,9 +33,9 @@ export default function ManageQuotationCard({ data }: ManageQuotationCardProps) 
               {data.progress === 'EXPIRED' && (
                 <p className="font-semibold lg:text-[1.8rem] sm:text-[1.4rem] leading-[2.6rem] text-white">만료된 요청이에요</p>
               )}
-              {/* {data.progress === '반려' && (
+              {isRejected && (
                 <p className="font-semibold lg:text-[1.8rem] sm:text-[1.4rem] leading-[2.6rem] text-white">반려된 요청이에요</p>
-              )} */}
+              )}
             </div>
           </div>
         ) : null}

@@ -4,24 +4,24 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { getEstimationsDriver } from '@/api/EstimationService';
+import { getEstimationsRejected } from '@/api/EstimationService';
 import ManageQuotationCard from '@/components/cards/ManageQuotationCard';
 import { SentQuoteResponse } from '@/interfaces/Page/SentQuoteInterface';
 
-export default function MyQuoteSentPageClient() {
+export default function MyQuoteRejectPageClient() {
   const { ref, inView } = useInView();
 
   const {
-    data: sentQuoteData,
-    isLoading: sentQuoteDataLoading,
-    error: sentQuoteDataError,
+    data: rejectedQuoteData,
+    isLoading: rejectedQuoteLoading,
+    error: rejectedQuoteError,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery<SentQuoteResponse>({
-    queryKey: ['sentQuoteData'],
+    queryKey: ['rejectedQuoteData'],
     queryFn: ({ pageParam }) => {
-      return getEstimationsDriver(pageParam as number, 10);
+      return getEstimationsRejected(pageParam as number, 10);
     },
     getNextPageParam: (lastPage, allPages) => {
       const currentPage = allPages.length;
@@ -35,24 +35,24 @@ export default function MyQuoteSentPageClient() {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
 
-  if (sentQuoteDataLoading) {
+  if (rejectedQuoteLoading) {
     return <div>Loading...</div>;
   }
 
-  if (sentQuoteDataError) {
+  if (rejectedQuoteError) {
     return <div>Error</div>;
   }
 
-  if (!sentQuoteData || !sentQuoteData.pages[0].estimations.length) {
+  if (!rejectedQuoteData || !rejectedQuoteData.pages[0].estimations.length) {
     return <div>Empty</div>;
   }
 
-  console.log(sentQuoteData);
+  console.log(rejectedQuoteData);
 
   return (
     <div className="lg:max-w-[140rem] lg:min-x-[120rem] lg:grid lg:grid-cols-2 lg:gap-[2.4rem] sm:gap-[1.6rem] sm:flex sm:flex-col w-full lg:px-[1rem] md:px-[7.2rem] sm:px-[2.4rem]">
-      {sentQuoteData
-        ? sentQuoteData.pages.flatMap(page =>
+      {rejectedQuoteData
+        ? rejectedQuoteData.pages.flatMap(page =>
             page.estimations.map(quote => (
               <Link key={quote.estimationInfo.estimationId} href={`/driver/my-quote/sent/${quote.estimationInfo.estimationId}`}>
                 <ManageQuotationCard data={quote} isRejected={false} />
