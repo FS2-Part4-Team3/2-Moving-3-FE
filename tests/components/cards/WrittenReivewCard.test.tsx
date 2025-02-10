@@ -2,26 +2,13 @@ import { render, screen } from '@testing-library/react';
 import WrittenReviewCard from '@/components/cards/WrittenReviewCard';
 import { DateWithoutDayWeeKFormat, priceFormat } from '@/utils/Format';
 
-// SVG mocking
-jest.mock('@/../public/assets/driver/ic_star_yellow.svg', () => '/star_yellow.svg');
-jest.mock('@/../public/assets/driver/ic_star_gray.svg', () => '/star_gray.svg');
-
 // next/image mocking
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ src, alt, ...props }: any) => {
-    let actualSrc = src;
-    if (typeof src === 'object') {
-      if (src.default && src.default.includes('star_yellow')) {
-        actualSrc = '/star_yellow.svg';
-      } else if (src.default && src.default.includes('star_gray')) {
-        actualSrc = '/star_gray.svg';
-      } else {
-        actualSrc = src.default || src;
-      }
-    }
-
-    return <img src={actualSrc} alt={alt} {...props} data-testid={alt === 'star' ? 'star-image' : 'mocked-image'} />;
+  default: (props: any) => {
+    const imgProps = { ...props };
+    delete imgProps.fill;
+    return <img {...imgProps} />;
   },
 }));
 
@@ -33,7 +20,7 @@ jest.mock('@/components/chips/MovingTypeChips', () => ({
 
 // Format mocking
 jest.mock('@/utils/Format', () => ({
-  DateWithoutDayWeeKFormat: jest.fn(() => '2024년 2월 10일'),
+  DateWithoutDayWeeKFormat: jest.fn(() => '2024.02.10'),
   priceFormat: jest.fn(() => '150,000'),
 }));
 
@@ -57,30 +44,33 @@ const mockReview = {
 } as const;
 
 describe('WrittenReviewCard', () => {
-  it('renders basic review', () => {
+  it('renders basic review information correctly', () => {
     render(<WrittenReviewCard myReview={mockReview} />);
 
-    const driverImage = screen.getByAltText(mockReview.driver.name);
-    expect(driverImage).toBeInTheDocument();
-
-    const stars = screen.getAllByTestId('star-image');
-    console.log(
-      'Rendered stars:',
-      stars.map(star => ({
-        src: star.getAttribute('src'),
-        alt: star.getAttribute('alt'),
-      })),
-    );
-
-    const yellowStars = stars.filter(star => star.getAttribute('src') === '/star_yellow.svg');
-    const grayStars = stars.filter(star => star.getAttribute('src') === '/star_gray.svg');
-
-    expect(yellowStars).toHaveLength(4);
-    expect(grayStars).toHaveLength(1);
-
     expect(screen.getByText(/김운전 기사님/)).toBeInTheDocument();
+    expect(screen.getByAltText('김운전')).toBeInTheDocument();
+
     expect(screen.getByText('친절하고 좋았습니다.')).toBeInTheDocument();
+    expect(screen.getByText('150,000원')).toBeInTheDocument();
+
     expect(screen.getByTestId('moving-type-chip-HOME')).toBeInTheDocument();
     expect(screen.getByTestId('moving-type-chip-APPOINTMENT')).toBeInTheDocument();
+
+    expect(screen.getAllByText('2024.02.10')).toBeTruthy();
+  });
+
+  it('renders correct number of stars based on score', () => {
+    render(<WrittenReviewCard myReview={mockReview} />);
+
+    const stars = screen.getAllByAltText('star');
+    expect(stars).toHaveLength(5);
+
+    stars.forEach((star, index) => {
+      if (index < mockReview.score) {
+        expect(star).toHaveAttribute('data-startype', 'yellow');
+      } else {
+        expect(star).toHaveAttribute('data-startype', 'gray');
+      }
+    });
   });
 });
