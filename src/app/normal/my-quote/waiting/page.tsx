@@ -1,13 +1,7 @@
-import driverData from '@/../public/data/estimationsData.json';
 import WaitingQuotePageClient from '@/_pages/WaitingQuotePageClient';
 import WaitingQuoteTab from '@/components/Tabs/WaitingQuoteTab';
-import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
 
 export default async function MyQuoteWaiting() {
-  if (!driverData) {
-    return <div>Loading</div>;
-  }
-
   return (
     <div className="w-full min-h-screen items-center flex flex-col bg-background-100">
       <div className="w-full bg-white justify-center flex">

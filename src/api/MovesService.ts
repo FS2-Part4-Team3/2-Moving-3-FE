@@ -111,3 +111,13 @@ export const getMovesEstimationsData = async (page?: number, pageSize?: number) 
     throw error;
   }
 };
+
+export const postMovesConfirm = async (estimationId: string, moveId?: string) => {
+  try {
+    const res = await postRequest(`/moves/${moveId}/confirm/${estimationId}`);
+    return res;
+  } catch (error) {
+    console.error('Post Moves Confirmation Error', error);
+    throw error;
+  }
+};

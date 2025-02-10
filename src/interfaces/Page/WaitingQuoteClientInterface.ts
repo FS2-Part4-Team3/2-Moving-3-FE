@@ -1,5 +1,6 @@
 export interface WaitingQuoteCardClientProps {
-  dataId: string;
+  moveId: string;
+  estimationId: string;
 }
 
 export interface WaitingQuoteListResponse {

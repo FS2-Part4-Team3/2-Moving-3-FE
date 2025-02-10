@@ -9,6 +9,7 @@ import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
 import { WaitingQuoteListResponse } from '@/interfaces/Page/WaitingQuoteClientInterface';
 
 export default function WaitingQuotePageClient() {
+  // TODO: 백엔드 측에서 moveInfo.id 추가수정시 한 번 더 체크
   const { ref, inView } = useInView();
 
   const {
@@ -21,17 +22,15 @@ export default function WaitingQuotePageClient() {
   } = useInfiniteQuery<WaitingQuoteListResponse>({
     queryKey: ['waitingQuote'],
     queryFn: ({ pageParam }) => {
-      return getUserEstimationData(pageParam as number, 5);
+      return getUserEstimationData(pageParam as number, 10);
     },
     getNextPageParam: (lastPage, allPages) => {
       const currentPage = allPages.length;
-      const totalPages = Math.ceil(lastPage.totalCount / 5);
+      const totalPages = Math.ceil(lastPage.totalCount / 10);
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
     initialPageParam: 1,
   });
-
-  console.log(waitingQuote);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
@@ -54,11 +53,12 @@ export default function WaitingQuotePageClient() {
       {waitingQuote
         ? waitingQuote.pages.flatMap(page =>
             page.estimations.map(quote => (
-              <Link key={quote.estimationInfo.estimationId} href={`/match-driver/${quote.estimationInfo.estimationId}`}>
-                <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col bg-white">
-                  <WaitingQuoteCard data={quote} />
-                </div>
-              </Link>
+              <div
+                key={quote.estimationInfo.estimationId}
+                className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col bg-white"
+              >
+                <WaitingQuoteCard data={quote} />
+              </div>
             )),
           )
         : []}
