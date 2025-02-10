@@ -10,7 +10,7 @@ import { QuotesFilterMap, ReceivedQuoteResponse } from '@/interfaces/Page/Receiv
 import ReceivedQuotePageClient from './ReceivedQuotePageClient';
 
 export default function ReceivedQuotePageStructureClient() {
-  // TODO: 백엔드측에서 찜한 기사님 여부 로직 수정 필요. -> 수정되면 한 번 더 체크하기.
+  // TODO: 드라이버 확정 여부 chip으로 띄워주기
 
   const { ref, inView } = useInView();
 

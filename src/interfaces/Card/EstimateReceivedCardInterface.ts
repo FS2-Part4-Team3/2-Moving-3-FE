@@ -18,4 +18,15 @@ interface Driver {
   rating: number;
   reviewCount: number;
   career: number;
+  isliked: boolean;
+}
+
+export interface EstimateReceivedCardProps {
+  data: {
+    isSpecificRequest: boolean;
+    comment: string;
+    driver: Driver;
+    price: number;
+  };
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE';
 }
