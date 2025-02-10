@@ -1,5 +1,5 @@
 export interface SentQuoteResponse {
-  estimation: {
+  estimations: {
     estimationInfo: {
       estimationId: string;
       price: number;
