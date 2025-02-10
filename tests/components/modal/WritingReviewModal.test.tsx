@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { postReviewData } from '@/api/ReviewService';
 import WritingReviewModal from '@/components/modal/WritingReviewModal';
 
 // Mock the external dependencies
@@ -13,9 +14,12 @@ jest.mock('@/utils/Format', () => ({
   priceFormat: jest.fn().mockReturnValue('150,000'),
 }));
 
+const mockAlert = jest.fn();
+window.alert = mockAlert;
+
 // Mock the star images
-jest.mock('@/../public/assets/driver/ic_star_gray.svg', () => '/star-gray.svg');
-jest.mock('@/../public/assets/driver/ic_star_yellow.svg', () => '/star-yellow.svg');
+const STAR_GRAY = '/star-gray.svg';
+const STAR_YELLOW = '/star-yellow.svg';
 
 jest.mock('@/components/chips/MovingTypeChips', () => ({
   __esModule: true,
@@ -25,9 +29,16 @@ jest.mock('@/components/chips/MovingTypeChips', () => ({
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ src, alt, fill, onClick }: any) => {
+  default: ({ src, alt, fill, onClick, 'data-startType': dataStarType }: any) => {
     const dataTestId = alt === 'star' ? { 'data-testid': 'star-rating' } : {};
-    return <img src={src} alt={alt} onClick={onClick} {...dataTestId} />;
+    return (
+      <img
+        src={dataStarType === 'yellow' ? STAR_YELLOW : dataStarType === 'gray' ? STAR_GRAY : src}
+        alt={alt}
+        onClick={onClick}
+        {...dataTestId}
+      />
+    );
   },
 }));
 
@@ -82,10 +93,10 @@ describe('WritingReviewModal', () => {
     expect(submitButton).toBeDisabled();
 
     const starImages = screen.getAllByTestId('star-rating');
-    // expect(starImages).toHaveLength(5);
-    // starImages.forEach(star => {
-    //   expect(star.getAttribute('src')).toBe('/star-gray.svg');
-    // });
+    expect(starImages).toHaveLength(5);
+    starImages.forEach(star => {
+      expect(star.getAttribute('src')).toBe('/star-gray.svg');
+    });
   });
 
   it('enables submit button when valid input is provided', () => {
@@ -113,9 +124,9 @@ describe('WritingReviewModal', () => {
       expect(star.getAttribute('src')).toBe('/star-yellow.svg');
     });
 
-    // updatedStars.slice(3).forEach(star => {
-    //   expect(star.getAttribute('src')).toBe('/star-gray.svg');
-    // });
+    updatedStars.slice(3).forEach(star => {
+      expect(star.getAttribute('src')).toBe('/star-gray.svg');
+    });
   });
 
   it('keeps submit btn disabled when review is too short', () => {
@@ -139,5 +150,30 @@ describe('WritingReviewModal', () => {
 
     const submitBtn = screen.getByText('리뷰 등록');
     expect(submitBtn).toBeDisabled();
+  });
+
+  it('successfully submits reveiw and close modal', async () => {
+    (postReviewData as jest.Mock).mockResolvedValueOnce({});
+    renderComponent();
+
+    const stars = screen.getAllByTestId('star-rating');
+    fireEvent.click(stars[4]);
+
+    const textarea = screen.getByPlaceholderText('최소 10자 이상 입력해주세요');
+    fireEvent.change(textarea, { target: { value: '이사 서비스가 매우 만족스러웠습니다!' } });
+
+    const submitBtn = screen.getByText('리뷰 등록');
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => {
+      expect(postReviewData).toHaveBeenCalledWith(
+        mockEstimation.estimationInfo.estimationId,
+        '이사 서비스가 매우 만족스러웠습니다!',
+        5,
+      );
+    });
+
+    expect(mockAlert).toHaveBeenCalledWith('리뷰 등록이 완료되었습니다.');
+    expect(mockSetIsModalOpen).toHaveBeenCalledWith(false);
   });
 });

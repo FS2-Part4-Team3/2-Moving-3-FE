@@ -34,18 +34,22 @@ export default function WritingReviewModal({ estimation, setIsModalOpen }: Writi
 
   const renderStars = () => {
     const totalStars = 5;
-    return Array.from({ length: totalStars }, (_, index) => (
-      <div className="lg:w-[4rem] lg:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[2rem] sm:h-[2rem] relative">
-        <Image
-          key={index}
-          src={index < selectedStars ? star_yellow : star_gray}
-          alt="star"
-          fill
-          onClick={() => handleStarClick(index)}
-          style={{ cursor: 'pointer' }}
-        />
-      </div>
-    ));
+    return Array.from({ length: totalStars }, (_, index) => {
+      const yellowStar = index < selectedStars;
+
+      return (
+        <div key={index} className="lg:w-[4rem] lg:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[2rem] sm:h-[2rem] relative">
+          <Image
+            src={yellowStar ? star_yellow : star_gray}
+            alt="star"
+            data-startType={yellowStar ? 'yellow' : 'gray'}
+            fill
+            onClick={() => handleStarClick(index)}
+            style={{ cursor: 'pointer' }}
+          />
+        </div>
+      );
+    });
   };
 
   return (
