@@ -34,20 +34,26 @@ export default function GNB() {
 
   const [modalOpen, isModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
   const [notificationModalOpen, setNotificationsModalOpen] = useState(false);
   const [notifications, setNotifications] = useState<NotificationData[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = async (pageNumber: number) => {
+    setLoading(true);
     try {
-      const data: NotificationResponse = await getNotification();
-      setNotifications(data.list);
+      const data: NotificationResponse = await getNotification(pageNumber);
+      setNotifications(prev => [...prev, ...data.list]);
     } catch (error) {
       console.error('알림 가져오는 중 오류 발생', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchNotifications();
+    fetchNotifications(page);
 
     const newSocket = io(`${BASE_URL}`, {
       auth: { token: user.accessToken },
@@ -69,7 +75,7 @@ export default function GNB() {
     return () => {
       newSocket.disconnect();
     };
-  }, [user.accessToken]);
+  }, [user.accessToken, page]);
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -94,6 +100,10 @@ export default function GNB() {
 
   const handleNotificationClick = (notificationId: string) => {
     setNotifications(prevNotifications => prevNotifications.filter(notification => notification.id !== notificationId));
+  };
+
+  const loadMoreNotifications = () => {
+    setPage(prevPage => prevPage + 1);
   };
 
   return (
@@ -196,6 +206,8 @@ export default function GNB() {
                     notifications={notifications}
                     onClose={() => setNotificationsModalOpen(false)}
                     onNotificationClick={handleNotificationClick}
+                    onMorePage={loadMoreNotifications}
+                    loading={loading}
                   />
                 </div>
               )}
