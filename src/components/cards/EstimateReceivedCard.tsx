@@ -9,10 +9,11 @@ import type { EstimateReceivedCardProps } from '@/interfaces/Card/EstimateReceiv
 import { priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 
-export default function EstimateReceivedCard({ data, serviceType }: EstimateReceivedCardProps) {
+export default function EstimateReceivedCard({ data, serviceType, isConfirmed }: EstimateReceivedCardProps) {
   return (
     <div className="w-full rounded-[1.6rem] border border-line-100 lg:pt-[2rem] lg:pb-[1.4rem] lg:px-[2.4rem] sm:pt-[1.6rem] sm:pb-[1rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
       <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
+        {isConfirmed && <MovingTypeChips type="RECEIVED" />}
         <MovingTypeChips type={serviceType} />
         {data.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
       </div>
