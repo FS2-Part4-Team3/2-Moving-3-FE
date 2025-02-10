@@ -1,10 +1,9 @@
-export interface ManageQuotationCardProps {
-  data: {
+export interface SentQuoteResponse {
+  estimations: {
     estimationInfo: {
       estimationId: string;
       price: number;
     };
-    // createdAt: string;
     moveInfo: {
       date: string;
       serviceType: 'SMALL' | 'HOME' | 'OFFICE';
@@ -15,7 +14,7 @@ export interface ManageQuotationCardProps {
       name: string;
     };
     designatedRequest: 'Active' | 'InActive';
-    progress: 'EXPIRED' | 'CANCELED' | 'COMPLETE' | 'OPEN' | 'CONFIRMED';
-  };
-  isRejected: boolean;
+    progress: 'EXPIRED' | 'CANCELED' | 'COMPLETE' | 'OPEN';
+  }[];
+  totalCount: number;
 }

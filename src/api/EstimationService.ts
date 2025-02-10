@@ -42,3 +42,31 @@ export const getUserEstimationData = async (page?: number, pageSize?: number) =>
     throw error;
   }
 };
+
+export const getEstimationsDriver = async (page: number, pageSize: number) => {
+  try {
+    const params = {
+      page: page,
+      pageSize: pageSize,
+    };
+    const res = await getRequest('/estimations/driver', params);
+    return res;
+  } catch (error) {
+    console.error('Get Estimation Driver Fetch Error', error);
+    throw error;
+  }
+};
+
+export const getEstimationsRejected = async (page: number, pageSize: number) => {
+  try {
+    const params = {
+      page: page,
+      pageSize: pageSize,
+    };
+    const res = await getRequest('/estimations/rejected', params);
+    return res;
+  } catch (error) {
+    console.error('Get Estimation Rejected Fetch Error', error);
+    throw error;
+  }
+};
