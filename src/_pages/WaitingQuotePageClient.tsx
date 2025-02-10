@@ -11,9 +11,6 @@ import { WaitingQuoteListResponse } from '@/interfaces/Page/WaitingQuoteClientIn
 export default function WaitingQuotePageClient() {
   const { ref, inView } = useInView();
 
-  // TODO: 31번째 줄 API 수정 되면 lastPage.length에서 lastPage.totalCount로 변경 예정.
-  // TODO: 현재는 백엔드측 오류로 페이지 넘어가는 기능이 정상작동하지 않습니다. API 수정 반영시 해당 코드도 그에 따라 수정 예정입니다.
-
   const {
     data: waitingQuote,
     isLoading: waitingQuoteLoading,
@@ -21,18 +18,20 @@ export default function WaitingQuotePageClient() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery<WaitingQuoteListResponse[]>({
+  } = useInfiniteQuery<WaitingQuoteListResponse>({
     queryKey: ['waitingQuote'],
     queryFn: ({ pageParam }) => {
       return getUserEstimationData(pageParam as number, 5);
     },
     getNextPageParam: (lastPage, allPages) => {
       const currentPage = allPages.length;
-      const totalPages = Math.ceil(lastPage.length / 5);
+      const totalPages = Math.ceil(lastPage.totalCount / 5);
       return currentPage < totalPages ? currentPage + 1 : undefined;
     },
     initialPageParam: 1,
   });
+
+  console.log(waitingQuote);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
@@ -46,7 +45,7 @@ export default function WaitingQuotePageClient() {
     return <div>Error</div>;
   }
 
-  if (!waitingQuote || waitingQuote.pages[0].length === 0) {
+  if (!waitingQuote || waitingQuote.pages[0].totalCount === 0) {
     return <div>Empty</div>;
   }
 
@@ -54,7 +53,7 @@ export default function WaitingQuotePageClient() {
     <div className="lg:grid lg:grid-cols-2 lg:gap-[2.4rem] sm:flex flex-col md:gap-[3.2rem] md:px-[7.2rem] sm:gap-[2.4rem] sm:px-[2.4rem]">
       {waitingQuote
         ? waitingQuote.pages.flatMap(page =>
-            page.map(quote => (
+            page.estimations.map(quote => (
               <Link key={quote.estimationInfo.estimationId} href={`/match-driver/${quote.estimationInfo.estimationId}`}>
                 <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col bg-white">
                   <WaitingQuoteCard data={quote} />

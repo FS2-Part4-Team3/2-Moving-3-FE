@@ -14,6 +14,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
         <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
           <MovingTypeChips type="WAITING" />
           <MovingTypeChips type={data.moveInfo.serviceType} />
+          {data.designatedRequest === 'Active' && <MovingTypeChips type="APPOINTMENT" />}
         </div>
         <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
           <div className="flex w-full lg:gap-[2.4rem] sm:gap-[1.2rem] py-[1.6rem] lg:px-[1.8rem] sm:px-[1rem] border border-line-100 rounded-[0.6rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
