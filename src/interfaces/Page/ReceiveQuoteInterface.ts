@@ -70,4 +70,9 @@ export interface ReceivedQuotePageProps {
       isSpecificRequest: boolean;
     }[];
   };
+  filter: 'all' | 'confirmed';
 }
+
+export type QuotesFilterMap = {
+  [key: string]: 'all' | 'confirmed';
+};
