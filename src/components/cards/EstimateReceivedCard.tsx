@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import standardProfile from '@/../public/assets/common/gnb/standard_profile.svg';
 import heart from '@/../public/assets/driver/ic_empty_like.svg';
+import red_heart from '@/../public/assets/driver/ic_like_on.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { EstimateReceivedCardProps } from '@/interfaces/Card/EstimateReceivedCardInterface';
 import { priceFormat } from '@/utils/Format';
@@ -64,7 +65,7 @@ export default function EstimateReceivedCard({ data, serviceType }: EstimateRece
               {data.driver.name} 기사님
             </p>
             <div className="flex gap-[0.2rem] items-center">
-              <Image src={heart} alt="heart" width={24} height={24} />
+              <Image src={data.driver.isliked ? red_heart : heart} alt="heart" width={24} height={24} />
               <p className="font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.3rem] sm:leading-[2.2rem] text-blue-400">
                 {data.driver.likeCount}
               </p>

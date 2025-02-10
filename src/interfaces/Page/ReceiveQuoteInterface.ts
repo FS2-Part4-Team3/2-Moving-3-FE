@@ -43,6 +43,7 @@ interface Driver {
   rating: number;
   reviewCount: number;
   career: number;
+  isliked: boolean;
 }
 
 export interface ReceivedQuotePageProps {
