@@ -7,7 +7,7 @@ import data from '@/../../public/data/estimationsData.json';
 import DetailButtonClient from '@/_pages/DriverDetail/DetailButtonClient';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
-import MyQuoteReceivedToast from '@/components/toasts/MyQuoteReceivedToast';
+import MyQuoteReceivedCard from '@/components/cards/MyQuoteReceivedCard';
 import { EstimationInformationCardProps } from '@/interfaces/Card/EstimationInformationCardInterface';
 import { FindDriverCardData } from '@/interfaces/Card/FindDriverCardInterface';
 import { priceFormat } from '@/utils/Format';
@@ -90,7 +90,7 @@ export default async function MyQuoteReceivedDetail({ params }: { params: { id: 
             <EstimationInformationCard data={data2.data} />
             {/* 확정 견적이 아닐 때 토스트 창 띄우기 사용 */}
             {/* 현재는 모든 페이지에 토스트 띄워져 있는 상태 */}
-            <MyQuoteReceivedToast />
+            <MyQuoteReceivedCard />
           </div>
         </div>
         <div className="lg:block sm:hidden">
