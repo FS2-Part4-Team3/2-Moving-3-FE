@@ -176,4 +176,23 @@ describe('WritingReviewModal', () => {
     expect(mockAlert).toHaveBeenCalledWith('리뷰 등록이 완료되었습니다.');
     expect(mockSetIsModalOpen).toHaveBeenCalledWith(false);
   });
+
+  it('handles review submission failure', async () => {
+    (postReviewData as jest.Mock).mockRejectedValueOnce(new Error('Failed to submit review'));
+    renderComponent();
+
+    const stars = screen.getAllByTestId('star-rating');
+    fireEvent.click(stars[4]);
+
+    const textarea = screen.getByPlaceholderText('최소 10자 이상 입력해주세요');
+    fireEvent.change(textarea, { target: { value: '이사 서비스가 매우 만족스러웠습니다!' } });
+
+    const submitBtn = screen.getByText('리뷰 등록');
+    fireEvent.click(submitBtn);
+
+    await waitFor(() => {
+      expect(mockAlert).toHaveBeenCalledWith('리뷰 등록이 실패했습니다.');
+    });
+    expect(mockSetIsModalOpen).not.toHaveBeenCalled();
+  });
 });
