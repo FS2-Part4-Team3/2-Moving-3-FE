@@ -31,3 +31,38 @@ describe('DriverDetailChips', () => {
     expect(screen.queryByText(/area/i)).not.toBeInTheDocument();
   });
 });
+
+describe('DriverDetailChips - 존재하지 않는 값 테스트', () => {
+  it('존재하지 않는 serviceType 값을 넣었을 때, 그대로 렌더링된다', () => {
+    const invalidServiceTypes = ['UNKNOWN_SERVICE', 'RANDOM_TYPE'];
+
+    render(<DriverDetailChips serviceType={invalidServiceTypes} />);
+
+    invalidServiceTypes.forEach(type => {
+      expect(screen.getByText(type)).toBeInTheDocument();
+    });
+  });
+
+  it('존재하지 않는 availableAreas 값을 넣었을 때, 그대로 렌더링된다', () => {
+    const invalidAreas = ['MARS', 'ATLANTIS'];
+
+    render(<DriverDetailChips availableAreas={invalidAreas} />);
+
+    invalidAreas.forEach(area => {
+      expect(screen.getByText(area)).toBeInTheDocument();
+    });
+  });
+
+  it('존재하는 값과 존재하지 않는 값이 섞여 있을 때, 각각 올바르게 처리된다', () => {
+    const mixedServiceTypes = ['HOME', 'UNKNOWN_SERVICE'];
+    const mixedAreas = ['SEOUL', 'MARS'];
+
+    render(<DriverDetailChips serviceType={mixedServiceTypes} availableAreas={mixedAreas} />);
+
+    expect(screen.getByText(typeMapping['HOME'])).toBeInTheDocument();
+    expect(screen.getByText(areaMapping['SEOUL'])).toBeInTheDocument();
+
+    expect(screen.getByText('UNKNOWN_SERVICE')).toBeInTheDocument();
+    expect(screen.getByText('MARS')).toBeInTheDocument();
+  });
+});
