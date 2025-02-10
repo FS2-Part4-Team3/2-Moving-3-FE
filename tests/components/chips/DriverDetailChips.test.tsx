@@ -4,7 +4,7 @@ import DriverDetailChips from '@/components/chips/DriverDetailChips';
 import { areaMapping, typeMapping } from '@/constants/labelMappings';
 
 describe('DriverDetailChips', () => {
-  it('typeMapping의 모든 값이 정상적으로 렌더링되는지 확인', () => {
+  it('renders all values from typeMapping correctly', () => {
     const serviceTypes = Object.keys(typeMapping);
 
     render(<DriverDetailChips serviceType={serviceTypes} />);
@@ -14,7 +14,7 @@ describe('DriverDetailChips', () => {
     });
   });
 
-  it('areaMapping의 모든 값이 정상적으로 렌더링되는지 확인', () => {
+  it('renders all values from areaMapping correctly', () => {
     const availableAreas = Object.keys(areaMapping);
 
     render(<DriverDetailChips availableAreas={availableAreas} />);
@@ -24,7 +24,7 @@ describe('DriverDetailChips', () => {
     });
   });
 
-  it('serviceType과 availableAreas가 없으면 아무것도 렌더링되지 않는다', () => {
+  it('renders nothing when both serviceType and availableAreas are absent', () => {
     render(<DriverDetailChips />);
 
     expect(screen.queryByText(/service/i)).not.toBeInTheDocument();
@@ -32,8 +32,8 @@ describe('DriverDetailChips', () => {
   });
 });
 
-describe('DriverDetailChips - 존재하지 않는 값 테스트', () => {
-  it('존재하지 않는 serviceType 값을 넣었을 때, 그대로 렌더링된다', () => {
+describe('DriverDetailChips - Invalid Values Test', () => {
+  it('renders unknown serviceType values as they are', () => {
     const invalidServiceTypes = ['UNKNOWN_SERVICE', 'RANDOM_TYPE'];
 
     render(<DriverDetailChips serviceType={invalidServiceTypes} />);
@@ -43,7 +43,7 @@ describe('DriverDetailChips - 존재하지 않는 값 테스트', () => {
     });
   });
 
-  it('존재하지 않는 availableAreas 값을 넣었을 때, 그대로 렌더링된다', () => {
+  it('renders unknown availableAreas values as they are', () => {
     const invalidAreas = ['MARS', 'ATLANTIS'];
 
     render(<DriverDetailChips availableAreas={invalidAreas} />);
@@ -53,7 +53,7 @@ describe('DriverDetailChips - 존재하지 않는 값 테스트', () => {
     });
   });
 
-  it('존재하는 값과 존재하지 않는 값이 섞여 있을 때, 각각 올바르게 처리된다', () => {
+  it('correctly renders a mix of valid and invalid values', () => {
     const mixedServiceTypes = ['HOME', 'UNKNOWN_SERVICE'];
     const mixedAreas = ['SEOUL', 'MARS'];
 
