@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import MyQuoteReceivedToast from '@/components/toasts/MyQuoteReceivedToast';
+import MyQuoteReceivedCard from '@/components/cards/MyQuoteReceivedCard';
 
 describe('MyQuoteReceivedToast', () => {
   it('정상적으로 렌더링되는지 확인.', () => {
-    render(<MyQuoteReceivedToast />);
+    render(<MyQuoteReceivedCard />);
 
     // 이미지
     const image = screen.getByAltText('info');
