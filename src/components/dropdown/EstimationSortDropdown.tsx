@@ -2,24 +2,21 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import blueArrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
 import arrow from '@/../public/assets/common/dropdown/chevron-down.svg';
-import { setFilterDropdown } from '@/store/slices/receivedQuoteSlice';
+import { EstimationSortDropdownProps } from '@/interfaces/Dropdown/SortMenuInterface';
 
-export default function EstimationSortDropdown() {
-  const dispatch = useDispatch();
-
+export default function EstimationSortDropdown({ onChange }: EstimationSortDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<'all' | 'confirmed'>('all');
 
-  const handleMenuClick = (args: '전체' | '확정한 견적서') => {
-    if (args === '전체') {
-      dispatch(setFilterDropdown('all'));
-    } else if (args === '확정한 견적서') {
-      dispatch(setFilterDropdown('confirmed'));
-    }
+  const handleMenuClick = (option: 'all' | 'confirmed') => {
+    setSelectedOption(option);
+    onChange(option);
+    setIsDropdownOpen(false);
   };
+
+  const optionInKo = selectedOption === 'all' ? '전체' : '확정한 견적서';
 
   return (
     <div>
@@ -30,7 +27,7 @@ export default function EstimationSortDropdown() {
         <p
           className={`font-normal lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] ${isDropdownOpen ? 'text-blue-300' : 'text-black-400'}`}
         >
-          {selectedOption || '전체'}
+          {optionInKo}
         </p>
         <Image src={isDropdownOpen ? blueArrow : arrow} alt="arrow" width={36} height={36} className="lg:block sm:hidden" />
         <Image src={isDropdownOpen ? blueArrow : arrow} alt="arrow" width={20} height={20} className="lg:hidden sm:block" />
@@ -40,9 +37,7 @@ export default function EstimationSortDropdown() {
           <p
             className="lg:py-[1.6rem] sm:py-[0.6rem] lg:px-[2.4rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] cursor-pointer"
             onClick={() => {
-              setSelectedOption('전체');
-              setIsDropdownOpen(false);
-              handleMenuClick('전체');
+              handleMenuClick('all');
             }}
           >
             전체
@@ -50,9 +45,7 @@ export default function EstimationSortDropdown() {
           <p
             className="lg:py-[1.6rem] sm:py-[0.6rem] lg:px-[2.4rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] cursor-pointer"
             onClick={() => {
-              setSelectedOption('확정한 견적서');
-              setIsDropdownOpen(false);
-              handleMenuClick('확정한 견적서');
+              handleMenuClick('confirmed');
             }}
           >
             확정한 견적서

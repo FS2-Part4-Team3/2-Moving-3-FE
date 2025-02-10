@@ -97,17 +97,27 @@ export const patchMove = async (moveId: string, serviceType: string, date: strin
   }
 };
 
-export const getMovesEstimationsData = async (page?: number, pageSize?: number, filter?: 'all' | 'confirmed') => {
+export const getMovesEstimationsData = async (page?: number, pageSize?: number) => {
   try {
     const params = {
       page: page,
       pageSize: pageSize,
-      filter: filter,
+      filter: 'all',
     };
     const res = await getRequest('/moves/estimations', params);
     return res;
   } catch (error) {
     console.error('Get Moves Estimations Data', error);
+    throw error;
+  }
+};
+
+export const postMovesConfirm = async (estimationId: string, moveId?: string) => {
+  try {
+    const res = await postRequest(`/moves/${moveId}/confirm/${estimationId}`);
+    return res;
+  } catch (error) {
+    console.error('Post Moves Confirmation Error', error);
     throw error;
   }
 };

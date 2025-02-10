@@ -43,6 +43,7 @@ interface Driver {
   rating: number;
   reviewCount: number;
   career: number;
+  isliked: boolean;
 }
 
 export interface ReceivedQuotePageProps {
@@ -70,4 +71,9 @@ export interface ReceivedQuotePageProps {
       isSpecificRequest: boolean;
     }[];
   };
+  filter: 'all' | 'confirmed';
 }
+
+export type QuotesFilterMap = {
+  [key: string]: 'all' | 'confirmed';
+};
