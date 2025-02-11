@@ -3,18 +3,7 @@ export interface MyQuoteWaitingDetailClientProps {
 }
 
 export interface MyQuoteDetailData {
-  driver: {
-    image: string;
-    name: string;
-    rating: number;
-    reviewCount: number;
-    career: number;
-    applyCount: number;
-    likeCount: number;
-    introduce: string;
-    id: string;
-    serviceType: string[];
-  };
+  driverId: string;
   moveInfo: {
     moveInfoId: string;
     createdAt: string;

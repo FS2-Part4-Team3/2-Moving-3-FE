@@ -2,9 +2,11 @@
 
 import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { getDriverDetailData } from '@/api/DriverService';
 import { getUserEstimationDetailData } from '@/api/EstimationService';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
+import { FindDriverCardData } from '@/interfaces/Card/FindDriverCardInterface';
 import { MyQuoteDetailData, MyQuoteWaitingDetailClientProps } from '@/interfaces/Page/MyQuoteDetailInterface';
 import { priceFormat } from '@/utils/Format';
 import DetailButtonClient from './DriverDetail/DetailButtonClient';
@@ -12,6 +14,7 @@ import SharingPageClient from './SharingPageClient';
 
 export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailClientProps) {
   const [estimationData, setEstimationData] = useState<MyQuoteDetailData | null>(null);
+  const [driverData, setDriverData] = useState<FindDriverCardData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,6 +22,9 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailC
       try {
         const data = await getUserEstimationDetailData(id);
         setEstimationData(data);
+
+        const driverDetail = await getDriverDetailData(data.driverId);
+        setDriverData(driverDetail);
       } catch (error) {
         console.error('데이터 가져오기 실패:', error);
       } finally {
@@ -32,18 +38,24 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailC
     return <div className="text-center">로딩 중...</div>;
   }
 
-  if (!estimationData || estimationData.estimationInfo.id !== id) {
+  if (!estimationData || estimationData.estimationInfo.id !== id || !driverData) {
     notFound();
   }
 
-  const { estimationInfo, moveInfo, driver, designatedRequest } = estimationData;
+  const { estimationInfo, moveInfo, driverId, designatedRequest } = estimationData;
   const transformedMoveInfo = { ...moveInfo, id: moveInfo.moveInfoId };
+
+  const driverIntroduce = estimationInfo.comment;
 
   return (
     <>
       <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
-          <FindDriverCard data={driver} type="WAITING" designatedRequest={designatedRequest} />
+          <FindDriverCard
+            data={{ ...driverData, introduce: driverIntroduce }}
+            type="WAITING"
+            designatedRequest={designatedRequest}
+          />
           <div className="lg:hidden sm:block">
             <div className="border border-line-100 w-full mb-[2.4rem]"></div>
             <div className="flex flex-col gap-[1.6rem] py-[1rem]">
@@ -70,7 +82,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailC
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[32.8rem] gap-[4rem]">
             <div className="flex flex-col gap-[3.2rem]">
-              <DetailButtonClient type="quoteWaiting" id={driver.id} estimationId={id} />
+              <DetailButtonClient type="quoteWaiting" id={driverId} estimationId={id} />
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col gap-[2.2rem]">
@@ -85,7 +97,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailC
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
-            <DetailButtonClient type="quoteWaiting" id={driver.id} estimationId={id} />
+            <DetailButtonClient type="quoteWaiting" id={driverId} estimationId={id} />
           </div>
         </div>
       </div>
