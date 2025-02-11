@@ -10,19 +10,19 @@ import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { delDibDriver, getDibDriver, postDibDriver } from '@/api/DriverService';
-import { getCheckRequestDriver, postRequestDriver } from '@/api/MovesService';
+import { getCheckRequestDriver, postMovesConfirm, postRequestDriver } from '@/api/MovesService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
 import type { DetailButtonClientProps } from '@/interfaces/Page/DriverDetailInterface';
 import { RootState } from '@/store/store';
 
-export default function DetailButtonClient({ type, id }: DetailButtonClientProps) {
+export default function DetailButtonClient({ type, id, estimationId }: DetailButtonClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isCheckDib, setIsCheckDib] = useState(false);
 
   const userType = useSelector((state: RootState) => state.signIn.type);
-  const moveInfoId = useSelector((state: RootState) => state.myQuotation.id);
+  const moveId = useSelector((state: RootState) => state.myQuotation.id);
 
   const router = useRouter();
 
@@ -72,6 +72,18 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
     },
   });
 
+  const confirmationMutation = useMutation({
+    mutationFn: async () => {
+      await postMovesConfirm(estimationId, moveId);
+    },
+    onSuccess: () => {
+      alert('견적 확정되었습니다.');
+    },
+    onError: () => {
+      alert('문제가 발생했습니다. 다시 시도해주세요.');
+    },
+  });
+
   const handleFavorite = async () => {
     if (!userType) {
       router.push('/normal/sign-in');
@@ -89,17 +101,16 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
     }
     try {
       if (type === 'quoteWaiting') {
-        // 견적 확정하기 API 연결 예시
-        await handleConfirmQuote('quote-1');
+        confirmationMutation.mutate();
       } else {
-        if (!moveInfoId) {
+        if (!moveId) {
           setIsModalOpen(true);
           return;
         } else {
           await postRequestDriver(id);
+          setIsCompleted(true);
         }
       }
-      setIsCompleted(true);
     } catch (err) {
       alert('요청에 실패했습니다. 다시 시도해주세요.');
     }
@@ -107,11 +118,6 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  };
-
-  const handleConfirmQuote = async (quoteId: string) => {
-    // await confirmQuote(quoteId);
-    alert('견적이 확정되었습니다.');
   };
 
   const handleEditProfile = () => {

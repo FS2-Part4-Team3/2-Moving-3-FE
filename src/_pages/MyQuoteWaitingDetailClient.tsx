@@ -70,7 +70,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailC
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[32.8rem] gap-[4rem]">
             <div className="flex flex-col gap-[3.2rem]">
-              <DetailButtonClient type="quoteWaiting" id={driver.id} />
+              <DetailButtonClient type="quoteWaiting" id={driver.id} estimationId={id} />
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col gap-[2.2rem]">
@@ -85,7 +85,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailC
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
-            <DetailButtonClient type="quoteWaiting" id={driver.id} />
+            <DetailButtonClient type="quoteWaiting" id={driver.id} estimationId={id} />
           </div>
         </div>
       </div>
