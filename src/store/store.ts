@@ -1,16 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
-import storageSession from 'redux-persist/lib/storage/session';
 import signInReducer from './slices/SignInSlice';
 import driversReducer from './slices/driversSlice';
 import movesReducer from './slices/movesSlice';
 import myQuotationReducer from './slices/myQuotationSlice';
-
-const persistConfig = {
-  key: 'root',
-  storage: storageSession,
-  whitelist: ['signIn', 'myQuotation'],
-};
 
 const rootReducer = combineReducers({
   drivers: driversReducer,
@@ -18,6 +11,33 @@ const rootReducer = combineReducers({
   moves: movesReducer,
   myQuotation: myQuotationReducer,
 });
+
+function createNoopStorage() {
+  return {
+    getItem(_key: string) {
+      return Promise.resolve(null);
+    },
+    setItem(_key: string, value: any) {
+      return Promise.resolve(value);
+    },
+    removeItem(_key: string) {
+      return Promise.resolve();
+    },
+  };
+}
+
+let storage;
+if (typeof window !== 'undefined') {
+  storage = require('redux-persist/lib/storage/session').default;
+} else {
+  storage = createNoopStorage();
+}
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['signIn', 'myQuotation'],
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -31,7 +51,7 @@ export const store = configureStore({
     }),
 });
 
-export const persistor = persistStore(store);
+export const persistor = typeof window !== 'undefined' ? persistStore(store) : null;
 
 // RootState 및 AppDispatch 타입 설정
 export type RootState = ReturnType<typeof store.getState>;
