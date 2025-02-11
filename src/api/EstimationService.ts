@@ -43,6 +43,16 @@ export const getUserEstimationData = async (page?: number, pageSize?: number) =>
   }
 };
 
+export const getUserEstimationDetailData = async (estimationId: string) => {
+  try {
+    const res = await getRequest(`/estimations/user/${estimationId}`);
+    return res;
+  } catch (error) {
+    console.error(`Get User Estimation Detail Data Fetch Error: ${estimationId}`, error);
+    throw new Error(`Failed to fetch Get User Estimation Detail Data for estimationId: ${estimationId}. Please try again later.`);
+  }
+};
+
 export const getEstimationsDriver = async (page: number, pageSize: number) => {
   try {
     const params = {
