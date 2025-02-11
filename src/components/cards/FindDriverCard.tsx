@@ -5,7 +5,7 @@ import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { FindDriverCardProps } from '@/interfaces/Card/FindDriverCardInterface';
 import MovingTypeChips from '../chips/MovingTypeChips';
 
-export default function FindDriverCard({ data, type }: FindDriverCardProps) {
+export default function FindDriverCard({ data, type, designatedRequest }: FindDriverCardProps) {
   return (
     <div className="flex flex-col lg:gap-[4.8rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
       <div
@@ -18,6 +18,7 @@ export default function FindDriverCard({ data, type }: FindDriverCardProps) {
           {data.serviceType.map((item: string, index: number) => (
             <MovingTypeChips key={index} type={item as 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING'} />
           ))}
+          {designatedRequest === 'Active' && <MovingTypeChips type="APPOINTMENT" />}
         </div>
         <p className="font-semibold lg:text-[2.4rem] sm:text-[1.4rem] lg:leading-[3.2rem] sm:leading-[2.4rem] text-black-300">
           {data.introduce}

@@ -1,4 +1,3 @@
-import DetailButtonClient from '@/_pages/DriverDetail/DetailButtonClient';
 import MyQuoteWaitingDetailClient from '@/_pages/MyQuoteWaitingDetailClient';
 
 export default async function MyQuoteWaitingDetail({ params }: { params: { id: string } }) {
@@ -12,13 +11,6 @@ export default async function MyQuoteWaitingDetail({ params }: { params: { id: s
         </p>
       </div>
       <MyQuoteWaitingDetailClient id={id} />
-      <div className="lg:hidden sm:block">
-        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
-          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
-            <DetailButtonClient type="quoteWaiting" id={id} />
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
