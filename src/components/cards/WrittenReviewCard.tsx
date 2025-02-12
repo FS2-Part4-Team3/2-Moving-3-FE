@@ -1,4 +1,3 @@
-import { profile } from 'console';
 import Image from 'next/image';
 import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
