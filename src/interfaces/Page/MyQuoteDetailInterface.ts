@@ -8,10 +8,10 @@ export interface MyQuoteDetailData {
     moveInfoId: string;
     createdAt: string;
     date: string;
-    serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE';
     fromAddress: string;
     toAddress: string;
-    progress?: 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
+    progress: 'OPEN' | 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
   };
 
   estimationInfo: {
@@ -36,7 +36,7 @@ export interface DriverQuoteDetailData {
     serviceType: 'SMALL' | 'HOME' | 'OFFICE';
     fromAddress: string;
     toAddress: string;
-    // progress?: 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
+    progress: 'OPEN' | 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
   };
   designatedRequest: 'Active' | 'Inactive';
 }

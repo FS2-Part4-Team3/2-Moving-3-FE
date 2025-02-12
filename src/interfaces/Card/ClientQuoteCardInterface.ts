@@ -10,4 +10,5 @@ export interface MoveInfoData {
   date: string;
   fromAddress: string;
   toAddress: string;
+  progress: 'OPEN' | 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
 }

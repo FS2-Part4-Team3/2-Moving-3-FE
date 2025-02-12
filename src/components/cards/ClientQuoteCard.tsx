@@ -3,18 +3,14 @@ import AddressFormat, { DateFormat, timeAgoFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 
 export default function ClientQuoteCard({ data, owner, designatedRequest }: ClientQuoteCardProps) {
-  // Api 연결 필요
-  // let status: string = 'end';
-  // let status: string = 'abandon';
-
   return (
     <>
       <div className="relative w-full rounded-[1.6rem] border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] md:p-[1.6rem] sm:py-[1.6rem] sm:px-[1.4rem] shadow-custom9">
         <div className="flex flex-col gap-[1.6rem]">
           <div className="flex justify-between items-center">
             <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
-              {/* 견적 확정시에만 RECEIVED 띄우기 */}
-              <MovingTypeChips type="RECEIVED" />
+              {data.progress === 'OPEN' && <MovingTypeChips type="WAITING" />}
+              {(data.progress === 'CONFIRMED' || 'COMPLETE') && <MovingTypeChips type="RECEIVED" />}
               <MovingTypeChips type={data.serviceType} />
               {designatedRequest === 'Active' && <MovingTypeChips type="APPOINTMENT" />}
             </div>
