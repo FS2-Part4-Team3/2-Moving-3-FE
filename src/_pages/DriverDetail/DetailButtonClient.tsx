@@ -10,19 +10,19 @@ import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { delDibDriver, getDibDriver, postDibDriver } from '@/api/DriverService';
-import { getCheckRequestDriver, postRequestDriver } from '@/api/MovesService';
+import { getCheckRequestDriver, getMoveCheck, postMovesConfirm, postRequestDriver } from '@/api/MovesService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
 import type { DetailButtonClientProps } from '@/interfaces/Page/DriverDetailInterface';
 import { RootState } from '@/store/store';
 
-export default function DetailButtonClient({ type, id }: DetailButtonClientProps) {
+export default function DetailButtonClient({ type, id, estimationId }: DetailButtonClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isCheckDib, setIsCheckDib] = useState(false);
+  const [isMoveId, setIsMoveId] = useState('');
 
   const userType = useSelector((state: RootState) => state.signIn.type);
-  const moveInfoId = useSelector((state: RootState) => state.myQuotation.id);
 
   const router = useRouter();
 
@@ -42,7 +42,16 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
           const res = await getCheckRequestDriver(id);
           setIsCompleted(!res.isRequestPossible);
         } catch (err) {
-          console.error('요청 상태를 가져오는 데 실패했씁니다: ', err);
+          console.error('요청 상태를 가져오는 데 실패했습니다: ', err);
+        }
+      };
+
+      const fetchMoveId = async () => {
+        try {
+          const { id } = await getMoveCheck();
+          setIsMoveId(id);
+        } catch (err) {
+          console.error('이사 정보를 가져오는 데 실패했습니다: ', err);
         }
       };
 
@@ -51,6 +60,9 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
       }
       if (!type) {
         fetchRequestStatus();
+      }
+      if (!type || type === 'quoteWaiting') {
+        fetchMoveId();
       }
     }
   }, [id]);
@@ -72,6 +84,21 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
     },
   });
 
+  const confirmationMutation = useMutation({
+    mutationFn: async () => {
+      if (!estimationId) {
+        throw new Error('estimationId가 필요합니다.');
+      }
+      await postMovesConfirm(isMoveId, estimationId);
+    },
+    onSuccess: () => {
+      alert('견적 확정되었습니다.');
+    },
+    onError: () => {
+      alert('문제가 발생했습니다. 다시 시도해주세요.');
+    },
+  });
+
   const handleFavorite = async () => {
     if (!userType) {
       router.push('/normal/sign-in');
@@ -87,31 +114,21 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
       router.push('/normal/sign-in');
       return;
     }
-    try {
-      if (type === 'quoteWaiting') {
-        // 견적 확정하기 API 연결 예시
-        await handleConfirmQuote('quote-1');
+    if (type === 'quoteWaiting') {
+      confirmationMutation.mutate();
+    } else {
+      if (!isMoveId) {
+        setIsModalOpen(true);
+        return;
       } else {
-        if (!moveInfoId) {
-          setIsModalOpen(true);
-          return;
-        } else {
-          await postRequestDriver(id);
-        }
+        await postRequestDriver(id);
       }
-      setIsCompleted(true);
-    } catch (err) {
-      alert('요청에 실패했습니다. 다시 시도해주세요.');
     }
+    setIsCompleted(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  };
-
-  const handleConfirmQuote = async (quoteId: string) => {
-    // await confirmQuote(quoteId);
-    alert('견적이 확정되었습니다.');
   };
 
   const handleEditProfile = () => {
@@ -154,7 +171,7 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
-      {type === 'InfoEditDriver' && (
+      {type === 'infoEditDriver' && (
         <ButtonWrapper id="basic-info-edit" onClick={handleEditBasicInfo}>
           <ButtonWrapper.Button className="lg:w-[28rem] sm:w-full rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-gray-300 bg-white border border-gray-200">
             <div className="flex flex-row gap-[0.6rem] items-center justify-center">
@@ -164,7 +181,7 @@ export default function DetailButtonClient({ type, id }: DetailButtonClientProps
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
-      {type === 'InfoEditDriver' && (
+      {type === 'infoEditDriver' && (
         <ButtonWrapper id="my-profile-edit" onClick={handleEditProfile}>
           <ButtonWrapper.Button
             className="lg:w-[28rem] sm:w-full rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white"

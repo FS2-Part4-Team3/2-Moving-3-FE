@@ -11,7 +11,7 @@ import { RootState } from '@/store/store';
 export default function WaitingQuoteCardClient({ moveId, estimationId }: WaitingQuoteCardClientProps) {
   const confirmationMutation = useMutation({
     mutationFn: async () => {
-      await postMovesConfirm(estimationId, moveId);
+      await postMovesConfirm(moveId, estimationId);
     },
     onSuccess: () => {
       alert('견적 확정되었습니다.');
