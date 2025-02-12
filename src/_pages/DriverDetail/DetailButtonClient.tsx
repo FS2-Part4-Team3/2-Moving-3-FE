@@ -10,7 +10,7 @@ import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
 import heart_red from '@/../../public/assets/driver/ic_like_on.svg';
 import { delDibDriver, getDibDriver, postDibDriver } from '@/api/DriverService';
-import { getCheckRequestDriver, postMovesConfirm, postRequestDriver } from '@/api/MovesService';
+import { getCheckRequestDriver, getMoveCheck, postMovesConfirm, postRequestDriver } from '@/api/MovesService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
 import type { DetailButtonClientProps } from '@/interfaces/Page/DriverDetailInterface';
@@ -20,9 +20,9 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isCheckDib, setIsCheckDib] = useState(false);
+  const [isMoveId, setIsMoveId] = useState('');
 
   const userType = useSelector((state: RootState) => state.signIn.type);
-  const moveId = useSelector((state: RootState) => state.myQuotation.id);
 
   const router = useRouter();
 
@@ -46,11 +46,23 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
         }
       };
 
+      const fetchMoveId = async () => {
+        try {
+          const { id } = await getMoveCheck();
+          setIsMoveId(id);
+        } catch (err) {
+          console.error('이사 정보를 가져오는 데 실패했씁니다: ', err);
+        }
+      };
+
       if (!type || type === 'quoteWaiting' || type === 'quoteReceived') {
         fetchDibStatus();
       }
       if (!type) {
         fetchRequestStatus();
+      }
+      if (!type || type === 'quoteWaiting') {
+        fetchMoveId();
       }
     }
   }, [id]);
@@ -74,7 +86,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
 
   const confirmationMutation = useMutation({
     mutationFn: async () => {
-      await postMovesConfirm(estimationId, moveId);
+      await postMovesConfirm(estimationId, isMoveId);
     },
     onSuccess: () => {
       alert('견적 확정되었습니다.');
@@ -103,14 +115,14 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
       if (type === 'quoteWaiting') {
         confirmationMutation.mutate();
       } else {
-        if (!moveId) {
+        if (!isMoveId) {
           setIsModalOpen(true);
           return;
         } else {
           await postRequestDriver(id);
-          setIsCompleted(true);
         }
       }
+      setIsCompleted(true);
     } catch (err) {
       alert('요청에 실패했습니다. 다시 시도해주세요.');
     }
