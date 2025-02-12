@@ -214,9 +214,9 @@ export default function GNB() {
                 </div>
               )}
               <div className="flex relative">
-                {user.image ? (
+                {user.image || user_profile.image ? (
                   <Image
-                    src={user_profile.image || user.image}
+                    src={user_profile.image || (user.image ?? profile)}
                     alt="profile"
                     width={24}
                     height={24}
@@ -244,9 +244,9 @@ export default function GNB() {
                   className="flex lg:gap-[1.6rem] sm: gap-[2.4rem] items-center justify-center cursor-pointer"
                   onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                 >
-                  {user.image ? (
+                  {user.image || user_profile.image ? (
                     <Image
-                      src={user_profile.image || user.image}
+                      src={user_profile.image || (user.image ?? profile)}
                       alt="profile"
                       width={36}
                       height={36}
