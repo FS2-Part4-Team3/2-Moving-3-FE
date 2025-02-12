@@ -1,44 +1,44 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { getDriverDetailData } from '@/api/DriverService';
 import { getUserEstimationDetailData } from '@/api/EstimationService';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
-import { FindDriverCardData } from '@/interfaces/Card/FindDriverCardInterface';
 import { MyQuoteDetailData, MyQuoteWaitingDetailClientProps } from '@/interfaces/Page/MyQuoteDetailInterface';
 import { priceFormat } from '@/utils/Format';
 import DetailButtonClient from './DriverDetail/DetailButtonClient';
 import SharingPageClient from './SharingPageClient';
 
 export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailClientProps) {
-  const [estimationData, setEstimationData] = useState<MyQuoteDetailData | null>(null);
-  const [driverData, setDriverData] = useState<FindDriverCardData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: estimationData,
+    isLoading: isEstimationLoading,
+    error: estimationError,
+  } = useQuery<MyQuoteDetailData>({
+    queryKey: ['estimationDetail', id],
+    queryFn: () => getUserEstimationDetailData(id),
+    staleTime: 1000 * 60,
+  });
 
-  useEffect(() => {
-    async function fetchEstimationData() {
-      try {
-        const data = await getUserEstimationDetailData(id);
-        setEstimationData(data);
+  const {
+    data: driverData,
+    isLoading: isDriverLoading,
+    error: driverError,
+  } = useQuery({
+    queryKey: ['driverDetail', estimationData?.driverId],
+    queryFn: () => (estimationData ? getDriverDetailData(estimationData.driverId) : Promise.resolve(null)),
+    enabled: !!estimationData,
+    staleTime: 1000 * 60,
+  });
 
-        const driverDetail = await getDriverDetailData(data.driverId);
-        setDriverData(driverDetail);
-      } catch (error) {
-        console.error('데이터 가져오기 실패:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchEstimationData();
-  }, [id]);
-
-  if (loading) {
+  if (isEstimationLoading || isDriverLoading) {
     return <div className="text-center">로딩 중...</div>;
   }
 
-  if (!estimationData || estimationData.estimationInfo.id !== id || !driverData) {
+  if (estimationError || driverError || !estimationData || estimationData.estimationInfo.id !== id) {
+    alert('다시 시도 해주세요.');
     notFound();
   }
 

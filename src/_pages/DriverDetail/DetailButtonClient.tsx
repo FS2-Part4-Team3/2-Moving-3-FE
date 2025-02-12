@@ -42,7 +42,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
           const res = await getCheckRequestDriver(id);
           setIsCompleted(!res.isRequestPossible);
         } catch (err) {
-          console.error('요청 상태를 가져오는 데 실패했씁니다: ', err);
+          console.error('요청 상태를 가져오는 데 실패했습니다: ', err);
         }
       };
 
@@ -51,7 +51,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
           const { id } = await getMoveCheck();
           setIsMoveId(id);
         } catch (err) {
-          console.error('이사 정보를 가져오는 데 실패했씁니다: ', err);
+          console.error('이사 정보를 가져오는 데 실패했습니다: ', err);
         }
       };
 
@@ -86,7 +86,10 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
 
   const confirmationMutation = useMutation({
     mutationFn: async () => {
-      await postMovesConfirm(estimationId, isMoveId);
+      if (!estimationId) {
+        throw new Error('estimationId가 필요합니다.');
+      }
+      await postMovesConfirm(isMoveId, estimationId);
     },
     onSuccess: () => {
       alert('견적 확정되었습니다.');
@@ -111,21 +114,17 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
       router.push('/normal/sign-in');
       return;
     }
-    try {
-      if (type === 'quoteWaiting') {
-        confirmationMutation.mutate();
+    if (type === 'quoteWaiting') {
+      confirmationMutation.mutate();
+    } else {
+      if (!isMoveId) {
+        setIsModalOpen(true);
+        return;
       } else {
-        if (!isMoveId) {
-          setIsModalOpen(true);
-          return;
-        } else {
-          await postRequestDriver(id);
-        }
+        await postRequestDriver(id);
       }
-      setIsCompleted(true);
-    } catch (err) {
-      alert('요청에 실패했습니다. 다시 시도해주세요.');
     }
+    setIsCompleted(true);
   };
 
   const handleCloseModal = () => {
@@ -172,7 +171,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
-      {type === 'InfoEditDriver' && (
+      {type === 'infoEditDriver' && (
         <ButtonWrapper id="basic-info-edit" onClick={handleEditBasicInfo}>
           <ButtonWrapper.Button className="lg:w-[28rem] sm:w-full rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-gray-300 bg-white border border-gray-200">
             <div className="flex flex-row gap-[0.6rem] items-center justify-center">
@@ -182,7 +181,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}
-      {type === 'InfoEditDriver' && (
+      {type === 'infoEditDriver' && (
         <ButtonWrapper id="my-profile-edit" onClick={handleEditProfile}>
           <ButtonWrapper.Button
             className="lg:w-[28rem] sm:w-full rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-white"

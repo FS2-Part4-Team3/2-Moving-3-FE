@@ -112,7 +112,7 @@ export const getMovesEstimationsData = async (page?: number, pageSize?: number) 
   }
 };
 
-export const postMovesConfirm = async (estimationId?: string, moveId?: string) => {
+export const postMovesConfirm = async (moveId: string, estimationId: string) => {
   try {
     const res = await postRequest(`/moves/${moveId}/confirm/${estimationId}`);
     return res;

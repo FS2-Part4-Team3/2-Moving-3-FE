@@ -9,6 +9,7 @@ import AddressFormat, { DateFormat, priceFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 
 export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
+  // TODO: 효빈님 추후 작업 예정 - 링크를 한다면 범위를 좁히는 것이 더 좋을 것 같다.
   return (
     <div className="w-full rounded-[1.6rem] border border-line-100 pt-[2.8rem] pb-[2.2rem] px-[2.4rem] flex flex-col lg:gap-[2.4rem] sm:gap-[1rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] bg-white">
       <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
