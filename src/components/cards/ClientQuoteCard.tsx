@@ -10,7 +10,7 @@ export default function ClientQuoteCard({ data, owner, designatedRequest }: Clie
           <div className="flex justify-between items-center">
             <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
               {data.progress === 'OPEN' && <MovingTypeChips type="WAITING" />}
-              {(data.progress === 'CONFIRMED' || 'COMPLETE') && <MovingTypeChips type="RECEIVED" />}
+              {(data.progress === 'CONFIRMED' || data.progress === 'COMPLETE') && <MovingTypeChips type="RECEIVED" />}
               <MovingTypeChips type={data.serviceType} />
               {designatedRequest === 'Active' && <MovingTypeChips type="APPOINTMENT" />}
             </div>

@@ -52,7 +52,7 @@ export default function MyQuoteReceivedDetailClient({ id }: MyQuoteDetailClientP
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
           <FindDriverCard
             data={{ ...driverData, introduce: driverIntroduce }}
-            {...((moveInfo.progress === 'CONFIRMED' || 'COMPLETE') && { type: 'RECEIVED' })}
+            {...((moveInfo.progress === 'CONFIRMED' || moveInfo.progress === 'COMPLETE') && { type: 'RECEIVED' })}
             designatedRequest={designatedRequest}
           />
           <div className="lg:hidden sm:block">
