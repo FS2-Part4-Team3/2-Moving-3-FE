@@ -1,15 +1,6 @@
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import DriverMyPageClient from '@/_pages/DriverMyPageClient';
-import { getDriverReviewData } from '@/api/DriverService';
 
 export default async function DriverMyPage() {
-  // const queryClient = new QueryClient();
-  // queryClient.prefetchQuery({
-  //   queryKey: ['reviewData', id],
-  //   queryFn: () => getDriverReviewData(id, 1, 5),
-  // });
-  // const dehydratedState = dehydrate(queryClient);
-
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="bg-white lg:w-[120rem] md:w-[60rem] sm:w-[32.7rem]">

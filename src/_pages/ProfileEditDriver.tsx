@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -36,6 +36,7 @@ export default function ProfileEditDriver() {
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     setValues(prev => ({
@@ -128,7 +129,7 @@ export default function ProfileEditDriver() {
     },
     onSuccess: () => {
       alert('프로필 수정이 완료됐습니다!');
-      router.push(`/driver/my-page?id=${user.id}`);
+      router.push(`/driver/my-page`);
     },
     onError: () => {
       router.push('/not-found');
