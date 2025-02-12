@@ -32,13 +32,14 @@ export default function InfoEditForDriver() {
   const isDisabled = values.name && values.number && values.nowPassword;
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
+  const user_info = useSelector((state: RootState) => state.info);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setValues(prev => ({
       ...prev,
-      name: user.name || '',
-      number: user.phoneNumber || '',
+      name: user_info.name || user.name || '',
+      number: user_info.phoneNumber || user.phoneNumber || '',
       email: user.email || '',
     }));
   }, []);
