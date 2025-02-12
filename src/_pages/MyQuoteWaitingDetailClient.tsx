@@ -19,7 +19,6 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailC
   } = useQuery<MyQuoteDetailData>({
     queryKey: ['estimationDetail', id],
     queryFn: () => getUserEstimationDetailData(id),
-    staleTime: 1000 * 60,
   });
 
   const {
@@ -30,7 +29,6 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteWaitingDetailC
     queryKey: ['driverDetail', estimationData?.driverId],
     queryFn: () => (estimationData ? getDriverDetailData(estimationData.driverId) : Promise.resolve(null)),
     enabled: !!estimationData,
-    staleTime: 1000 * 60,
   });
 
   if (isEstimationLoading || isDriverLoading) {
