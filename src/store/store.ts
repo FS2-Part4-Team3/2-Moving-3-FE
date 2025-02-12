@@ -1,5 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
+import infoReducer from './slices/InfoSlice';
+import profileReducer from './slices/ProfileSlice';
 import signInReducer from './slices/SignInSlice';
 import driversReducer from './slices/driversSlice';
 import movesReducer from './slices/movesSlice';
@@ -10,6 +12,8 @@ const rootReducer = combineReducers({
   signIn: signInReducer,
   moves: movesReducer,
   myQuotation: myQuotationReducer,
+  profile: profileReducer,
+  info: infoReducer,
 });
 
 function createNoopStorage() {
@@ -36,7 +40,7 @@ if (typeof window !== 'undefined') {
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['signIn', 'myQuotation'],
+  whitelist: ['signIn', 'myQuotation', 'profile', 'info'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

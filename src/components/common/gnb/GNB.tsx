@@ -26,6 +26,8 @@ export default function GNB() {
   const router = useRouter();
   const pathname = usePathname();
   const user = useSelector((state: RootState) => state.signIn);
+  const user_profile = useSelector((state: RootState) => state.profile);
+  const user_info = useSelector((state: RootState) => state.info);
 
   const isRequestQuote = pathname?.includes('request-quote'); // 견적 요청
   const isMatchDriver = pathname?.includes('match-driver'); // 기사님 찾기
@@ -214,7 +216,7 @@ export default function GNB() {
               <div className="flex relative">
                 {user.image ? (
                   <Image
-                    src={user.image}
+                    src={user_profile.image || user.image}
                     alt="profile"
                     width={24}
                     height={24}
@@ -243,11 +245,19 @@ export default function GNB() {
                   onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                 >
                   {user.image ? (
-                    <Image src={user.image} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                    <Image
+                      src={user_profile.image || user.image}
+                      alt="profile"
+                      width={36}
+                      height={36}
+                      className="lg:block sm:hidden"
+                    />
                   ) : (
                     <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
                   )}
-                  <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">{user.name}</p>
+                  <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">
+                    {user_info.name || user.name}
+                  </p>
                 </div>
                 {isProfileModalOpen && (
                   <div className="absolute top-[5rem] transform translate-x-[-15rem] z-[10] lg:block sm:hidden">

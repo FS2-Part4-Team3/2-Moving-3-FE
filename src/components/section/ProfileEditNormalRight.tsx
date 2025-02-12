@@ -27,9 +27,9 @@ export default function ProfileEditNormalRight({
         <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[0.8rem] ">
           이용 서비스 <span className="text-blue-300">*</span>
         </h3>
-        <span className="lg:text-[1.6rem] sm:text-[1.3rem] text-[1.3rem] font-medium text-gray-400 mt-[0.2rem] mb-[3.2rem] self-end block">
+        <p className="lg:text-[1.6rem] sm:text-[1.3rem] text-[1.3rem] font-medium text-gray-400 mt-[0.2rem] mb-[3.2rem] self-end block">
           * 견적 요청 시 이용 서비스를 선택할 수 있어요.
-        </span>
+        </p>
         <ProfileChips
           movingTypes={chipProps.movingTypes}
           selectedMovingType={chipProps.selectedMovingType}
@@ -40,9 +40,9 @@ export default function ProfileEditNormalRight({
         <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[0.8rem]">
           서비스 가능 지역 <span className="text-blue-300">*</span>
         </h3>
-        <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-gray-400 mt-[0.2rem] mb-[3.2rem] self-end block">
+        <p className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-gray-400 mt-[0.2rem] mb-[3.2rem] self-end block">
           * 견적 요청 시 지역을 설정할 수 있어요.
-        </span>
+        </p>
         <ProfileChips
           regions={chipProps.regions}
           selectedRegions={chipProps.selectedRegions}

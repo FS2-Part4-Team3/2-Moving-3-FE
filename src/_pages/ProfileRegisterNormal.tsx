@@ -11,16 +11,17 @@ import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
-import { setProfile, setProfileNoImg } from '@/store/slices/SignInSlice';
+import useProfileValidate from '@/hooks/useProfileValidate';
+import { setProfile, setProfileNoImg } from '@/store/slices/ProfileSlice';
 
 export default function ProfileRegisterNormal() {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
-  const [selectedMovingType, setSelectedMovingType] = useState<string[]>([]);
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const { values, setValues } = useProfileValidate();
   const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
+  const isDisabled = values.selectedMovingType.length && values.selectedRegions.length;
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -34,14 +35,15 @@ export default function ProfileRegisterNormal() {
     fileInputRef.current?.click();
   };
 
-  const userMutation = useMutation({
+  const userDataMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
+
       if (selectedImg) {
         sampleImage = selectedImg.name;
       }
-      const response = await patchUserData(sampleImage, selectedMovingType, selectedRegions);
-      const { uploadUrl } = response;
+
+      const response = await patchUserData(sampleImage, values.selectedMovingType, values.selectedRegions);
 
       dispatch(
         setProfileNoImg({
@@ -51,8 +53,9 @@ export default function ProfileRegisterNormal() {
       );
 
       if (selectedImg === null) return;
+      const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
-      const res = await patchUserData(image, selectedMovingType, selectedRegions);
+      const res = await patchUserData(image, values.selectedMovingType, values.selectedRegions);
 
       dispatch(
         setProfile({
@@ -67,12 +70,13 @@ export default function ProfileRegisterNormal() {
       router.push('/');
     },
     onError: () => {
+      alert('프로필 등록에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
 
-  const handleSubmit = async () => {
-    await userMutation.mutate();
+  const handleUserDataSubmit = () => {
+    userDataMutation.mutate();
   };
   return (
     <div className="flex flex-col justify-center items-center">
@@ -105,8 +109,8 @@ export default function ProfileRegisterNormal() {
           </p>
           <ProfileChips
             movingTypes={movingTypes}
-            selectedMovingType={selectedMovingType}
-            setSelectedMovingType={setSelectedMovingType}
+            selectedMovingType={values.selectedMovingType}
+            setSelectedMovingType={value => setValues(prev => ({ ...prev, selectedMovingType: value }))}
           />
         </div>
         <div className="mt-[3.2rem]">
@@ -116,12 +120,16 @@ export default function ProfileRegisterNormal() {
           <p className="lg:text-[1.6rem] md:text-[1.2rem] sm:text-[1.2rem] font-normal text-gray-400 mb-[3.2rem]">
             *내가 사는 지역은 언제든 수정 가능해요!
           </p>
-          <ProfileChips regions={regions} selectedRegions={selectedRegions} setSelectedRegions={setSelectedRegions} />
+          <ProfileChips
+            regions={regions}
+            selectedRegions={values.selectedRegions}
+            setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegions: value }))}
+          />
         </div>
       </div>
-      <ButtonWrapper id="profile-register-normal" onClick={handleSubmit}>
+      <ButtonWrapper id="profile-register-normal" onClick={handleUserDataSubmit}>
         <ButtonWrapper.Button
-          disabled={!selectedMovingType.length || !selectedRegions.length}
+          disabled={!isDisabled}
           className="lg:w-[64rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold mt-[5.6rem] mb-[10.4rem]"
         >
           시작하기
