@@ -26,6 +26,7 @@ export default function GNB() {
   const router = useRouter();
   const pathname = usePathname();
   const user = useSelector((state: RootState) => state.signIn);
+  const edit_user = useSelector((state: RootState) => state.profile);
 
   const isRequestQuote = pathname?.includes('request-quote'); // 견적 요청
   const isMatchDriver = pathname?.includes('match-driver'); // 기사님 찾기
@@ -214,7 +215,7 @@ export default function GNB() {
               <div className="flex relative">
                 {user.image ? (
                   <Image
-                    src={user.image}
+                    src={edit_user.image || user.image}
                     alt="profile"
                     width={24}
                     height={24}
@@ -223,7 +224,7 @@ export default function GNB() {
                   />
                 ) : (
                   <Image
-                    src={profile}
+                    src={edit_user.image || profile}
                     alt="profile"
                     width={24}
                     height={24}
@@ -243,9 +244,15 @@ export default function GNB() {
                   onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                 >
                   {user.image ? (
-                    <Image src={user.image} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                    <Image
+                      src={edit_user.image || user.image}
+                      alt="profile"
+                      width={36}
+                      height={36}
+                      className="lg:block sm:hidden"
+                    />
                   ) : (
-                    <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                    <Image src={edit_user.image || profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
                   )}
                   <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">{user.name}</p>
                 </div>
