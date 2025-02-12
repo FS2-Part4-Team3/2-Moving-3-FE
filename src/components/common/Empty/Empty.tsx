@@ -34,6 +34,7 @@ export default function Empty({ type }: EmptyProps) {
       text = '아직 등록된 리뷰가 없어요!';
       text2 = '';
       buttonText = '리뷰 작성하러 가기';
+      link = () => router.push('/normal/my-page/writable-review');
       break;
     case 'ReviewAble':
       image = folder;
