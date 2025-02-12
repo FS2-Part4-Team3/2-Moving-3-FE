@@ -6,7 +6,7 @@ export interface EstimationInformationCard {
     date: string;
     fromAddress: string;
     toAddress: string;
-    progress?: 'PENDING' | 'OPEN' | 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
+    progress?: 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
   };
 }
 

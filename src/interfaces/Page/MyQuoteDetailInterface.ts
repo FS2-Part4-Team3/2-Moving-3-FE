@@ -11,7 +11,7 @@ export interface MyQuoteDetailData {
     serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
     fromAddress: string;
     toAddress: string;
-    progress?: 'PENDING' | 'OPEN' | 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
+    progress?: 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
   };
 
   estimationInfo: {
