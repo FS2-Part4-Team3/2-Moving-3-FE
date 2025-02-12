@@ -11,11 +11,11 @@ import { editDriverData, patchPassword, postSignInData } from '@/api/UserService
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setInfo } from '@/store/slices/SignInSlice';
+import { setInfo } from '@/store/slices/InfoSlice';
 import { RootState } from '@/store/store';
 
 export default function InfoEditForDriver() {
-  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
+  const { values, setValues, errors, handleChange } = useProfileValidate();
   const [isTouched, setIsTouched] = useState({
     name: false,
     number: false,
@@ -47,7 +47,7 @@ export default function InfoEditForDriver() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
-  const userMutation = useMutation({
+  const userDataMutation = useMutation({
     mutationFn: async () => {
       const res = await editDriverData(values.name, values.email, values.number);
       dispatch(
@@ -62,17 +62,18 @@ export default function InfoEditForDriver() {
       router.push(`/driver/my-page?id=${user.id}`);
     },
     onError: () => {
+      alert('기본정보 수정에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
 
-  const passwordMutation = useMutation({
+  const changePasswordMutation = useMutation({
     mutationFn: async () => {
       patchPassword(values.nowPassword, values.newPassword);
     },
   });
 
-  const passwordCheckMutation = useMutation({
+  const checkPasswordMutation = useMutation({
     mutationFn: async () => {
       if (user.type && user.email) {
         await postSignInData(user.type, user.email, values.nowPassword);
@@ -87,14 +88,14 @@ export default function InfoEditForDriver() {
   });
 
   const handleSubmit = () => {
-    userMutation.mutate();
+    userDataMutation.mutate();
     if (values?.newPassword.length) {
-      passwordMutation.mutate();
+      changePasswordMutation.mutate();
     }
   };
 
   const handlePasswordCheck = () => {
-    passwordCheckMutation.mutate();
+    checkPasswordMutation.mutate();
   };
 
   return (
