@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
 import star_yellow from '@/../public/assets/driver/ic_star_yellow.svg';
 import { type ReviewCardProps } from '@/interfaces/Card/NormalReviewCardInterface';
@@ -43,7 +44,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
         </div>
         <div className="flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[64rem] lg:h-[12.8rem] rounded-[0.6rem] border lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.8rem] md:py-[1.3rem] sm:px-0 sm:py-[1.3rem] bg-white border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
           <div className="lg:w-[9.6rem] lg:h-[9.6rem] md:w-[4.6rem] md:h-[4.6rem] sm:w-[4.6rem] sm:h-[4.6rem] relative ">
-            <Image src={myReview.driver.image} alt={myReview.driver.name} fill />
+            <Image src={myReview.driver.image || profile_default} alt={myReview.driver.name} fill />
           </div>
           <div className={`flex flex-col 'gap-0'`}>
             <h1
