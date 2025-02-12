@@ -50,11 +50,9 @@ export default function MyQuoteReceivedDetailClient({ id }: MyQuoteDetailClientP
     <>
       <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
-          {/* 확정 견적인지 아닌지 확인해서 컴포넌트 사용 */}
-          {/* 현재는 체크없이 확정 견적으로 나타낸 상태 */}
           <FindDriverCard
             data={{ ...driverData, introduce: driverIntroduce }}
-            type="RECEIVED"
+            {...(moveInfo.progress === 'CONFIRMED' && { type: 'RECEIVED' })}
             designatedRequest={designatedRequest}
           />
           <div className="lg:hidden sm:block">
