@@ -53,7 +53,7 @@ export default function Empty({ type }: EmptyProps) {
       text = '현재 진행 중인 이사 견적이 있어요!';
       text2 = '진행중인 이사 완료 후 새로운 견적을 받아보세요.';
       buttonText = '받은 견적 보러가기';
-      link = () => router.push('/normal/my-quote/received');
+      link = () => router.push('/normal/my-quote/waiting');
       break;
   }
 
