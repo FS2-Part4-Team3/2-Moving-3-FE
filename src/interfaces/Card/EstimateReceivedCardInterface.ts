@@ -1,6 +1,6 @@
 export interface EstimationInformationCard {
   data: {
-    id: string;
+    id?: string;
     createdAt: string;
     serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
     date: string;

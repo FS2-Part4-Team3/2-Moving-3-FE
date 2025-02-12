@@ -21,3 +21,22 @@ export interface MyQuoteDetailData {
   };
   designatedRequest: 'Active' | 'Inactive';
 }
+
+export interface DriverQuoteDetailData {
+  user: { name: string };
+  estimationInfo: {
+    estimationId: string;
+    price: number;
+    createdAt: string;
+    updatedAt: string;
+  };
+  moveInfo: {
+    createdAt: string;
+    date: string;
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE';
+    fromAddress: string;
+    toAddress: string;
+    // progress?: 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
+  };
+  designatedRequest: 'Active' | 'Inactive';
+}
