@@ -2,7 +2,7 @@ import type { ClientQuoteCardProps } from '@/interfaces/Card/ClientQuoteCardInte
 import AddressFormat, { DateFormat, timeAgoFormat } from '@/utils/Format';
 import MovingTypeChips from '../chips/MovingTypeChips';
 
-export default function ClientQuoteCard({ data, owner }: ClientQuoteCardProps) {
+export default function ClientQuoteCard({ data, owner, designatedRequest }: ClientQuoteCardProps) {
   // Api 연결 필요
   // let status: string = 'end';
   // let status: string = 'abandon';
@@ -16,6 +16,7 @@ export default function ClientQuoteCard({ data, owner }: ClientQuoteCardProps) {
               {/* 견적 확정시에만 RECEIVED 띄우기 */}
               <MovingTypeChips type="RECEIVED" />
               <MovingTypeChips type={data.serviceType} />
+              {designatedRequest === 'Active' && <MovingTypeChips type="APPOINTMENT" />}
             </div>
             <p className="font-normal text-[1.2rem] leading-[1.8rem] text-gray-500">{timeAgoFormat(data.createdAt)}</p>
           </div>

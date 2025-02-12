@@ -1,6 +1,7 @@
 export interface ClientQuoteCardProps {
   data: MoveInfoData;
   owner: string;
+  designatedRequest: 'Inactive' | 'Active';
 }
 
 export interface MoveInfoData {
