@@ -1,12 +1,12 @@
 export interface EstimationInformationCard {
   data: {
-    id: string;
+    id?: string;
     createdAt: string;
     serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
     date: string;
     fromAddress: string;
     toAddress: string;
-    progress?: 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
+    progress?: 'OPEN' | 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
   };
 }
 

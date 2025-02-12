@@ -67,6 +67,18 @@ export const getEstimationsDriver = async (page: number, pageSize: number) => {
   }
 };
 
+export const getEstimationsDriverDetail = async (estimationId: string) => {
+  try {
+    const res = await getRequest(`/estimations/driver/${estimationId}`);
+    return res;
+  } catch (error) {
+    console.error(`Get Driver Estimation Detail Data Fetch Error: ${estimationId}`, error);
+    throw new Error(
+      `Failed to fetch Get Driver Estimation Detail Data for estimationId: ${estimationId}. Please try again later.`,
+    );
+  }
+};
+
 export const getEstimationsRejected = async (page: number, pageSize: number) => {
   try {
     const params = {
