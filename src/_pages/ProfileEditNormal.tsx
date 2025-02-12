@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editUserData, getUserData, patchPassword, postSignInData, putImage } from '@/api/UserService';
+import { editUserData, patchPassword, postSignInData, putImage } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import ProfileEditNormalLeft from '@/components/section/ProfileEditNormalLeft';
@@ -12,11 +12,12 @@ import ProfileEditNormalRight from '@/components/section/ProfileEditNormalRight'
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setInfo, setProfile, setProfileNoImg, setUserSign } from '@/store/slices/SignInSlice';
+import { setInfo } from '@/store/slices/InfoSlice';
+import { setProfile, setProfileNoImg } from '@/store/slices/ProfileSlice';
 import { RootState } from '@/store/store';
 
 export default function ProfileEditNormal() {
-  const { values, setValues, errors, validate, handleChange } = useProfileValidate();
+  const { values, setValues, errors, handleChange } = useProfileValidate();
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -31,19 +32,21 @@ export default function ProfileEditNormal() {
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
-  const disabled = values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions;
+  const user_profile = useSelector((state: RootState) => state.profile);
+  const user_info = useSelector((state: RootState) => state.info);
+  const isDisabled = values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions;
   const dispatch = useDispatch();
 
   useEffect(() => {
     setValues(prev => ({
       ...prev,
-      name: user.name || '',
-      email: user.email || '',
-      number: user.phoneNumber || '',
-      selectedRegions: user.areas || [],
-      selectedMovingType: user.serviceType || [],
+      name: user_info.name || user.name || '',
+      email: user_info.email || user.email || '',
+      number: user_profile.phoneNumber || user.phoneNumber || '',
+      selectedRegions: user_profile.areas || [],
+      selectedMovingType: user_profile.serviceType || [],
     }));
-    setPreviewUrl(user.image || '');
+    setPreviewUrl(user_profile.image || '');
   }, []);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +65,7 @@ export default function ProfileEditNormal() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
-  const userMutation = useMutation({
+  const userDataMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
       if (selectedImg) {
@@ -76,7 +79,6 @@ export default function ProfileEditNormal() {
         values.email,
         values.number,
       );
-      const { uploadUrl } = response;
 
       dispatch(
         setProfileNoImg({
@@ -92,7 +94,7 @@ export default function ProfileEditNormal() {
       );
 
       if (selectedImg === null) return;
-
+      const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await editUserData(
         image,
@@ -122,17 +124,22 @@ export default function ProfileEditNormal() {
       router.push('/normal/match-driver');
     },
     onError: () => {
+      alert('프로필 수정에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
 
-  const passwordMutation = useMutation({
+  const changePasswordMutation = useMutation({
     mutationFn: async () => {
       await patchPassword(values.nowPassword, values.newPassword);
     },
+    onError: () => {
+      alert('프로필 수정에 실패했습니다. 다시 한 번 시도해주세요!');
+      router.push('/not-found');
+    },
   });
 
-  const passwordCheckMutation = useMutation({
+  const checkPasswordMutation = useMutation({
     mutationFn: async () => {
       if (user.type && user.email) {
         await postSignInData(user.type, user.email, values.nowPassword);
@@ -146,15 +153,15 @@ export default function ProfileEditNormal() {
     },
   });
 
-  const handleValuesSubmit = () => {
-    userMutation.mutate();
+  const handleUserDataSubmit = () => {
+    userDataMutation.mutate();
     if (values?.newPassword.length) {
-      passwordMutation.mutate();
+      changePasswordMutation.mutate();
     }
   };
 
   const handlePasswordCheck = () => {
-    passwordCheckMutation.mutate();
+    checkPasswordMutation.mutate();
   };
   return (
     <>
@@ -201,9 +208,9 @@ export default function ProfileEditNormal() {
                   취소
                 </ButtonWrapper.Button>
               </ButtonWrapper>
-              <ButtonWrapper id="fix-btn" onClick={handleValuesSubmit}>
+              <ButtonWrapper id="fix-btn" onClick={handleUserDataSubmit}>
                 <ButtonWrapper.Button
-                  disabled={!disabled}
+                  disabled={!isDisabled}
                   className="lg:order-2 md:order-1 sm:order-1 lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[15rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
                 >
                   수정하기
@@ -269,7 +276,7 @@ export default function ProfileEditNormal() {
               </ButtonWrapper>
               <ButtonWrapper id="fix-btn" onClick={handlePasswordCheck}>
                 <ButtonWrapper.Button
-                  disabled={!disabled}
+                  disabled={!isDisabled}
                   className="lg:order-2 md:order-1 sm:order-1 lg:w-[30rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[15rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
                 >
                   확인

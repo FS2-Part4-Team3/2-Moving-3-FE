@@ -35,9 +35,9 @@ export default function ProfileEditNormalLeft({
               onBlur={() => handleInputBlur('name')}
             />
             {errors.name && isTouched.name && (
-              <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
+              <p className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                 {errors.name}
-              </span>
+              </p>
             )}
           </div>
         </InputWrapper>
@@ -73,9 +73,9 @@ export default function ProfileEditNormalLeft({
               onBlur={() => handleInputBlur('number')}
             />
             {errors.number && isTouched.number && (
-              <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
+              <p className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                 {errors.number}
-              </span>
+              </p>
             )}
           </div>
         </InputWrapper>
@@ -106,9 +106,9 @@ export default function ProfileEditNormalLeft({
             </div>
 
             {errors.nowPassword && isTouched.nowPassword && (
-              <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
+              <p className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                 {errors.nowPassword}
-              </span>
+              </p>
             )}
           </div>
         </InputWrapper>
@@ -139,9 +139,9 @@ export default function ProfileEditNormalLeft({
             </div>
 
             {errors.newPassword && isTouched.newPassword && (
-              <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
+              <p className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                 {errors.newPassword}
-              </span>
+              </p>
             )}
           </div>
         </InputWrapper>
@@ -177,9 +177,9 @@ export default function ProfileEditNormalLeft({
             </div>
 
             {errors.newPasswordChk && isTouched.newPasswordChk && (
-              <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
+              <p className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
                 {errors.newPasswordChk}
-              </span>
+              </p>
             )}
           </div>
         </InputWrapper>
