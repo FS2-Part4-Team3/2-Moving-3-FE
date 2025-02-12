@@ -41,14 +41,14 @@ export default function ProfileEditDriver() {
   useEffect(() => {
     setValues(prev => ({
       ...prev,
-      nickname: user_profile.nickname || '',
-      career: new Date(user_profile.startAt || ''),
-      shortBio: user_profile.introduce || '',
-      description: user_profile.description || '',
+      nickname: user_profile.nickname || (user.nickname ?? ''),
+      career: new Date(user_profile.startAt || (user.startAt ?? '')),
+      shortBio: user_profile.introduce || (user.introduce ?? ''),
+      description: user_profile.description || (user.description ?? ''),
       selectedRegions: user_profile.availableAreas || [],
       selectedMovingType: user_profile.serviceType || [],
     }));
-    setPreviewUrl(user_profile.image || '');
+    setPreviewUrl(user_profile.image || (user.image ?? ''));
   }, []);
 
   useEffect(() => {
@@ -299,10 +299,7 @@ export default function ProfileEditDriver() {
         </div>
       </div>
       <ButtonWrapper id="profile-register-driver" type="submit" onClick={() => router.back()}>
-        <ButtonWrapper.Button
-          disabled={!isDisabled}
-          className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
-        >
+        <ButtonWrapper.Button className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]">
           취소
         </ButtonWrapper.Button>
       </ButtonWrapper>

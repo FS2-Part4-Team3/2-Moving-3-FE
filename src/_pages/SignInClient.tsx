@@ -9,6 +9,7 @@ import visibility_on from '@/../public/assets/sign/visibility_on.svg';
 import { postSignInData } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
+import { setProfile } from '@/store/slices/ProfileSlice';
 import { setUserSign } from '@/store/slices/SignInSlice';
 
 export default function SignInClient() {
@@ -78,6 +79,13 @@ export default function SignInClient() {
           areas: userType === 'user' ? res.person.areas : undefined,
           type: res.person.type,
           startAt: userType === 'driver' ? res.person.startAt : '',
+        }),
+      );
+      dispatch(
+        setProfile({
+          serviceType: res.person.serviceType,
+          availableAreas: res.person.availableAreas,
+          areas: res.person.areas,
         }),
       );
       if (userType === 'user' && res.person.areas?.length && res.person.serviceType?.length) {
