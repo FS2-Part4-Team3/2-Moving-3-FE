@@ -12,7 +12,7 @@ import { ButtonWrapper } from '@/components/common/headless/Button';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setProfile, setProfileNoImg } from '@/store/slices/SignInSlice';
+import { setProfile, setProfileNoImg } from '@/store/slices/ProfileSlice';
 
 export default function ProfileRegisterNormal() {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
@@ -38,11 +38,12 @@ export default function ProfileRegisterNormal() {
   const userDataMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
+
       if (selectedImg) {
         sampleImage = selectedImg.name;
       }
+
       const response = await patchUserData(sampleImage, values.selectedMovingType, values.selectedRegions);
-      const { uploadUrl } = response;
 
       dispatch(
         setProfileNoImg({
@@ -52,6 +53,7 @@ export default function ProfileRegisterNormal() {
       );
 
       if (selectedImg === null) return;
+      const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await patchUserData(image, values.selectedMovingType, values.selectedRegions);
 
@@ -68,6 +70,7 @@ export default function ProfileRegisterNormal() {
       router.push('/');
     },
     onError: () => {
+      alert('프로필 등록에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
