@@ -1,4 +1,3 @@
-import profile from '@/../public/assets/profile/img_profile_upload.svg';
 import ProfileEditDriver from '@/_pages/ProfileEditDriver';
 
 export default function ProfileEditForDriverPage() {
