@@ -67,17 +67,11 @@ const signInSlice = createSlice({
         state.description = '';
       }
     },
-
-    setInfo(state, action: PayloadAction<SignInState>) {
-      const { name, phoneNumber } = action.payload;
-      state.name = name;
-      state.phoneNumber = phoneNumber;
-    },
     setSignOut(state) {
       Object.assign(state, initialState);
     },
   },
 });
 
-export const { setUserSign, setInfo, setSignOut } = signInSlice.actions;
+export const { setUserSign, setSignOut } = signInSlice.actions;
 export default signInSlice.reducer;
