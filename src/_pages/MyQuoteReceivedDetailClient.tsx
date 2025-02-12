@@ -6,12 +6,13 @@ import { getDriverDetailData } from '@/api/DriverService';
 import { getUserEstimationDetailData } from '@/api/EstimationService';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import FindDriverCard from '@/components/cards/FindDriverCard';
+import MyQuoteReceivedCard from '@/components/cards/MyQuoteReceivedCard';
 import { MyQuoteDetailClientProps, MyQuoteDetailData } from '@/interfaces/Page/MyQuoteDetailInterface';
 import { priceFormat } from '@/utils/Format';
 import DetailButtonClient from './DriverDetail/DetailButtonClient';
 import SharingPageClient from './SharingPageClient';
 
-export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientProps) {
+export default function MyQuoteReceivedDetailClient({ id }: MyQuoteDetailClientProps) {
   const {
     data: estimationData,
     isLoading: isEstimationLoading,
@@ -51,7 +52,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
         <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
           <FindDriverCard
             data={{ ...driverData, introduce: driverIntroduce }}
-            type="WAITING"
+            {...(moveInfo.progress === 'CONFIRMED' && { type: 'RECEIVED' })}
             designatedRequest={designatedRequest}
           />
           <div className="lg:hidden sm:block">
@@ -75,12 +76,15 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
             </p>
           </div>
           <div className="border border-line-100 w-full"></div>
-          <EstimationInformationCard data={transformedMoveInfo} />
+          <div className="flex flex-col lg:gap-[2.2rem] sm:gap-[0.8rem]">
+            <EstimationInformationCard data={transformedMoveInfo} />
+            {moveInfo.progress !== 'CONFIRMED' && <MyQuoteReceivedCard />}
+          </div>
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[32.8rem] gap-[4rem]">
             <div className="flex flex-col gap-[3.2rem]">
-              <DetailButtonClient type="quoteWaiting" id={driverId} estimationId={id} />
+              <DetailButtonClient type="quoteReceived" id={id} />
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col gap-[2.2rem]">
@@ -94,8 +98,8 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
       </div>
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
-          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
-            <DetailButtonClient type="quoteWaiting" id={driverId} estimationId={id} />
+          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
+            <DetailButtonClient type="quoteReceived" id={driverId} />
           </div>
         </div>
       </div>

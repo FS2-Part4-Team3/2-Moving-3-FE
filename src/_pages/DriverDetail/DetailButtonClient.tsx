@@ -93,6 +93,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
     },
     onSuccess: () => {
       alert('견적 확정되었습니다.');
+      router.push('/normal/my-quote/received');
     },
     onError: () => {
       alert('문제가 발생했습니다. 다시 시도해주세요.');
