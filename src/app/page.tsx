@@ -1,4 +1,5 @@
 import LandingClient from '@/_pages/LandingClient';
+import AddTrafficOverlay from '@/components/map/KakaoMap';
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         견적을 받아보세요
       </p>
       <LandingClient />
+      <AddTrafficOverlay />
     </div>
   );
 }
