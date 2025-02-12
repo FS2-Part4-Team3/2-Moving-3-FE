@@ -1,4 +1,4 @@
-export interface MyQuoteWaitingDetailClientProps {
+export interface MyQuoteDetailClientProps {
   id: string;
 }
 
@@ -11,8 +11,9 @@ export interface MyQuoteDetailData {
     serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
     fromAddress: string;
     toAddress: string;
-    progress?: 'EXPIRED' | 'CANCELED' | 'COMPLETE';
+    progress?: 'PENDING' | 'OPEN' | 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
   };
+
   estimationInfo: {
     comment: string;
     id: string;
