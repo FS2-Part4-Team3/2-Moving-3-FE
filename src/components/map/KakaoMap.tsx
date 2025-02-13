@@ -15,6 +15,7 @@ interface KakaoMapProps {
 
 export default function KakaoMap({ fromAddress, toAddress }: KakaoMapProps) {
   const apiKey: string | undefined = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
+  const [positions, setPositions] = useState<{ title: string; latlng: any }[]>([]);
 
   useEffect(() => {
     const script: HTMLScriptElement = document.createElement('script');
@@ -26,31 +27,74 @@ export default function KakaoMap({ fromAddress, toAddress }: KakaoMapProps) {
       window.kakao.maps.load(() => {
         const geocoder = new window.kakao.maps.services.Geocoder();
 
-        geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function (result: any, status: any) {
+        geocoder.addressSearch(`${fromAddress}`, function (result: any, status: any) {
+          if (status === window.kakao.maps.services.Status.OK) {
+            let coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+            console.log('출발지');
+            setPositions(prev => [
+              ...prev,
+              {
+                title: '출발지',
+                latlng: coords,
+              },
+            ]);
+          }
+        });
+
+        geocoder.addressSearch(`${toAddress}`, function (result: any, status: any) {
           if (status === window.kakao.maps.services.Status.OK) {
             let coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
 
-            let container = document.getElementById('map');
-            let options = {
-              center: coords,
-              level: 3,
-            };
-            let map = new window.kakao.maps.Map(container, options);
-
-            let marker = new window.kakao.maps.Marker({
-              map: map,
-              position: coords,
-            });
-
-            let infowindow = new window.kakao.maps.InfoWindow({
-              content: '<div style="width:150px;text-align:center;padding:6px 0;color:black;">' + '카카오 본사' + '</div>',
-            });
-            infowindow.open(map, marker);
+            console.log('도착지');
+            setPositions(prev => [
+              ...prev,
+              {
+                title: '도착지',
+                latlng: coords,
+              },
+            ]);
           }
         });
       });
     });
-  }, []);
+  }, [fromAddress, toAddress]);
+
+  useEffect(() => {
+    if (positions.length === 0) return;
+
+    let container = document.getElementById('map');
+    let options = {
+      center: positions[0].latlng,
+      level: 10,
+    };
+    let map = new window.kakao.maps.Map(container, options);
+
+    let imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+
+    positions.forEach(pos => {
+      let markerImage = new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35));
+
+      let marker = new window.kakao.maps.Marker({
+        map: map,
+        position: pos.latlng,
+        title: pos.title,
+        image: markerImage,
+      });
+
+      let infowindow = new window.kakao.maps.InfoWindow({
+        content: `<div style="width:150px;text-align:center;padding:6px 0;color:black;">${pos.title}</div>`,
+      });
+
+      infowindow.open(map, marker);
+    });
+
+    if (positions.length === 2) {
+      const midLat = (positions[0].latlng.getLat() + positions[1].latlng.getLat()) / 2;
+      const midLng = (positions[0].latlng.getLng() + positions[1].latlng.getLng()) / 2;
+      const midCoords = new window.kakao.maps.LatLng(midLat, midLng);
+      map.setCenter(midCoords);
+    }
+  }, [positions]);
 
   return <div id="map" style={{ height: '361px', width: '406px' }} />;
 }
