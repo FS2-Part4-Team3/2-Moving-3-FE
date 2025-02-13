@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import MapTab from '@/components/Tabs/MapTab';
 import KakaoMap from '@/components/map/KakaoMap';
+import { useGeoLocation } from '@/hooks/useGeolocation';
 
 interface MapClientProps {
   fromAddress: string;
@@ -10,14 +11,17 @@ interface MapClientProps {
 }
 
 export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
+  const { curLocation } = useGeoLocation();
+  console.log(curLocation);
+
   const [activeTab, setActiveTab] = useState('tab1');
 
   const renderContent = () => {
     switch (activeTab) {
       case 'tab1':
-        return <KakaoMap fromAddress={fromAddress} />;
+        return <KakaoMap fromAddress={fromAddress} curLocation={curLocation} />;
       case 'tab2':
-        return <KakaoMap toAddress={toAddress} />;
+        return <KakaoMap toAddress={toAddress} curLocation={curLocation} />;
       case 'tab3':
         return <KakaoMap fromAddress={fromAddress} toAddress={toAddress} />;
       default:

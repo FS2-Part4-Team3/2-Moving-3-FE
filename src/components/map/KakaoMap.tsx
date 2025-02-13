@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useGeoLocation } from '@/hooks/useGeolocation';
 
 declare global {
   interface Window {
@@ -11,9 +12,13 @@ declare global {
 interface KakaoMapProps {
   fromAddress?: string;
   toAddress?: string;
+  curLocation?: {
+    latitude: number;
+    longitude: number;
+  };
 }
 
-export default function KakaoMap({ fromAddress, toAddress }: KakaoMapProps) {
+export default function KakaoMap({ fromAddress, toAddress, curLocation }: KakaoMapProps) {
   const apiKey: string | undefined = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
   const [positions, setPositions] = useState<{ title: string; latlng: any }[]>([]);
 
