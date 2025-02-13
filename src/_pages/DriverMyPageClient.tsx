@@ -12,23 +12,21 @@ import ReviewClient from './DriverDetail/ReviewClient';
 export default function DriverMyPageClient() {
   const id = useSelector((state: RootState) => state.signIn.id);
 
-  if (!id) {
-    notFound();
-  }
-
   const {
     data: driverData,
     isLoading,
     isError,
   } = useQuery<DriverDetailData>({
-    queryKey: ['driverDetail', id],
-    queryFn: () => getDriverDetailData(id),
+    queryKey: id ? ['driverDetail', id] : [],
+    queryFn: id ? () => getDriverDetailData(id) : undefined,
+    enabled: !!id,
   });
 
   if (isLoading) return <div>로딩 중...</div>;
 
   if (isError || !driverData || driverData.id !== id) {
     notFound();
+    return null;
   }
 
   return (
