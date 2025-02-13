@@ -42,16 +42,17 @@ export default function KakaoMap({
         const geocoder = new window.kakao.maps.services.Geocoder();
 
         let newPositions: { title: string; latlng: any }[] = [];
-        let promises: Promise<void>[] = []; // 비동기 처리 배열
+        let promises: Promise<void>[] = [];
 
-        const addressSearch = (address: string, title: string) => {
+        const addressSearch = (address: string, title: string, saveOnly?: boolean) => {
           return new Promise<void>((resolve, reject) => {
             geocoder.addressSearch(address, (result: any, status: any) => {
               if (status === window.kakao.maps.services.Status.OK) {
                 let coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
                 if (title === '출발지') setFromCoordinate(coords);
                 if (title === '도착지') setToCoordinate(coords);
-                if (!newPositions.some(pos => pos.title === title)) {
+
+                if (!saveOnly && !newPositions.some(pos => pos.title === title)) {
                   newPositions.push({ title, latlng: coords });
                 }
                 resolve();
@@ -62,9 +63,7 @@ export default function KakaoMap({
           });
         };
 
-        // activeTab에 따른 초기값 설정
         if (activeTab === 'tab1') {
-          // tab1: 출발지와 현재 위치만
           if (fromAddress) {
             promises.push(addressSearch(fromAddress, '출발지'));
           }
@@ -74,8 +73,10 @@ export default function KakaoMap({
               newPositions.push({ title: '현재 위치', latlng: coords });
             }
           }
+          if (toAddress) {
+            promises.push(addressSearch(toAddress, '도착지', true));
+          }
         } else if (activeTab === 'tab2') {
-          // tab2: 현재 위치와 도착지만
           if (curLocation) {
             let coords = new window.kakao.maps.LatLng(curLocation.latitude, curLocation.longitude);
             if (!newPositions.some(pos => pos.title === '현재 위치')) {
@@ -86,7 +87,6 @@ export default function KakaoMap({
             promises.push(addressSearch(toAddress, '도착지'));
           }
         } else if (activeTab === 'tab3') {
-          // tab3: 출발지와 도착지만
           if (fromAddress) {
             promises.push(addressSearch(fromAddress, '출발지'));
           }
@@ -95,10 +95,9 @@ export default function KakaoMap({
           }
         }
 
-        // 모든 주소 변환 작업이 완료된 후 상태를 갱신
         Promise.all(promises)
           .then(() => {
-            setPositions(newPositions); // 한 번만 setPositions 호출
+            setPositions(newPositions);
           })
           .catch(error => {
             console.error(error);
@@ -135,10 +134,12 @@ export default function KakaoMap({
       infowindow.open(map, marker);
     });
 
-    const midLat = (positions[0].latlng.getLat() + positions[1].latlng.getLat()) / 2;
-    const midLng = (positions[0].latlng.getLng() + positions[1].latlng.getLng()) / 2;
-    const midCoords = new window.kakao.maps.LatLng(midLat, midLng);
-    map.setCenter(midCoords);
+    if (positions.length > 1) {
+      const midLat = (positions[0].latlng.getLat() + positions[1].latlng.getLat()) / 2;
+      const midLng = (positions[0].latlng.getLng() + positions[1].latlng.getLng()) / 2;
+      const midCoords = new window.kakao.maps.LatLng(midLat, midLng);
+      map.setCenter(midCoords);
+    }
   }, [positions]);
 
   return <div id="map" style={{ height: '361px', width: '406px' }} />;

@@ -2,9 +2,14 @@ import Image from 'next/image';
 import { useState } from 'react';
 import arrow from '@/../public/assets/common/dropdown/chevron-down.svg';
 
-export default function MapDropdown() {
+interface MapDropdownProps {
+  selectedMenu: string | null;
+  setSelectedMenu: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+export default function MapDropdown({ selectedMenu, setSelectedMenu }: MapDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
+  // const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
 
   const handleMenuClick = (menu: string) => {
     setSelectedMenu(menu);
