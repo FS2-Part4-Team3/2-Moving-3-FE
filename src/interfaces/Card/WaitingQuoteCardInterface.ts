@@ -1,7 +1,6 @@
 export interface WaitingQuoteCardProps {
   data: {
     driver: {
-      id: string;
       name: string;
       image: string;
       applyCount: number;
