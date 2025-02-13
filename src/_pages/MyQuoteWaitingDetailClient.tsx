@@ -61,7 +61,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
                 견적서 공유하기
               </p>
               <div className="flex flex-row gap-[1.6rem]">
-                <SharingPageClient />
+                <SharingPageClient type="quoteWaiting" />
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
             <div className="flex flex-col gap-[2.2rem]">
               <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400">견적서 공유하기</p>
               <div className="flex flex-row gap-[1.6rem]">
-                <SharingPageClient />
+                <SharingPageClient type="quoteWaiting" />
               </div>
             </div>
           </div>
