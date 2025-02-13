@@ -80,6 +80,18 @@ export default function RequestForQuotation() {
   }, []);
 
   const isMobileOrTablet = windowWidth < 1200;
+  const baseWidth = isMobileOrTablet ? '32.7rem' : '120rem';
+  let progressWidth;
+
+  if (!isMovingType) {
+    progressWidth = isMobileOrTablet ? '8.2rem' : '35rem';
+  } else if (!isMovingDate) {
+    progressWidth = `calc(${baseWidth} * 2 / 4)`;
+  } else if (!(regions.start && regions.arrival)) {
+    progressWidth = `calc(${baseWidth} * 3 / 4)`;
+  } else {
+    progressWidth = baseWidth;
+  }
 
   const formattedDate = movingDate ? formatDate(movingDate) : '';
 
@@ -147,24 +159,8 @@ export default function RequestForQuotation() {
             <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B]">견적요청</h1>
             <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[31.2rem] lg:h-[0.8rem] md:h-[0.6rem] sm:h-[0.6rem] rounded-[3rem] bg-line-200">
               <div
-                className="lg:w-[35rem] md:w-[8.2rem] sm:w-[8.2rem] lg:h-[0.8rem] md:h-[0.6rem] sm:h-[0.6rem] rounded-[3rem] bg-blue-300"
-                style={{
-                  width: isMobileOrTablet
-                    ? isMovingType
-                      ? isMovingDate
-                        ? regions.start && regions.arrival
-                          ? '32.7rem'
-                          : 'calc(32.7rem * 3 / 4)'
-                        : 'calc(32.7rem * 2 / 4)'
-                      : '8.2rem'
-                    : isMovingType
-                      ? isMovingDate
-                        ? regions.start && regions.arrival
-                          ? '120rem'
-                          : 'calc(120rem * 3 / 4)'
-                        : 'calc(120rem * 2 / 4)'
-                      : '35rem',
-                }}
+                className="lg:h-[0.8rem] md:h-[0.6rem] sm:h-[0.6rem] rounded-[3rem] bg-blue-300"
+                style={{ width: progressWidth }}
               ></div>
             </div>
           </div>
