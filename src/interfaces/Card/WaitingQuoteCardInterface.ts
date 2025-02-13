@@ -11,7 +11,7 @@ export interface WaitingQuoteCardProps {
       reviewCount: number;
     };
     moveInfo: {
-      id: string;
+      moveInfoId: string;
       date: string;
       fromAddress: string;
       toAddress: string;

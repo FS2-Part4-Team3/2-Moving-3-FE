@@ -149,7 +149,7 @@ export default function WaitingQuoteCard({ data }: WaitingQuoteCardProps) {
           {priceFormat(data.estimationInfo.price)}원
         </p>
       </div>
-      <WaitingQuoteCardClient moveId={data.moveInfo.id} estimationId={data.estimationInfo.estimationId} />
+      <WaitingQuoteCardClient moveId={data.moveInfo.moveInfoId} estimationId={data.estimationInfo.estimationId} />
     </div>
   );
 }
