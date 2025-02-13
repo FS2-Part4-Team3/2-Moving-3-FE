@@ -9,6 +9,7 @@ import FindDriverCard from '@/components/cards/FindDriverCard';
 import { MyQuoteDetailClientProps, MyQuoteDetailData } from '@/interfaces/Page/MyQuoteDetailInterface';
 import { priceFormat } from '@/utils/Format';
 import DetailButtonClient from './DriverDetail/DetailButtonClient';
+import MapClient from './MapClient';
 import SharingPageClient from './SharingPageClient';
 
 export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientProps) {
@@ -89,6 +90,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
                 <SharingPageClient />
               </div>
             </div>
+            <MapClient />
           </div>
         </div>
       </div>

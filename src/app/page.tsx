@@ -1,5 +1,4 @@
 import LandingClient from '@/_pages/LandingClient';
-import MapTab from '@/components/Tabs/MapTab';
 
 export default function Home() {
   return (
@@ -10,7 +9,6 @@ export default function Home() {
         견적을 받아보세요
       </p>
       <LandingClient />
-      <MapTab />
     </div>
   );
 }

@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-const ReactKakaoMap = () => {
+export default function KakaoMap() {
   const apiKey: string | undefined = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
 
   useEffect(() => {
@@ -47,7 +47,5 @@ const ReactKakaoMap = () => {
     });
   }, []);
 
-  return <div id="map" style={{ height: '500px', width: '100%' }} />;
-};
-
-export default ReactKakaoMap;
+  return <div id="map" style={{ height: '361px', width: '406px' }} />;
+}
