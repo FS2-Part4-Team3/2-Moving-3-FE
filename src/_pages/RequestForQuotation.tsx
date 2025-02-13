@@ -93,11 +93,12 @@ export default function RequestForQuotation() {
       router.push('/normal/my-quote/waiting');
     },
     onError: () => {
+      alert('견적 요청에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
 
-  const editMutation = useMutation({
+  const editQuotationMutation = useMutation({
     mutationFn: async () => {
       const res = await patchMove(moveData[0].id, movingType, movingDate.toISOString(), regions.start, regions.arrival);
       dispatch(setId(res.id));
@@ -107,16 +108,17 @@ export default function RequestForQuotation() {
       router.push('/normal/my-quote/edit');
     },
     onError: () => {
+      alert('견적 수정에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
 
-  const handleSubmit = () => {
+  const handleQuotationSubmit = () => {
     quotationMutation.mutate();
   };
 
-  const handleEditSubmit = () => {
-    editMutation.mutate();
+  const handleEditQuotationSubmit = () => {
+    editQuotationMutation.mutate();
   };
 
   return (
@@ -128,6 +130,15 @@ export default function RequestForQuotation() {
           </div>
           <div className="w-full h-full bg-background-200 lg:pt-[19.4rem] md:pt-[12.7rem] sm:pt-[12.7rem] flex justify-center">
             <Empty type="RequestQuote" />
+          </div>
+        </div>
+      ) : !moveData.length && edit ? (
+        <div className="w-full h-screen flex flex-col bg-background-200">
+          <div className="bg-white lg:px-[26rem] lg:py-[3.2rem] md:px-[7.2rem] md:py-[2.4rem] sm:px-[2.4rem] sm:py-[2.4rem] flex flex-col gap-[2.4rem] ">
+            <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B]">견적요청</h1>
+          </div>
+          <div className="w-full h-full bg-background-200 lg:pt-[19.4rem] md:pt-[12.7rem] sm:pt-[12.7rem] flex justify-center">
+            <Empty type="RequestEmpty" />
           </div>
         </div>
       ) : (
@@ -239,7 +250,7 @@ export default function RequestForQuotation() {
                     <AddressCard
                       regions={regions}
                       setRegions={setRegions}
-                      handleSubmit={edit ? handleEditSubmit : handleSubmit}
+                      handleSubmit={edit ? handleEditQuotationSubmit : handleQuotationSubmit}
                     />
                   </div>
                 )}
