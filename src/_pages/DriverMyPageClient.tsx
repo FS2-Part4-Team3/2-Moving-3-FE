@@ -1,8 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { notFound, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { notFound } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { getDriverDetailData } from '@/api/DriverService';
 import InfoEditDriverCard from '@/components/cards/InfoEditDriverCard';
@@ -12,22 +11,9 @@ import ReviewClient from './DriverDetail/ReviewClient';
 
 export default function DriverMyPageClient() {
   const id = useSelector((state: RootState) => state.signIn.id);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!id) {
-      setTimeout(() => {
-        router.push('/driver/sign-in');
-      }, 3000);
-    }
-  }, [id, router]);
 
   if (!id) {
-    return (
-      <div className="text-center text-[2rem] font-semibold">
-        로그인이 필요한 페이지입니다. <br /> 3초 후 로그인 페이지로 이동합니다.
-      </div>
-    );
+    notFound();
   }
 
   const {
