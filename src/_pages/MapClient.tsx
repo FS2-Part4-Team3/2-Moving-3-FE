@@ -15,18 +15,51 @@ export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   const { curLocation } = useGeoLocation();
 
   const [activeTab, setActiveTab] = useState('tab1');
+  const [fromCoordinate, setFromCoordinate] = useState<{ La: number; Ma: number } | null>(null);
+  const [toCoordinate, setToCoordinate] = useState<{ La: number; Ma: number } | null>(null);
 
   const renderContent = () => {
     switch (activeTab) {
       case 'tab1':
-        return <KakaoMap fromAddress={fromAddress} curLocation={curLocation} />;
+        return (
+          <KakaoMap
+            activeTab={activeTab}
+            fromAddress={fromAddress}
+            toAddress={toAddress}
+            curLocation={curLocation}
+            setFromCoordinate={setFromCoordinate}
+            setToCoordinate={setToCoordinate}
+          />
+        );
       case 'tab2':
-        return <KakaoMap toAddress={toAddress} curLocation={curLocation} />;
+        return (
+          <KakaoMap
+            activeTab={activeTab}
+            fromAddress={fromAddress}
+            toAddress={toAddress}
+            curLocation={curLocation}
+            setFromCoordinate={setFromCoordinate}
+            setToCoordinate={setToCoordinate}
+          />
+        );
       case 'tab3':
-        return <KakaoMap fromAddress={fromAddress} toAddress={toAddress} />;
+        return (
+          <KakaoMap
+            activeTab={activeTab}
+            fromAddress={fromAddress}
+            toAddress={toAddress}
+            curLocation={curLocation}
+            setFromCoordinate={setFromCoordinate}
+            setToCoordinate={setToCoordinate}
+          />
+        );
       default:
         return null;
     }
+  };
+
+  const handleClick = (coordinate: string) => {
+    window.location.href = `https://map.kakao.com/link/map/${coordinate}`;
   };
 
   return (
