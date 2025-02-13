@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import MapTab from '@/components/Tabs/MapTab';
+import MapTextCard from '@/components/cards/MapTextCard';
 import KakaoMap from '@/components/map/KakaoMap';
 import { useGeoLocation } from '@/hooks/useGeolocation';
 
@@ -29,8 +30,9 @@ export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   };
 
   return (
-    <div className="w-[40.6rem]">
+    <div className="w-[40.6rem] flex flex-col gap-[2rem]">
       <MapTab activeTab={activeTab} setActiveTab={setActiveTab} renderContent={renderContent} />
+      <MapTextCard />
     </div>
   );
 }
