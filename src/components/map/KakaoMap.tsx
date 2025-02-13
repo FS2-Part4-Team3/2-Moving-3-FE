@@ -71,7 +71,7 @@ export default function KakaoMap({ fromAddress, toAddress }: KakaoMapProps) {
     };
     let map = new window.kakao.maps.Map(container, options);
 
-    let imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+    let imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png';
 
     positions.forEach(pos => {
       let markerImage = new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35));
