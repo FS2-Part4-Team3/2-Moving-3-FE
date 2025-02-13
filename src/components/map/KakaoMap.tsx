@@ -1,32 +1,53 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Map } from 'react-kakao-maps-sdk';
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 
 const ReactKakaoMap = () => {
   const apiKey: string | undefined = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
-  const [scriptLoad, setScriptLoad] = useState<boolean>(false);
 
   useEffect(() => {
     const script: HTMLScriptElement = document.createElement('script');
     script.async = true;
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&autoload=false`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&libraries=services&autoload=false`;
     document.head.appendChild(script);
 
     script.addEventListener('load', () => {
-      setScriptLoad(true);
+      window.kakao.maps.load(() => {
+        const geocoder = new window.kakao.maps.services.Geocoder();
+
+        geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function (result: any, status: any) {
+          if (status === window.kakao.maps.services.Status.OK) {
+            let coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+
+            let container = document.getElementById('map');
+            let options = {
+              center: coords,
+              level: 3,
+            };
+            let map = new window.kakao.maps.Map(container, options);
+
+            let marker = new window.kakao.maps.Marker({
+              map: map,
+              position: coords,
+            });
+
+            let infowindow = new window.kakao.maps.InfoWindow({
+              content: '<div style="width:150px;text-align:center;padding:6px 0;color:black;">' + '카카오 본사' + '</div>',
+            });
+            infowindow.open(map, marker);
+          }
+        });
+      });
     });
   }, []);
 
-  return (
-    <div>
-      {scriptLoad ? (
-        <Map center={{ lat: 33.5563, lng: 126.79581 }} style={{ width: '800px', height: '600px' }} level={3}></Map>
-      ) : (
-        <div></div>
-      )}
-    </div>
-  );
+  return <div id="map" style={{ height: '500px', width: '100%' }} />;
 };
 
 export default ReactKakaoMap;

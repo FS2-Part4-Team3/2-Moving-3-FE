@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import Script from 'next/script';
 import '@styles/globals.css';
 import GNB from '@/components/common/gnb/GNB';
 import ReactQueryProviders from '@/hooks/useReactQuery';
@@ -27,10 +26,6 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js" />
-        <Script
-          type="text/javascript"
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&libraries=services,clusterer,drawing&autoload=false`}
-        />
       </head>
       <body className={pretendard.className}>
         <div className="min-h-screen overflow-x-hidden">
