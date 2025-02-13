@@ -9,8 +9,8 @@ declare global {
 }
 
 interface KakaoMapProps {
-  fromAddress: string;
-  toAddress: string;
+  fromAddress?: string;
+  toAddress?: string;
 }
 
 export default function KakaoMap({ fromAddress, toAddress }: KakaoMapProps) {
@@ -18,6 +18,8 @@ export default function KakaoMap({ fromAddress, toAddress }: KakaoMapProps) {
   const [positions, setPositions] = useState<{ title: string; latlng: any }[]>([]);
 
   useEffect(() => {
+    setPositions([]);
+
     const script: HTMLScriptElement = document.createElement('script');
     script.async = true;
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&libraries=services&autoload=false`;
