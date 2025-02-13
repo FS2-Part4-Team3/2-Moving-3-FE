@@ -15,7 +15,7 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setProfile, setProfileNoImg, setUserSign } from '@/store/slices/SignInSlice';
+import { setProfile, setProfileNoImg } from '@/store/slices/ProfileSlice';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
 export default function ProfileRegisterDriver() {
@@ -31,7 +31,7 @@ export default function ProfileRegisterDriver() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid;
-  const [isCareerOpen, setIsCareerOpen] = useState(false);
+  const [isCareer, setIsCareer] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ export default function ProfileRegisterDriver() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
-  const userMutation = useMutation({
+  const userDataMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
       if (selectedImg) {
@@ -70,7 +70,6 @@ export default function ProfileRegisterDriver() {
         values.selectedMovingType,
         values.selectedRegions,
       );
-      const { uploadUrl } = response;
 
       dispatch(
         setProfileNoImg({
@@ -84,6 +83,7 @@ export default function ProfileRegisterDriver() {
       );
 
       if (selectedImg === null) return;
+      const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await patchDriverData(
         image,
@@ -112,12 +112,13 @@ export default function ProfileRegisterDriver() {
       router.push('/driver/receive-quote');
     },
     onError: () => {
+      alert('프로필 등록에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
 
-  const handleValuesSubmit = () => {
-    userMutation.mutate();
+  const handleUserDataSubmit = () => {
+    userDataMutation.mutate();
   };
 
   return (
@@ -178,13 +179,13 @@ export default function ProfileRegisterDriver() {
                   width={40}
                   height={40}
                   className="cursor-pointer absolute top-1/2 right-[1.5rem] transform -translate-y-1/2"
-                  onClick={() => setIsCareerOpen(prev => !prev)}
+                  onClick={() => setIsCareer(prev => !prev)}
                 />
               </div>
-              {isCareerOpen && (
+              {isCareer && (
                 <CareerCalendarCard
                   setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
-                  setIsCareerOpen={setIsCareerOpen}
+                  setIsCareerOpen={setIsCareer}
                   initialCareerDate={values.career}
                 />
               )}
@@ -278,7 +279,7 @@ export default function ProfileRegisterDriver() {
             setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegions: value }))}
           />
         </div>
-        <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleValuesSubmit}>
+        <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleUserDataSubmit}>
           <ButtonWrapper.Button
             disabled={!isDisabled}
             className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"

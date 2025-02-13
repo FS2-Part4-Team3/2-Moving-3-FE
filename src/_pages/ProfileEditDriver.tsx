@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dropdown from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import profile from '@/../public/assets/profile/img_profile_upload.svg';
-import { getUserData, patchDriverData, putImage } from '@/api/UserService';
+import { patchDriverData, putImage } from '@/api/UserService';
 import CareerCalendarCard from '@/components/cards/CareerCalendarCard';
 import { ProfileChips } from '@/components/chips/ProfileChips';
 import { ButtonWrapper } from '@/components/common/headless/Button';
@@ -15,7 +15,7 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setProfile, setProfileNoImg } from '@/store/slices/SignInSlice';
+import { setProfile, setProfileNoImg } from '@/store/slices/ProfileSlice';
 import { RootState } from '@/store/store';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
@@ -35,20 +35,20 @@ export default function ProfileEditDriver() {
   const [isCareerOpen, setIsCareerOpen] = useState(false);
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
+  const user_profile = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setValues(prev => ({
       ...prev,
-      nickname: user.nickname || '',
-      email: user.email || '',
-      career: new Date(user.startAt || ''),
-      shortBio: user.introduce || '',
-      description: user.description || '',
-      selectedRegions: user.availableAreas || [],
-      selectedMovingType: user.serviceType || [],
+      nickname: user_profile.nickname || (user.nickname ?? ''),
+      career: new Date(user_profile.startAt || (user.startAt ?? '')),
+      shortBio: user_profile.introduce || (user.introduce ?? ''),
+      description: user_profile.description || (user.description ?? ''),
+      selectedRegions: user_profile.availableAreas || [],
+      selectedMovingType: user_profile.serviceType || [],
     }));
-    setPreviewUrl(user.image || '');
+    setPreviewUrl(user_profile.image || (user.image ?? ''));
   }, []);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function ProfileEditDriver() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
-  const userMutation = useMutation({
+  const userDataMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
 
@@ -88,7 +88,6 @@ export default function ProfileEditDriver() {
         values.selectedMovingType,
         values.selectedRegions,
       );
-      const { uploadUrl } = response;
 
       dispatch(
         setProfileNoImg({
@@ -102,8 +101,8 @@ export default function ProfileEditDriver() {
       );
 
       if (selectedImg === null) return;
+      const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
-
       const res = await patchDriverData(
         image,
         values.nickname,
@@ -131,12 +130,13 @@ export default function ProfileEditDriver() {
       router.push(`/driver/my-page?id=${user.id}`);
     },
     onError: () => {
+      alert('프로필 수정에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
 
-  const handleValuesSubmit = () => {
-    userMutation.mutate();
+  const handleUserDataSubmit = () => {
+    userDataMutation.mutate();
   };
 
   return (
@@ -299,14 +299,11 @@ export default function ProfileEditDriver() {
         </div>
       </div>
       <ButtonWrapper id="profile-register-driver" type="submit" onClick={() => router.back()}>
-        <ButtonWrapper.Button
-          disabled={!isDisabled}
-          className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
-        >
+        <ButtonWrapper.Button className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]">
           취소
         </ButtonWrapper.Button>
       </ButtonWrapper>
-      <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleValuesSubmit}>
+      <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleUserDataSubmit}>
         <ButtonWrapper.Button
           disabled={!isDisabled}
           className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"

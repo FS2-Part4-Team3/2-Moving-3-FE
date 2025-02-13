@@ -40,13 +40,13 @@ export default function ProfileEditNormal() {
   useEffect(() => {
     setValues(prev => ({
       ...prev,
-      name: user_info.name || user.name || '',
-      email: user_info.email || user.email || '',
-      number: user_profile.phoneNumber || user.phoneNumber || '',
+      name: user_info.name || (user.name ?? ''),
+      email: user_info.email || (user.email ?? ''),
+      number: user_profile.phoneNumber || (user.phoneNumber ?? ''),
       selectedRegions: user_profile.areas || [],
       selectedMovingType: user_profile.serviceType || [],
     }));
-    setPreviewUrl(user_profile.image || '');
+    setPreviewUrl(user_profile.image || (user.image ?? ''));
   }, []);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
