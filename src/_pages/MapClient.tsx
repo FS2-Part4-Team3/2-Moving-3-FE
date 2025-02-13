@@ -12,7 +12,6 @@ interface MapClientProps {
 
 export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   const { curLocation } = useGeoLocation();
-  console.log(curLocation);
 
   const [activeTab, setActiveTab] = useState('tab1');
 
