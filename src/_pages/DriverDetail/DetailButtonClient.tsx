@@ -48,8 +48,8 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
 
       const fetchMoveId = async () => {
         try {
-          const { id } = await getMoveCheck();
-          setIsMoveId(id);
+          const res = await getMoveCheck();
+          setIsMoveId(res[0].id);
         } catch (err) {
           console.error('이사 정보를 가져오는 데 실패했습니다: ', err);
         }
@@ -89,9 +89,13 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
       if (!estimationId) {
         throw new Error('estimationId가 필요합니다.');
       }
+      if (!isMoveId) {
+        throw new Error('estimationId가 필요합니다.');
+      }
       await postMovesConfirm(isMoveId, estimationId);
     },
     onSuccess: () => {
+      setIsCompleted(true);
       alert('견적 확정되었습니다.');
       router.push('/normal/my-quote/received');
     },
@@ -117,6 +121,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
     }
     if (type === 'quoteWaiting') {
       confirmationMutation.mutate();
+      return;
     } else {
       if (!isMoveId) {
         setIsModalOpen(true);
