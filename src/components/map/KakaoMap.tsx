@@ -8,7 +8,12 @@ declare global {
   }
 }
 
-export default function KakaoMap() {
+interface KakaoMapProps {
+  fromAddress: string;
+  toAddress: string;
+}
+
+export default function KakaoMap({ fromAddress, toAddress }: KakaoMapProps) {
   const apiKey: string | undefined = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
 
   useEffect(() => {

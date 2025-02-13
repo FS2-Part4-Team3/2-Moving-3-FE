@@ -90,7 +90,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
                 <SharingPageClient />
               </div>
             </div>
-            <MapClient />
+            <MapClient fromAddress={estimationData.moveInfo.fromAddress} toAddress={estimationData.moveInfo.toAddress} />
           </div>
         </div>
       </div>
