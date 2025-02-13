@@ -6,8 +6,8 @@ import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
 
 export default function ManageQuotationCard({ data, isRejected }: ManageQuotationCardProps) {
-  // TODO: 백엔드측에서 updatedAt, createdAt 추가시 확인 필요 (52번 째 줄)
   // TODO: EMPTY일 경우 보여질 ui
+  console.log(data);
 
   return (
     <>
@@ -50,7 +50,9 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
               <MovingTypeChips type={data.moveInfo.serviceType} />
               {data.designatedRequest === 'Active' && <MovingTypeChips type="APPOINTMENT" />}
             </div>
-            {/* <p className="font-normal text-[1.2rem] leading-[1.8rem] text-gray-500">{timeAgoFormat(data.updatedAt)}</p> */}
+            <p className="font-normal text-[1.2rem] leading-[1.8rem] text-gray-500">
+              {timeAgoFormat(data.estimationInfo.createdAt)}
+            </p>
           </div>
           <div className="lg:py-[1.6rem] flex flex-col lg:gap-[1.8rem] sm:gap-[1rem]">
             <div className="md:block sm:flex flex-col gap-[1.4rem]">

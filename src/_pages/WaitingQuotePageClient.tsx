@@ -8,7 +8,6 @@ import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
 import { WaitingQuoteListResponse } from '@/interfaces/Page/WaitingQuoteClientInterface';
 
 export default function WaitingQuotePageClient() {
-  // TODO: 백엔드 측에서 moveInfo.id 추가수정시 한 번 더 체크
   const { ref, inView } = useInView();
 
   const {

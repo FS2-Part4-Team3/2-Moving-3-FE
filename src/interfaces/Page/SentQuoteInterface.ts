@@ -1,6 +1,7 @@
 export interface SentQuoteResponse {
   estimations: {
     estimationInfo: {
+      createdAt: string;
       estimationId: string;
       price: number;
     };
