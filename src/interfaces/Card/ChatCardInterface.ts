@@ -1,0 +1,18 @@
+export interface InfoData {
+  image: string;
+  name: string;
+}
+
+export interface ChatData {
+  totalCount: number;
+  list: Chat[];
+}
+
+export interface Chat {
+  userId: string;
+  driverId: string;
+  direction: string;
+  message: string;
+  image: string;
+  isRead: boolean;
+}
