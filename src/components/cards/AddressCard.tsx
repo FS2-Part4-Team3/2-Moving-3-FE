@@ -21,7 +21,7 @@ export default function AddressCard({ regions, setRegions, handleSubmit }: Addre
             {regions.start || '출발지 선택하기'}
           </div>
           {regions.start && (
-            <div
+            <p
               onClick={() => {
                 setIsArrivalModalOpen(true);
                 setRegions(prev => ({ ...prev, start: '' }));
@@ -29,7 +29,7 @@ export default function AddressCard({ regions, setRegions, handleSubmit }: Addre
               className="cursor-pointer lg:text-[1.6rem] md:text-[1.2rem] sm:text-[1.2rem] font-medium text-gray-500 underline self-end"
             >
               수정하기
-            </div>
+            </p>
           )}
         </div>
         <div className="flex flex-col gap-[1.6rem]">
@@ -41,7 +41,7 @@ export default function AddressCard({ regions, setRegions, handleSubmit }: Addre
             {regions.arrival || '도착지 선택하기'}
           </div>
           {regions.arrival && (
-            <div
+            <p
               onClick={() => {
                 setIsArrivalModalOpen(true);
                 setRegions(prev => ({ ...prev, arrival: '' }));
@@ -49,7 +49,7 @@ export default function AddressCard({ regions, setRegions, handleSubmit }: Addre
               className="cursor-pointer lg:text-[1.6rem] md:text-[1.2rem] sm:text-[1.2rem] font-medium text-gray-500 underline self-end mb-[1rem]"
             >
               수정하기
-            </div>
+            </p>
           )}
         </div>
         <ButtonWrapper id="quote-request-btn" onClick={handleSubmit}>
