@@ -81,6 +81,9 @@ export default function MyQuoteReceivedDetailClient({ id }: MyQuoteDetailClientP
             <EstimationInformationCard data={transformedMoveInfo} />
             {moveInfo.progress !== 'CONFIRMED' && <MyQuoteReceivedCard />}
           </div>
+          <div className="lg:hidden sm:block">
+            <MapClient fromAddress={estimationData.moveInfo.fromAddress} toAddress={estimationData.moveInfo.toAddress} />
+          </div>
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[32.8rem] gap-[4rem]">
