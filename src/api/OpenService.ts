@@ -13,7 +13,6 @@ export const getKakaoKeyword = async (query: string) => {
     );
 
     const data = await response.json();
-    console.log('검색 결과:', data);
     return data;
   } catch (error) {
     console.error('카카오 키워드 검색 API 호출 오류:', error);
@@ -34,7 +33,6 @@ export const getKakaoCoordinate = async (x?: number, y?: number) => {
     );
 
     const data = await response.json();
-    console.log('검색 결과:', data);
     return data;
   } catch (error) {
     console.error('카카오 키워드 검색 API 호출 오류:', error);

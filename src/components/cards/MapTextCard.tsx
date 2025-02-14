@@ -1,18 +1,7 @@
 import { useState } from 'react';
+import { MapTextCardProps } from '@/interfaces/Card/MapCardInterface';
 import { ButtonWrapper } from '../common/headless/Button';
 import MapDropdown from '../dropdown/MapDropdown';
-
-interface MapTextCardProps {
-  handleClick: (coordinate: { La: number; Ma: number } | null, address: string) => void;
-  fromCoordinate: {
-    La: number;
-    Ma: number;
-  } | null;
-  toCoordinate: {
-    La: number;
-    Ma: number;
-  } | null;
-}
 
 export default function MapTextCard({ handleClick, fromCoordinate, toCoordinate }: MapTextCardProps) {
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);

@@ -1,11 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-
-type LocationType = {
-  latitude: number;
-  longitude: number;
-};
+import { LocationType } from '@/interfaces/Hooks/hookInerface';
 
 export const useGeoLocation = () => {
   const [location, setLocation] = useState<LocationType>();

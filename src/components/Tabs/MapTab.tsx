@@ -1,10 +1,5 @@
+import { MapTabProps } from '@/interfaces/Tabs/MapTabInterface';
 import { ButtonWrapper } from '../common/headless/Button';
-
-interface MapTabProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-  renderContent: () => JSX.Element | null;
-}
 
 export default function MapTab({ activeTab, setActiveTab, renderContent }: MapTabProps) {
   return (

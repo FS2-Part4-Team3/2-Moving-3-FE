@@ -9,7 +9,6 @@ import type { WaitingQuoteCardClientProps } from '@/interfaces/Page/WaitingQuote
 import { RootState } from '@/store/store';
 
 export default function WaitingQuoteCardClient({ moveId, estimationId }: WaitingQuoteCardClientProps) {
-  console.log(moveId);
   const confirmationMutation = useMutation({
     mutationFn: async () => {
       await postMovesConfirm(moveId, estimationId);

@@ -6,11 +6,7 @@ import MapTab from '@/components/Tabs/MapTab';
 import MapTextCard from '@/components/cards/MapTextCard';
 import KakaoMap from '@/components/map/KakaoMap';
 import { useGeoLocation } from '@/hooks/useGeolocation';
-
-interface MapClientProps {
-  fromAddress: string;
-  toAddress: string;
-}
+import { MapClientProps } from '@/interfaces/Page/MapInterface';
 
 export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   const { curLocation } = useGeoLocation();

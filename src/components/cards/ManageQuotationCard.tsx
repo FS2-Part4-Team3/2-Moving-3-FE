@@ -7,7 +7,6 @@ import { ButtonWrapper } from '../common/headless/Button';
 
 export default function ManageQuotationCard({ data, isRejected }: ManageQuotationCardProps) {
   // TODO: EMPTY일 경우 보여질 ui
-  console.log(data);
 
   return (
     <>
