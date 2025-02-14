@@ -12,7 +12,13 @@ export default function ReviewSummaryCard({ driverId }: ReviewSummaryCardProps) 
     queryFn: () => getReviewSummaryDetail(driverId),
   });
 
-  console.log(reviewSummaryData);
+  if (reviewSummaryLoading) {
+    return <div>Loading ...</div>;
+  }
+
+  if (reviewSummaryError) {
+    return <div>Error</div>;
+  }
 
   return (
     <div className="bg-background-200 rounded-[3.2rem] flex flex-col gap-[0.8rem] py-[2rem] px-[3rem]">
