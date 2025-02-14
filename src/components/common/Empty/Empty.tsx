@@ -55,11 +55,17 @@ export default function Empty({ type }: EmptyProps) {
       buttonText = '받은 견적 보러가기';
       link = () => router.push('/normal/my-quote/waiting');
       break;
+    case 'RequestEmpty':
+      image = truck;
+      text = '현재 진행 중인 이사 견적이 없어요!';
+      text2 = '이사 견적 등록 후 수정 기능을 이용해주세요.';
+      buttonText = '견적 요청하기';
+      link = () => router.push('/normal/request-quote');
   }
 
   return (
     <div className="flex flex-col gap-[3.2rem] items-center">
-      {type === 'RequestQuote' ? (
+      {type === 'RequestQuote' || type === 'RequestEmpty' ? (
         <>
           <Image src={image} alt="empty" width={378} height={140} className="lg:block sm:hidden" />
           <Image src={image} alt="empty" width={228} height={96} className="lg:hidden sm:block" />
