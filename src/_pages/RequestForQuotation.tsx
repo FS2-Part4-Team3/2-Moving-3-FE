@@ -40,7 +40,7 @@ export default function RequestForQuotation() {
         const res: MoveData = await getMoveCheck();
         setMoveData(res);
       } catch (err) {
-        console.log('Get move check: ', err);
+        console.error('Get move check: ', err);
         router.push('/not-found');
       }
     };
