@@ -6,7 +6,7 @@ import mike from '@/../public/assets/common/searchbar/ic_mike.svg';
 import mike_on from '@/../public/assets/common/searchbar/ic_mike_on.svg';
 import { SpeechToTextSearchProps } from '@/interfaces/CommonComp/SearchInterface';
 
-export default function SpeechToTextSearch({ text, setText }: SpeechToTextSearchProps) {
+export default function SpeechToTextSearch({ setText }: SpeechToTextSearchProps) {
   const [isListening, setIsListening] = useState<boolean>(false);
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
 

@@ -70,7 +70,7 @@ export default function SearchBar() {
           <Image src={search} alt="search" width={24} height={24} className="lg:hidden sm:block" />
         </>
       )}
-      <SpeechToTextSearch text={value} setText={value => setValue(value)} />
+      <SpeechToTextSearch setText={value => setValue(value)} />
     </div>
   );
 }
