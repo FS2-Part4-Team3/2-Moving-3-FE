@@ -23,7 +23,7 @@ export const getReviewableEstimations = async (page: number, pageSize: number) =
     const data = await getRequest('/estimations/reviewable', params);
     return data;
   } catch (err) {
-    console.log('Fetch error getting reviewable estimation data: ', err);
+    console.error('Fetch error getting reviewable estimation data: ', err);
     throw err;
   }
 };

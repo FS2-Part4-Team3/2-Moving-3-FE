@@ -1,7 +1,6 @@
 'use client';
 
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getMyReviewData } from '@/api/ReviewService';
 import WrittenReviewCard from '@/components/cards/WrittenReviewCard';
@@ -13,7 +12,6 @@ export default function WrittenReviewClient() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {

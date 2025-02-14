@@ -24,7 +24,7 @@ export const postReviewData = async (estimationId: string, comment: string, scor
     const res = await postRequest(`/reviews/${estimationId}`, requestBody);
     return res;
   } catch (err) {
-    console.log('Post review data: ', err);
+    console.error('Post review data: ', err);
     throw err;
   }
 };

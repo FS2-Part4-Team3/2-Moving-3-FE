@@ -59,6 +59,12 @@ export default function MyQuoteSentDetailClient({ id }: MyQuoteDetailClientProps
           </div>
           <div className="border border-line-100 w-full"></div>
           <EstimationInformationCard data={transformedMoveInfo} />
+          <div className="lg:hidden sm:block">
+            <MapClient
+              fromAddress={estimationDataDriver.moveInfo.fromAddress}
+              toAddress={estimationDataDriver.moveInfo.toAddress}
+            />
+          </div>
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col gap-[2.2rem]">
