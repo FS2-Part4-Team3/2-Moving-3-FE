@@ -10,6 +10,7 @@ import MyQuoteReceivedCard from '@/components/cards/MyQuoteReceivedCard';
 import { MyQuoteDetailClientProps, MyQuoteDetailData } from '@/interfaces/Page/MyQuoteDetailInterface';
 import { priceFormat } from '@/utils/Format';
 import DetailButtonClient from './DriverDetail/DetailButtonClient';
+import MapClient from './MapClient';
 import SharingPageClient from './SharingPageClient';
 
 export default function MyQuoteReceivedDetailClient({ id }: MyQuoteDetailClientProps) {
@@ -93,6 +94,7 @@ export default function MyQuoteReceivedDetailClient({ id }: MyQuoteDetailClientP
                 <SharingPageClient />
               </div>
             </div>
+            <MapClient fromAddress={estimationData.moveInfo.fromAddress} toAddress={estimationData.moveInfo.toAddress} />
           </div>
         </div>
       </div>

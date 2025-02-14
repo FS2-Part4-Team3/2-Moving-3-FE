@@ -1,10 +1,10 @@
 export interface ManageQuotationCardProps {
   data: {
     estimationInfo: {
+      createdAt: string;
       estimationId: string;
       price: number;
     };
-    // createdAt: string;
     moveInfo: {
       date: string;
       serviceType: 'SMALL' | 'HOME' | 'OFFICE';

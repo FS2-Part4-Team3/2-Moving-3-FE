@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js" />
       </head>
       <body className={pretendard.className}>
         <div className="min-h-screen overflow-x-hidden">
