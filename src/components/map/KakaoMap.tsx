@@ -18,7 +18,7 @@ export default function KakaoMap({
   setToCoordinate,
 }: KakaoMapProps) {
   const isTabletScreen = window.innerWidth < 1200;
-  const isMobileScreen = window.innerWidth < 1200;
+  const isMobileScreen = window.innerWidth < 745;
   const apiKey: string | undefined = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
   const [positions, setPositions] = useState<{ title: string; latlng: any }[]>([]);
 
