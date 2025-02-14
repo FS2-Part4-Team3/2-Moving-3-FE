@@ -77,6 +77,9 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
           </div>
           <div className="border border-line-100 w-full"></div>
           <EstimationInformationCard data={transformedMoveInfo} />
+          <div className="lg:hidden sm:block">
+            <MapClient fromAddress={estimationData.moveInfo.fromAddress} toAddress={estimationData.moveInfo.toAddress} />
+          </div>
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[32.8rem] gap-[4rem]">

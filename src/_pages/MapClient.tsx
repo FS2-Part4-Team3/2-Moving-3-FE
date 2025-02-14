@@ -14,8 +14,6 @@ export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   const [activeTab, setActiveTab] = useState('tab1');
   const [fromCoordinate, setFromCoordinate] = useState<{ La: number; Ma: number } | null>(null);
   const [toCoordinate, setToCoordinate] = useState<{ La: number; Ma: number } | null>(null);
-  const [myPlaceName, setMyPlaceName] = useState('');
-  const [placeName, setPlaceName] = useState('');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -71,9 +69,6 @@ export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
         const placeName = placeData.documents[0]?.place_name || '';
         const myPlaceName = myPlaceData.documents[0]?.place_name || '';
 
-        setPlaceName(placeName);
-        setMyPlaceName(myPlaceName);
-
         const kakaoMapUrl = `https://map.kakao.com/?sName=${encodeURIComponent(myPlaceName)}&eName=${encodeURIComponent(placeName)}`;
 
         window.location.href = kakaoMapUrl;
@@ -85,7 +80,7 @@ export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   };
 
   return (
-    <div className="w-[40.6rem] flex flex-col gap-[2rem]">
+    <div className="lg:w-[40.6rem] sm:w-full flex flex-col gap-[2rem]">
       <MapTab activeTab={activeTab} setActiveTab={setActiveTab} renderContent={renderContent} />
       <MapTextCard
         handleClick={(coordinate, address) => handleClick(coordinate, address)}

@@ -17,6 +17,8 @@ export default function KakaoMap({
   setFromCoordinate,
   setToCoordinate,
 }: KakaoMapProps) {
+  const isTabletScreen = window.innerWidth < 1200;
+  const isMobileScreen = window.innerWidth < 1200;
   const apiKey: string | undefined = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
   const [positions, setPositions] = useState<{ title: string; latlng: any }[]>([]);
 
@@ -101,7 +103,7 @@ export default function KakaoMap({
     let container = document.getElementById('map');
     let options = {
       center: positions[0].latlng,
-      level: 10,
+      level: isMobileScreen ? 15 : 10,
     };
     let map = new window.kakao.maps.Map(container, options);
 
@@ -131,5 +133,5 @@ export default function KakaoMap({
     }
   }, [positions]);
 
-  return <div id="map" style={{ height: '361px', width: '406px' }} />;
+  return <div id="map" style={{ height: '361px', width: isTabletScreen ? '100%' : '406px' }} />;
 }
