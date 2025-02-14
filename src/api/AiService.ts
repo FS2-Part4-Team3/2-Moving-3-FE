@@ -1,6 +1,6 @@
 import { getRequest } from '@/utils/requestFunctions';
 
-export const ReviewSummaryDetail = async (driverId: string) => {
+export const getReviewSummaryDetail = async (driverId: string) => {
   try {
     const res = await getRequest(`/reviewSummary/${driverId}`);
     return res;
