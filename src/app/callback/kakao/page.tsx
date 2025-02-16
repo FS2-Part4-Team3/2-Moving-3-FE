@@ -14,9 +14,9 @@ export default function CallBackKakao() {
 
   useEffect(() => {
     const getData = async () => {
-      if (accessToken) {
-        localStorage.setItem('accessToken', accessToken);
-      }
+      // if (accessToken) {
+      //   localStorage.setItem('accessToken', accessToken);
+      // }
 
       const res = await getUserData();
       dispatch(
@@ -24,7 +24,7 @@ export default function CallBackKakao() {
           id: res.id,
           name: res.name,
           nickname: res.type === 'driver' ? res.nickname : undefined,
-          accessToken: res.accessToken,
+          // accessToken: res.accessToken,
           email: res.email,
           image: res.image,
           phoneNumber: res.phoneNumber,

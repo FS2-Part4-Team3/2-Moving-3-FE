@@ -21,7 +21,7 @@ export default function Profile({ closeModal }: ProfileProps) {
   const signOutMutation = useMutation({
     mutationFn: async () => {
       await deleteRefresh();
-      localStorage.removeItem('accessToken');
+      // localStorage.removeItem('accessToken');
       dispatch(setSignOut());
       dispatch(setMovesDataInitialization());
       dispatch(setDriverDataInitialization());

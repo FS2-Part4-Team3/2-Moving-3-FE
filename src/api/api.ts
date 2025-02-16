@@ -12,16 +12,16 @@ export class CustomError extends Error {
 export async function fetchWrapper(url: string, options: RequestInit = {}) {
   const headers = {
     'Cache-Control': 'no-cache',
-    Authorization: '',
+    // Authorization: '',
     ...options.headers,
   };
 
-  if (typeof window !== 'undefined') {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      headers.Authorization = `Bearer ${accessToken}`;
-    }
-  }
+  // if (typeof window !== 'undefined') {
+  //   const accessToken = localStorage.getItem('accessToken');
+  //   if (accessToken) {
+  //     headers.Authorization = `Bearer ${accessToken}`;
+  //   }
+  // }
 
   const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
 
@@ -29,6 +29,7 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
     const response = await fetch(`${BASE_URL}${url}`, {
       ...options,
       headers,
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -45,15 +46,16 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
           throw new CustomError('Failed to refresh token', await refreshResponse.json());
         }
 
-        const { accessToken } = await refreshResponse.json();
-        localStorage.setItem('accessToken', accessToken);
+        // const { accessToken } = await refreshResponse.json();
+        // localStorage.setItem('accessToken', accessToken);
 
         const retryResponse = await fetch(`${BASE_URL}${url}`, {
           ...options,
           headers: {
             ...headers,
-            Authorization: `Bearer ${accessToken}`,
+            // Authorization: `Bearer ${accessToken}`,
           },
+          credentials: 'include',
         });
 
         if (!retryResponse.ok) {
