@@ -7,6 +7,7 @@ import search from '@/../public/assets/common/searchbar/ic_search.svg';
 import x from '@/../public/assets/common/searchbar/ic_x_circle.svg';
 import { setKeyword } from '@/store/slices/driversSlice';
 import { InputWrapper } from '../headless/Input';
+import SpeechToTextSearch from './SpeechToTextSearch';
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -69,6 +70,7 @@ export default function SearchBar() {
           <Image src={search} alt="search" width={24} height={24} className="lg:hidden sm:block" />
         </>
       )}
+      <SpeechToTextSearch setText={value => setValue(value)} />
     </div>
   );
 }
