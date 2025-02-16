@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getDriverReviewData } from '@/api/DriverService';
 import DriverReviewCard from '@/components/cards/DriverReviewCard';
 import ReviewChart from '@/components/cards/ReviewChart';
+import ReviewSummaryCard from '@/components/cards/ReviewSummaryCard';
 import Empty from '@/components/common/Empty/Empty';
 import Pagination from '@/components/common/pagination/pagination';
 import type { DriverReviewData, ReviewClientProps } from '@/interfaces/Page/DriverDetailInterface';
@@ -82,6 +83,7 @@ export default function ReviewClient({ id }: ReviewClientProps) {
             <Empty type="Driver" />
           </div>
         )}
+        <ReviewSummaryCard driverId={id} />
       </div>
 
       {reviewData?.totalCount ? (
