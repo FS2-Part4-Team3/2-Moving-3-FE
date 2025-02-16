@@ -58,7 +58,6 @@ export default function GNB() {
     fetchNotifications(page);
 
     const newSocket = io(`${BASE_URL}`, {
-      // auth: { token: user.accessToken },
       transports: ['websocket'],
     });
 

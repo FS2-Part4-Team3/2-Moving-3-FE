@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUserData } from '@/api/UserService';
@@ -8,23 +8,16 @@ import { setUserSign } from '@/store/slices/SignInSlice';
 
 export default function CallBackKakao() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const accessToken = searchParams?.get('accessToken');
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getData = async () => {
-      // if (accessToken) {
-      //   localStorage.setItem('accessToken', accessToken);
-      // }
-
       const res = await getUserData();
       dispatch(
         setUserSign({
           id: res.id,
           name: res.name,
           nickname: res.type === 'driver' ? res.nickname : undefined,
-          // accessToken: res.accessToken,
           email: res.email,
           image: res.image,
           phoneNumber: res.phoneNumber,
@@ -47,10 +40,8 @@ export default function CallBackKakao() {
       }
     };
 
-    if (accessToken) {
-      getData();
-    }
-  }, [accessToken, dispatch, router]);
+    getData();
+  }, [dispatch, router]);
 
   return (
     <div className="w-full min-h-screen">

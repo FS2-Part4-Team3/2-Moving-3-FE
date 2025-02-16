@@ -5,7 +5,6 @@ interface SignInState {
   id?: string;
   name?: string;
   nickname?: string;
-  // accessToken?: string;
   email?: string;
   image?: string;
   phoneNumber?: string;
@@ -22,7 +21,6 @@ const initialState: SignInState = {
   id: '',
   name: '',
   nickname: '',
-  // accessToken: '',
   email: '',
   image: '',
   phoneNumber: '',
@@ -44,7 +42,6 @@ const signInSlice = createSlice({
 
       state.id = id;
       state.name = name;
-      // state.accessToken = accessToken;
       state.email = email;
       state.image = image;
       state.phoneNumber = phoneNumber;
