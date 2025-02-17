@@ -127,7 +127,7 @@ export default function ProfileEditDriver() {
     },
     onSuccess: () => {
       alert('프로필 수정이 완료됐습니다!');
-      router.push(`/driver/my-page`);
+      router.back();
     },
     onError: () => {
       alert('프로필 수정에 실패했습니다. 다시 한 번 시도해주세요!');
