@@ -266,7 +266,7 @@ export default function GNB() {
                   ) : (
                     <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
                   )}
-                  <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm: hidden">
+                  <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t lg:block sm: hidden">
                     {user_info.name || user.name}
                   </p>
                 </div>
