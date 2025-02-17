@@ -19,10 +19,10 @@ export default function ReviewTabs() {
 
   return (
     <div className="w-screen">
-      <div className="w-full md:w-[74.4rem] sm:W-[37.5rem] lg:h-[9.6rem] md:h-[5.4rem] sm:h-[5.4rem] flex items-center lg:gap-[4rem] md:gap-[2.4rem] sm:gap-[2.4rem] bg-white shadow-custom7 lg:px-[26rem] lg:py-[3.2rem] md:px-[7.2rem] md:py-[1rem] sm:px-[2.4rem] sm:py-[1rem] ">
+      <div className="w-full md:w-[74.4rem] sm:W-[37.5rem] lg:h-[9.6rem] md:h-[5.4rem] sm:h-[5.4rem] flex items-center lg:gap-[4rem] md:gap-[2.4rem] sm:gap-[2.4rem] bg-white dark:bg-dark-p shadow-custom7 dark:shadow lg:px-[26rem] lg:py-[3.2rem] md:px-[7.2rem] md:py-[1rem] sm:px-[2.4rem] sm:py-[1rem] ">
         <Link href="/normal/my-page/writable-review">
           <div
-            className={`lg:h-[9.6rem] flex items-center cursor-pointer ${isSelected === 'able' ? 'text-black-400 border-b-[0.4rem] border-blue-400 ' : 'text-gray-400'} `}
+            className={`lg:h-[9.6rem] flex items-center cursor-pointer ${isSelected === 'able' ? 'text-black-400 dark:text-dark-t border-b-[0.4rem] border-blue-400 dark:border-dark-t' : 'text-gray-400'} `}
             onClick={() => setIsSelected('able')}
           >
             <span className="lg:text-[2.4rem] md:text-[1.4rem] sm:text-[1.4rem] font-semibold text-nowrap ">
@@ -32,7 +32,7 @@ export default function ReviewTabs() {
         </Link>
         <Link href="/normal/my-page/written-review">
           <div
-            className={`lg:h-[9.6rem] flex items-center cursor-pointer ${isSelected === 'my' ? 'text-black-400 border-b-[0.4rem] border-blue-400' : 'text-gray-400'} `}
+            className={`lg:h-[9.6rem] flex items-center cursor-pointer ${isSelected === 'my' ? 'text-black-400 dark:text-dark-t border-b-[0.4rem] border-blue-400 dark:border-dark-t' : 'text-gray-400'} `}
             onClick={() => setIsSelected('my')}
           >
             <span className="lg:text-[2.4rem] md:text-[1.4rem] sm:text-[1.4rem] font-semibold text-nowrap ">
