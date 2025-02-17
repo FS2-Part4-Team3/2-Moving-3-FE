@@ -124,11 +124,11 @@ export default function SignInClient() {
         <div className="flex flex-col gap-[0.8rem] items-end">
           <InputWrapper id="signin-email" type="text" value={email} onChange={handleEmailChange}>
             <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
-              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
+              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400 dark:text-dark-t">
                 이메일
               </InputWrapper.Label>
               <InputWrapper.Input
-                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 p-[1.4rem] bg-white font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none ${
+                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 p-[1.4rem] bg-white font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none dark:bg-dark-p ${
                   emailError ? 'focus:border-red-200' : 'focus:border-blue-300'
                 }`}
                 placeholder="이메일을 입력해 주세요"
@@ -144,16 +144,16 @@ export default function SignInClient() {
         <div className="flex flex-col gap-[0.8rem] items-end">
           <InputWrapper id="signin-password" type={viewPw ? 'text' : 'password'} value={password} onChange={handlePasswordChange}>
             <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
-              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
+              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400 dark:text-dark-t">
                 비밀번호
               </InputWrapper.Label>
               <div
-                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 focus:outline-none p-[1.4rem] bg-white flex justify-between ${
+                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 focus:outline-none p-[1.4rem] bg-white dark:bg-dark-p flex justify-between ${
                   passwordError ? 'focus-within:border-red-200' : 'focus-within:border-blue-300'
                 }`}
               >
                 <InputWrapper.Input
-                  className="w-full font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none"
+                  className="w-full font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none bg-white dark:bg-dark-p"
                   placeholder="비밀번호를 입력해 주세요"
                 />
                 <Image
