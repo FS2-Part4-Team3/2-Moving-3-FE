@@ -3,12 +3,15 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useDispatch } from 'react-redux';
 import { getChatListData } from '@/api/chatService';
 import { ChatListData } from '@/interfaces/Section/ChatListInterface';
+import { setChat } from '@/store/slices/chatSlice';
 import ChatCard from '../cards/ChatCard';
 
 export default function ChatList() {
   const { ref, inView } = useInView();
+  const dispatch = useDispatch();
 
   const {
     data: chatList,
@@ -34,6 +37,15 @@ export default function ChatList() {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
 
+  useEffect(() => {
+    if (chatList?.pages.length) {
+      const lastId = chatList.pages.flatMap(page => page.list).shift();
+      if (lastId) {
+        dispatch(setChat({ id: lastId }));
+      }
+    }
+  });
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -43,8 +55,8 @@ export default function ChatList() {
   }
 
   return (
-    <div className="flex flex-col">
-      <p className="lg:block md:hidden sm:hidden text-[2.4rem] font-semibold ml-[2rem] my-[2rem]">메세지 목록</p>
+    <div className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] h-screen flex flex-col border-r-[0.3rem] border-line-100">
+      <p className="lg:block md:hidden sm:hidden text-[2.4rem] font-semibold ml-[2rem] mt-[2rem]">메세지 목록</p>
       {chatList
         ? chatList.pages.flatMap(page =>
             page.list.map(id => (

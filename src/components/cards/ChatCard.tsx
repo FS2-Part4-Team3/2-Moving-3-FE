@@ -2,16 +2,18 @@
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
 import { getDriverDetailData } from '@/api/DriverService';
 import { getOnlineStatus, getUserDetailData } from '@/api/UserService';
 import { getChatData } from '@/api/chatService';
 import { ChatData, InfoData, Online } from '@/interfaces/Card/ChatCardInterface';
+import { setChat } from '@/store/slices/chatSlice';
 import { RootState } from '@/store/store';
 
 export default function ChatCard({ id }: { id: string }) {
   const user = useSelector((state: RootState) => state.signIn);
+  const dispatch = useDispatch();
 
   const { data: driverInforData } = useQuery<InfoData>({
     queryKey: ['driverInfoData', id],
@@ -65,7 +67,10 @@ export default function ChatCard({ id }: { id: string }) {
   return (
     <>
       {id && (
-        <div className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] flex items-center lg:gap-x-[1rem] md:gap-x-[0.8rem] sm:gap-x-[0.8rem] lg:px-[2rem] md:px-[1.4rem] sm:px-[1.4rem] lg:py-[2rem] md:py-[1.5rem] sm:py-[1.5rem] border-b-[0.1rem] border-line-100 cursor-pointer ">
+        <div
+          onClick={() => dispatch(setChat({ id: id }))}
+          className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] flex items-center lg:gap-x-[1rem] md:gap-x-[0.8rem] sm:gap-x-[0.8rem] lg:px-[2rem] md:px-[1.4rem] sm:px-[1.4rem] lg:py-[2rem] md:py-[1.5rem] sm:py-[1.5rem] border-b-[0.1rem] border-line-100 cursor-pointer "
+        >
           <div className="lg:w-[7.9rem] lg:h-[7.3rem] md:w-[6rem] md:h-[5.5rem] sm:w-[6rem] sm:h-[5.5rem] relative">
             <Image
               src={driverInforData?.image || userInforData?.image || profile_default}
