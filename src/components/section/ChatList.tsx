@@ -39,7 +39,7 @@ export default function ChatList() {
   }
 
   if (error) {
-    alert('');
+    console.error(error);
   }
 
   return (
