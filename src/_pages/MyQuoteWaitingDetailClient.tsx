@@ -48,7 +48,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
 
   return (
     <>
-      <div className="w-full flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:px-[2rem] sm:pb-[10rem] justify-center">
+      <div className="w-full flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:px-[2rem] md:px-0 sm:pb-[10rem] justify-center">
         <div className="flex flex-col lg:w-[67rem] md:w-[60rem] sm:w-full lg:gap-[4rem] sm:gap-[2.4rem]">
           <FindDriverCard
             data={{ ...driverData, introduce: driverIntroduce }}
