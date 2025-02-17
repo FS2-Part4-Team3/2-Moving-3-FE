@@ -48,13 +48,13 @@ export default function DibsDriverCard() {
   return (
     <>
       {dibsDrivers.list.map((driver: any) => (
-        <div className="w-[32.7rem] flex flex-col rounded-[1.6rem] border border-line-100 py-[1.6rem] px-[1.4rem] gap-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)]">
+        <div className="w-[32.7rem] flex flex-col rounded-[1.6rem] border border-line-100 py-[1.6rem] px-[1.4rem] gap-[1.4rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)] dark:shadow dark:bg-dark-p">
           <div className="flex gap-[0.4rem]">
             {driver.serviceType.map((item: string, index: number) => (
               <SmallMovingTypeChips key={index} type={item as 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING'} />
             ))}
           </div>
-          <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300">{driver.introduce}</p>
+          <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300 dark:text-dark-t">{driver.introduce}</p>
           <div className="w-full flex rounded-[0.6rem] border border-line-100 p-[1rem] gap-[1.2rem]">
             <div className="w-[4.6rem] h-[4.6rem]">
               {driver.image ? (
@@ -77,27 +77,35 @@ export default function DibsDriverCard() {
             </div>
             <div className="w-full flex flex-col gap-[1.2rem]">
               <div className="flex items-center justify-between">
-                <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300">{driver.name} 기사님</p>
+                <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300 dark:text-dark-t">
+                  {driver.name} 기사님
+                </p>
                 <div className="flex items-center gap-[0.2rem]">
                   <Image src={like} alt="like" width={24} height={24} />
-                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-blue-400">{driver.favoriteCount}</p>
+                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-blue-400 dark:text-dark-t">
+                    {driver.favoriteCount}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex gap-[0.2rem] items-center">
                   <Image src={star} alt="star" width={20} height={20} />
-                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-black-300">{driver.score}</p>
-                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-gray-300">({driver.reviewCount})</p>
+                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-black-300 dark:text-dark-t">{driver.score}</p>
+                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-gray-300 dark:text-dark-t">
+                    ({driver.reviewCount})
+                  </p>
                 </div>
                 <div className="h-[1.4rem] border border-line-200" />
                 <div className="flex gap-[0.4rem]">
-                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-gray-300">경력</p>
-                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-black-300">{driver.career}년</p>
+                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-gray-300 dark:text-dark-t">경력</p>
+                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-black-300 dark:text-dark-t">{driver.career}년</p>
                 </div>
                 <div className="h-[1.4rem] border border-line-200" />
                 <div className="flex gap-[0.4rem]">
-                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-black-300">{driver.applyCount}건</p>
-                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-gray-300">확정</p>
+                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-black-300 dark:text-dark-t">
+                    {driver.applyCount}건
+                  </p>
+                  <p className="font-medium text-[1.3rem] leading-[2.2rem] text-gray-300 dark:text-dark-t">확정</p>
                 </div>
               </div>
             </div>
