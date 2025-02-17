@@ -17,3 +17,8 @@ export interface Chat {
   image: string;
   isRead: boolean;
 }
+
+export interface Online {
+  id: string;
+  isOnline: boolean;
+}
