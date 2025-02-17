@@ -1,19 +1,21 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
 import { getDriverDetailData } from '@/api/DriverService';
 import { getOnlineStatus, getUserDetailData } from '@/api/UserService';
-import { getChatData } from '@/api/chatService';
-import { ChatData, InfoData, Online } from '@/interfaces/Card/ChatCardInterface';
+import { getChatData, postRead } from '@/api/chatService';
+import { ChatData, ChatRead, InfoData, Online } from '@/interfaces/Card/ChatCardInterface';
 import { setChat } from '@/store/slices/chatSlice';
 import { RootState } from '@/store/store';
 
 export default function ChatCard({ id }: { id: string }) {
   const user = useSelector((state: RootState) => state.signIn);
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const { data: driverInforData } = useQuery<InfoData>({
     queryKey: ['driverInfoData', id],
@@ -59,16 +61,36 @@ export default function ChatCard({ id }: { id: string }) {
     const isRead = lastMessageObj?.isRead;
     const lastMessage = lastMessageObj?.message || '';
 
-    return { message: lastMessage, isRead, unReadCount: unReadMessgeCount };
+    return { message: lastMessage, isRead, unReadCount: unReadMessgeCount, chatData };
   };
 
-  const { message, isRead, unReadCount } = lastChatMessage(id, 10);
+  const { message, isRead, unReadCount, chatData } = lastChatMessage(id, 10);
+  const ids: string[] = chatData?.list.map(chat => chat.id) || [];
+  const chatRead: ChatRead = { ids };
+
+  const readMutation = useMutation({
+    mutationFn: () => {
+      if (chatRead.ids.length > 0) {
+        return postRead(id, chatRead);
+      }
+      return Promise.resolve();
+    },
+  });
+
+  const handleReadClick = (id: string) => {
+    dispatch(setChat({ id: id }));
+    readMutation.mutate();
+  };
+
+  useEffect(() => {
+    chatData;
+  }, [chatData]);
 
   return (
     <>
       {id && (
         <div
-          onClick={() => dispatch(setChat({ id: id }))}
+          onClick={() => handleReadClick(id)}
           className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] flex items-center lg:gap-x-[1rem] md:gap-x-[0.8rem] sm:gap-x-[0.8rem] lg:px-[2rem] md:px-[1.4rem] sm:px-[1.4rem] lg:py-[2rem] md:py-[1.5rem] sm:py-[1.5rem] border-b-[0.1rem] border-line-100 cursor-pointer "
         >
           <div className="lg:w-[7.9rem] lg:h-[7.3rem] md:w-[6rem] md:h-[5.5rem] sm:w-[6rem] sm:h-[5.5rem] relative">
@@ -85,9 +107,11 @@ export default function ChatCard({ id }: { id: string }) {
                   {driverInforData?.name || userInforData?.name} {driverInforData ? '기사님' : userInforData ? '고객님' : ''}
                 </p>
                 <div className="flex items-center gap-x-[0.9rem]">
-                  <div className={`w-[1.4rem] h-[1.4rem] rounded-full ${onlineStatus ? 'bg-[#32CD32]' : 'bg-gray-300'}`}></div>
+                  <div
+                    className={`w-[1.4rem] h-[1.4rem] rounded-full ${onlineStatus?.isOnline ? 'bg-[#32CD32]' : 'bg-gray-300'}`}
+                  ></div>
                   <p className="lg:text-[1.6rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 ">
-                    {onlineStatus ? '온라인' : '오프라인'}
+                    {onlineStatus?.isOnline ? '온라인' : '오프라인'}
                   </p>
                 </div>
               </div>

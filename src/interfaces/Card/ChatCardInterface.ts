@@ -16,9 +16,14 @@ export interface Chat {
   message: string;
   image: string;
   isRead: boolean;
+  id: string;
 }
 
 export interface Online {
   id: string;
   isOnline: boolean;
+}
+
+export interface ChatRead {
+  ids: string[];
 }

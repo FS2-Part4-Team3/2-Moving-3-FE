@@ -25,11 +25,6 @@ export default function ChatTab() {
     enabled: user.type === 'driver',
   });
 
-  const { data: onlineStatus } = useQuery<Online>({
-    queryKey: ['onlineStatus', chat.id],
-    queryFn: () => getOnlineStatus(chat.id),
-  });
-
   return (
     <div>
       <div>
@@ -44,9 +39,7 @@ export default function ChatTab() {
           {driverInforData?.name || userInforData?.name} {driverInforData ? '기사님' : userInforData ? '고객님' : ''}
         </p>
       </div>
-      <p className="lg:text-[1.6rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 ">
-        {onlineStatus ? '온라인' : '오프라인'}
-      </p>
+      <div></div>
     </div>
   );
 }
