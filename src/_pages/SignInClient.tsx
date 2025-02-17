@@ -62,13 +62,12 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
-      localStorage.setItem('accessToken', res.accessToken);
+      document.cookie = `accessToken1=${res.accessToken}; path=/; max-age=3600; secure; HttpOnly; SameSite=Strict`;
       dispatch(
         setUserSign({
           id: res.person.id,
           name: res.person.name,
           nickname: userType === 'driver' ? res.person.nickname : undefined,
-          accessToken: res.accessToken,
           email: res.person.email,
           image: res.person.image,
           phoneNumber: res.person.phoneNumber,
