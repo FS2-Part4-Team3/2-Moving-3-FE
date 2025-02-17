@@ -1,11 +1,16 @@
+'use client';
+
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import standardProfile from '@/../public/assets/common/gnb/standard_profile.svg';
+import like_white from '@/../public/assets/driver/ic_empty_like.svg';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import type { FindDriverCardProps } from '@/interfaces/Card/FindDriverCardInterface';
 import MovingTypeChips from '../chips/MovingTypeChips';
 
 export default function FindDriverCard({ data, type, designatedRequest }: FindDriverCardProps) {
+  const { theme } = useTheme();
   return (
     <div className="flex flex-col lg:gap-[4.8rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
       <div
@@ -72,7 +77,7 @@ export default function FindDriverCard({ data, type, designatedRequest }: FindDr
                 {data.name} 기사님
               </p>
               <div className="flex gap-[0.4rem] justify-center items-center">
-                <Image src={like} alt="like" width={24} height={24} />
+                <Image src={theme === 'dark' ? like_white : like} alt="like" width={24} height={24} />
                 <p className="font-medium  lg:text-[1.8rem] sm:text-[1.3rem] lg:leading-[2.6rem] sm:leading-[2.2rem] text-blue-400 dark:text-dark-t">
                   {data.likeCount}
                 </p>

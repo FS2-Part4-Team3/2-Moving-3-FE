@@ -1,8 +1,10 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import standardProfile from '@/../public/assets/common/gnb/standard_profile.svg';
+import like_white from '@/../public/assets/driver/ic_empty_like.svg';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import { getDibsDriverListData } from '@/api/DriverService';
@@ -13,6 +15,8 @@ export default function DibsDriverCard() {
   const [dibsDrivers, setDibsDrivers] = useState<DibsDriverCardProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,7 +85,7 @@ export default function DibsDriverCard() {
                   {driver.name} 기사님
                 </p>
                 <div className="flex items-center gap-[0.2rem]">
-                  <Image src={like} alt="like" width={24} height={24} />
+                  <Image src={theme === 'dark' ? like_white : like} alt="like" width={24} height={24} />
                   <p className="font-medium text-[1.3rem] leading-[2.2rem] text-blue-400 dark:text-dark-t">
                     {driver.favoriteCount}
                   </p>
