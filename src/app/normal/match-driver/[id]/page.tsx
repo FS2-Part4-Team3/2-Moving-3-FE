@@ -26,8 +26,8 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className="flex flex-row gap-[11.7rem] lg:pt-[5.6rem] sm:pt-[2.4rem] justify-center">
-        <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem]">
+      <div className="flex flex-row gap-[5.7rem] lg:pt-[5.6rem] sm:pt-[2.4rem] justify-center">
+        <div className="flex flex-col lg:w-[77.5rem] md:w-[60rem] sm:w-[32.7rem]">
           <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
             <FindDriverCard key={driverData.id} data={driverData} />
             <div className="lg:hidden sm:block">
@@ -35,7 +35,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               <div className="flex flex-col gap-[0.8rem] md:px-[2.4rem] sm:px-0 py-[1rem]">
                 <p className="text-[1.4rem] leading-[2.4rem] font-semibold text-black-400">나만 알기엔 아쉬운 기사님인가요?</p>
                 <div className="flex flex-row gap-[1.6rem]">
-                  <SharingPageClient />
+                  <SharingPageClient type="driver" />
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             <div className="flex flex-col gap-[2.2rem]">
               <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400">나만 알기엔 아쉬운 기사님인가요?</p>
               <div className="flex flex-row gap-[1.6rem]">
-                <SharingPageClient />
+                <SharingPageClient type="driver" />
               </div>
             </div>
           </div>

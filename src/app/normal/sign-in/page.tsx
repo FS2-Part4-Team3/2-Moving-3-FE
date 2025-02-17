@@ -50,15 +50,25 @@ export default function SignIn() {
               <a href={`${BASE_URL}/auth/google/user`} rel="noopener noreferrer">
                 <Image src={google} alt="google" width={72} height={72} />
               </a>
-              <Image src={kakao} alt="kakao" width={72} height={72} />
-              <Image src={naver} alt="naver" width={72} height={72} />
+              <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
+                <Image src={kakao} alt="kakao" width={72} height={72} />
+              </a>
+              <a href={`${BASE_URL}/auth/naver/user`} rel="noopener noreferrer">
+                <Image src={naver} alt="naver" width={72} height={72} />
+              </a>
             </div>
           </div>
           <div className="lg:hidden sm:block">
             <div className="flex sm:gap-[2.4rem]">
-              <Image src={google} alt="google" width={54} height={54} />
-              <Image src={kakao} alt="kakao" width={54} height={54} />
-              <Image src={naver} alt="naver" width={54} height={54} />
+              <a href={`${BASE_URL}/auth/google/user`} rel="noopener noreferrer">
+                <Image src={google} alt="google" width={54} height={54} />
+              </a>
+              <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
+                <Image src={kakao} alt="kakao" width={54} height={54} />
+              </a>
+              <a href={`${BASE_URL}/auth/naver/user`} rel="noopener noreferrer">
+                <Image src={naver} alt="naver" width={54} height={54} />
+              </a>
             </div>
           </div>
         </div>

@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteRefresh } from '@/api/UserService';
 import { ProfileProps } from '@/interfaces/CommonComp/GnbInterface';
 import { setSignOut } from '@/store/slices/SignInSlice';
+import { setDriverDataInitialization } from '@/store/slices/driversSlice';
+import { setMovesDataInitialization } from '@/store/slices/movesSlice';
 import { RootState } from '@/store/store';
 
 export default function Profile({ closeModal }: ProfileProps) {
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
+  const user_info = useSelector((state: RootState) => state.info);
 
   const userName = user.name;
   const status = user.type === 'user' ? 'user' : 'driver';
@@ -20,6 +23,8 @@ export default function Profile({ closeModal }: ProfileProps) {
       await deleteRefresh();
       localStorage.removeItem('accessToken');
       dispatch(setSignOut());
+      dispatch(setMovesDataInitialization());
+      dispatch(setDriverDataInitialization());
       closeModal();
       router.push('/');
     },
@@ -39,7 +44,7 @@ export default function Profile({ closeModal }: ProfileProps) {
     <div className="bg-white rounded-[1.6rem] border border-line-200 lg:pt-[1.6rem] sm:pt-[1rem] pb-[0.6rem] lg:px-[0.4rem] sm:px-[0.6rem] shadow-profileShadow">
       <div className="flex flex-col">
         <p className="lg:w-[24rem] sm:w-[14rem] lg:py-[1.4rem] lg:px-[2.4rem] sm:py-[0.8rem] sm:px-[1.2rem] font-bold lg:text-[1.8rem] sm:text-[1.6rem] leading-[2.6rem] text-black-300">
-          {userName} 고객님
+          {user_info.name || userName} 고객님
         </p>
         <p
           className="lg:w-[24rem] sm:w-[14rem] lg:py-[1.4rem] lg:px-[2.4rem] sm:py-[0.8rem] sm:px-[1.2rem] font-medium lg:text-[1.6rem] sm:text-[1.4rem] leading-[2.6rem] text-black-400"

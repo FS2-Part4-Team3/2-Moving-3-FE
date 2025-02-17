@@ -11,19 +11,14 @@ const Template: StoryFn<ClientQuoteCardProps> = args => <ClientQuoteCard {...arg
 
 export const Default = Template.bind({});
 Default.args = {
+  owner: '김재원',
   data: {
-    id: 'estimation-1',
-    updatedAt: '2025-01-01T12:00:00Z',
-    price: 200000,
-    moveInfo: {
-      id: 'moveinfo-1',
-      updatedAt: '2025-01-01T12:00:00Z',
-      type: 'HOME',
-      date: '2025-02-01T12:00:00Z',
-      fromAddress: '서울 중구 삼일대로 343',
-      toAddress: '서울 중구 청계천로 100',
-      progress: 'PENDING',
-      owner: '김재원',
-    },
+    createdAt: '2025-01-01T12:00:00Z',
+    serviceType: 'HOME',
+    date: '2025-02-01T12:00:00Z',
+    fromAddress: '서울 중구 삼일대로 343',
+    toAddress: '서울 중구 청계천로 100',
+    progress: 'COMPLETE',
   },
+  designatedRequest: 'Active',
 };

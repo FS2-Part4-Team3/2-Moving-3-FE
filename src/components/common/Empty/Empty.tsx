@@ -34,6 +34,13 @@ export default function Empty({ type }: EmptyProps) {
       text = '아직 등록된 리뷰가 없어요!';
       text2 = '';
       buttonText = '리뷰 작성하러 가기';
+      link = () => router.push('/normal/my-page/writable-review');
+      break;
+    case 'ReviewAble':
+      image = folder;
+      text = '작성 가능한 리뷰가 없어요!';
+      text2 = '';
+      buttonText = '';
       break;
     case 'Driver':
       image = folder;
@@ -46,13 +53,19 @@ export default function Empty({ type }: EmptyProps) {
       text = '현재 진행 중인 이사 견적이 있어요!';
       text2 = '진행중인 이사 완료 후 새로운 견적을 받아보세요.';
       buttonText = '받은 견적 보러가기';
-      link = () => router.push('/normal/my-quote/received');
+      link = () => router.push('/normal/my-quote/waiting');
       break;
+    case 'RequestEmpty':
+      image = truck;
+      text = '현재 진행 중인 이사 견적이 없어요!';
+      text2 = '이사 견적 등록 후 수정 기능을 이용해주세요.';
+      buttonText = '견적 요청하기';
+      link = () => router.push('/normal/request-quote');
   }
 
   return (
     <div className="flex flex-col gap-[3.2rem] items-center">
-      {type === 'RequestQuote' ? (
+      {type === 'RequestQuote' || type === 'RequestEmpty' ? (
         <>
           <Image src={image} alt="empty" width={378} height={140} className="lg:block sm:hidden" />
           <Image src={image} alt="empty" width={228} height={96} className="lg:hidden sm:block" />

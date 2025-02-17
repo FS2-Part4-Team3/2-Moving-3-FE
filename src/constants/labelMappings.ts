@@ -8,7 +8,7 @@ export const areaMapping: { [key: string]: string } = {
   SEOUL: '서울',
   GYEONGGI: '경기',
   INCHEON: '인천',
-  GAGNWON: '강원',
+  GANGWON: '강원',
   CHUNGBUK: '충북',
   CHUNGNAM: '충남',
   SEJONG: '세종',

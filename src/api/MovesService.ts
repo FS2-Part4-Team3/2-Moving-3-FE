@@ -28,6 +28,16 @@ export const getMovesListData = async (
   }
 };
 
+export const getMovesDetailData = async (moveInfoId: string) => {
+  try {
+    const res = await getRequest(`/moves/${moveInfoId}`);
+    return res;
+  } catch (error) {
+    console.error('Failed to Get Moves Detail Data', error);
+    throw error;
+  }
+};
+
 export const getCheckRequestDriver = async (driverId: string) => {
   try {
     const res = await getRequest(`/requests/check/${driverId}`);
@@ -84,5 +94,30 @@ export const patchMove = async (moveId: string, serviceType: string, date: strin
     return res;
   } catch (err) {
     throw new Error();
+  }
+};
+
+export const getMovesEstimationsData = async (page?: number, pageSize?: number) => {
+  try {
+    const params = {
+      page: page,
+      pageSize: pageSize,
+      filter: 'all',
+    };
+    const res = await getRequest('/moves/estimations', params);
+    return res;
+  } catch (error) {
+    console.error('Get Moves Estimations Data', error);
+    throw error;
+  }
+};
+
+export const postMovesConfirm = async (moveId: string, estimationId: string) => {
+  try {
+    const res = await postRequest(`/moves/${moveId}/confirm/${estimationId}`);
+    return res;
+  } catch (error) {
+    console.error('Post Moves Confirmation Error', error);
+    throw error;
   }
 };

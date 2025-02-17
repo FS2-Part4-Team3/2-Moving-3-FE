@@ -22,8 +22,11 @@ export interface ReviewCardEstimations {
 export type MoveType = 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
 
 export interface ReviewCardProps {
-  type: 'ABLE' | 'MY';
   myReview: MyReviewItem;
+}
+
+export interface ReviewCardEstimationsProps {
+  estimation: EstimationItem;
 }
 
 export interface ReviewCardReviews {
@@ -55,4 +58,25 @@ export interface MyReviewItem {
 export interface MyReviews {
   totalCount: number;
   list: MyReviewItem[];
+}
+
+export interface EstimationItem {
+  driver: {
+    image: string;
+    name: string;
+  };
+  moveInfo: {
+    date: string;
+    serviceType: 'SMALL' | 'HOME' | 'OFFICE';
+  };
+  estimationInfo: {
+    estimationId: string;
+    price: number;
+  };
+  designatedRequest: 'Active' | 'Inactive';
+}
+
+export interface ReviewableEstimations {
+  totalCount: number;
+  estimations: EstimationItem[];
 }

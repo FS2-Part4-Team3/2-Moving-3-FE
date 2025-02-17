@@ -1,6 +1,6 @@
-import type { MyReviews, ReviewCardEstimations } from '../Card/NormalReviewCardInterface';
+import type { EstimationItem } from '../Card/NormalReviewCardInterface';
 
 export interface WritingReviewModalProps {
-  estimation: ReviewCardEstimations;
+  estimation: EstimationItem;
   setIsModalOpen: (args: boolean) => void;
 }

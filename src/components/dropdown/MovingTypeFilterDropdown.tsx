@@ -12,7 +12,6 @@ import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../common/headless/Button';
 
 export default function MovingTypeFilterDropdown({ onClick, filterState, onFilterChange }: MediaTypeFilterDropdownProps) {
-  // TODO: 이사 종류별 개수와 전체 선택 데이터 개수는 수정예정입니다.
   const dispatch = useDispatch();
   const { movesList } = useSelector((state: RootState) => state.moves);
 
@@ -223,7 +222,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
               <div className="flex flex-col gap-[0.8rem]">
                 <div className="flex gap-[1rem] items-center py-[0.8rem] px-[1rem] border-b border-line-100 justify-between">
                   <div className="flex">
-                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 (199999)</p>
+                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 ({movesList?.totalCount})</p>
                   </div>
                   <Image
                     src={filterState.smallMov && filterState.homeMov && filterState.officeMov ? checkbox_blue : checkbox}
@@ -284,7 +283,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
               <div className="flex flex-col gap-[0.8rem]">
                 <div className="flex gap-[1rem] items-center py-[0.8rem] px-[1rem] border-b border-line-100 justify-between">
                   <div className="flex">
-                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 (18888)</p>
+                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 ({movesList?.totalCount})</p>
                   </div>
                   <Image
                     src={filterState.serviceable && filterState.appointRequest ? checkbox_blue : checkbox}
