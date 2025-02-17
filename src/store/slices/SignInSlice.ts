@@ -5,7 +5,6 @@ interface SignInState {
   id?: string;
   name?: string;
   nickname?: string;
-  accessToken?: string;
   email?: string;
   image?: string;
   phoneNumber?: string;
@@ -22,7 +21,6 @@ const initialState: SignInState = {
   id: '',
   name: '',
   nickname: '',
-  accessToken: '',
   email: '',
   image: '',
   phoneNumber: '',
@@ -40,11 +38,10 @@ const signInSlice = createSlice({
   initialState,
   reducers: {
     setUserSign(state, action: PayloadAction<SignInState>) {
-      const { id, name, accessToken, email, image, phoneNumber, serviceType, type } = action.payload;
+      const { id, name, email, image, phoneNumber, serviceType, type } = action.payload;
 
       state.id = id;
       state.name = name;
-      state.accessToken = accessToken;
       state.email = email;
       state.image = image;
       state.phoneNumber = phoneNumber;

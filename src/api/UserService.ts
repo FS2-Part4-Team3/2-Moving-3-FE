@@ -147,3 +147,14 @@ export const deleteRefresh = async () => {
     throw error;
   }
 };
+
+export const getAuthIsLoggedIn = async () => {
+  try {
+    const res = await getRequest('/auth/isLoggedIn');
+    console.log(res);
+    return res;
+  } catch (error) {
+    console.error('Get Auth Login Fetch Error', error);
+    throw error;
+  }
+};

@@ -58,7 +58,6 @@ export default function GNB() {
     fetchNotifications(page);
 
     const newSocket = io(`${BASE_URL}`, {
-      auth: { token: user.accessToken },
       transports: ['websocket'],
     });
 
@@ -77,7 +76,7 @@ export default function GNB() {
     return () => {
       newSocket.disconnect();
     };
-  }, [user.accessToken, page]);
+  }, [page]);
 
   const handleRouteLanding = () => {
     router.push('/');
