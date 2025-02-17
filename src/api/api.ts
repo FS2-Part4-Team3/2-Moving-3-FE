@@ -67,6 +67,8 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
       return;
     }
 
+    console.log(response.headers.get('set-cookie'));
+
     return response.json();
   } catch (error) {
     console.error('Fetch error:', error);
