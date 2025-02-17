@@ -34,8 +34,8 @@ export default function MyQuoteSentDetailClient({ id }: MyQuoteDetailClientProps
 
   return (
     <>
-      <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
-        <div className="flex flex-col lg:w-[67rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
+      <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center sm:w-full md:px-0 sm:px-[2rem]">
+        <div className="flex flex-col lg:w-[67rem] md:w-[60rem] sm:w-full lg:gap-[4rem] sm:gap-[2.4rem]">
           <ClientQuoteCard data={moveInfo} owner={user.name} designatedRequest={designatedRequest} />
           <div className="lg:hidden sm:block">
             <div className="border border-line-100 w-full mb-[2.4rem]"></div>

@@ -11,7 +11,7 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
   return (
     <>
       <div className="relative w-full rounded-[1.6rem] bg-white dark:bg-dark-p border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
-        {data.progress !== 'OPEN' ? (
+        {data.progress !== 'OPEN' && data.progress !== 'CONFIRMED' ? (
           <div className="absolute inset-0 bg-black bg-opacity-60 rounded-[1.6rem]">
             <div className="flex items-center justify-center flex-col w-full h-full bg-opacity-100 gap-[1.6rem]">
               {data.progress === 'COMPLETE' && (
