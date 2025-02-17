@@ -77,13 +77,15 @@ export default function ReviewClient({ id }: ReviewClientProps) {
           리뷰 ({reviewData?.totalCount})
         </p>
         {reviewData?.totalCount ? (
-          <ReviewChart data={reviewData.stats} totalCount={reviewData.totalCount} />
+          <>
+            <ReviewChart data={reviewData.stats} totalCount={reviewData.totalCount} />
+            <ReviewSummaryCard driverId={id} />
+          </>
         ) : (
           <div className="py-[8rem]">
             <Empty type="Driver" />
           </div>
         )}
-        <ReviewSummaryCard driverId={id} />
       </div>
 
       {reviewData?.totalCount ? (
