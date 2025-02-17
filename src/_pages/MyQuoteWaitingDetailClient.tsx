@@ -58,7 +58,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
           <div className="lg:hidden sm:block">
             <div className="border border-line-100 w-full mb-[2.4rem]"></div>
             <div className="flex flex-col gap-[1.6rem] py-[1rem]">
-              <p className="md:text-[1.6rem] md:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] font-semibold text-black-400">
+              <p className="md:text-[1.6rem] md:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] font-semibold text-black-400 dark:text-dark-t">
                 견적서 공유하기
               </p>
               <div className="flex flex-row gap-[1.6rem]">
@@ -68,10 +68,10 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
           </div>
           <div className="border border-line-100 w-full"></div>
           <div className="gap-[3.2rem]">
-            <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-semibold text-black-400">
+            <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-semibold text-black-400 dark:text-dark-t">
               견적가
             </p>
-            <p className="lg:text-[3.2rem] lg:leading-[4.6rem] sm:text-[2rem] sm:leading-[3.2rem] font-bold text-black-400">
+            <p className="lg:text-[3.2rem] lg:leading-[4.6rem] sm:text-[2rem] sm:leading-[3.2rem] font-bold text-black-400 dark:text-dark-t">
               {priceFormat(estimationInfo.price)}원
             </p>
           </div>
@@ -88,7 +88,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col gap-[2.2rem]">
-              <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400">견적서 공유하기</p>
+              <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400 dark:text-dark-t">견적서 공유하기</p>
               <div className="flex flex-row gap-[1.6rem]">
                 <SharingPageClient type="quoteWaiting" />
               </div>
@@ -98,7 +98,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
         </div>
       </div>
       <div className="lg:hidden sm:block">
-        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white flex items-center justify-center">
+        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white dark:bg-dark-p flex items-center justify-center z-10">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
             <DetailButtonClient type="quoteWaiting" id={driverId} estimationId={id} />
           </div>
