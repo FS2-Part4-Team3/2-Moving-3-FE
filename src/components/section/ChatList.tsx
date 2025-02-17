@@ -43,7 +43,8 @@ export default function ChatList() {
   }
 
   return (
-    <>
+    <div className="flex flex-col">
+      <p className="lg:block md:hidden sm:hidden text-[2.4rem] font-semibold my-[2rem]">메세지 목록</p>
       {chatList
         ? chatList.pages.flatMap(page =>
             page.list.id.map((id: string) => (
@@ -54,6 +55,6 @@ export default function ChatList() {
           )
         : []}
       {hasNextPage && <div ref={ref}>Loading...</div>}
-    </>
+    </div>
   );
 }
