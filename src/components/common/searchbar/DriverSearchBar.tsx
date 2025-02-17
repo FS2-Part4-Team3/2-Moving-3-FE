@@ -31,7 +31,7 @@ export default function DriverSearchBar() {
       )}
       <InputWrapper value={value} onChange={e => setValue(e.target.value)}>
         <InputWrapper.Input
-          className="w-full font-normal lg:text-[2rem] sm:text-[1.4rem] md:leading-[3.2rem] sm:leading-[2.4rem] placeholder:text-gray-400 focus:outline-none bg-background-200"
+          className="w-full font-normal lg:text-[2rem] sm:text-[1.4rem] md:leading-[3.2rem] sm:leading-[2.4rem] placeholder:text-gray-400 focus:outline-none bg-background-200 text-black-400"
           placeholder="어떤 고객님을 찾고 계세요?"
           onFocus={() => {
             setIsFocused(true);
