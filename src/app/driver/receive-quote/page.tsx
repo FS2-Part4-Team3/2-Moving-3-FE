@@ -9,7 +9,7 @@ export default async function ReceiveQuote() {
     <div className="w-full flex items-center justify-center mb-[7rem]">
       <div className="lg:w-[120rem] sm:w-full items-start justify-center flex flex-col">
         <div className="lg:flex sm:hidden py-[3.2rem] w-full items-start">
-          <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-[#2B2B2B]">받은 요청</p>
+          <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-[#2B2B2B] dark:text-dark-t">받은 요청</p>
         </div>
         <div className="lg:flex lg:gap-[10rem] justify-center w-full sm:py-[1.6rem] lg:px-0 md:px-[7.2rem] sm:px-[2.4rem]">
           <div className="lg:block sm:hidden">

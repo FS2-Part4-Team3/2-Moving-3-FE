@@ -67,7 +67,7 @@ const ModalFooter = ({
 };
 
 const ModalContent = ({ children }: { children: React.ReactNode }) => {
-  return <div>{children}</div>;
+  return <div className="text-black-400">{children}</div>;
 };
 
 ModalWrapper.Header = ModalHeader;
