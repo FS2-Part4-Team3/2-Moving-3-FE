@@ -13,6 +13,7 @@ export default function Notification({ notifications, onClose, onNotificationCli
   // TODO: 기사님 이름 수정 필요
   // TODO: 이사 종류 수정 필요
   // TODO: 어디에서 어디로 이사하는지 수정 필요
+  // TODO: 알림 다크모드 색상 추가 필요
 
   const queryClient = useQueryClient();
   const [moveInfo, setMoveInfo] = useState<{ fromAddress?: string; toAddress?: string }>({});
