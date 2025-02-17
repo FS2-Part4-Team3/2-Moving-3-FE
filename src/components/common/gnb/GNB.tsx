@@ -305,7 +305,7 @@ export default function GNB() {
             <div>
               {status === 'General' && (
                 <Link href="/normal/request-quote" className="cursor-pointer" onClick={() => isModalOpen(false)}>
-                  <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
+                  <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                     견적 요청
                   </p>
                 </Link>

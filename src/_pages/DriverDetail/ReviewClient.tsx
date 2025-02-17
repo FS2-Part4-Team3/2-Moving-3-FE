@@ -73,7 +73,7 @@ export default function ReviewClient({ id }: ReviewClientProps) {
   return (
     <div className="flex flex-col lg:py-0 sm:py-[1rem] lg:gap-[4rem] sm:gap-[4.3rem]">
       <div className="flex flex-col gap-[3.2rem]">
-        <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
+        <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400 dark:text-dark-t">
           리뷰 ({reviewData?.totalCount})
         </p>
         {reviewData?.totalCount ? (
