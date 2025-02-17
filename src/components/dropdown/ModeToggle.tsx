@@ -21,7 +21,7 @@ export function ModeToggle() {
       <button onClick={() => setTheme('dark')} className="p-2 bg-gray-500 text-white dark:bg-black rounded">
         다크 모드
       </button>
-      <button onClick={() => setTheme('system')} className="p-2 bg-blue-50 text-whit rounded">
+      <button onClick={() => setTheme('system')} className="p-2 bg-blue-50 text-white rounded">
         시스템 모드
       </button>
     </div>

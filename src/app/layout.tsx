@@ -29,7 +29,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js" />
       </head>
-      <body className={pretendard.className}>
+      <body className={`${pretendard.className} dark:bg-dark-bg dark:text-dark-t`}>
         <div className="min-h-screen overflow-x-hidden">
           <Providers>
             <ReactQueryProviders>
