@@ -1,6 +1,4 @@
 export interface ChatListData {
   totalCount: number;
-  list: {
-    id: string[];
-  };
+  list: string[];
 }

@@ -47,7 +47,7 @@ export default function ChatList() {
       <p className="lg:block md:hidden sm:hidden text-[2.4rem] font-semibold ml-[2rem] my-[2rem]">메세지 목록</p>
       {chatList
         ? chatList.pages.flatMap(page =>
-            page.list.id.map((id: string) => (
+            page.list.map(id => (
               <div key={id}>
                 <ChatCard id={id} />
               </div>
