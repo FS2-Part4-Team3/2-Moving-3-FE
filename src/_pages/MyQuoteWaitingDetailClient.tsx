@@ -48,8 +48,8 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
 
   return (
     <>
-      <div className="flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:pb-[10rem] justify-center">
-        <div className="flex flex-col lg:w-[95.5rem] md:w-[60rem] sm:w-[32.7rem] lg:gap-[4rem] sm:gap-[2.4rem]">
+      <div className="w-full flex flex-row gap-[11.7rem] lg:pt-[2.4rem] sm:pt-[0.8rem] sm:px-[2rem] sm:pb-[10rem] justify-center">
+        <div className="flex flex-col lg:w-[67rem] md:w-[60rem] sm:w-full lg:gap-[4rem] sm:gap-[2.4rem]">
           <FindDriverCard
             data={{ ...driverData, introduce: driverIntroduce }}
             type="WAITING"
@@ -82,7 +82,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
           </div>
         </div>
         <div className="lg:block sm:hidden">
-          <div className="flex flex-col w-[32.8rem] gap-[4rem]">
+          <div className="flex flex-col w-full gap-[4rem]">
             <div className="flex flex-col gap-[3.2rem]">
               <DetailButtonClient type="quoteWaiting" id={driverId} estimationId={id} />
             </div>
@@ -99,7 +99,7 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
       </div>
       <div className="lg:hidden sm:block">
         <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white dark:bg-dark-p flex items-center justify-center z-10">
-          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-[32.7rem]">
+          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-full sm:px-[2rem] md:px-0">
             <DetailButtonClient type="quoteWaiting" id={driverId} estimationId={id} />
           </div>
         </div>
