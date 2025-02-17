@@ -10,7 +10,7 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
 
   return (
     <>
-      <div className="relative w-full rounded-[1.6rem] bg-white border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
+      <div className="relative w-full rounded-[1.6rem] bg-white dark:bg-dark-p border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
         {data.progress !== 'OPEN' ? (
           <div className="absolute inset-0 bg-black bg-opacity-60 rounded-[1.6rem]">
             <div className="flex items-center justify-center flex-col w-full h-full bg-opacity-100 gap-[1.6rem]">
@@ -49,13 +49,13 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
               <MovingTypeChips type={data.moveInfo.serviceType} />
               {data.designatedRequest === 'Active' && <MovingTypeChips type="APPOINTMENT" />}
             </div>
-            <p className="font-normal text-[1.2rem] leading-[1.8rem] text-gray-500">
+            <p className="font-normal text-[1.2rem] leading-[1.8rem] text-gray-500 dark:text-dark-t">
               {timeAgoFormat(data.estimationInfo.createdAt)}
             </p>
           </div>
           <div className="lg:py-[1.6rem] flex flex-col lg:gap-[1.8rem] sm:gap-[1rem]">
             <div className="md:block sm:flex flex-col gap-[1.4rem]">
-              <p className="font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-black-300">
+              <p className="font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-black-300 dark:text-dark-t">
                 {data.user.name} 고객님
               </p>
               <div className="md:hidden sm:block">
@@ -63,7 +63,7 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
                   <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.6rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                     이사일
                   </p>
-                  <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+                  <p className="font-medium lg:text-[1.6rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300 dark:text-dark-t">
                     {DateFormat(data.moveInfo.date)}
                   </p>
                 </div>
@@ -76,7 +76,9 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
                   <p className="rounded-[0.4rem] py-[0.4rem] px-[0.6rem] bg-background-400 font-normal text-[1.55rem] leading-[2.6rem] text-gray-500">
                     이사일
                   </p>
-                  <p className="font-medium text-[1.55rem] leading-[2.6rem] text-black-300">{DateFormat(data.moveInfo.date)}</p>
+                  <p className="font-medium text-[1.55rem] leading-[2.6rem] text-black-300 dark:text-dark-t">
+                    {DateFormat(data.moveInfo.date)}
+                  </p>
                 </div>
               </div>
               <div className="h-[1.4rem] border border-line-200 md:block sm:hidden" />
@@ -84,7 +86,7 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
                 <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.55rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                   출발
                 </p>
-                <p className="font-medium lg:text-[1.55rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+                <p className="font-medium lg:text-[1.55rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300 dark:text-dark-t">
                   {AddressFormat(data.moveInfo.fromAddress)}
                 </p>
               </div>
@@ -93,7 +95,7 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
                 <p className="rounded-[0.4rem] lg:py-[0.4rem] sm:py-[0.2rem] px-[0.6rem] bg-background-400 font-normal lg:text-[1.55rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-gray-500">
                   도착
                 </p>
-                <p className="font-medium lg:text-[1.55rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300">
+                <p className="font-medium lg:text-[1.55rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-300 dark:text-dark-t">
                   {AddressFormat(data.moveInfo.toAddress)}
                 </p>
               </div>
@@ -101,10 +103,10 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
           </div>
         </div>
         <div className="flex lg:gap-[1.6rem] sm:gap-[0.8rem] items-center justify-end">
-          <p className="font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400">
+          <p className="font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 dark:text-dark-t">
             견적 금액
           </p>
-          <p className="font-bold lg:text-[2.4rem] sm:text-[1.8rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-black-400">
+          <p className="font-bold lg:text-[2.4rem] sm:text-[1.8rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-black-400 dark:text-dark-t">
             {priceFormat(data.estimationInfo.price)}원
           </p>
         </div>

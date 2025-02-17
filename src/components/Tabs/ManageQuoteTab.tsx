@@ -24,7 +24,7 @@ export default function ManageQuoteTab() {
           onClick={() => setSelectTab('sent')}
         >
           <p
-            className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'sent' ? 'text-[#2B2B2B]' : 'text-gray-400'}`}
+            className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'sent' ? 'text-[#2B2B2B] dark:text-dark-t' : 'text-gray-400'}`}
           >
             보낸 견적 조회
           </p>
@@ -36,7 +36,7 @@ export default function ManageQuoteTab() {
           onClick={() => setSelectTab('rejected')}
         >
           <p
-            className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'rejected' ? 'text-[#2B2B2B]' : 'text-gray-400'}`}
+            className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'rejected' ? 'text-[#2B2B2B] dark:text-dark-t' : 'text-gray-400'}`}
           >
             반려 요청
           </p>
