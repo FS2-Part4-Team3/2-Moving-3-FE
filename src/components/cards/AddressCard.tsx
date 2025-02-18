@@ -11,7 +11,7 @@ export default function AddressCard({ regions, setRegions, handleSubmit }: Addre
 
   return (
     <>
-      <div className="lg:w-[62.4rem] md:w-[32.7rem] sm:w-[32.7rem] lg:p-[3.2rem] md:p-[3.2rem] sm:p-[1.6rem] flex flex-col gap-[2.1rem] sm:gap-[0.8rem] rounded-[3.2rem] rounded-tr-none border-none bg-white">
+      <div className="lg:w-[62.4rem] md:w-[32.7rem] sm:w-[32.7rem] lg:p-[3.2rem] md:p-[3.2rem] sm:p-[1.6rem] flex flex-col lg:gap-[2.1rem] sm:gap-[0.8rem] rounded-[3.2rem] rounded-tr-none border-none bg-white">
         <div className="flex flex-col lg:gap-[1.6rem] md:gap-[1.6rem] sm:gap-[0.8rem]">
           <span className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400">출발지</span>
           <div
