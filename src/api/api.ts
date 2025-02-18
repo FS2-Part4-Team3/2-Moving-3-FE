@@ -88,7 +88,6 @@ export async function fetchWrapperSSR(url: string, options: RequestInit = {}, ac
   const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
 
   try {
-    console.log('headers', headers);
     const response = await fetch(`${BASE_URL}${url}`, {
       ...options,
       headers,

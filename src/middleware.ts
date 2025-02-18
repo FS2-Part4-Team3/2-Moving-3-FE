@@ -4,9 +4,7 @@ import { getAuthIsLoggedIn } from './api/UserService';
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get('local-access-token');
-  console.log('TOKEN', token);
   const loggedInUser = token ? await getAuthIsLoggedIn(token.value) : null;
-  console.log('LOGGEDIN', loggedInUser);
 
   const url = req.nextUrl.clone();
 
