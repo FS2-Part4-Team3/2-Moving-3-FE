@@ -67,7 +67,7 @@ export default function ProfileRegisterNormal() {
     },
     onSuccess: () => {
       alert('프로필 등록이 완료됐습니다!');
-      router.push('/');
+      router.push('/normal/match-driver');
     },
     onError: () => {
       alert('프로필 등록에 실패했습니다. 다시 한 번 시도해주세요!');
