@@ -148,6 +148,26 @@ export const deleteRefresh = async () => {
   }
 };
 
+export const getOnlineStatus = async (id: string) => {
+  try {
+    const res = await getRequest(`/auth/${id}/isOnline`);
+    return res;
+  } catch (err) {
+    console.error('Get online status error', err);
+    throw err;
+  }
+};
+
+export const getUserDetailData = async (id: string) => {
+  try {
+    const res = await getRequest(`/users/${id}`);
+    return res;
+  } catch (err) {
+    console.error('Get user detail data error', err);
+    throw err;
+  }
+};
+
 export const getAuthIsLoggedIn = async () => {
   try {
     const res = await getRequest('/auth/isLoggedIn');

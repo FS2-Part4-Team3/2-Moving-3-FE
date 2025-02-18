@@ -3,6 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import infoReducer from './slices/InfoSlice';
 import profileReducer from './slices/ProfileSlice';
 import signInReducer from './slices/SignInSlice';
+import chatReducer from './slices/chatSlice';
 import driversReducer from './slices/driversSlice';
 import movesReducer from './slices/movesSlice';
 import myQuotationReducer from './slices/myQuotationSlice';
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   myQuotation: myQuotationReducer,
   profile: profileReducer,
   info: infoReducer,
+  chat: chatReducer,
 });
 
 function createNoopStorage() {
