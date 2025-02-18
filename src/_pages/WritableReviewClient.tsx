@@ -70,8 +70,6 @@ export default function WritableReviewClient() {
     alert('에러가 발생했습니다. 다시 한 번 시도해주세요!');
   }
 
-  console.log(reviewableEstimations);
-
   return (
     <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 pt-[4rem] ">
       {reviewableEstimations?.estimations?.length ? (

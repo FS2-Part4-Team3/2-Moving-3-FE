@@ -27,7 +27,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
       );
     });
   };
-  console.log(myReview);
+
   return (
     <>
       <div
