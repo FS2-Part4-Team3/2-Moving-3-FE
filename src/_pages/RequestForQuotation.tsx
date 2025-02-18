@@ -102,7 +102,7 @@ export default function RequestForQuotation() {
     },
     onSuccess: () => {
       alert('견적 요청이 완료됐습니다!');
-      router.push('/normal/my-quote/waiting');
+      router.push('/normal/my-quote/edit');
     },
     onError: () => {
       alert('견적 요청에 실패했습니다. 다시 한 번 시도해주세요!');
