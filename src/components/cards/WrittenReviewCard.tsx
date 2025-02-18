@@ -14,7 +14,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
       const yellowStar = index < score;
 
       return (
-        <div key={index} className="lg:w-[4rem] lg:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[2rem] sm:h-[2rem] relative">
+        <div key={index} className="relative">
           <Image
             src={yellowStar ? star_yellow : star_gray}
             alt={yellowStar ? 'Yellow Star' : 'Gray Star'}
@@ -50,7 +50,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
               fill
             />
           </div>
-          <div className={`flex flex-col 'gap-0'`}>
+          <div className="flex flex-col py-[2rem] ">
             <h1
               className={`lg:text-[2.4rem] md:text-[1.4rem] sm:text-[1.4rem] font-semibold text-black-300  'lg:mb-[0.8rem] md:mb-[0.6rem] sm:mb-[0.6rem]'`}
             >
