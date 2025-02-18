@@ -41,13 +41,13 @@ export interface MyReviewItem {
   createdAt: string;
   comment: string;
   score: number;
-  driver: {
-    name: string;
-    image: string;
-  };
   estimation: {
     price: number;
-    moveInfos: {
+    driver: {
+      name: string;
+      image: string;
+    };
+    moveInfo: {
       serviceType: 'SMALL' | 'HOME' | 'OFFICE';
       date: string;
       isSpecificRequest: boolean;

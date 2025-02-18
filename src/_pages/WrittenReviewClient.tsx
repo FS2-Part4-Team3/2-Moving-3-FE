@@ -71,12 +71,18 @@ export default function WrittenReviewClient() {
   }
 
   return (
-    <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 ">
+    <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 pt-[4rem]">
       {myReviews?.list.length ? (
-        <div className="lg:grid lg:grid-cols-2 lg:gap-y-12 lg:gap-x-6 md:flex md:flex-col sm:flex sm:flex-col md:gap-y-8 sm:gap-y-8">
-          {myReviews?.list.map(myReview => <WrittenReviewCard myReview={myReview} />)}
+        <>
+          <div className="lg:grid lg:grid-cols-2 lg:gap-y-[4.8rem] lg:gap-x-[4rem] md:flex md:flex-col sm:flex sm:flex-col md:gap-y-[3.2rem] sm:gap-y-[3.2rem] ">
+            {myReviews?.list.map(myReview => (
+              <div key={myReview.id}>
+                <WrittenReviewCard myReview={myReview} />
+              </div>
+            ))}
+          </div>
           <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-        </div>
+        </>
       ) : (
         <div className="lg:pt-[30rem] md:pt-[19.4rem] sm:pt-[19.4rem]">
           <Empty type="Review" />
