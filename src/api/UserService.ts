@@ -1,5 +1,5 @@
 import { UserUpdates } from '@/interfaces/API/UserServiceInterface';
-import { deleteRequest, getRequest, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
+import { deleteRequest, getRequest, getRequestSSR, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -154,9 +154,9 @@ export const deleteRefresh = async () => {
   }
 };
 
-export const getAuthIsLoggedIn = async () => {
+export const getAuthIsLoggedIn = async (accessToken: string) => {
   try {
-    const res = await getRequest('/auth/isLoggedIn');
+    const res = await getRequestSSR(accessToken, '/auth/isLoggedIn');
     return res;
   } catch (error) {
     console.error('Get Auth Login Fetch Error', error);
