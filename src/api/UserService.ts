@@ -10,6 +10,12 @@ export const postSignInData = async (userType: string, email: string, password: 
   };
   try {
     const data = await postRequest(`/auth/signIn/${userType}`, params);
+
+    const accessToken = data.accessToken;
+    await fetch('/api/auth/sync-cookie', {
+      method: 'POST',
+      body: JSON.stringify({ cookie: accessToken }),
+    });
     return data;
   } catch (error) {
     console.error('Fetch error:', error);

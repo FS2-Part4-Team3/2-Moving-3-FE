@@ -62,7 +62,6 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
-      document.cookie = `accessToken1=${res.accessToken}; path=/; max-age=3600; secure; HttpOnly; SameSite=Strict`;
       dispatch(
         setUserSign({
           id: res.person.id,
