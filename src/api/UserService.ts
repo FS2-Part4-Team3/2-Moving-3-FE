@@ -16,6 +16,7 @@ export const postSignInData = async (userType: string, email: string, password: 
       method: 'POST',
       body: JSON.stringify({ cookie: accessToken }),
     });
+
     return data;
   } catch (error) {
     console.error('Fetch error:', error);
@@ -147,6 +148,11 @@ export const patchPassword = async (oldPw: string, newPw: string) => {
 export const deleteRefresh = async () => {
   try {
     const res = await deleteRequest('/auth/signOut');
+
+    await fetch('/api/auth/logout', {
+      method: 'POST',
+    });
+
     return res;
   } catch (error) {
     console.error('Sign out Error', error);
