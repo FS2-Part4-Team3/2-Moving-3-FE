@@ -110,15 +110,19 @@ export default function ChatContent() {
               이전 메세지 불러오는 중...
             </div>
           )}
-          {messages.map((message: Chat) => (
-            <div key={message.id} className={`flex ${message.direction === 'USER_TO_DRIVER' ? 'justify-end' : 'justify-start'}`}>
+          {messages.map((message: Chat, index: number) => (
+            <div
+              key={`${message.id || ''}-${index}`}
+              className={`flex ${message.direction === 'USER_TO_DRIVER' ? 'justify-end' : 'justify-start'}`}
+            >
               <div
                 className={`max-w-[60%] rounded-[1.6rem] px-[1.6rem] py-[1.2rem] ${
-                  message.direction === 'USER_TO_DRIVER' ? 'bg-blue-500 text-white' : 'bg-white text-black-400'
+                  message.direction === 'USER_TO_DRIVER' ? 'bg-blue-200 text-white' : 'bg-white text-black-400'
                 }`}
-              ></div>
-              <p className="text-[1.6rem] break-words">{message.message}</p>
-              {message.image && <Image src={message.image} alt="첨부된 이미지" width={200} height={200} />}
+              >
+                <p className="text-[1.6rem] break-words">{message.message}</p>
+                {message.image && <Image src={message.image} alt="첨부된 이미지" width={200} height={200} />}
+              </div>
             </div>
           ))}
 

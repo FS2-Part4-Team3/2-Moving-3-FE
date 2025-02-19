@@ -161,6 +161,9 @@ export const deleteRefresh = async () => {
 };
 
 export const getOnlineStatus = async (id: string) => {
+  if (!id) {
+    throw new Error('id is required');
+  }
   try {
     const res = await getRequest(`/auth/${id}/isOnline`);
     return res;
