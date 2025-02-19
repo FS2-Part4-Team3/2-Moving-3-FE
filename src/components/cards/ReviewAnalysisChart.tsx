@@ -6,6 +6,7 @@ import { Bar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { getReviewKeyword } from '@/api/AiService';
 import { RootState } from '@/store/store';
+import Empty from '../common/Empty/Empty';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -30,13 +31,16 @@ export default function ReviewAnalysisChart() {
     isError: reviewAnalysisError,
   } = useQuery<ReviewAnalysisChartProps>({
     queryKey: ['reviewAnalysisData', id, filter],
-    queryFn: id ? () => getReviewKeyword(id, filter) : undefined,
+    queryFn: id ? () => getReviewKeyword(id, filter) : async () => ({ positive: [], negative: [] }),
     enabled: !!id,
   });
 
-  console.log(reviewAnalysisData);
-
-  if (!reviewAnalysisData) return <p>No data available.</p>;
+  if (!reviewAnalysisData?.positive.length && !reviewAnalysisData?.negative.length)
+    return (
+      <div className="w-[75rem] mt-[5rem] items-center justify-center">
+        <Empty type="Driver" />
+      </div>
+    );
   if (reviewAnalysisLoading) return <p>Loading...</p>;
   if (reviewAnalysisError) return <p>Error loading data.</p>;
 
