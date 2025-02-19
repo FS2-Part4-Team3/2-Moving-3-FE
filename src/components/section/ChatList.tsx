@@ -4,7 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useDispatch } from 'react-redux';
-import { getChatListData } from '@/api/chatService';
+import { getChatListData } from '@/api/ChatsService';
 import { ChatListData } from '@/interfaces/Section/ChatListInterface';
 import { setChat } from '@/store/slices/chatSlice';
 import ChatCard from '../cards/ChatCard';

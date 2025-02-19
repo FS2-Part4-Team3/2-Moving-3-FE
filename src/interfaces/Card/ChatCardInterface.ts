@@ -12,7 +12,7 @@ export interface ChatData {
 export interface Chat {
   userId: string;
   driverId: string;
-  direction: string;
+  direction: 'USER_TO_DRIVER' | 'DRIVER_TO_USER';
   message: string;
   image: string;
   isRead: boolean;
