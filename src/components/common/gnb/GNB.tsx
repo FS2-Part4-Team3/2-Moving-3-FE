@@ -269,10 +269,16 @@ export default function GNB() {
                         alt="profile"
                         width={36}
                         height={36}
-                        className="lg:block sm:hidden"
+                        className="lg:block sm:hidden cursor-pointer rounded-full"
                       />
                     ) : (
-                      <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                      <Image
+                        src={profile}
+                        alt="profile"
+                        width={36}
+                        height={36}
+                        className="lg:block sm:hidden cursor-pointer rounded-full"
+                      />
                     )}
                     <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t lg:block sm: hidden">
                       {user_info.name || user.name}
