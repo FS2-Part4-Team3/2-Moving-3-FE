@@ -11,6 +11,7 @@ export function ModeToggle() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setTheme('system');
     setMounted(true);
   }, []);
 
