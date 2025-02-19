@@ -1,5 +1,6 @@
 'use client';
 
+import { animated, useSpring } from '@react-spring/web';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -36,6 +37,7 @@ export default function GNB() {
   const isReceiveQuote = pathname?.includes('receive-quote'); // 받은 요청
 
   const [modalOpen, isModalOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   const [notificationModalOpen, setNotificationsModalOpen] = useState(false);
@@ -107,6 +109,20 @@ export default function GNB() {
   const loadMoreNotifications = () => {
     setPage(prevPage => prevPage + 1);
   };
+
+  const slideIn = useSpring({
+    transform: modalOpen ? 'translateX(0%)' : 'translateX(100%)',
+    opacity: 1,
+    config: { tension: 200, friction: 25 },
+  });
+
+  useEffect(() => {
+    if (modalOpen) {
+      setIsVisible(true);
+    } else {
+      setTimeout(() => setIsVisible(false), 300);
+    }
+  }, [modalOpen]);
 
   return (
     <>
@@ -297,9 +313,9 @@ export default function GNB() {
           </div>
         </div>
       </div>
-      {modalOpen && (
+      {isVisible && (
         <div className="fixed inset-0 w-full flex justify-end h-full bg-[#000000] bg-opacity-50 z-10">
-          <div className="w-[22rem] bg-[#ffffff] flex flex-col dark:bg-dark-p">
+          <animated.div style={slideIn} className="w-[22rem] bg-[#ffffff] flex flex-col dark:bg-dark-p">
             <div className="w-full flex justify-end py-[1rem] px-[1.6rem] gap-[1rem] border-b border-line-200">
               <Image
                 src={close}
@@ -358,7 +374,7 @@ export default function GNB() {
                 </Link>
               )}
             </div>
-          </div>
+          </animated.div>
         </div>
       )}
     </>
