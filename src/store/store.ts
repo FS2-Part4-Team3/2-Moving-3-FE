@@ -6,6 +6,7 @@ import signInReducer from './slices/SignInSlice';
 import chatReducer from './slices/chatSlice';
 import driversReducer from './slices/driversSlice';
 import movesReducer from './slices/movesSlice';
+import reviewReducer from './slices/reviewAnalysisSlice';
 
 const rootReducer = combineReducers({
   drivers: driversReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   info: infoReducer,
   chat: chatReducer,
+  review: reviewReducer,
 });
 
 function createNoopStorage() {
