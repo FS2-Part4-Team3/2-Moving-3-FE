@@ -10,12 +10,16 @@ export default function CallBackGoogle() {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const queryParams = new URLSearchParams(location.search);
+  const getQueryAccessToken = queryParams.get('accessToken');
+
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const res = await getUserData();
+        console.log(res);
 
-        const accessToken = res.accessToken;
+        const accessToken = getQueryAccessToken;
         await fetch('/api/auth/sync-cookie', {
           method: 'POST',
           body: JSON.stringify({ cookie: accessToken }),
@@ -37,15 +41,15 @@ export default function CallBackGoogle() {
             type: res.type,
           }),
         );
-        if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
-          router.push('/normal/profile-register');
-        } else if (res.type === 'user' && res.areas && res.serviceTypes) {
-          router.push('/normal/match-driver');
-        } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas && !res.nickname) {
-          router.push('/driver/profile-register');
-        } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas) {
-          router.push('/driver/receive-quote');
-        }
+        // if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
+        //   router.push('/normal/profile-register');
+        // } else if (res.type === 'user' && res.areas && res.serviceTypes) {
+        //   router.push('/normal/match-driver');
+        // } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas && !res.nickname) {
+        //   router.push('/driver/profile-register');
+        // } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas) {
+        //   router.push('/driver/receive-quote');
+        // }
       } catch (error) {
         console.error('로그인 상태 확인 중 오류 발생', error);
         return;

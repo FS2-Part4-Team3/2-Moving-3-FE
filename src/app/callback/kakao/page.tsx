@@ -10,12 +10,15 @@ export default function CallBackKakao() {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const queryParams = new URLSearchParams(location.search);
+  const getQueryAccessToken = queryParams.get('accessToken');
+
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const res = await getUserData();
 
-        const accessToken = res.accessToken;
+        const accessToken = getQueryAccessToken;
         await fetch('/api/auth/sync-cookie', {
           method: 'POST',
           body: JSON.stringify({ cookie: accessToken }),
