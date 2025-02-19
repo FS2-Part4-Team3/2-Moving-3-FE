@@ -1,16 +1,32 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import { usePathname } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { getMovesDetailData } from '@/api/MovesService';
 import type { EstimationInformationCard } from '@/interfaces/Card/EstimateReceivedCardInterface';
+import { RootState } from '@/store/store';
 import { DateIncludeTimeFormat, DateWithoutDayWeeKFormat } from '@/utils/Format';
 
 enum MoveType {
   SMALL = '소형이사',
   HOME = '가정이사',
   OFFICE = '사무실이사',
-  APPOINTMENT = '지정 견적 요청',
 }
 
 export default function EstimationInformationCard({ data }: EstimationInformationCard) {
+  const moveInfoId = useSelector((state: RootState) => state.signIn.moveInfoId);
+  const pathname = usePathname();
+
+  const {
+    data: moveInfoDetailData,
+    isLoading: moveInfoDetailLoading,
+    isError: moveInfoDetailError,
+  } = useQuery({
+    queryKey: ['moveInfoDetailData', moveInfoId],
+    queryFn: () => getMovesDetailData(moveInfoId),
+  });
+
   return (
     <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
       <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-black-400 dark:text-dark-t">
@@ -25,11 +41,25 @@ export default function EstimationInformationCard({ data }: EstimationInformatio
           <p>도착지</p>
         </div>
         <div className="flex flex-col gap-[0.8rem] font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400 dark:text-dark-t">
-          <p>{DateWithoutDayWeeKFormat(data.createdAt)}</p>
-          <p>{MoveType[data.serviceType as 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT']}</p>
-          <p>{DateIncludeTimeFormat(data.date)}</p>
-          <p>{data.fromAddress}</p>
-          <p>{data.toAddress}</p>
+          {pathname === '/normal/my-quote/edit'
+            ? moveInfoDetailData && (
+                <>
+                  <p>{DateWithoutDayWeeKFormat(moveInfoDetailData.createdAt)}</p>
+                  <p>{MoveType[moveInfoDetailData.serviceType as 'SMALL' | 'HOME' | 'OFFICE']}</p>
+                  <p>{DateIncludeTimeFormat(moveInfoDetailData.date)}</p>
+                  <p>{moveInfoDetailData.fromAddress}</p>
+                  <p>{moveInfoDetailData.toAddress}</p>
+                </>
+              )
+            : data && (
+                <>
+                  <p>{DateWithoutDayWeeKFormat(data.createdAt)}</p>
+                  <p>{MoveType[data.serviceType as 'SMALL' | 'HOME' | 'OFFICE']}</p>
+                  <p>{DateIncludeTimeFormat(data.date)}</p>
+                  <p>{data.fromAddress}</p>
+                  <p>{data.toAddress}</p>
+                </>
+              )}
         </div>
       </div>
     </div>

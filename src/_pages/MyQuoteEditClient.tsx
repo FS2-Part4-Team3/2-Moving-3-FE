@@ -1,16 +1,34 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getMoveInfoEditability } from '@/api/MovesService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { ModalWrapper } from '@/components/common/headless/Modal';
 import MyQuoteEditToast from '@/components/toasts/MyQuoteEditToast';
+import { RootState } from '@/store/store';
 
 export default function MyQuoteEditClient() {
-  //TODO: 기사님 정보가 있는 경우 없는 경우 나눠서 토스트 보여줄지 확정하기 라우팅 시켜줄지 결정하기
+  const moveInfoId = useSelector((state: RootState) => state.signIn.moveInfoId);
   const [showToast, setShowToast] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const [editStatus, setEditStatus] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await getMoveInfoEditability(moveInfoId);
+        setEditStatus(data.isMoveInfoEditable);
+      } catch (error) {
+        alert('문제가 발생했습니다. 다시 시도해주세요.');
+      }
+    };
+
+    getData();
+  }, []);
+
   const router = useRouter();
 
   const handleShowToast = () => {
@@ -29,16 +47,14 @@ export default function MyQuoteEditClient() {
     setShowModal(false);
   };
 
-  //TODO: 견적 확인되는 api되면 수정하기 버튼에 Toast 연결하기
-
   return (
     <>
       <div className="w-full flex items-center lg:gap-[1.1rem] sm:gap-[1.6rem] md:flex-row sm:flex-col">
-        <ButtonWrapper id="edit-quotation">
-          <ButtonWrapper.Button
-            className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] p-[1.6rem] flex items-center justify-center font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-white"
-            onClick={() => router.push('/normal/request-quote?edit=true')}
-          >
+        <ButtonWrapper
+          id="edit-quotation"
+          onClick={() => (editStatus ? router.push('/normal/request-quote?edit=true') : handleShowToast)}
+        >
+          <ButtonWrapper.Button className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] p-[1.6rem] flex items-center justify-center font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-white">
             견적서 수정하기
           </ButtonWrapper.Button>
         </ButtonWrapper>
@@ -48,7 +64,7 @@ export default function MyQuoteEditClient() {
           </ButtonWrapper.Button>
         </ButtonWrapper>
       </div>
-      {/* {showToast && <MyQuoteEditToast onClose={handleCloseToast} />} */}
+      {showToast && <MyQuoteEditToast onClose={handleCloseToast} />}
       {showModal && (
         <div>
           <div>

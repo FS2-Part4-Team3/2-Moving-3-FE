@@ -11,7 +11,6 @@ import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
 import Empty from '@/components/common/Empty/Empty';
 import { MoveData } from '@/interfaces/Page/RequestForQuotationInterface';
 import { setMoveInfoId } from '@/store/slices/SignInSlice';
-import { setId } from '@/store/slices/myQuotationSlice';
 import { formatDate } from '@/utils/Format';
 
 export default function RequestForQuotation() {
@@ -98,8 +97,7 @@ export default function RequestForQuotation() {
 
   const quotationMutation = useMutation({
     mutationFn: async () => {
-      const res = await postMove(movingType, movingDate.toISOString(), regions.start, regions.arrival);
-      dispatch(setId(res.id));
+      await postMove(movingType, movingDate.toISOString(), regions.start, regions.arrival);
       const moveInfoId = await getUserMoveInfoId();
       dispatch(setMoveInfoId(moveInfoId.id));
     },
@@ -115,8 +113,7 @@ export default function RequestForQuotation() {
 
   const editQuotationMutation = useMutation({
     mutationFn: async () => {
-      const res = await patchMove(moveData[0].id, movingType, movingDate.toISOString(), regions.start, regions.arrival);
-      dispatch(setId(res.id));
+      await patchMove(moveData[0].id, movingType, movingDate.toISOString(), regions.start, regions.arrival);
     },
     onSuccess: () => {
       alert('견적 수정이 완료됐습니다!');

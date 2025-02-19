@@ -131,3 +131,13 @@ export const postMovesConfirm = async (moveId: string, estimationId: string) => 
     throw error;
   }
 };
+
+export const getMoveInfoEditability = async (moveInfoId: string) => {
+  try {
+    const res = await getRequest(`/moves/${moveInfoId}/editability`);
+    return res;
+  } catch (error) {
+    console.error('Get Move Info Editability', error);
+    throw error;
+  }
+};

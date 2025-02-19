@@ -15,7 +15,7 @@ interface SignInState {
   areas?: string[]; // 일반 유저의 경우 내가 사는 지역
   type?: string;
   startAt?: string;
-  moveInfoId?: string;
+  moveInfoId: string;
 }
 
 const initialState: SignInState = {
