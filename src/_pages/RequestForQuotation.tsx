@@ -4,13 +4,13 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMoveCheck, patchMove, postMove } from '@/api/MovesService';
+import { getMoveCheck, getUserMoveInfoId, patchMove, postMove } from '@/api/MovesService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
 import Empty from '@/components/common/Empty/Empty';
 import { MoveData } from '@/interfaces/Page/RequestForQuotationInterface';
-import { setId } from '@/store/slices/myQuotationSlice';
+import { setMoveInfoId } from '@/store/slices/SignInSlice';
 import { formatDate } from '@/utils/Format';
 
 export default function RequestForQuotation() {
@@ -97,8 +97,9 @@ export default function RequestForQuotation() {
 
   const quotationMutation = useMutation({
     mutationFn: async () => {
-      const res = await postMove(movingType, movingDate.toISOString(), regions.start, regions.arrival);
-      dispatch(setId(res.id));
+      await postMove(movingType, movingDate.toISOString(), regions.start, regions.arrival);
+      const moveInfoId = await getUserMoveInfoId();
+      dispatch(setMoveInfoId(moveInfoId.id));
     },
     onSuccess: () => {
       alert('견적 요청이 완료됐습니다!');
@@ -112,8 +113,7 @@ export default function RequestForQuotation() {
 
   const editQuotationMutation = useMutation({
     mutationFn: async () => {
-      const res = await patchMove(moveData[0].id, movingType, movingDate.toISOString(), regions.start, regions.arrival);
-      dispatch(setId(res.id));
+      await patchMove(moveData[0].id, movingType, movingDate.toISOString(), regions.start, regions.arrival);
     },
     onSuccess: () => {
       alert('견적 수정이 완료됐습니다!');
@@ -142,15 +142,6 @@ export default function RequestForQuotation() {
           </div>
           <div className="w-full h-full bg-background-200 dark:bg-dark-bg lg:pt-[19.4rem] md:pt-[12.7rem] sm:pt-[12.7rem] flex justify-center">
             <Empty type="RequestQuote" />
-          </div>
-        </div>
-      ) : !moveData.length && edit ? (
-        <div className="w-full h-screen flex flex-col bg-background-200">
-          <div className="bg-white dark:bg-dark-p lg:px-[26rem] lg:py-[3.2rem] md:px-[7.2rem] md:py-[2.4rem] sm:px-[2.4rem] sm:py-[2.4rem] flex flex-col gap-[2.4rem] ">
-            <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B] dark:text-dark-t">견적수정</h1>
-          </div>
-          <div className="w-full h-full bg-background-200 dark:bg-dark-bg lg:pt-[19.4rem] md:pt-[12.7rem] sm:pt-[12.7rem] flex justify-center">
-            <Empty type="RequestEmpty" />
           </div>
         </div>
       ) : (

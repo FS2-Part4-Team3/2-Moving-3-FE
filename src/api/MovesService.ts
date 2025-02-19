@@ -1,4 +1,4 @@
-import { getRequest, patchRequest, postRequest } from '@/utils/requestFunctions';
+import { deleteRequest, getRequest, patchRequest, postRequest } from '@/utils/requestFunctions';
 
 export const getMovesListData = async (
   page: number,
@@ -128,6 +128,26 @@ export const postMovesConfirm = async (moveId: string, estimationId: string) => 
     return res;
   } catch (error) {
     console.error('Post Moves Confirmation Error', error);
+    throw error;
+  }
+};
+
+export const getMoveInfoEditability = async (moveInfoId: string) => {
+  try {
+    const res = await getRequest(`/moves/${moveInfoId}/editability`);
+    return res;
+  } catch (error) {
+    console.error('Get Move Info Editability Fetch Error', error);
+    throw error;
+  }
+};
+
+export const deleteMoveDetailData = async (moveInfoId: string) => {
+  try {
+    const res = await deleteRequest(`/moves/${moveInfoId}`);
+    return res;
+  } catch (error) {
+    console.error('Delete MoveInfo Data Fetch Error', error);
     throw error;
   }
 };
