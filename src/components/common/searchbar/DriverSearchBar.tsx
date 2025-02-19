@@ -15,10 +15,10 @@ export default function DriverSearchBar() {
   const [value, setValue] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      dispatch(setKeyword(value));
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setValue(newValue);
+    dispatch(setKeyword(newValue));
   };
 
   return (
@@ -29,7 +29,7 @@ export default function DriverSearchBar() {
           <Image src={search} alt="search" width={24} height={24} className="lg:hidden sm:block" />
         </>
       )}
-      <InputWrapper value={value} onChange={e => setValue(e.target.value)}>
+      <InputWrapper value={value} onChange={handleChange}>
         <InputWrapper.Input
           className="w-full font-normal lg:text-[2rem] sm:text-[1.4rem] md:leading-[3.2rem] sm:leading-[2.4rem] placeholder:text-gray-400 focus:outline-none bg-background-200 text-black-400"
           placeholder="어떤 고객님을 찾고 계세요?"
@@ -39,7 +39,6 @@ export default function DriverSearchBar() {
           onBlur={() => {
             setIsFocused(false);
           }}
-          onKeyDown={handleKeyDown}
         />
       </InputWrapper>
       {isFocused && (
@@ -53,6 +52,7 @@ export default function DriverSearchBar() {
             onMouseDown={e => {
               e.preventDefault();
               setValue('');
+              dispatch(setKeyword(''));
             }}
           />
           <Image src={search} alt="search" width={36} height={36} className="lg:block sm:hidden" />
@@ -65,6 +65,7 @@ export default function DriverSearchBar() {
             onMouseDown={e => {
               e.preventDefault();
               setValue('');
+              dispatch(setKeyword(''));
             }}
           />
           <Image src={search} alt="search" width={24} height={24} className="lg:hidden sm:block" />
