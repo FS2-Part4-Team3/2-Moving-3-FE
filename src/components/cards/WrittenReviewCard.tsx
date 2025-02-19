@@ -32,13 +32,13 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
     <>
       <div
         key={myReview.id}
-        className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white border-none flex flex-col shadow-custom3"
+        className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white dark:bg-dark-p border-none flex flex-col shadow-custom3"
       >
         <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:w-[64rem] ">
           <MovingTypeChips type={myReview.estimation.moveInfo.serviceType} />
           {myReview.estimation.moveInfo.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
 
-          <span className="lg:flex md:hidden sm:hidden lg:text-[1.8rem] font-normal text-gray-300 items-center ml-auto">
+          <span className="lg:flex md:hidden sm:hidden lg:text-[1.8rem] font-normal text-gray-300 dark:text-dark-t items-center ml-auto">
             작성일 {DateWithoutDayWeeKFormat(myReview.createdAt)}
           </span>
         </div>
@@ -52,7 +52,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
           </div>
           <div className="flex flex-col py-[2rem] ">
             <h1
-              className={`lg:text-[2.4rem] md:text-[1.4rem] sm:text-[1.4rem] font-semibold text-black-300  'lg:mb-[0.8rem] md:mb-[0.6rem] sm:mb-[0.6rem]'`}
+              className={`lg:text-[2.4rem] md:text-[1.4rem] sm:text-[1.4rem] font-semibold text-black-300 dark:text-dark-t 'lg:mb-[0.8rem] md:mb-[0.6rem] sm:mb-[0.6rem]'`}
             >
               {myReview.estimation.driver.name} 기사님
             </h1>
@@ -61,14 +61,14 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
             >
               <div className="flex lg:gap-[1.2rem] md:gap-[0.6rem] sm:gap-[0.6rem]">
                 <h2 className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-normal text-gray-500 ">이사일</h2>
-                <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 ">
+                <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 dark:text-dark-t">
                   {DateWithoutDayWeeKFormat(myReview.estimation?.moveInfo.date)}
                 </span>
               </div>
               <div className="w-[0.1rem] lg:h-[1.6rem] md:h-[1.4rem] sm:h-[1.4rem] rounded-[10rem] bg-line-200 "></div>
               <div className="flex lg:gap-[1.2rem] md:gap-[0.6rem] sm:gap-[0.6rem]">
                 <h2 className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-normal text-gray-500 ">견적가</h2>
-                <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 ">
+                <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 dark:text-dark-t">
                   {priceFormat(myReview.estimation?.price)}원
                 </span>
               </div>
@@ -78,8 +78,8 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
         </div>
 
         <div className="flex flex-col">
-          <span className="lg:text-[2rem] font-normal text-gray-500">{myReview.comment}</span>
-          <span className="lg:hidden md:block sm:block text-[1.2rem] font-normal text-gray-300 self-end">
+          <span className="lg:text-[2rem] font-normal text-gray-500 dark:text-dark-t">{myReview.comment}</span>
+          <span className="lg:hidden md:block sm:block text-[1.2rem] font-normal text-gray-300 dark:text-dark-t self-end">
             작성일 {DateWithoutDayWeeKFormat(myReview.createdAt)}
           </span>
         </div>

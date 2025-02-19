@@ -65,7 +65,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           return (
             <button
               key={pageNumber}
-              className={`${currentPage === pageNumber ? 'font-semibold text-black-400' : ''} w-[4.8rem] h-[4.8rem]`}
+              className={`${currentPage === pageNumber ? 'font-semibold text-black-400 dark:text-dark-t' : ''} w-[4.8rem] h-[4.8rem]`}
               onClick={() => onPageChange(pageNumber)}
             >
               {pageNumber}

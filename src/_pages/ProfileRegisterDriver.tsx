@@ -125,7 +125,7 @@ export default function ProfileRegisterDriver() {
     <div className="lg:w-[120rem] lg:grid lg:grid-cols-2 lg:gap-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col lg:ml-[2rem]">
       <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] border-line-100 lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
-          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
             프로필 이미지
           </h3>
           <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImgChange} />
@@ -138,7 +138,7 @@ export default function ProfileRegisterDriver() {
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper id="nickname" type="text" value={values.nickname} onChange={handleChange}>
             <div className="flex flex-col">
-              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                 별명 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <InputWrapper.Input
@@ -160,7 +160,7 @@ export default function ProfileRegisterDriver() {
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper id="career" type="text" value={DateFormatToYYYYMMDD(values.career.toISOString())} onChange={handleChange}>
             <div className="flex flex-col">
-              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                 경력 시작일 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
@@ -200,7 +200,7 @@ export default function ProfileRegisterDriver() {
         <div className="lg:border-none md:border-b sm:border-b md:border-line-100 sm:border-line-100 lg:pb-0 md:pb-[2rem] sm:pb-[2rem]">
           <InputWrapper id="shortBio" type="text" value={values.shortBio} onChange={handleChange}>
             <div className="flex flex-col">
-              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                 한 줄 소개 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <InputWrapper.Input
@@ -222,7 +222,7 @@ export default function ProfileRegisterDriver() {
       </div>
       <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
         <div className="flex flex-col border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
-          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
             상세 설명 <span className="text-blue-300">*</span>
           </h3>
           <textarea
@@ -243,7 +243,7 @@ export default function ProfileRegisterDriver() {
         </div>
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <h3
-            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 ${
+            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t ${
               !errors.selectedMovingType ? 'mb-[1.6rem]' : ''
             }`}
           >
@@ -262,7 +262,7 @@ export default function ProfileRegisterDriver() {
         </div>
         <div className="lg:mb-[6.8rem] md:mb-[2.4rem] sm:mb-[2.4rem]">
           <h3
-            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 ${
+            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t ${
               !errors.selectedRegion ? 'mb-[1.6rem]' : ''
             }`}
           >

@@ -14,7 +14,7 @@ export default function Custom404() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#F3F8FF] text-[#1B92FF] text-center px-4">
+    <div className="flex flex-col items-center justify-center h-screen bg-[#F3F8FF] dark:bg-dark-bg text-[#1B92FF] text-center px-4">
       <h1 className="text-[10rem] font-bold">404</h1>
       <p className="text-[2rem] mb-[5rem]">접근하신 페이지에서 오류가 났습니다!</p>
       <button
