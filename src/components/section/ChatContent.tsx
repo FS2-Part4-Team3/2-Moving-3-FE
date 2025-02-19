@@ -1,6 +1,6 @@
 'use client';
 
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -15,10 +15,10 @@ import ChatInput from '../inputs/ChatInput';
 export default function ChatContent() {
   const { socket, isTyping, typingUser } = useSocket();
   const { ref, inView } = useInView();
-  const [messages, setMessages] = useState<Chat[]>([]);
   const chat = useSelector((state: RootState) => state.chat);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [initialPage, setInitialPage] = useState<number | null>(null);
+  const queryClient = useQueryClient();
   const PAGE_SIZE = 12;
 
   useEffect(() => {
@@ -36,8 +36,9 @@ export default function ChatContent() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
   } = useInfiniteQuery({
-    queryKey: ['chatMessages'],
+    queryKey: ['chatMessages', chat.id],
     queryFn: async ({ pageParam = initialPage ?? 1 }: { pageParam: number }) => {
       const response = await getChatData(chat.id, pageParam, PAGE_SIZE);
 
@@ -51,6 +52,11 @@ export default function ChatContent() {
     enabled: initialPage !== null,
   });
 
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['chatMessages', chat.id] });
+    refetch();
+  }, [chat.id, queryClient, refetch]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
   };
@@ -62,26 +68,19 @@ export default function ChatContent() {
   }, [chatMessages?.pages.length]);
 
   useEffect(() => {
-    if (chatMessages) {
-      const allMessages = chatMessages.pages.flatMap(page => page.data.list);
-      setMessages(prevMessages => {
-        const messageMap = new Map([...prevMessages, ...allMessages].map(msg => [msg.id, msg]));
-        return Array.from(messageMap.values()).sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-      });
-    }
-  }, [chatMessages]);
-
-  useEffect(() => {
     if (!socket) return;
 
     const handleNewMessage = (data: Chat) => {
-      setMessages(prev => {
-        if (prev.some(msg => msg.id === data.id)) {
-          return prev;
-        }
-        const newMessages = [...prev, data];
+      queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {
+        if (!oldData) return oldData;
+
+        const newPages = [...oldData.pages];
+        const lastPage = newPages[newPages.length - 1];
+
+        lastPage.data.list = [...lastPage.data.list, data];
+
         setTimeout(scrollToBottom, 100);
-        return newMessages;
+        return { ...oldData, pages: newPages };
       });
     };
 
@@ -89,7 +88,7 @@ export default function ChatContent() {
     return () => {
       socket.off('chat', handleNewMessage);
     };
-  }, [socket]);
+  }, [socket, chat.id, queryClient]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -97,13 +96,15 @@ export default function ChatContent() {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+  const messages = chatMessages?.pages.flatMap(page => page.data.list) ?? [];
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-screen">
       <div className="w-[calc(100vw-45rem)]">
         <ChatTab />
       </div>
       <div className="bg-background-200 w-[calc(100vw-45rem)] h-screen lg:px-[2.4rem]">
-        <div className="flex-1 overflow-y-auto py-[2rem] space-y-[1.6rem]">
+        <div className="flex-1 overflow-y-auto py-[2rem] space-y-[1.6rem] ">
           {hasNextPage && (
             <div ref={ref} className="text-center text-gray-500 text-[1.4rem]">
               이전 메세지 불러오는 중...
@@ -123,8 +124,10 @@ export default function ChatContent() {
 
           <div ref={messagesEndRef} />
         </div>
-        <ChatInput />
-        {isTyping && <div>{typingUser}님이 입력중입니다...</div>}
+        <div className="absolute bottom-0 w-[calc(100vw-50rem)] mb-[2rem]">
+          <ChatInput />
+          {isTyping && <div>{typingUser}님이 입력중입니다...</div>}
+        </div>
       </div>
     </div>
   );

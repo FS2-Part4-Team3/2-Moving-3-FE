@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -14,6 +15,7 @@ export default function ChatInput() {
   const user = useSelector((state: RootState) => state.signIn);
   const chat = useSelector((state: RootState) => state.chat);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const queryClient = useQueryClient();
 
   const handleTyping = useCallback(() => {
     if (socket) {
@@ -32,12 +34,29 @@ export default function ChatInput() {
   const handleSubmit = () => {
     if (message.trim() && socket) {
       const direction: Direction = user.type === 'user' ? 'USER_TO_DRIVER' : 'DRIVER_TO_USER';
-      socket.emit('chat', {
+
+      const newMessage = {
         userId: user.type === 'user' ? user.id : chat.id,
         driverId: user.type === 'driver' ? user.id : chat.id,
-        message: message,
+        message: message.trim(),
         direction: direction,
+      };
+
+      queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {
+        if (!oldData) return oldData;
+
+        const newPages = [...oldData.pages];
+        const lastPage = newPages[newPages.length - 1];
+
+        lastPage.data.list = [...lastPage.data.list, newMessage];
+
+        return {
+          ...oldData,
+          pages: newPages,
+        };
       });
+
+      socket.emit('chat', newMessage);
       setMessage('');
       socket.emit('stopped_typing');
     }
