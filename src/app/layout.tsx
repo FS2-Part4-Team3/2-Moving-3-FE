@@ -30,14 +30,14 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <div className="min-h-screen overflow-x-hidden">
-          <SocketProvider>
-            <Providers>
-              <ReactQueryProviders>
+          <Providers>
+            <ReactQueryProviders>
+              <SocketProvider>
                 <GNB />
                 {children}
-              </ReactQueryProviders>
-            </Providers>
-          </SocketProvider>
+              </SocketProvider>
+            </ReactQueryProviders>
+          </Providers>
         </div>
       </body>
     </html>

@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { Socket, io } from 'socket.io-client';
 import { RootState } from '@/store/store';
 
+type Direction = 'USER_TO_DRIVER' | 'DRIVER_TO_USER';
+
 interface SocketContextType {
   socket: Socket | null;
   isTyping: boolean;
@@ -17,7 +19,7 @@ interface Chat {
   data: {
     userId: string;
     driverId: string;
-    direction: string;
+    direction: Direction;
     message: string;
     image: string;
     isRead: boolean;
@@ -55,7 +57,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       setTypingUser(null);
     });
 
-    newSocket.on('notification', (data: Chat) => {
+    newSocket.on('chat', (data: Chat) => {
       if (data.type === 'NEW_CHAT') {
         queryClient.setQueryData<{ pages: { messages: any[] }[]; pageParams: any[] }>(['chatMessages'], oldData => {
           if (!oldData) return oldData;
@@ -66,10 +68,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
           lastPage.messages = [
             ...lastPage.messages,
             {
-              id: Date.now().toString(),
               message: data.data.message,
               direction: data.data.direction,
-              timestamp: new Date().toISOString(),
               isRead: data.data.isRead,
               userId: data.data.userId,
               driverId: data.data.driverId,
