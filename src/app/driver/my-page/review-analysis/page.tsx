@@ -42,8 +42,8 @@ const mockData = {
 
 export default function ReviewAnalysis() {
   return (
-    <div className="w-full mt-[5rem] items-center justify-center flex">
-      <div className="flex w-[120rem]">
+    <div className="w-full lg:mt-[5rem] items-center justify-center flex">
+      <div className="sm:m-[2rem] flex lg:flex-row sm:flex-col lg:w-[120rem] sm:w-full lg:gap-[0rem] sm:gap-[3rem]">
         <ReviewAnalysisDropdown />
         <ReviewAnalysisChart reviewAnalysisData={mockData} />
       </div>

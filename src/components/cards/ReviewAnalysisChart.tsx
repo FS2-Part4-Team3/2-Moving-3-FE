@@ -120,9 +120,9 @@ export default function ReviewAnalysisChart({ reviewAnalysisData }: ReviewAnalys
   };
 
   return (
-    <div className="w-[75rem] mx-auto rounded-lg">
-      <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-[#2B2B2B] text-blue-600 mb-[1rem] text-center">
-        TOP 5 긍정 & 부정 키워드
+    <div className="lg:w-[75rem] sm:w-full mx-auto rounded-lg">
+      <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-[#2B2B2B] text-blue-600 mb-[1rem] lg:text-center sm:text-start">
+        {type === 'ALL' ? 'TOP 5 긍정 & 부정 키워드' : type === 'POSITIVE' ? '전체 긍정 키워드' : '전체 부정 키워드'}
       </p>
       {type !== 'NEGATIVE' && <Bar data={positiveChartData} options={options} />}
       {type !== 'POSITIVE' && <Bar data={negativeChartData} options={options} />}
