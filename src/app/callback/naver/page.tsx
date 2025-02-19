@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getAuthIsLoggedIn, getUserData } from '@/api/UserService';
+import { getUserData } from '@/api/UserService';
 import { setUserSign } from '@/store/slices/SignInSlice';
 
 export default function CallBackNaver() {
@@ -13,13 +13,14 @@ export default function CallBackNaver() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        // const loggedInUser = await getAuthIsLoggedIn();
-
-        // if (loggedInUser.isAccessTokenValid) {
-        //   return;
-        // }
-
         const res = await getUserData();
+
+        const accessToken = res.accessToken;
+        await fetch('/api/auth/sync-cookie', {
+          method: 'POST',
+          body: JSON.stringify({ cookie: accessToken }),
+        });
+
         dispatch(
           setUserSign({
             id: res.id,
