@@ -14,7 +14,7 @@ export const ModalSmallWrapper = ({ children, onClose }: ModalContextType & { ch
   return (
     <ModalSmallContext.Provider value={contextValue}>
       <div className="fixed inset-0 flex items-end justify-center bg-[#000000] bg-opacity-50">
-        <div className="bg-white px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-t-[3.2rem] w-full lg:gap-[4rem] gap-[2.6rem] flex flex-col">
+        <div className="bg-white dark:bg-dark-p px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-t-[3.2rem] w-full lg:gap-[4rem] gap-[2.6rem] flex flex-col">
           {children}
         </div>
       </div>
@@ -34,7 +34,7 @@ const ModalHeader = ({ children }: { children: React.ReactNode }) => {
   const { onClose } = useModalContext();
   return (
     <div className="flex justify-between items-center">
-      <p className="text-black-400 font-bold text-[1.8rem] leading-[2.6rem]">{children}</p>
+      <p className="text-black-400 dark:text-dark-t font-bold text-[1.8rem] leading-[2.6rem]">{children}</p>
       <Image src={close} alt="close" onClick={onClose} className="lg:hidden sm:block cursor-pointer" width={24} height={24} />
     </div>
   );
@@ -62,7 +62,7 @@ const ModalFooter = ({
 };
 
 const ModalContent = ({ children }: { children: React.ReactNode }) => {
-  return <div>{children}</div>;
+  return <div className="text-black-400">{children}</div>;
 };
 
 ModalSmallWrapper.Header = ModalHeader;

@@ -53,7 +53,7 @@ export default function DibsDriverPageClient() {
         ? dibsDrivers.pages.flatMap(page =>
             page.list.map(driver => (
               <Link key={driver.id} href={`/match-driver/${driver.id}`}>
-                <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col bg-white">
+                <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
                   <DibsDriverPageCard data={driver} />
                 </div>
               </Link>

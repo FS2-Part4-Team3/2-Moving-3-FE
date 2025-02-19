@@ -53,7 +53,7 @@ export default function WaitingQuotePageClient() {
             page.estimations.map(quote => (
               <div
                 key={quote.estimationInfo.estimationId}
-                className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col bg-white"
+                className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col"
               >
                 <WaitingQuoteCard data={quote} />
               </div>

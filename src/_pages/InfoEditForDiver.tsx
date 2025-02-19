@@ -104,7 +104,9 @@ export default function InfoEditForDriver() {
       {isPasswordCheck ? (
         <div className="flex flex-col items-center lg:gap-[4rem] md:gap-[1.6rem] sm:gap-[1.6rem] lg:pt-[7.2rem] md:pt-[1.6rem] sm:pt-[1.6rem]">
           <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[32.7rem]">
-            <h1 className="lg:text-[3.2rem] md:text-[1.8rem] sm:text-[1.8rem] font-semibold text-black-400">기본정보 수정</h1>
+            <h1 className="lg:text-[3.2rem] md:text-[1.8rem] sm:text-[1.8rem] font-semibold text-black-400 dark:text-dark-t">
+              기본정보 수정
+            </h1>
           </div>
           <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[32.7rem] h-[0.1rem] bg-line-100"></div>
           <div>
@@ -113,7 +115,7 @@ export default function InfoEditForDriver() {
                 <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
                   <InputWrapper id="name" type="text" value={values.name} onChange={handleChange}>
                     <div className="flex flex-col">
-                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                         이름
                       </InputWrapper.Label>
                       <InputWrapper.Input
@@ -135,7 +137,7 @@ export default function InfoEditForDriver() {
                 <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
                   <InputWrapper id="email" type="text" value={values.email} onChange={handleChange}>
                     <div className="flex flex-col">
-                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                         이메일
                       </InputWrapper.Label>
                       <InputWrapper.Input
@@ -158,7 +160,7 @@ export default function InfoEditForDriver() {
                 <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
                   <InputWrapper id="number" type="text" value={values.number} onChange={handleChange}>
                     <div className="flex flex-col">
-                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                         전화번호
                       </InputWrapper.Label>
                       <InputWrapper.Input
@@ -187,7 +189,7 @@ export default function InfoEditForDriver() {
                     onChange={handleChange}
                   >
                     <div className="flex flex-col">
-                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                         현재 비밀번호
                       </InputWrapper.Label>
                       <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
@@ -225,7 +227,7 @@ export default function InfoEditForDriver() {
                     onChange={handleChange}
                   >
                     <div className="flex flex-col">
-                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                         새 비밀번호
                       </InputWrapper.Label>
                       <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
@@ -263,7 +265,7 @@ export default function InfoEditForDriver() {
                     onChange={handleChange}
                   >
                     <div className="flex flex-col">
-                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+                      <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                         새 비밀번호 확인
                       </InputWrapper.Label>
                       <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
@@ -297,7 +299,7 @@ export default function InfoEditForDriver() {
                 </div>
               </div>
               <ButtonWrapper id="cancel-btn" onClick={() => router.back()}>
-                <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[6.4rem] md:mb-[4rem] sm:mb-[4rem] ">
+                <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[6.4rem] md:mb-[4rem] sm:mb-[4rem] dark:shadow">
                   취소
                 </ButtonWrapper.Button>
               </ButtonWrapper>
@@ -314,7 +316,7 @@ export default function InfoEditForDriver() {
         </div>
       ) : (
         <div className="flex flex-col items-center lg:gap-[4rem] md:gap-[2rem] sm:gap-[2rem] lg:mt-[3.2rem] md:mt-[1.6rem] sm:mt-[1.6rem]">
-          <div className="flex justify-center lg:w-[120rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[3.2rem] lg:text-[3.2rem] md:text-[1.8rem] sm:text-[1.8rem] lg:mb-0 md:mb-[1.2rem] sm:mb-[1.2rem] font-semibold text-black-400 ">
+          <div className="flex justify-center lg:w-[120rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[3.2rem] lg:text-[3.2rem] md:text-[1.8rem] sm:text-[1.8rem] lg:mb-0 md:mb-[1.2rem] sm:mb-[1.2rem] font-semibold text-black-400 dark:text-dark-t">
             비밀번호 재확인
           </div>
           <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[32.7rem] h-[0.2rem] bg-line-100"></div>
@@ -363,7 +365,7 @@ export default function InfoEditForDriver() {
                   router.back();
                 }}
               >
-                <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[30rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[15rem] md:mb-[2.4rem] sm:mb-[2.4rem] ">
+                <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[30rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[15rem] md:mb-[2.4rem] sm:mb-[2.4rem] dark:shadow">
                   취소
                 </ButtonWrapper.Button>
               </ButtonWrapper>

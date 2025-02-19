@@ -23,7 +23,7 @@ export default function ProfileEditNormalLeft({
       <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="name" type="text" value={values.name} onChange={handleChange}>
           <div className="flex flex-col">
-            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
               이름
             </InputWrapper.Label>
             <InputWrapper.Input
@@ -45,7 +45,7 @@ export default function ProfileEditNormalLeft({
       <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="email" type="text" value={values.email} onChange={handleChange}>
           <div className="flex flex-col">
-            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
               이메일
             </InputWrapper.Label>
             <InputWrapper.Input
@@ -61,7 +61,7 @@ export default function ProfileEditNormalLeft({
       <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="number" type="text" value={values.number} onChange={handleChange}>
           <div className="flex flex-col">
-            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
               전화번호
             </InputWrapper.Label>
             <InputWrapper.Input
@@ -83,7 +83,7 @@ export default function ProfileEditNormalLeft({
       <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="nowPassword" type={isViewNow ? 'text' : 'password'} value={values.nowPassword} onChange={handleChange}>
           <div className="flex flex-col">
-            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
               현재 비밀번호
             </InputWrapper.Label>
             <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
@@ -116,7 +116,7 @@ export default function ProfileEditNormalLeft({
       <div className="lg:w-[54rem] md:w-[32.7rem] sm:w-[32.7rem] border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
         <InputWrapper id="newPassword" type={isViewNew ? 'text' : 'password'} value={values.newPassword} onChange={handleChange}>
           <div className="flex flex-col">
-            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
               새 비밀번호
             </InputWrapper.Label>
             <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
@@ -154,7 +154,7 @@ export default function ProfileEditNormalLeft({
           onChange={handleChange}
         >
           <div className="flex flex-col">
-            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+            <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
               새 비밀번호 확인
             </InputWrapper.Label>
             <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">

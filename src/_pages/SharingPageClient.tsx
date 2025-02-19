@@ -169,7 +169,7 @@ export default function SharingPageClient({ type }: SharingPageClientProps) {
         width={imageSize}
         height={imageSize}
         onClick={handleGeneralShare}
-        className="lg:p-[1rem] sm:p-[0.7rem] cursor-pointer border border-gray-100 lg:rounded-[1.6rem] sm:rounded-[1.1rem]"
+        className="lg:p-[1rem] sm:p-[0.7rem] cursor-pointer border border-gray-100 bg-white lg:rounded-[1.6rem] sm:rounded-[1.1rem]"
       />
     </>
   );

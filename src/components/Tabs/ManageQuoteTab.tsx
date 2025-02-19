@@ -20,11 +20,11 @@ export default function ManageQuoteTab() {
     <div className="flex lg:gap-[3.2rem] sm:gap-[2.4rem] lg:pt-[1.6rem] sm:pt-[1rem] lg:px-[0rem] md:px-[7.2rem] sm:px-[2.4rem]">
       <Link href="/driver/my-quote/sent">
         <div
-          className={`lg:py-[1.6rem] sm:py-[1.5rem] cursor-pointer ${selectTab === 'sent' ? 'border-b-2 border-black-400' : ''}`}
+          className={`lg:py-[1.6rem] sm:py-[1.5rem] cursor-pointer ${selectTab === 'sent' ? 'border-b-2 border-black-400 dark:border-dark-t' : ''}`}
           onClick={() => setSelectTab('sent')}
         >
           <p
-            className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'sent' ? 'text-[#2B2B2B]' : 'text-gray-400'}`}
+            className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'sent' ? 'text-[#2B2B2B] dark:text-dark-t' : 'text-gray-400'}`}
           >
             보낸 견적 조회
           </p>
@@ -32,11 +32,11 @@ export default function ManageQuoteTab() {
       </Link>
       <Link href="/driver/my-quote/rejected">
         <div
-          className={`lg:py-[1.6rem] sm:py-[1.5rem] cursor-pointer ${selectTab === 'rejected' ? 'border-b-2 border-black-400' : ''}`}
+          className={`lg:py-[1.6rem] sm:py-[1.5rem] cursor-pointer ${selectTab === 'rejected' ? 'border-b-2 border-black-400 dark:border-dark-t' : ''}`}
           onClick={() => setSelectTab('rejected')}
         >
           <p
-            className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'rejected' ? 'text-[#2B2B2B]' : 'text-gray-400'}`}
+            className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'rejected' ? 'text-[#2B2B2B] dark:text-dark-t' : 'text-gray-400'}`}
           >
             반려 요청
           </p>
