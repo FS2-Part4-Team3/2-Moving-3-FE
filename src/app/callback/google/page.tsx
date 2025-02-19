@@ -41,15 +41,15 @@ export default function CallBackGoogle() {
             type: res.type,
           }),
         );
-        // if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
-        //   router.push('/normal/profile-register');
-        // } else if (res.type === 'user' && res.areas && res.serviceTypes) {
-        //   router.push('/normal/match-driver');
-        // } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas && !res.nickname) {
-        //   router.push('/driver/profile-register');
-        // } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas) {
-        //   router.push('/driver/receive-quote');
-        // }
+        if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
+          router.push('/normal/profile-register');
+        } else if (res.type === 'user' && res.areas && res.serviceTypes) {
+          router.push('/normal/match-driver');
+        } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas && !res.nickname) {
+          router.push('/driver/profile-register');
+        } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas) {
+          router.push('/driver/receive-quote');
+        }
       } catch (error) {
         console.error('로그인 상태 확인 중 오류 발생', error);
         return;
