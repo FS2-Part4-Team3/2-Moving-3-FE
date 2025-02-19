@@ -1,4 +1,5 @@
 import ReviewAnalysisChart from '@/components/cards/ReviewAnalysisChart';
+import ReviewAnalysisDropdown from '@/components/dropdown/ReviewAnalysisDropdown';
 
 const mockData = {
   positive: [
@@ -42,6 +43,7 @@ const mockData = {
 export default function ReviewAnalysis() {
   return (
     <div>
+      <ReviewAnalysisDropdown />
       <div>
         <ReviewAnalysisChart data={mockData} />
       </div>
