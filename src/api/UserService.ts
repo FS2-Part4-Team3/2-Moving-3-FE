@@ -1,5 +1,5 @@
 import { UserUpdates } from '@/interfaces/API/UserServiceInterface';
-import { deleteRequest, getRequest, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
+import { deleteRequest, getRequest, getRequestSSR, patchRequest, postRequest, putRequest } from '@/utils/requestFunctions';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -10,6 +10,13 @@ export const postSignInData = async (userType: string, email: string, password: 
   };
   try {
     const data = await postRequest(`/auth/signIn/${userType}`, params);
+
+    const accessToken = data.accessToken;
+    await fetch('/api/auth/sync-cookie', {
+      method: 'POST',
+      body: JSON.stringify({ cookie: accessToken }),
+    });
+
     return data;
   } catch (error) {
     console.error('Fetch error:', error);
@@ -141,6 +148,11 @@ export const patchPassword = async (oldPw: string, newPw: string) => {
 export const deleteRefresh = async () => {
   try {
     const res = await deleteRequest('/auth/signOut');
+
+    await fetch('/api/auth/logout', {
+      method: 'POST',
+    });
+
     return res;
   } catch (error) {
     console.error('Sign out Error', error);
@@ -168,10 +180,9 @@ export const getUserDetailData = async (id: string) => {
   }
 };
 
-export const getAuthIsLoggedIn = async () => {
+export const getAuthIsLoggedIn = async (accessToken: string) => {
   try {
-    const res = await getRequest('/auth/isLoggedIn');
-    console.log(res);
+    const res = await getRequestSSR(accessToken, '/auth/isLoggedIn');
     return res;
   } catch (error) {
     console.error('Get Auth Login Fetch Error', error);
