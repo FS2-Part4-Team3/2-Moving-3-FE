@@ -58,7 +58,7 @@ export default function Empty({ type }: EmptyProps) {
     case 'RequestEmpty':
       image = truck;
       text = '현재 진행 중인 이사 견적이 없어요!';
-      text2 = '이사 견적 등록 후 수정 기능을 이용해주세요.';
+      text2 = '이사 견적 등록 후 이용해주세요.';
       buttonText = '견적 요청하기';
       link = () => router.push('/normal/request-quote');
   }
