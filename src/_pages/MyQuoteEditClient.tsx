@@ -19,17 +19,19 @@ export default function MyQuoteEditClient() {
   const [editStatus, setEditStatus] = useState<boolean>(false);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await getMoveInfoEditability(moveInfoId);
-        setEditStatus(data.isMoveInfoEditable);
-      } catch (error) {
-        alert('문제가 발생했습니다. 다시 시도해주세요.');
-      }
-    };
+    if (moveInfoId) {
+      const getData = async () => {
+        try {
+          const data = await getMoveInfoEditability(moveInfoId);
+          setEditStatus(data.isMoveInfoEditable);
+        } catch (error) {
+          alert('문제가 발생했습니다. 다시 시도해주세요.');
+        }
+      };
 
-    getData();
-  }, []);
+      getData();
+    }
+  }, [moveInfoId]);
 
   const deleteData = async () => {
     try {
@@ -67,12 +69,18 @@ export default function MyQuoteEditClient() {
           id="edit-quotation"
           onClick={() => (editStatus ? router.push('/normal/request-quote?edit=true') : handleShowToast)}
         >
-          <ButtonWrapper.Button className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] p-[1.6rem] flex items-center justify-center font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-white">
+          <ButtonWrapper.Button
+            className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] p-[1.6rem] flex items-center justify-center font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-white"
+            disabled={!moveInfoId}
+          >
             견적서 수정하기
           </ButtonWrapper.Button>
         </ButtonWrapper>
         <ButtonWrapper id="delete-quotation" onClick={handleShowModal}>
-          <ButtonWrapper.Button className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] py-[1.6rem] px-[2.4rem] flex items-center justify-center border border-blue-300 bg-white font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-blue-300">
+          <ButtonWrapper.Button
+            className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] py-[1.6rem] px-[2.4rem] flex items-center justify-center border border-blue-300 bg-white font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-blue-300"
+            disabled={!moveInfoId}
+          >
             견적서 삭제하기
           </ButtonWrapper.Button>
         </ButtonWrapper>

@@ -144,15 +144,6 @@ export default function RequestForQuotation() {
             <Empty type="RequestQuote" />
           </div>
         </div>
-      ) : !moveData.length && edit ? (
-        <div className="w-full h-screen flex flex-col bg-background-200">
-          <div className="bg-white dark:bg-dark-p lg:px-[26rem] lg:py-[3.2rem] md:px-[7.2rem] md:py-[2.4rem] sm:px-[2.4rem] sm:py-[2.4rem] flex flex-col gap-[2.4rem] ">
-            <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B] dark:text-dark-t">견적수정</h1>
-          </div>
-          <div className="w-full h-full bg-background-200 dark:bg-dark-bg lg:pt-[19.4rem] md:pt-[12.7rem] sm:pt-[12.7rem] flex justify-center">
-            <Empty type="RequestEmpty" />
-          </div>
-        </div>
       ) : (
         <div className="flex flex-col items-center ">
           <div className="bg-white dark:bg-dark-p w-full md:px-[5rem] sm:px-[2rem] lg:py-[3.2rem] md:py-[2.4rem] sm:py-[2.4rem] flex flex-col items-center gap-[2.4rem] ">
