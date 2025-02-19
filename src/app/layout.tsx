@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import '@styles/globals.css';
 import GNB from '@/components/common/gnb/GNB';
+import { SocketProvider } from '@/contexts/socketContext';
 import ReactQueryProviders from '@/hooks/useReactQuery';
 import { Providers } from '@/store/providers';
 
@@ -29,12 +30,14 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <div className="min-h-screen overflow-x-hidden">
-          <Providers>
-            <ReactQueryProviders>
-              <GNB />
-              {children}
-            </ReactQueryProviders>
-          </Providers>
+          <SocketProvider>
+            <Providers>
+              <ReactQueryProviders>
+                <GNB />
+                {children}
+              </ReactQueryProviders>
+            </Providers>
+          </SocketProvider>
         </div>
       </body>
     </html>
