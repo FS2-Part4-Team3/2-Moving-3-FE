@@ -33,7 +33,9 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             <div className="lg:hidden sm:block">
               <div className="border border-line-100 w-full mb-[2.4rem]"></div>
               <div className="flex flex-col gap-[0.8rem] md:px-[2.4rem] sm:px-0 py-[1rem]">
-                <p className="text-[1.4rem] leading-[2.4rem] font-semibold text-black-400">나만 알기엔 아쉬운 기사님인가요?</p>
+                <p className="text-[1.4rem] leading-[2.4rem] font-semibold text-black-400 dark:text-dark-t">
+                  나만 알기엔 아쉬운 기사님인가요?
+                </p>
                 <div className="flex flex-row gap-[1.6rem]">
                   <SharingPageClient type="driver" />
                 </div>
@@ -41,16 +43,16 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col lg:gap-[3.2rem] sm:gap-[1.6rem] lg:px-0 lg:py-0 md:px-[2.4rem] sm:py-[1rem]">
-              <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
+              <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400 dark:text-dark-t">
                 상세설명
               </p>
-              <p className="lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] font-normal text-black-400">
+              <p className="lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] font-normal text-black-400 dark:text-dark-t">
                 {driverData.description}
               </p>
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col lg:gap-[3.2rem] sm:gap-[1.6rem] lg:px-0 lg:py-0 md:px-[2.4rem] sm:py-[1rem]">
-              <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
+              <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400 dark:text-dark-t">
                 제공 서비스
               </p>
               <div className="flex flex-row lg:gap-[1.2rem] sm:gap-[0.8rem]">
@@ -59,7 +61,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             </div>
             <div className="border border-line-100 w-full"></div>
             <div className="flex flex-col lg:gap-[3.2rem] sm:gap-[1.6rem] lg:px-0 lg:py-0 md:px-[2.4rem] sm:py-[1rem]">
-              <p className="text-[2.4rem] leading-[3.2rem] font-bold text-black-400">서비스 가능 지역</p>
+              <p className="text-[2.4rem] leading-[3.2rem] font-bold text-black-400 dark:text-dark-t">서비스 가능 지역</p>
               <div className="flex flex-row lg:gap-[1.2rem] sm:gap-[0.8rem]">
                 <DriverDetailChips availableAreas={driverData.availableAreas} />
               </div>
@@ -76,14 +78,16 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[35.4rem] gap-[4rem]">
             <div className="flex flex-col gap-[3.2rem]">
-              <p className="text-[2rem] leading-[3.2rem] text-black-400 font-semibold">
+              <p className="text-[2rem] leading-[3.2rem] text-black-400 font-semibold dark:text-dark-t">
                 {driverData.name} 기사님에게 지정 견적을 요청해보세요!
               </p>
               <DriverDetailButtonClient id={id} />
             </div>
             <div className="border border-line-100 w-[32.8rem]"></div>
             <div className="flex flex-col gap-[2.2rem]">
-              <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400">나만 알기엔 아쉬운 기사님인가요?</p>
+              <p className="text-[2rem] leading-[3.2rem] font-semibold text-black-400 dark:text-dark-t">
+                나만 알기엔 아쉬운 기사님인가요?
+              </p>
               <div className="flex flex-row gap-[1.6rem]">
                 <SharingPageClient type="driver" />
               </div>

@@ -71,7 +71,7 @@ export default function WrittenReviewClient() {
   }
 
   return (
-    <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 pt-[4rem]">
+    <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 pt-[4rem] dark:bg-dark-bg">
       {myReviews?.list.length ? (
         <>
           <div className="lg:grid lg:grid-cols-2 lg:gap-y-[4.8rem] lg:gap-x-[4rem] md:flex md:flex-col sm:flex sm:flex-col md:gap-y-[3.2rem] sm:gap-y-[3.2rem] ">

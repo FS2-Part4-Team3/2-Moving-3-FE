@@ -79,7 +79,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
       <div className="md:w-[32.8rem] sm:w-full flex flex-col gap-[5.2rem] lg:block sm:hidden">
         <div className="flex flex-col gap-[2.4rem]">
           <div className="border-b border-line-200 flex justify-between items-center py-[1.6rem] px-[1rem]">
-            <p className="font-medium text-[2rem] leading-[3.2rem] text-black">이사 유형</p>
+            <p className="font-medium text-[2rem] leading-[3.2rem] text-black dark:text-dark-t">이사 유형</p>
             <div className="flex gap-[0.4rem] items-center">
               <Image
                 src={filterState.smallMov && filterState.homeMov && filterState.officeMov ? checkbox_blue : checkbox}
@@ -94,7 +94,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
           </div>
           <div className="flex flex-col gap-[1.6rem]">
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
+              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                 <p>소형이사</p>
                 <p>({movesList?.counts.serviceTypeCounts[0].count})</p>
               </div>
@@ -110,7 +110,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
               />
             </div>
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
+              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                 <p>가정이사</p>
                 <p>({movesList?.counts.serviceTypeCounts[1].count})</p>
               </div>
@@ -126,7 +126,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
               />
             </div>
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
+              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                 <p>사무실이사</p>
                 <p>({movesList?.counts.serviceTypeCounts[2].count})</p>
               </div>
@@ -145,7 +145,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
         </div>
         <div className="flex flex-col gap-[2.4rem]">
           <div className="border-b border-line-200 flex justify-between items-center py-[1.6rem] px-[1rem]">
-            <p className="font-medium text-[2rem] leading-[3.2rem] text-black">필터</p>
+            <p className="font-medium text-[2rem] leading-[3.2rem] text-black dark:text-dark-t">필터</p>
             <div className="flex gap-[0.4rem] items-center">
               <Image
                 src={filterState.serviceable && filterState.appointRequest ? checkbox_blue : checkbox}
@@ -160,7 +160,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
           </div>
           <div className="flex flex-col gap-[1.6rem]">
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
+              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                 <p>서비스 가능 지역</p>
                 <p>({movesList?.counts.serviceAreaCount})</p>
               </div>
@@ -176,7 +176,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
               />
             </div>
             <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400">
+              <div className="flex gap-[0.4rem] font-medium text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                 <p>지정 견적 요청</p>
                 <p>({movesList?.counts.designatedRequestCount})</p>
               </div>
@@ -195,13 +195,13 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
         </div>
       </div>
       <div className="w-full min-h-screen flex md:items-center md:justify-center sm:items-end bg-black bg-opacity-50 lg:hidden">
-        <div className="bg-white md:w-[37.5rem] sm:w-full md:rounded-[3.2rem] sm:rounded-tr-[3.2rem] sm:rounded-tl-[3.2rem] pt-[1.6rem] pb-[3.2rem] px-[2.4rem] flex flex-col gap-[2.4rem]">
+        <div className="bg-white dark:bg-dark-p md:w-[37.5rem] sm:w-full md:rounded-[3.2rem] sm:rounded-tr-[3.2rem] sm:rounded-tl-[3.2rem] pt-[1.6rem] pb-[3.2rem] px-[2.4rem] flex flex-col gap-[2.4rem]">
           <div className="flex flex-col gap-[1.2rem]">
             <div className="flex w-full justify-between p-[0.8rem]">
               <div className="flex gap-[2.4rem]">
                 <p
                   className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
-                    isMenuClick === 'mov' ? 'text-black-400' : 'text-gray-300'
+                    isMenuClick === 'mov' ? 'text-black-400 dark:text-dark-t' : 'text-gray-300'
                   }`}
                   onClick={() => setIsMenuClick('mov')}
                 >
@@ -209,7 +209,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                 </p>
                 <p
                   className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
-                    isMenuClick === 'filter' ? 'text-black-400' : 'text-gray-300'
+                    isMenuClick === 'filter' ? 'text-black-400 dark:text-dark-t' : 'text-gray-300'
                   }`}
                   onClick={() => setIsMenuClick('filter')}
                 >
@@ -235,7 +235,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                 </div>
                 <div>
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
+                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                       <p>소형이사</p>
                       <p>({movesList?.counts.serviceTypeCounts[0].count})</p>
                     </div>
@@ -249,7 +249,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                     />
                   </div>
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
+                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                       <p>가정이사</p>
                       <p>({movesList?.counts.serviceTypeCounts[1].count})</p>
                     </div>
@@ -263,7 +263,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                     />
                   </div>
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
+                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                       <p>사무실이사</p>
                       <p>({movesList?.counts.serviceTypeCounts[2].count})</p>
                     </div>
@@ -296,7 +296,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                 </div>
                 <div>
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
+                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                       <p>서비스 가능 지역</p>
                       <p>({movesList?.counts.serviceAreaCount})</p>
                     </div>
@@ -310,7 +310,7 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
                     />
                   </div>
                   <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
+                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                       <p>지정 견적 요청</p>
                       <p>({movesList?.counts.designatedRequestCount})</p>
                     </div>

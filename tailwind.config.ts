@@ -40,6 +40,9 @@ const config: Config = {
       'background-400': '#F4F7FB',
       'line-100': '#F2F2F2',
       'line-200': '#E6E6E6',
+      'dark-bg': '#17171B',
+      'dark-p': '#202026',
+      'dark-t': '#F7F7F7',
       white: '#FFFFFF',
       black: '#000000',
     },
@@ -67,6 +70,7 @@ const config: Config = {
       },
     },
   },
+  darkMode: 'class',
 };
 
 export default config;

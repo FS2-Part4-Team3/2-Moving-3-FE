@@ -74,7 +74,7 @@ export default function ReceivedQuotePageStructureClient() {
               <div key={quote.id} className="flex flex-col lg:gap-[4.8rem] sm:gap-[3.2rem]">
                 <EstimationInformationCard data={quote} />
                 <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
-                  <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] text-black-400 sm:text-[1.6rem] sm:leading-[2.6rem]">
+                  <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] text-black-400 sm:text-[1.6rem] sm:leading-[2.6rem] dark:text-dark-t">
                     견적서 목록
                   </p>
                   <EstimationSortDropdown onChange={newFilter => updateQuoteFilter(quote.id, newFilter)} />

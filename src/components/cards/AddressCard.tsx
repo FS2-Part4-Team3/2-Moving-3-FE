@@ -11,12 +11,14 @@ export default function AddressCard({ regions, setRegions, handleSubmit }: Addre
 
   return (
     <>
-      <div className="lg:w-[62.4rem] md:w-[32.7rem] sm:w-[32.7rem] lg:p-[3.2rem] md:p-[3.2rem] sm:p-[1.6rem] flex flex-col lg:gap-[2.1rem] sm:gap-[0.8rem] rounded-[3.2rem] rounded-tr-none border-none bg-white">
+      <div className="lg:w-[62.4rem] md:w-[32.7rem] sm:w-[32.7rem] lg:p-[3.2rem] md:p-[3.2rem] sm:p-[1.6rem] flex flex-col lg:gap-[2.1rem] sm:gap-[0.8rem] rounded-[3.2rem] rounded-tr-none border-none bg-white dark:bg-dark-p">
         <div className="flex flex-col lg:gap-[1.6rem] md:gap-[1.6rem] sm:gap-[0.8rem]">
-          <span className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400">출발지</span>
+          <span className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 dark:text-dark-t">
+            출발지
+          </span>
           <div
             onClick={() => setIsStartModalOpen(true)}
-            className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[4rem] rounded-[1.6rem] border border-blue-300 text-center lg:py-[1.6rem] md:py-[1.6rem] sm:py-[0.8rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-blue-300 cursor-pointer"
+            className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[4rem] rounded-[1.6rem] border border-blue-300 text-center lg:py-[1.6rem] md:py-[1.6rem] sm:py-[0.8rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-blue-300 cursor-pointer dark:bg-dark-bg"
           >
             {regions.start || '출발지 선택하기'}
           </div>
@@ -33,10 +35,12 @@ export default function AddressCard({ regions, setRegions, handleSubmit }: Addre
           )}
         </div>
         <div className="flex flex-col gap-[1.6rem] sm:gap-[0.8rem]">
-          <div className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400">도착지</div>
+          <div className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 dark:text-dark-t">
+            도착지
+          </div>
           <div
             onClick={() => setIsArrivalModalOpen(true)}
-            className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[4rem] rounded-[1.6rem] border border-blue-300 text-center lg:py-[1.6rem] md:py-[1.6rem] sm:py-[0.8rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-blue-300 cursor-pointer"
+            className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[4rem] rounded-[1.6rem] border border-blue-300 text-center lg:py-[1.6rem] md:py-[1.6rem] sm:py-[0.8rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-blue-300 cursor-pointer dark:bg-dark-bg"
           >
             {regions.arrival || '도착지 선택하기'}
           </div>

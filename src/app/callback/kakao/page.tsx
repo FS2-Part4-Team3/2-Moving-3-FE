@@ -13,11 +13,11 @@ export default function CallBackKakao() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const loggedInUser = await getAuthIsLoggedIn();
+        // const loggedInUser = await getAuthIsLoggedIn();
 
-        if (loggedInUser.isAccessTokenValid) {
-          return;
-        }
+        // if (loggedInUser.isAccessTokenValid) {
+        //   return;
+        // }
 
         const res = await getUserData();
         dispatch(

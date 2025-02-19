@@ -13,6 +13,7 @@ export default function Notification({ notifications, onClose, onNotificationCli
   // TODO: 기사님 이름 수정 필요
   // TODO: 이사 종류 수정 필요
   // TODO: 어디에서 어디로 이사하는지 수정 필요
+  // TODO: 알림 다크모드 색상 추가 필요
 
   const queryClient = useQueryClient();
   const [moveInfo, setMoveInfo] = useState<{ fromAddress?: string; toAddress?: string }>({});
@@ -72,9 +73,9 @@ export default function Notification({ notifications, onClose, onNotificationCli
   };
 
   return (
-    <div className="flex flex-col rounded-[2.4rem] border border-line-200 pt-[1rem] pb-[1.8rem] px-[1.6rem] md:w-[38rem] sm:w-[30rem] h-[40.2rem] bg-white">
+    <div className="flex flex-col rounded-[2.4rem] border border-line-200 pt-[1rem] pb-[1.8rem] px-[1.6rem] md:w-[38rem] sm:w-[30rem] h-[40.2rem] bg-white dark:bg-dark-p">
       <div className="flex w-full items-center justify-between py-[1.4rem] pr-[1.2rem] pl-[2.4rem]">
-        <p className="font-bold text-[1.8rem] leading-[2.6rem] text-black-400">알림</p>
+        <p className="font-bold text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t">알림</p>
         <Image src={xIcon} alt="x" width={24} height={24} className="cursor-pointer" onClick={onClose} />
       </div>
       {notifications.length ? (
@@ -177,7 +178,7 @@ export default function Notification({ notifications, onClose, onNotificationCli
         </div>
       ) : (
         <div className="w-full h-full flex items-center justify-center">
-          <p className="font-semibold text-[1.6rem] leading-[3.2rem] text-black-400">받은 알림이 없습니다.</p>
+          <p className="font-semibold text-[1.6rem] leading-[3.2rem] text-black-400 dark:text-dark-t">받은 알림이 없습니다.</p>
         </div>
       )}
     </div>
