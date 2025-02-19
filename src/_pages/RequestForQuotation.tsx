@@ -4,12 +4,13 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMoveCheck, patchMove, postMove } from '@/api/MovesService';
+import { getMoveCheck, getUserMoveInfoId, patchMove, postMove } from '@/api/MovesService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
 import Empty from '@/components/common/Empty/Empty';
 import { MoveData } from '@/interfaces/Page/RequestForQuotationInterface';
+import { setMoveInfoId } from '@/store/slices/SignInSlice';
 import { setId } from '@/store/slices/myQuotationSlice';
 import { formatDate } from '@/utils/Format';
 
@@ -99,6 +100,8 @@ export default function RequestForQuotation() {
     mutationFn: async () => {
       const res = await postMove(movingType, movingDate.toISOString(), regions.start, regions.arrival);
       dispatch(setId(res.id));
+      const moveInfoId = await getUserMoveInfoId();
+      dispatch(setMoveInfoId(moveInfoId.id));
     },
     onSuccess: () => {
       alert('견적 요청이 완료됐습니다!');

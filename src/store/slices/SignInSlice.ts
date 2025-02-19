@@ -15,6 +15,7 @@ interface SignInState {
   areas?: string[]; // 일반 유저의 경우 내가 사는 지역
   type?: string;
   startAt?: string;
+  moveInfoId?: string;
 }
 
 const initialState: SignInState = {
@@ -31,6 +32,7 @@ const initialState: SignInState = {
   areas: [],
   type: '',
   startAt: '',
+  moveInfoId: '',
 };
 
 const signInSlice = createSlice({
@@ -64,11 +66,14 @@ const signInSlice = createSlice({
         state.description = '';
       }
     },
+    setMoveInfoId(state, action: PayloadAction<string>) {
+      state.moveInfoId = action.payload;
+    },
     setSignOut(state) {
       Object.assign(state, initialState);
     },
   },
 });
 
-export const { setUserSign, setSignOut } = signInSlice.actions;
+export const { setUserSign, setMoveInfoId, setSignOut } = signInSlice.actions;
 export default signInSlice.reducer;

@@ -20,7 +20,8 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isCheckDib, setIsCheckDib] = useState(false);
-  const [isMoveId, setIsMoveId] = useState('');
+  const isMoveId = useSelector((state: RootState) => state.signIn.moveInfoId);
+  // const [isMoveId, setIsMoveId] = useState('');
 
   const userType = useSelector((state: RootState) => state.signIn.type);
 
@@ -46,23 +47,11 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
         }
       };
 
-      const fetchMoveId = async () => {
-        try {
-          const res = await getUserMoveInfoId();
-          setIsMoveId(res.id);
-        } catch (err) {
-          console.error('이사 정보를 가져오는 데 실패했습니다: ', err);
-        }
-      };
-
       if (!type || type === 'quoteWaiting' || type === 'quoteReceived') {
         fetchDibStatus();
       }
       if (!type) {
         fetchRequestStatus();
-      }
-      if (!type || type === 'quoteWaiting') {
-        fetchMoveId();
       }
     }
   }, [id]);
