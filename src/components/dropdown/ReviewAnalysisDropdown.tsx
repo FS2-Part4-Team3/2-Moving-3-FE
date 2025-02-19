@@ -39,10 +39,12 @@ export default function ReviewAnalysisDropdown() {
         </div>
       </div>
       <div className="flex flex-col gap-[1.6rem] relative">
-        <p className="font-semibold text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm:hidden">지역을 선택해주세요</p>
+        <p className="font-semibold text-[1.8rem] leading-[2.6rem] text-black-400 lg:block sm:hidden">
+          키워드 필터를 선택해주세요
+        </p>
         <div
-          className={`lg:w-full lg:h-[6.4rem] sm:w-[8rem] sm:h-[3.6rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] border lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:pr-[1rem] sm:pl-[1.4rem] flex items-center justify-between cursor-pointer mb-[0.8rem] ${
-            selectedMenu ? 'border-blue-300 bg-blue-50' : 'border-gray-100'
+          className={`lg:w-full lg:h-fit sm:w-fit sm:h-[3.6rem] gap-[0.6rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] border lg:py-[1.6rem] lg:px-[2.4rem] sm:py-[0.6rem] sm:pr-[1rem] sm:pl-[1.4rem] flex items-center justify-between cursor-pointer mb-[0.8rem] ${
+            isDropdownOpen ? 'border-blue-300 bg-blue-50' : 'border-gray-100'
           }`}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
@@ -51,7 +53,7 @@ export default function ReviewAnalysisDropdown() {
               isDropdownOpen ? 'text-blue-300' : 'text-black-400'
             }`}
           >
-            {selectedMenu || '지역'}
+            {selectedMenu || '전체'}
           </p>
           <Image
             src={isDropdownOpen ? clicked_arrow : arrow_down}
@@ -70,13 +72,11 @@ export default function ReviewAnalysisDropdown() {
         </div>
         {isDropdownOpen && (
           <div className="absolute w-auto border bg-white border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] z-[2]">
-            <div className="grid grid-cols-2 lg:h-[32rem] sm:h-[18rem] lg:w-auto sm:w-[15rem] overflow-y-auto overflow-x-hidden">
+            <div className="h-fit lg:w-[32.8rem] sm:w-[15rem]">
               {reviewAnalysisTypes.map((region, index) => (
                 <div
                   key={index}
-                  className={`lg:w-[16.4rem] lg:h-[6.4rem] lg:py-[1.6rem] lg:px-[2.4rem] sm:w-[7.5rem] sm:h-[3.6rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 cursor-pointer ${
-                    index % 2 === 0 ? 'border-r border-line-200' : ''
-                  }`}
+                  className="lg:w-[16.4rem] lg:h-[6.4rem] lg:py-[1.6rem] lg:px-[2.4rem] sm:w-fit sm:h-[3.6rem] sm:py-[0.6rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 cursor-pointer"
                   onClick={() => handleMenuClick(region.type)}
                 >
                   {region.type}

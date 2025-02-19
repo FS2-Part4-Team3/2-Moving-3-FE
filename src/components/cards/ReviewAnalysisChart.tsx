@@ -2,6 +2,8 @@
 
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -20,10 +22,7 @@ interface ReviewAnalysisChartProps {
 }
 
 export default function ReviewAnalysisChart({ data }: ReviewAnalysisChartProps) {
-  let labels: string[] = [];
-  let counts: number[] = [];
-  let colors: string[] = [];
-
+  const { filter } = useSelector((state: RootState) => state.review);
   let positiveLabels: string[] = [];
   let negativeLabels: string[] = [];
 
@@ -87,22 +86,23 @@ export default function ReviewAnalysisChart({ data }: ReviewAnalysisChartProps) 
       x: {
         beginAtZero: true,
       },
+      y: {
+        ticks: {
+          font: {
+            size: 18,
+          },
+        },
+      },
     },
   };
 
   return (
-    <div className="w-[100rem] mx-auto mt-[3rem] bg-white shadow-lg rounded-lg">
-      <p className="text-lg font-semibold text-blue-600 mb-2">TOP 5 긍정 & 부정 키워드</p>
-      {type !== 'NEGATIVE' && (
-        <div>
-          <Bar data={positiveChartData} options={options} />
-        </div>
-      )}
-      {type !== 'POSITIVE' && (
-        <div>
-          <Bar data={negativeChartData} options={options} />
-        </div>
-      )}
+    <div className="w-[75rem] mx-auto rounded-lg">
+      <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-[#2B2B2B] text-blue-600 mb-[1rem] text-center">
+        TOP 5 긍정 & 부정 키워드
+      </p>
+      {type !== 'NEGATIVE' && <Bar data={positiveChartData} options={options} />}
+      {type !== 'POSITIVE' && <Bar data={negativeChartData} options={options} />}
     </div>
   );
 }
