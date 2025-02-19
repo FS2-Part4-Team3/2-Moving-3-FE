@@ -1,4 +1,4 @@
-import { fetchWrapper } from '@/api/api';
+import { fetchWrapper, fetchWrapperSSR } from '@/api/api';
 import type { Params } from '@/interfaces/API';
 
 export async function getRequest(url: string, params?: Params) {
@@ -18,6 +18,29 @@ export async function getRequest(url: string, params?: Params) {
       'Content-Type': 'application/json',
     },
   });
+}
+
+export async function getRequestSSR(accessToken: string, url: string, params?: Params) {
+  const queryString = params
+    ? new URLSearchParams(
+        Object.entries(params)
+          .filter(([_, v]) => v !== undefined)
+          .map(([k, v]) => [k, v!.toString()]),
+      ).toString()
+    : '';
+
+  const fullUrl = `${url}${queryString ? `?${queryString}` : ''}`;
+
+  return fetchWrapperSSR(
+    fullUrl,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+    accessToken,
+  );
 }
 
 export async function postRequest(url: string, body: object = {}) {
