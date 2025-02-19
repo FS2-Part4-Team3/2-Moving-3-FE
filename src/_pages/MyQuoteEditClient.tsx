@@ -2,14 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getMoveInfoEditability } from '@/api/MovesService';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteMoveDetailData, getMoveInfoEditability } from '@/api/MovesService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { ModalWrapper } from '@/components/common/headless/Modal';
 import MyQuoteEditToast from '@/components/toasts/MyQuoteEditToast';
+import { setMoveInfoId } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
 
 export default function MyQuoteEditClient() {
+  const dispatch = useDispatch();
   const moveInfoId = useSelector((state: RootState) => state.signIn.moveInfoId);
   const [showToast, setShowToast] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -28,6 +30,17 @@ export default function MyQuoteEditClient() {
 
     getData();
   }, []);
+
+  const deleteData = async () => {
+    try {
+      await deleteMoveDetailData(moveInfoId);
+      alert('삭제 완료되었습니다.');
+      dispatch(setMoveInfoId(''));
+      handleCloseModal();
+    } catch (error) {
+      alert('문제가 발생했습니다. 다시 시도해주세요.');
+    }
+  };
 
   const router = useRouter();
 
@@ -75,7 +88,9 @@ export default function MyQuoteEditClient() {
                   정말 삭제하시겠습니까?
                 </p>
               </ModalWrapper.Content>
-              <ModalWrapper.Footer isDisabled={false}>견적 삭제하기</ModalWrapper.Footer>
+              <ModalWrapper.Footer isDisabled={false} onClick={deleteData}>
+                견적 삭제하기
+              </ModalWrapper.Footer>
             </ModalWrapper>
           </div>
         </div>
