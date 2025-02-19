@@ -11,38 +11,40 @@ import Empty from '../common/Empty/Empty';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 interface ReviewAnalysisChartProps {
-  positive: {
-    keyword: string;
-    count: number;
-  }[];
-  negative: {
-    keyword: string;
-    count: number;
-  }[];
+  reviewAnalysisData: {
+    positive: {
+      keyword: string;
+      count: number;
+    }[];
+    negative: {
+      keyword: string;
+      count: number;
+    }[];
+  };
 }
 
-export default function ReviewAnalysisChart() {
+export default function ReviewAnalysisChart({ reviewAnalysisData }: ReviewAnalysisChartProps) {
   const { filter } = useSelector((state: RootState) => state.review);
   const { id } = useSelector((state: RootState) => state.signIn);
 
-  const {
-    data: reviewAnalysisData,
-    isLoading: reviewAnalysisLoading,
-    isError: reviewAnalysisError,
-  } = useQuery<ReviewAnalysisChartProps>({
-    queryKey: ['reviewAnalysisData', id, filter],
-    queryFn: id ? () => getReviewKeyword(id, filter) : async () => ({ positive: [], negative: [] }),
-    enabled: !!id,
-  });
+  // const {
+  //   data: reviewAnalysisData,
+  //   isLoading: reviewAnalysisLoading,
+  //   isError: reviewAnalysisError,
+  // } = useQuery<ReviewAnalysisChartProps>({
+  //   queryKey: ['reviewAnalysisData', id, filter],
+  //   queryFn: id ? () => getReviewKeyword(id, filter) : async () => ({ positive: [], negative: [] }),
+  //   enabled: !!id,
+  // });
 
-  if (!reviewAnalysisData?.positive.length && !reviewAnalysisData?.negative.length)
-    return (
-      <div className="w-[75rem] mt-[5rem] items-center justify-center">
-        <Empty type="Driver" />
-      </div>
-    );
-  if (reviewAnalysisLoading) return <p>Loading...</p>;
-  if (reviewAnalysisError) return <p>Error loading data.</p>;
+  // if (!reviewAnalysisData?.positive.length && !reviewAnalysisData?.negative.length)
+  //   return (
+  //     <div className="w-[75rem] mt-[5rem] items-center justify-center">
+  //       <Empty type="Driver" />
+  //     </div>
+  //   );
+  // if (reviewAnalysisLoading) return <p>Loading...</p>;
+  // if (reviewAnalysisError) return <p>Error loading data.</p>;
 
   let positiveLabels: string[] = [];
   let negativeLabels: string[] = [];

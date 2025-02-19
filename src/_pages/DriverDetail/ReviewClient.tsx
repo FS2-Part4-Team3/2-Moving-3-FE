@@ -2,6 +2,7 @@
 
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getDriverReviewData } from '@/api/DriverService';
 import DriverReviewCard from '@/components/cards/DriverReviewCard';
@@ -15,6 +16,7 @@ import type { DriverReviewData, ReviewClientProps } from '@/interfaces/Page/Driv
 export default function ReviewClient({ id }: ReviewClientProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+  const pathname = usePathname();
 
   const queryClient = useQueryClient();
   const {
@@ -79,13 +81,15 @@ export default function ReviewClient({ id }: ReviewClientProps) {
           <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400">
             리뷰 ({reviewData?.totalCount})
           </p>
-          <Link href="/driver/my-page/review-analysis">
-            <ButtonWrapper id="analyzing-review">
-              <ButtonWrapper.Button className="w-[26rem] h-[4.8rem] rounded-[1.6rem] flex items-center justify-center font-semibold text-[2rem] leading-[3.2rem] text-white">
-                리뷰 분석하기
-              </ButtonWrapper.Button>
-            </ButtonWrapper>
-          </Link>
+          {pathname === '/driver/my-page' && (
+            <Link href="/driver/my-page/review-analysis">
+              <ButtonWrapper id="analyzing-review">
+                <ButtonWrapper.Button className="w-[26rem] h-[4.8rem] rounded-[1.6rem] flex items-center justify-center font-semibold text-[2rem] leading-[3.2rem] text-white">
+                  리뷰 분석하기
+                </ButtonWrapper.Button>
+              </ButtonWrapper>
+            </Link>
+          )}
         </div>
         {reviewData?.totalCount ? (
           <ReviewChart data={reviewData.stats} totalCount={reviewData.totalCount} />
