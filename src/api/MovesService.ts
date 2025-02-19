@@ -38,6 +38,16 @@ export const getMovesDetailData = async (moveInfoId: string) => {
   }
 };
 
+export const getUserMoveInfoId = async () => {
+  try {
+    const res = await getRequest('/moves/userMoveInfoId');
+    return res;
+  } catch (err) {
+    console.error(`Failed to fetch UserMoveInfoId`, err);
+    throw new Error('Failed to fetch UserMoveInfoId. Please try again later.');
+  }
+};
+
 export const getCheckRequestDriver = async (driverId: string) => {
   try {
     const res = await getRequest(`/requests/check/${driverId}`);
