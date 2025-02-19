@@ -1,4 +1,3 @@
-import moveInfoData from '@/../public/data/estimationsData.json';
 import MyQuoteEditClient from '@/_pages/MyQuoteEditClient';
 import WaitingQuoteTab from '@/components/Tabs/WaitingQuoteTab';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
