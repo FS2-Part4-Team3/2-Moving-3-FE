@@ -56,28 +56,30 @@ export default function GNB() {
   };
 
   useEffect(() => {
-    fetchNotifications(page);
+    if (user.id) {
+      fetchNotifications(page);
 
-    const newSocket = io(`${BASE_URL}`, {
-      transports: ['websocket'],
-    });
+      const newSocket = io(`${BASE_URL}`, {
+        transports: ['websocket'],
+      });
 
-    newSocket.on('connect', () => {
-      newSocket.emit('subscribe');
-    });
+      newSocket.on('connect', () => {
+        newSocket.emit('subscribe');
+      });
 
-    newSocket.on('notification', (data: NotificationDataStructure) => {
-      if (data.type === 'NOTIFICATIONS_READ') {
-        return;
-      } else if (data.type === 'NEW_NOTIFICATION') {
-        setNotifications(prev => [data.data, ...prev]);
-      }
-    });
+      newSocket.on('notification', (data: NotificationDataStructure) => {
+        if (data.type === 'NOTIFICATIONS_READ') {
+          return;
+        } else if (data.type === 'NEW_NOTIFICATION') {
+          setNotifications(prev => [data.data, ...prev]);
+        }
+      });
 
-    return () => {
-      newSocket.disconnect();
-    };
-  }, [page]);
+      return () => {
+        newSocket.disconnect();
+      };
+    }
+  }, [page, user.id]);
 
   const handleRouteLanding = () => {
     router.push('/');
