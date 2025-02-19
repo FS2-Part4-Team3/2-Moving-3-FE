@@ -1,40 +1,57 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
+import { getReviewKeyword } from '@/api/AiService';
 import { RootState } from '@/store/store';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 interface ReviewAnalysisChartProps {
-  // type: 'ALL' | 'POSITIVE' | 'NEGATIVE';
-  data: {
-    positive: {
-      keyword: string;
-      count: number;
-    }[];
-    negative: {
-      keyword: string;
-      count: number;
-    }[];
-  };
+  positive: {
+    keyword: string;
+    count: number;
+  }[];
+  negative: {
+    keyword: string;
+    count: number;
+  }[];
 }
 
-export default function ReviewAnalysisChart({ data }: ReviewAnalysisChartProps) {
+export default function ReviewAnalysisChart() {
   const { filter } = useSelector((state: RootState) => state.review);
+  const { id } = useSelector((state: RootState) => state.signIn);
+
+  const {
+    data: reviewAnalysisData,
+    isLoading: reviewAnalysisLoading,
+    isError: reviewAnalysisError,
+  } = useQuery<ReviewAnalysisChartProps>({
+    queryKey: ['reviewAnalysisData', id, filter],
+    queryFn: id ? () => getReviewKeyword(id, filter) : undefined,
+    enabled: !!id,
+  });
+
+  console.log(reviewAnalysisData);
+
+  if (!reviewAnalysisData) return <p>No data available.</p>;
+  if (reviewAnalysisLoading) return <p>Loading...</p>;
+  if (reviewAnalysisError) return <p>Error loading data.</p>;
+
   let positiveLabels: string[] = [];
   let negativeLabels: string[] = [];
 
   let positiveCounts: number[] = [];
   let negativeCounts: number[] = [];
 
-  let type = 'ALL';
+  let type = filter;
 
   if (type === 'ALL') {
     // TODO: 백엔드 측에서 수정되면 slice 로직 삭제하기
-    const positiveData = data.positive.slice(0, 5);
-    const negativeData = data.negative.slice(0, 5);
+    const positiveData = reviewAnalysisData.positive.slice(0, 5);
+    const negativeData = reviewAnalysisData.negative.slice(0, 5);
 
     positiveLabels = positiveData.map(item => item.keyword);
     positiveCounts = positiveData.map(item => item.count);
@@ -42,11 +59,11 @@ export default function ReviewAnalysisChart({ data }: ReviewAnalysisChartProps) 
     negativeLabels = negativeData.map(item => item.keyword);
     negativeCounts = negativeData.map(item => item.count);
   } else if (type === 'POSITIVE') {
-    positiveLabels = data.positive.map(item => item.keyword);
-    positiveCounts = data.positive.map(item => item.count);
+    positiveLabels = reviewAnalysisData.positive.map(item => item.keyword);
+    positiveCounts = reviewAnalysisData.positive.map(item => item.count);
   } else if (type === 'NEGATIVE') {
-    negativeLabels = data.negative.map(item => item.keyword);
-    negativeCounts = data.negative.map(item => item.count);
+    negativeLabels = reviewAnalysisData.negative.map(item => item.keyword);
+    negativeCounts = reviewAnalysisData.negative.map(item => item.count);
   }
 
   const positiveChartData = {
