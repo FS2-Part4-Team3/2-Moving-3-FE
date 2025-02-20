@@ -9,5 +9,6 @@ export interface EmptyProps {
     | 'ReviewAble'
     | 'RequestEmpty'
     | 'SendQuote'
-    | 'RejectQuote';
+    | 'RejectQuote'
+    | 'DibsDriver';
 }
