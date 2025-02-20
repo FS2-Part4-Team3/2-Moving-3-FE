@@ -39,8 +39,11 @@ export default function GNB() {
   const [modalOpen, isModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isProfileVisible, setIsProfileVisible] = useState(false);
 
   const [notificationModalOpen, setNotificationsModalOpen] = useState(false);
+  const [isNotificationVisible, setIsNotificationsVisible] = useState(false);
+
   const [notifications, setNotifications] = useState<NotificationData[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -118,6 +121,20 @@ export default function GNB() {
     config: { tension: 200, friction: 25 },
   });
 
+  const profileModalAnimation = useSpring({
+    opacity: isProfileModalOpen ? 1 : 0,
+    transform: isProfileModalOpen ? 'translateY(0)' : 'translateY(-10px)',
+    height: 'auto',
+    config: { tension: 170, friction: 30 },
+  });
+
+  const notificationeModalAnimation = useSpring({
+    opacity: notificationModalOpen ? 1 : 0,
+    transform: notificationModalOpen ? 'translateY(0)' : 'translateY(-10px)',
+    height: 'auto',
+    config: { tension: 170, friction: 30 },
+  });
+
   useEffect(() => {
     if (modalOpen) {
       setIsVisible(true);
@@ -125,6 +142,22 @@ export default function GNB() {
       setTimeout(() => setIsVisible(false), 300);
     }
   }, [modalOpen]);
+
+  useEffect(() => {
+    if (isProfileModalOpen) {
+      setIsProfileVisible(true);
+    } else {
+      setTimeout(() => setIsProfileVisible(false), 300);
+    }
+  }, [isProfileModalOpen]);
+
+  useEffect(() => {
+    if (notificationModalOpen) {
+      setIsNotificationsVisible(true);
+    } else {
+      setTimeout(() => setIsNotificationsVisible(false), 300);
+    }
+  }, [notificationModalOpen]);
 
   return (
     <>
@@ -238,15 +271,17 @@ export default function GNB() {
                   className="lg:hidden sm:block cursor-pointer"
                   onClick={() => setNotificationsModalOpen(!notificationModalOpen)}
                 />
-                {notificationModalOpen && (
+                {isNotificationVisible && (
                   <div className="absolute lg:top-[8.1rem] transform lg:translate-x-[-15rem] z-[10] md:top-[6.5rem] md:translate-x-[-3rem] sm:top-[6.1rem] sm:translate-x-[3rem]">
-                    <Notification
-                      notifications={notifications}
-                      onClose={() => setNotificationsModalOpen(false)}
-                      onNotificationClick={handleNotificationClick}
-                      onMorePage={loadMoreNotifications}
-                      loading={loading}
-                    />
+                    <animated.div style={notificationeModalAnimation}>
+                      <Notification
+                        notifications={notifications}
+                        onClose={() => setNotificationsModalOpen(false)}
+                        onNotificationClick={handleNotificationClick}
+                        onMorePage={loadMoreNotifications}
+                        loading={loading}
+                      />
+                    </animated.div>
                   </div>
                 )}
                 <ModeToggle />
@@ -270,9 +305,11 @@ export default function GNB() {
                       onClick={() => setIsProfileModalOpen(!isProfileModalOpen)}
                     />
                   )}
-                  {isProfileModalOpen && (
+                  {isProfileVisible && (
                     <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10] lg:hidden sm:block">
-                      <Profile closeModal={handleCloseProfileModal} />
+                      <animated.div style={profileModalAnimation}>
+                        <Profile closeModal={handleCloseProfileModal} />
+                      </animated.div>
                     </div>
                   )}
                 </div>
@@ -302,9 +339,11 @@ export default function GNB() {
                       {user_info.name || user.name}
                     </p>
                   </div>
-                  {isProfileModalOpen && (
+                  {isProfileVisible && (
                     <div className="absolute top-[8rem] transform translate-x-[-15rem] z-[10] lg:block sm:hidden">
-                      <Profile closeModal={handleCloseProfileModal} />
+                      <animated.div style={profileModalAnimation}>
+                        <Profile closeModal={handleCloseProfileModal} />
+                      </animated.div>
                     </div>
                   )}
                 </div>
