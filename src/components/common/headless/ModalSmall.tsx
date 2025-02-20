@@ -72,8 +72,16 @@ const ModalFooter = ({
   isDisabled: boolean;
   onClick?: () => void;
 }) => {
+  const { onClose } = useModalContext();
+
+  const handleButtonClick = () => {
+    if (onClick) {
+      onClick();
+    }
+    onClose();
+  };
   return (
-    <ButtonWrapper id="modal-button" onClick={onClick}>
+    <ButtonWrapper id="modal-button" onClick={handleButtonClick}>
       <ButtonWrapper.Button
         className="w-full h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold text-[1.6rem] leading-[2.6rem] text-white flex items-center justify-center"
         disabled={isDisabled}
