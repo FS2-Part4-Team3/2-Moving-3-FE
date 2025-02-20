@@ -4,13 +4,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMoveCheck, getUserMoveInfoId, patchMove, postMove } from '@/api/MovesService';
+import { getMoveCheck, getMovesDetailData, getUserMoveInfoId, patchMove, postMove } from '@/api/MovesService';
 import AddressCard from '@/components/cards/AddressCard';
 import CalendarCard from '@/components/cards/CalendarCard';
 import MovingTypeCheckCard from '@/components/cards/MovingTypeCheckCard';
 import Empty from '@/components/common/Empty/Empty';
 import { MoveData } from '@/interfaces/Page/RequestForQuotationInterface';
 import { setMoveInfoId } from '@/store/slices/SignInSlice';
+import { RootState } from '@/store/store';
 import { formatDate } from '@/utils/Format';
 
 export default function RequestForQuotation() {
@@ -27,37 +28,45 @@ export default function RequestForQuotation() {
     arrival: '',
   });
   const [windowWidth, setWindowWidth] = useState<number>(0);
-  const [moveData, setMoveData] = useState<MoveData>([]);
+  const [moveData, setMoveData] = useState<MoveData>({} as MoveData);
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
   const edit = searchParams.get('edit') === 'true';
+  const moveInfoId = useSelector((state: RootState) => state.signIn.moveInfoId);
 
   useEffect(() => {
     const fetchCheckAPi = async () => {
-      try {
-        const res: MoveData = await getMoveCheck();
-        setMoveData(res);
-      } catch (err) {
-        console.error('Get move check: ', err);
-        router.push('/not-found');
+      if (moveInfoId) {
+        console.log(moveInfoId);
+        try {
+          const res: MoveData = await getMovesDetailData(moveInfoId);
+          console.log(res);
+          setMoveData(res);
+
+          console.log('IFF', edit, Object.keys(res).length > 0);
+          if (edit && Object.keys(res).length > 0) {
+            console.log('@@@@@@@@', res);
+            setMovingType(res.serviceType);
+            setMovingDate(new Date(res.date));
+            setIsMovingDate(!!new Date(res.date));
+            setIsMovingType(!!res.serviceType);
+            setRegions({
+              start: res.fromAddress,
+              arrival: res.toAddress,
+            });
+          }
+        } catch (err) {
+          console.error('Get move check: ', err);
+          router.push('/not-found');
+        }
       }
     };
     fetchCheckAPi();
-  }, []);
+  }, [moveInfoId]);
 
   useEffect(() => {
-    if (edit && moveData.length) {
-      setMovingType(moveData[0].serviceType);
-      setMovingDate(new Date(moveData[0].date));
-      setIsMovingDate(!!movingDate);
-      setIsMovingType(!!movingType);
-      setRegions({
-        start: moveData[0].fromAddress,
-        arrival: moveData[0].toAddress,
-      });
-    }
     if (type) {
       setMovingType(type);
     }
@@ -113,7 +122,7 @@ export default function RequestForQuotation() {
 
   const editQuotationMutation = useMutation({
     mutationFn: async () => {
-      await patchMove(moveData[0].id, movingType, movingDate.toISOString(), regions.start, regions.arrival);
+      await patchMove(moveData.id, movingType, movingDate.toISOString(), regions.start, regions.arrival);
     },
     onSuccess: () => {
       alert('견적 수정이 완료됐습니다!');
@@ -135,7 +144,7 @@ export default function RequestForQuotation() {
 
   return (
     <>
-      {moveData.length && !edit ? (
+      {moveData && !edit ? (
         <div className="w-full h-screen flex flex-col bg-background-200">
           <div className="bg-white dark:bg-dark-p lg:px-[26rem] lg:py-[3.2rem] md:px-[7.2rem] md:py-[2.4rem] sm:px-[2.4rem] sm:py-[2.4rem] flex flex-col gap-[2.4rem] ">
             <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B] dark:text-dark-t">견적수정</h1>
