@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import info from '@/../public/assets/toast/ic_blue_info.svg';
 
-export default function MyQuoteReceivedToast() {
+export default function MyQuoteReceivedCard() {
   return (
     <div className="w-full rounded-[1.2rem] border border-blue-200 lg:gap-[1.6rem] sm:gap-[0.8rem] lg:py-[2.4rem] lg:px-[3.2rem] sm:py-[1rem] sm:px-[2.4rem] flex items-center bg-blue-100 shadow-custom10">
       <Image src={info} alt="info" width={24} height={24} />

@@ -5,7 +5,6 @@ interface SignInState {
   id?: string;
   name?: string;
   nickname?: string;
-  accessToken?: string;
   email?: string;
   image?: string;
   phoneNumber?: string;
@@ -16,13 +15,13 @@ interface SignInState {
   areas?: string[]; // 일반 유저의 경우 내가 사는 지역
   type?: string;
   startAt?: string;
+  moveInfoId: string;
 }
 
 const initialState: SignInState = {
   id: '',
   name: '',
   nickname: '',
-  accessToken: '',
   email: '',
   image: '',
   phoneNumber: '',
@@ -33,6 +32,7 @@ const initialState: SignInState = {
   areas: [],
   type: '',
   startAt: '',
+  moveInfoId: '',
 };
 
 const signInSlice = createSlice({
@@ -40,11 +40,10 @@ const signInSlice = createSlice({
   initialState,
   reducers: {
     setUserSign(state, action: PayloadAction<SignInState>) {
-      const { id, name, accessToken, email, image, phoneNumber, serviceType, type } = action.payload;
+      const { id, name, email, image, phoneNumber, serviceType, type } = action.payload;
 
       state.id = id;
       state.name = name;
-      state.accessToken = accessToken;
       state.email = email;
       state.image = image;
       state.phoneNumber = phoneNumber;
@@ -67,27 +66,8 @@ const signInSlice = createSlice({
         state.description = '';
       }
     },
-    setProfile(state, action: PayloadAction<SignInState>) {
-      const { image, serviceType, areas, nickname, startAt, introduce, description, availableAreas } = action.payload;
-
-      state.image = image;
-      state.serviceType = serviceType;
-      state.areas = areas;
-      state.nickname = nickname;
-      state.introduce = introduce;
-      state.description = description;
-      state.startAt = startAt;
-      state.availableAreas = availableAreas;
-    },
-    setProfileNoImg(state, action: PayloadAction<SignInState>) {
-      const { serviceType, areas, nickname, startAt, introduce, description, availableAreas } = action.payload;
-      state.serviceType = serviceType;
-      state.areas = areas;
-      state.nickname = nickname;
-      state.introduce = introduce;
-      state.description = description;
-      state.startAt = startAt;
-      state.availableAreas = availableAreas;
+    setMoveInfoId(state, action: PayloadAction<string>) {
+      state.moveInfoId = action.payload;
     },
     setSignOut(state) {
       Object.assign(state, initialState);
@@ -95,5 +75,5 @@ const signInSlice = createSlice({
   },
 });
 
-export const { setUserSign, setProfile, setProfileNoImg, setSignOut } = signInSlice.actions;
+export const { setUserSign, setMoveInfoId, setSignOut } = signInSlice.actions;
 export default signInSlice.reducer;

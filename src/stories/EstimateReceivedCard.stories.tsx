@@ -12,22 +12,18 @@ const Template: StoryFn<EstimateReceivedCardProps> = args => <EstimateReceivedCa
 export const Default = Template.bind({});
 Default.args = {
   data: {
-    id: '1',
     price: 100000,
     comment: '이사는 순조롭게 진행되었습니다.',
-    moveInfo: {
-      id: 'move1',
-      type: 'SMALL',
-    },
     driver: {
-      id: 'driver1',
       name: '홍길동',
       image: 'https://example.com/image.jpg',
       applyCount: 5,
-      favoriteCount: 10,
-      score: 4.5,
+      likeCount: 10,
+      rating: 4.5,
       career: 3,
       reviewCount: 20,
+      isliked: true,
     },
+    isSpecificRequest: true,
   },
 };

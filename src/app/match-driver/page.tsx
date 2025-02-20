@@ -8,7 +8,7 @@ export default function MatchDriver() {
     <div className="w-full flex items-center justify-center mb-[7rem]">
       <div className="lg:w-[120rem] sm:w-full items-start justify-center flex flex-col">
         <div className="lg:block sm:hidden py-[3.2rem]">
-          <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-[#2B2B2B]">기사님 찾기</p>
+          <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-[#2B2B2B] dark:text-dark-t">기사님 찾기</p>
         </div>
         <div className="lg:flex lg:gap-[10rem] w-full sm:py-[1.6rem] lg:px-0 md:px-[7.2rem] sm:px-[2.4rem]">
           <div className="flex lg:flex-col lg:justify-start sm:justify-between lg:px-0 sm:px-[1rem] lg:gap-[4.6rem]">

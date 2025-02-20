@@ -1,6 +1,7 @@
 export interface FindDriverCardProps {
   data: FindDriverCardData;
   type?: 'WAITING' | 'RECEIVED';
+  designatedRequest?: 'Active' | 'Inactive';
 }
 
 export interface FindDriverCardData {

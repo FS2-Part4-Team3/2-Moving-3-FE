@@ -40,6 +40,9 @@ const config: Config = {
       'background-400': '#F4F7FB',
       'line-100': '#F2F2F2',
       'line-200': '#E6E6E6',
+      'dark-bg': '#17171B',
+      'dark-p': '#202026',
+      'dark-t': '#F7F7F7',
       white: '#FFFFFF',
       black: '#000000',
     },
@@ -63,9 +66,11 @@ const config: Config = {
         chipServiceShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.25)',
         chipAreaShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.161)',
         profileShadow: '2px 2px 8px 0px rgba(224,224,224,0.2)',
+        MapTabShadow: '4px 4px 10px 0px rgba(230, 230, 230, 0.2)',
       },
     },
   },
+  darkMode: 'class',
 };
 
 export default config;

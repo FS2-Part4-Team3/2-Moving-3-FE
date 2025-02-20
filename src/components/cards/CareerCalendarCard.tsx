@@ -55,8 +55,8 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
   };
 
   return (
-    <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] flex flex-col items-center lg:rounded-[3.2rem] md:rounded-[1.6rem] sm:rounded-[1.6rem] lg:py-[2.4rem] md:py-[1.4rem] sm:py-[1.4rem] lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.6rem] bg-white border-none ">
-      <div className="flex lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[6rem] md:h-[4.8rem] sm:h-[4.8rem] justify-between items-center px-[1.4rem] lg:py-[1.2rem] md:py-[1rem] sm:py-[1rem]">
+    <div className="lg:w-[55rem] md:w-[32.7rem] sm:w-[32.7rem] flex flex-col items-center lg:rounded-[3.2rem] md:rounded-[1.6rem] sm:rounded-[1.6rem] lg:py-[2.4rem] md:py-[1.4rem] sm:py-[1.4rem] lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.6rem] bg-white dark:bg-dark-p border-none ">
+      <div className="flex lg:w-[55rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[6rem] md:h-[4.8rem] sm:h-[4.8rem] justify-between items-center px-[1.4rem] lg:py-[1.2rem] md:py-[1rem] sm:py-[1rem]">
         <div
           className="relative lg:w-[3.6rem] lg:h-[3.6rem] md:w-[2.4rem] md:h-[2.4rem] sm:w-[2.4rem] sm:h-[2.4rem] cursor-pointer"
           onClick={handlePrev}
@@ -64,7 +64,7 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
           <Image src={left} alt="이전 달" fill />
         </div>
         <p
-          className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-black-400 font-semibold cursor-pointer"
+          className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-black-400 dark:text-dark-t font-semibold cursor-pointer"
           onClick={() => setIsDatePickerOpen(prev => !prev)}
         >
           {currentMonth.getFullYear()}.{String(currentMonth.getMonth() + 1).padStart(2, '0')}
@@ -129,7 +129,7 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
               key={index}
               onClick={() => handleDateClick(day)}
               className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center 
-             ${isDisabled ? 'cursor-not-allowed text-gray-200' : isPastDate ? 'text-black-400 cursor-pointer' : 'text-black-400 cursor-pointer'}
+             ${isDisabled ? 'cursor-not-allowed text-gray-200 dark:text-gray-300' : isPastDate ? 'text-black-400 cursor-pointer dark:text-dark-t' : 'text-black-400 cursor-pointer dark:text-dark-t'}
         ${
           day.isCurrentMonth && selectedDate && selectedDate.getDate() === day.date ? 'bg-blue-300 text-white rounded-full' : ''
         }   `}
@@ -143,7 +143,7 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
         <ButtonWrapper.Button
           disabled={!selectedDate}
           onClick={handleSelectComplte}
-          className="lg:w-[56rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] text-center lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white"
+          className="lg:w-[55rem] lg:h-[6.4rem] md:w-[27.9rem] md:h-[5.4rem] sm:w-[27.9rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] text-center lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-white"
         >
           선택완료
         </ButtonWrapper.Button>

@@ -10,5 +10,7 @@ export default function ReceiveQuoteTextClient() {
     return <div>Loading...</div>;
   }
 
-  return <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400">전체 {movesList.totalCount}건</p>;
+  return (
+    <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">전체 {movesList.totalCount}건</p>
+  );
 }

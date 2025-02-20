@@ -7,6 +7,7 @@ import search from '@/../public/assets/common/searchbar/ic_search.svg';
 import x from '@/../public/assets/common/searchbar/ic_x_circle.svg';
 import { setKeyword } from '@/store/slices/driversSlice';
 import { InputWrapper } from '../headless/Input';
+import SpeechToTextSearch from './SpeechToTextSearch';
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -14,10 +15,10 @@ export default function SearchBar() {
   const [value, setValue] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      dispatch(setKeyword(value));
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setValue(newValue);
+    dispatch(setKeyword(newValue));
   };
 
   return (
@@ -28,9 +29,9 @@ export default function SearchBar() {
           <Image src={search} alt="search" width={24} height={24} className="lg:hidden sm:block" />
         </>
       )}
-      <InputWrapper value={value} onChange={e => setValue(e.target.value)}>
+      <InputWrapper value={value} onChange={handleChange}>
         <InputWrapper.Input
-          className="w-full font-normal lg:text-[2rem] sm:text-[1.4rem] md:leading-[3.2rem] sm:leading-[2.4rem] placeholder:text-gray-400 focus:outline-none bg-background-200"
+          className="w-full font-normal lg:text-[2rem] sm:text-[1.4rem] md:leading-[3.2rem] sm:leading-[2.4rem] placeholder:text-gray-400 focus:outline-none bg-background-200 text-black-400"
           placeholder="텍스트를 입력해주세요"
           onFocus={() => {
             setIsFocused(true);
@@ -38,7 +39,6 @@ export default function SearchBar() {
           onBlur={() => {
             setIsFocused(false);
           }}
-          onKeyDown={handleKeyDown}
         />
       </InputWrapper>
       {isFocused && (
@@ -52,6 +52,7 @@ export default function SearchBar() {
             onMouseDown={e => {
               e.preventDefault();
               setValue('');
+              dispatch(setKeyword(''));
             }}
           />
           <Image src={search} alt="search" width={36} height={36} className="lg:block sm:hidden" />
@@ -64,11 +65,13 @@ export default function SearchBar() {
             onMouseDown={e => {
               e.preventDefault();
               setValue('');
+              dispatch(setKeyword(''));
             }}
           />
           <Image src={search} alt="search" width={24} height={24} className="lg:hidden sm:block" />
         </>
       )}
+      <SpeechToTextSearch setText={value => setValue(value)} />
     </div>
   );
 }

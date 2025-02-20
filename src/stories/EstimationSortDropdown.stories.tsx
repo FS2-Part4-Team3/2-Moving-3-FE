@@ -5,6 +5,6 @@ export default {
   component: EstimationSortDropdown,
 };
 
-const Template = () => <EstimationSortDropdown />;
+const Template = () => <EstimationSortDropdown onChange={change => console.log(change)} />;
 
 export const Default = Template.bind({});

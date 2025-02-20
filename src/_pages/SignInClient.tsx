@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
+import { getUserMoveInfoId } from '@/api/MovesService';
 import { postSignInData } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
-import { setUserSign } from '@/store/slices/SignInSlice';
+import { setProfile } from '@/store/slices/ProfileSlice';
+import { setMoveInfoId, setUserSign } from '@/store/slices/SignInSlice';
 
 export default function SignInClient() {
   const dispatch = useDispatch();
@@ -61,13 +63,11 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
-      localStorage.setItem('accessToken', res.accessToken);
       dispatch(
         setUserSign({
           id: res.person.id,
           name: res.person.name,
           nickname: userType === 'driver' ? res.person.nickname : undefined,
-          accessToken: res.accessToken,
           email: res.person.email,
           image: res.person.image,
           phoneNumber: res.person.phoneNumber,
@@ -78,8 +78,30 @@ export default function SignInClient() {
           areas: userType === 'user' ? res.person.areas : undefined,
           type: res.person.type,
           startAt: userType === 'driver' ? res.person.startAt : '',
+          moveInfoId: '',
         }),
       );
+      dispatch(
+        setProfile({
+          serviceType: res.person.serviceType,
+          availableAreas: res.person.availableAreas,
+          areas: res.person.areas,
+        }),
+      );
+
+      if (userType === 'user') {
+        try {
+          const moveInfoRes = await getUserMoveInfoId();
+          const moveInfoId = moveInfoRes?.id;
+
+          if (moveInfoId) {
+            dispatch(setMoveInfoId(moveInfoId));
+          }
+        } catch (error) {
+          console.error('moveInfoId 가져오기 실패:', error);
+        }
+      }
+
       if (userType === 'user' && res.person.areas?.length && res.person.serviceType?.length) {
         router.push('/normal/match-driver');
       } else if (userType === 'user' && res.person.areas && res.person.serviceType) {
@@ -116,11 +138,11 @@ export default function SignInClient() {
         <div className="flex flex-col gap-[0.8rem] items-end">
           <InputWrapper id="signin-email" type="text" value={email} onChange={handleEmailChange}>
             <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
-              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
+              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400 dark:text-dark-t">
                 이메일
               </InputWrapper.Label>
               <InputWrapper.Input
-                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 p-[1.4rem] bg-white font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none ${
+                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 p-[1.4rem] bg-white font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none dark:bg-dark-p ${
                   emailError ? 'focus:border-red-200' : 'focus:border-blue-300'
                 }`}
                 placeholder="이메일을 입력해 주세요"
@@ -136,16 +158,16 @@ export default function SignInClient() {
         <div className="flex flex-col gap-[0.8rem] items-end">
           <InputWrapper id="signin-password" type={viewPw ? 'text' : 'password'} value={password} onChange={handlePasswordChange}>
             <div className="flex flex-col lg:gap-[1.6rem] sm:gap-[0.8rem]">
-              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400">
+              <InputWrapper.Label className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.4rem] sm:leading-[2.4rem] text-black-400 dark:text-dark-t">
                 비밀번호
               </InputWrapper.Label>
               <div
-                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 focus:outline-none p-[1.4rem] bg-white flex justify-between ${
+                className={`lg:w-[64rem] lg:h-[6.4rem] sm:w-[32.7rem] rounded-[1.6rem] border border-line-200 focus:outline-none p-[1.4rem] bg-white dark:bg-dark-p flex justify-between ${
                   passwordError ? 'focus-within:border-red-200' : 'focus-within:border-blue-300'
                 }`}
               >
                 <InputWrapper.Input
-                  className="w-full font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none"
+                  className="w-full font-normal lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] placeholder:text-gray-400 focus:outline-none bg-white dark:bg-dark-p"
                   placeholder="비밀번호를 입력해 주세요"
                 />
                 <Image
