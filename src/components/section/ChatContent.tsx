@@ -16,6 +16,7 @@ export default function ChatContent() {
   const { isTyping, typingUser } = useSocket();
   const { ref, inView } = useInView();
   const chat = useSelector((state: RootState) => state.chat);
+  const user = useSelector((state: RootState) => state.signIn);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const PAGE_SIZE = 12;
   const scrollToBottom = () => {
@@ -62,7 +63,7 @@ export default function ChatContent() {
 
   const initialMessages = chatMessages?.pages.flatMap(page => page.data.list) ?? [];
   const messages = [...initialMessages].reverse();
-
+  console.log(messages);
   return (
     <div className="flex flex-col h-screen">
       <div className="w-[calc(100vw-45rem)]">
@@ -79,14 +80,26 @@ export default function ChatContent() {
             {messages.map((message: Chat, index: number) => (
               <div
                 key={`${message.id || ''}-${index}`}
-                className={`flex ${message.direction === 'USER_TO_DRIVER' ? 'flex-row-reverse' : 'flex-row'} items-end gap-[1rem]`}
+                className={`flex ${
+                  user.type === 'user'
+                    ? message.direction === 'USER_TO_DRIVER'
+                      ? 'flex-row-reverse'
+                      : 'flex-row'
+                    : message.direction === 'USER_TO_DRIVER'
+                      ? 'flex-row'
+                      : 'flex-row-reverse'
+                } items-end gap-[1rem]`}
               >
                 <div className={`max-w-[50%]`}>
                   <div
                     className={`inline-block rounded-[1.6rem] px-[1.6rem] py-[1.2rem] ${
-                      message.direction === 'USER_TO_DRIVER'
-                        ? 'bg-blue-200 text-white rounded-tr-none'
-                        : 'bg-white text-black-400 rounded-tl-none'
+                      user.type === 'user'
+                        ? message.direction === 'USER_TO_DRIVER'
+                          ? 'bg-blue-200 text-white rounded-tr-none'
+                          : 'bg-white text-black-400 rounded-tl-none'
+                        : message.direction === 'USER_TO_DRIVER'
+                          ? 'bg-white text-black-400 rounded-tl-none'
+                          : 'bg-blue-200 text-white rounded-tr-none'
                     }`}
                   >
                     <p className="text-[1.6rem] break-words">{message.message}</p>
