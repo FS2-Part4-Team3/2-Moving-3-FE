@@ -1,11 +1,12 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import left from '@/../public/assets/calendar/arrow-left.svg';
 import right from '@/../public/assets/calendar/arrow-right.svg';
 import weekdays from '@/constants/weekdays';
-import type { CalendarCardProps, CareerCalendarCardProps, Day } from '@/interfaces/Card/CalendarCardInterface';
+import type { CareerCalendarCardProps, Day } from '@/interfaces/Card/CalendarCardInterface';
 import { getDaysInMonth } from '@/utils/Format';
 import { ButtonWrapper } from '../common/headless/Button';
 
@@ -13,12 +14,15 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(initialCareerDate);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [direction, setDirection] = useState<1 | -1>(1);
 
   const handlePrev = () => {
+    setDirection(-1);
     setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   };
 
   const handleNext = () => {
+    setDirection(1);
     setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
   };
 
@@ -52,6 +56,23 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
 
   const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentMonth(new Date(Number(e.target.value), currentMonth.getMonth(), 1));
+  };
+
+  const variants = {
+    enter: (direction: 1 | -1) => ({
+      x: direction * 100,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.4 },
+    },
+    exit: (direction: 1 | -1) => ({
+      x: direction * -100,
+      opacity: 0,
+      transition: { duration: 0.4 },
+    }),
   };
 
   return (
@@ -106,39 +127,49 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
         </div>
       )}
 
-      <div className="grid grid-cols-7 text-center lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[6.8rem] py-[0.2rem] lg:px-[3.6rem] md:px-[0.9rem] sm:px-[0.9rem] justify-items-center">
-        {weekdays.map((day, index) => (
-          <div
-            key={index}
-            className="lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-gray-500 flex justify-center items-center"
-          >
-            {day.name}
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-7 text-center lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] py-[0.2rem] lg:px-[3.6rem] md:px-[0.9rem] sm:px-[0.9rem] justify-items-center lg:gap-y-[3rem] md:gap-y-[1.2rem] sm:gap-y-[1.2rem]">
-        {daysInMonth.map((day, index) => {
-          const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
-
-          const isDisabled = !day.isCurrentMonth || selected > today;
-          const isPastDate = selected < today;
-          return (
+      <motion.div
+        key={currentMonth.toString()}
+        custom={direction}
+        variants={variants}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        className="w-full"
+      >
+        <div className="grid grid-cols-7 text-center lg:w-[55rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[6.8rem] py-[0.2rem] lg:px-[3.6rem] md:px-[0.9rem] sm:px-[0.9rem] justify-items-center">
+          {weekdays.map((day, index) => (
             <div
               key={index}
-              onClick={() => handleDateClick(day)}
-              className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center 
+              className="lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-gray-500 flex justify-center items-center"
+            >
+              {day.name}
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-7 text-center lg:w-[55rem] md:w-[32.7rem] sm:w-[32.7rem] py-[0.2rem] lg:px-[3.6rem] md:px-[0.9rem] sm:px-[0.9rem] justify-items-center lg:gap-y-[3rem] md:gap-y-[1.2rem] sm:gap-y-[1.2rem]">
+          {daysInMonth.map((day, index) => {
+            const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day.date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const isDisabled = !day.isCurrentMonth || selected > today;
+            const isPastDate = selected < today;
+            return (
+              <div
+                key={index}
+                onClick={() => handleDateClick(day)}
+                className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center 
              ${isDisabled ? 'cursor-not-allowed text-gray-200 dark:text-gray-300' : isPastDate ? 'text-black-400 cursor-pointer dark:text-dark-t' : 'text-black-400 cursor-pointer dark:text-dark-t'}
         ${
           day.isCurrentMonth && selectedDate && selectedDate.getDate() === day.date ? 'bg-blue-300 text-white rounded-full' : ''
         }   `}
-            >
-              {day.date}
-            </div>
-          );
-        })}
-      </div>
+              >
+                {day.date}
+              </div>
+            );
+          })}
+        </div>
+      </motion.div>
       <ButtonWrapper id="calendar button">
         <ButtonWrapper.Button
           disabled={!selectedDate}
