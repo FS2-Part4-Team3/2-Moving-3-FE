@@ -1,25 +1,48 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import close from '@/../public/assets/common/icon_X.svg';
 import type { ModalContextType } from '@/interfaces/CommonComp/HeadlessInterface';
 import { ButtonWrapper } from './Button';
 
 const ModalSmallContext = createContext<ModalContextType | undefined>(undefined);
 
-export const ModalSmallWrapper = ({ children, onClose }: ModalContextType & { children: React.ReactNode }) => {
-  const contextValue = { onClose };
+const modalVariants = {
+  hidden: { y: '100%', opacity: 0 },
+  visible: { y: '0%', opacity: 1, transition: { type: 'tween', duration: 0.4 } },
+  exit: { y: '100%', opacity: 0, transition: { type: 'tween', duration: 0.4 } },
+};
 
-  return (
-    <ModalSmallContext.Provider value={contextValue}>
+export const ModalSmallWrapper = ({ children, onClose }: ModalContextType & { children: React.ReactNode }) => {
+  const [isClosing, setIsClosing] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleClose = () => {
+    setIsClosing(true);
+  };
+
+  return isVisible ? (
+    <ModalSmallContext.Provider value={{ onClose: handleClose }}>
       <div className="fixed inset-0 flex items-end justify-center bg-[#000000] bg-opacity-50">
-        <div className="bg-white dark:bg-dark-p px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-t-[3.2rem] w-full lg:gap-[4rem] gap-[2.6rem] flex flex-col">
+        <motion.div
+          initial="hidden"
+          animate={isClosing ? 'exit' : 'visible'}
+          variants={modalVariants}
+          onAnimationComplete={() => {
+            if (isClosing) {
+              setIsVisible(false);
+              onClose();
+            }
+          }}
+          className="bg-white dark:bg-dark-p px-[2.4rem] pt-[3.2rem] pb-[4rem] rounded-t-[3.2rem] w-full lg:gap-[4rem] gap-[2.6rem] flex flex-col"
+        >
           {children}
-        </div>
+        </motion.div>
       </div>
     </ModalSmallContext.Provider>
-  );
+  ) : null;
 };
 
 const useModalContext = () => {
