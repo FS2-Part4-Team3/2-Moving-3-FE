@@ -56,9 +56,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       }
     });
 
-    newSocket.on('disconnect', () => {
-      console.log('Socket disconnected');
-    });
+    newSocket.on('disconnect', () => {});
 
     newSocket.on('typing', (data: { id: string }) => {
       setIsTyping(true);

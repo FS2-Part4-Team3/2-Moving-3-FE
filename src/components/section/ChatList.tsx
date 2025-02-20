@@ -49,12 +49,14 @@ export default function ChatList() {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
 
-  if (chatList?.pages.length) {
-    const lastId = chatList.pages.flatMap(page => page.list).shift();
-    if (lastId) {
-      dispatch(setChat({ id: lastId }));
+  useEffect(() => {
+    if (chatList?.pages.length) {
+      const lastId = chatList.pages.flatMap(page => page.list).shift();
+      if (lastId) {
+        dispatch(setChat({ id: lastId }));
+      }
     }
-  }
+  }, [chatList?.pages]);
 
   useEffect(() => {
     chatList?.pages.map(chats => {
@@ -75,7 +77,7 @@ export default function ChatList() {
         });
       }
     });
-  });
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -84,7 +86,7 @@ export default function ChatList() {
   if (error) {
     console.error(error);
   }
-  console.log(chat.id);
+
   return (
     <div className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] h-screen flex flex-col border-r-[0.3rem] border-line-100">
       <p className="lg:block md:hidden sm:hidden text-[2.4rem] font-semibold ml-[2rem] mt-[2rem]">메세지 목록</p>
