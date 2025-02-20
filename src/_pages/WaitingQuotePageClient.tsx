@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getUserEstimationData } from '@/api/EstimationService';
 import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
+import Empty from '@/components/common/Empty/Empty';
 import { WaitingQuoteListResponse } from '@/interfaces/Page/WaitingQuoteClientInterface';
 
 export default function WaitingQuotePageClient() {
@@ -43,7 +44,9 @@ export default function WaitingQuotePageClient() {
   }
 
   if (!waitingQuote || waitingQuote.pages[0].totalCount === 0) {
-    return <div>Empty</div>;
+    <div className="mt-[5rem]">
+      <Empty type="WaitingQuote" />;
+    </div>;
   }
 
   return (

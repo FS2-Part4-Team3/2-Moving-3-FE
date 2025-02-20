@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getDibsDriverListData } from '@/api/DriverService';
 import DibsDriverPageCard from '@/components/cards/DibsDriverPageCard';
+import Empty from '@/components/common/Empty/Empty';
 import { DibsDriverListResponse } from '@/interfaces/API/DriverServiceInterface';
 
 export default function DibsDriverPageClient() {
@@ -44,7 +45,11 @@ export default function DibsDriverPageClient() {
   }
 
   if (!dibsDrivers || dibsDrivers.pages[0].list.length === 0) {
-    return <div className="w-full h-[56rem] flex items-center justify-center">EMPTY</div>;
+    return (
+      <div className="w-full h-[56rem] flex items-center justify-center">
+        <Empty type="DibsDriver" />
+      </div>
+    );
   }
 
   return (

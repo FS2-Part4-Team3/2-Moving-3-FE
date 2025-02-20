@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getEstimationsDriver } from '@/api/EstimationService';
 import ManageQuotationCard from '@/components/cards/ManageQuotationCard';
+import Empty from '@/components/common/Empty/Empty';
 import { SentQuoteResponse } from '@/interfaces/Page/SentQuoteInterface';
 
 export default function MyQuoteSentPageClient() {
@@ -44,7 +45,11 @@ export default function MyQuoteSentPageClient() {
   }
 
   if (!sentQuoteData || !sentQuoteData.pages[0].estimations.length) {
-    return <div>Empty</div>;
+    return (
+      <div className="mt-[5rem]">
+        <Empty type="SendQuote" />;
+      </div>
+    );
   }
 
   return (
