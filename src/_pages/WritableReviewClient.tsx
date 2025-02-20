@@ -1,5 +1,6 @@
 'use client';
 
+import { animated, useTransition } from '@react-spring/web';
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { getReviewableEstimations } from '@/api/EstimationService';
@@ -62,6 +63,13 @@ export default function WritableReviewClient() {
     setCurrentPage(page);
   };
 
+  const transitions = useTransition(currentPage, {
+    from: { opacity: 0, transform: 'translateX(100%)' },
+    enter: { opacity: 1, transform: 'translateX(0%)' },
+    leave: { opacity: 0, transform: 'translateX(-100%)' },
+    config: { tension: 150, friction: 25 },
+  });
+
   if (isLoading) {
     return <div>Loading</div>;
   }
@@ -75,7 +83,14 @@ export default function WritableReviewClient() {
       {reviewableEstimations?.estimations?.length ? (
         <>
           <div className="lg:grid lg:grid-cols-2 lg:gap-y-[4.8rem] lg:gap-x-[4rem] md:flex md:flex-col sm:flex sm:flex-col md:gap-y-[3.2rem] sm:gap-y-[3.2rem]">
-            {reviewableEstimations?.estimations.map(estimation => <WritableReviewCard estimation={estimation} />)}
+            {transitions(
+              (style, page) =>
+                page === currentPage && (
+                  <animated.div style={style}>
+                    {reviewableEstimations?.estimations.map(estimation => <WritableReviewCard estimation={estimation} />)}
+                  </animated.div>
+                ),
+            )}
           </div>
           <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </>
