@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
 import { getDriverListData } from '@/api/DriverService';
 import FindDriverCard from '@/components/cards/FindDriverCard';
+import FindDriverCardSkeleton from '@/components/skeleton/FindDriverCardSkeleton';
 import type { DriverListResponse } from '@/interfaces/API/DriverServiceInterface';
 import type { RootState } from '@/store/store';
 
@@ -42,7 +43,13 @@ export default function MatchDriverClient() {
   }, [inView]);
 
   if (driversLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col lg:gap-[4.8rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <FindDriverCardSkeleton key={index} />
+        ))}
+      </div>
+    );
   }
 
   if (driversError) {

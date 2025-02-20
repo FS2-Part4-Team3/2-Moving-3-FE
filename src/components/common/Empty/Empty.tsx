@@ -23,9 +23,15 @@ export default function Empty({ type }: EmptyProps) {
       text2 = '프로필을 등록하고 요청을 받아보세요';
       buttonText = '프로필 등록하기';
       break;
-    case 'ReceiveQuote':
+    case 'WaitingQuote':
       image = folder;
       text = '아직 받은 요청이 없어요!';
+      text2 = '';
+      buttonText = '';
+      break;
+    case 'ReceivedQuote':
+      image = folder;
+      text = '완료된 견적이 없어요!';
       text2 = '';
       buttonText = '';
       break;
@@ -61,6 +67,27 @@ export default function Empty({ type }: EmptyProps) {
       text2 = '이사 견적 등록 후 이용해주세요.';
       buttonText = '견적 요청하기';
       link = () => router.push('/normal/request-quote');
+      break;
+    case 'SendQuote':
+      image = folder;
+      text = '보낸 견적이 없어요!';
+      text2 = '고객님께 견적을 보낸 후 이용해주세요.';
+      buttonText = '견적 보내러 가기';
+      link = () => router.push('/driver/receive-quote');
+      break;
+    case 'RejectQuote':
+      image = folder;
+      text = '반려한 요청이 없어요!';
+      text2 = '지정 견적 요청을 반려한 후에 이용해주세요.';
+      buttonText = '';
+      break;
+    case 'DibsDriver':
+      image = folder;
+      text = '찜한 기사님이 없어요!';
+      text2 = '';
+      buttonText = '기사님 보러 가기';
+      link = () => router.push('/normal/match-driver');
+      break;
   }
 
   return (

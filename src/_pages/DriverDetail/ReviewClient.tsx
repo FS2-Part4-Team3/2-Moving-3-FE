@@ -12,6 +12,7 @@ import ReviewSummaryCard from '@/components/cards/ReviewSummaryCard';
 import Empty from '@/components/common/Empty/Empty';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import Pagination from '@/components/common/pagination/pagination';
+import DriverReviewCardSkeleton from '@/components/skeleton/DriverReviewCardSkeleton';
 import type { DriverReviewData, ReviewClientProps } from '@/interfaces/Page/DriverDetailInterface';
 
 export default function ReviewClient({ id }: ReviewClientProps) {
@@ -117,7 +118,9 @@ export default function ReviewClient({ id }: ReviewClientProps) {
             (style, page) =>
               page === currentPage && (
                 <animated.div style={style}>
-                  {reviewData?.list && reviewData.list.map((review, index) => <DriverReviewCard key={index} review={review} />)}
+                  {reviewData?.list
+            ? reviewData.list.map((review, index) => <DriverReviewCard key={index} review={review} />)
+            : Array.from({ length: 3 }).map((_, index) => <DriverReviewCardSkeleton key={index} />)}
                 </animated.div>
               ),
           )}

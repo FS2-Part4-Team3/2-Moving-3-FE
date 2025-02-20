@@ -3,8 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { getUserMoveInfoId } from '@/api/MovesService';
 import { getUserData } from '@/api/UserService';
-import { setUserSign } from '@/store/slices/SignInSlice';
+import { setMoveInfoId, setUserSign } from '@/store/slices/SignInSlice';
 
 export default function CallBackGoogle() {
   const router = useRouter();
@@ -39,8 +40,23 @@ export default function CallBackGoogle() {
             availableAreas: res.type === 'driver' ? res.availableAreas : undefined,
             areas: res.type === 'user' ? res.areas : undefined,
             type: res.type,
+            moveInfoId: '',
           }),
         );
+
+        if (res.type === 'user') {
+          try {
+            const moveInfoRes = await getUserMoveInfoId();
+            const moveInfoId = moveInfoRes?.id;
+
+            if (moveInfoId) {
+              dispatch(setMoveInfoId(moveInfoId));
+            }
+          } catch (error) {
+            console.error('moveInfoId 가져오기 실패:', error);
+          }
+        }
+
         if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
           router.push('/normal/profile-register');
         } else if (res.type === 'user' && res.areas && res.serviceTypes) {

@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { getMovesDetailData } from '@/api/MovesService';
-import type { EstimationInformationCard } from '@/interfaces/Card/EstimateReceivedCardInterface';
+import { EstimationInformationCardProps } from '@/interfaces/Card/EstimateReceivedCardInterface';
 import { RootState } from '@/store/store';
 import { DateIncludeTimeFormat, DateWithoutDayWeeKFormat } from '@/utils/Format';
 import Empty from '../common/Empty/Empty';
@@ -15,7 +15,7 @@ enum MoveType {
   OFFICE = '사무실이사',
 }
 
-export default function EstimationInformationCard({ data }: EstimationInformationCard) {
+export default function EstimationInformationCard({ data }: EstimationInformationCardProps) {
   const moveInfoId = useSelector((state: RootState) => state.signIn.moveInfoId);
   const pathname = usePathname();
 

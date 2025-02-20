@@ -17,13 +17,13 @@ const mockReviewData: MyReviewItem = {
   createdAt: '2025-01-15T08:00:00Z',
   comment: '이사는 잘 마쳤습니다!',
   score: 4,
-  driver: {
-    name: '김코드',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhNJEXqIaNHfAlHrN588FXk4quCwsg0mz19g&s',
-  },
   estimation: {
     price: 150000,
-    moveInfos: {
+    driver: {
+      name: '김코드',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhNJEXqIaNHfAlHrN588FXk4quCwsg0mz19g&s',
+    },
+    moveInfo: {
       serviceType: 'SMALL',
       date: '2025-01-20',
       isSpecificRequest: true,

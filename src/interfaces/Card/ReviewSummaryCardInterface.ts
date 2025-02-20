@@ -7,6 +7,6 @@ export interface ReviewSummaryResponse {
   createdAt: string;
   updatedAt: string;
   deletedAt: string;
-  summaryReview: string;
+  summary: string;
   driverId: string;
 }
