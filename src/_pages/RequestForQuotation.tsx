@@ -39,15 +39,11 @@ export default function RequestForQuotation() {
   useEffect(() => {
     const fetchCheckAPi = async () => {
       if (moveInfoId) {
-        console.log(moveInfoId);
         try {
           const res: MoveData = await getMovesDetailData(moveInfoId);
-          console.log(res);
           setMoveData(res);
 
-          console.log('IFF', edit, Object.keys(res).length > 0);
           if (edit && Object.keys(res).length > 0) {
-            console.log('@@@@@@@@', res);
             setMovingType(res.serviceType);
             setMovingDate(new Date(res.date));
             setIsMovingDate(!!new Date(res.date));
