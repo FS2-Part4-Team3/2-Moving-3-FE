@@ -45,9 +45,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     const newSocket = io(`${BASE_URL}`, {
       transports: ['websocket'],
-      reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
+      withCredentials: true,
     });
 
     setSocket(newSocket);
@@ -55,7 +53,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     newSocket.on('connect', () => {
       console.log('Socket connected');
       if (user.id && chat.id) {
-        newSocket.emit('subscribe', { userId: user.id, chatId: chat.id });
+        newSocket.emit('subscribe');
+        console.log('Subscribe');
       }
     });
 

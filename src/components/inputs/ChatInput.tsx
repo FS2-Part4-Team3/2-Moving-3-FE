@@ -19,14 +19,14 @@ export default function ChatInput() {
 
   const handleTyping = useCallback(() => {
     if (socket) {
-      socket.emit('typing', { id: user.id });
+      socket.emit('typing', chat.id);
 
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
       }
 
       typingTimeoutRef.current = setTimeout(() => {
-        socket.emit('stopped_typing');
+        socket.emit('stopped_typing', chat.id);
       }, 1000);
     }
   }, [socket, user.id]);
@@ -36,12 +36,10 @@ export default function ChatInput() {
       const direction: Direction = user.type === 'user' ? 'USER_TO_DRIVER' : 'DRIVER_TO_USER';
 
       const newMessage = {
-        id: Date.now().toString(),
         userId: user.type === 'user' ? user.id : chat.id,
         driverId: user.type === 'driver' ? user.id : chat.id,
         message: message.trim(),
         direction: direction,
-        createdAt: new Date().toISOString(),
       };
 
       queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {
@@ -60,13 +58,12 @@ export default function ChatInput() {
         }
 
         const newPages = [...oldData.pages];
-        const lastPageIndex = newPages.length - 1;
 
-        newPages[lastPageIndex] = {
-          ...newPages[lastPageIndex],
+        newPages[0] = {
+          ...newPages[0],
           data: {
-            ...newPages[lastPageIndex].data,
-            list: [...(newPages[lastPageIndex].data.list || []), newMessage],
+            ...newPages[0].data,
+            list: [newMessage, ...(newPages[0].data.list || [])],
           },
         };
 
@@ -75,15 +72,17 @@ export default function ChatInput() {
           pages: newPages,
         };
       });
-      console.log(newMessage);
+
       socket.emit('chat', newMessage, (error: any) => {
         if (error) {
           console.error('메세지 전송 실패', error);
           return;
         }
       });
+
       setMessage('');
-      socket.emit('stopped_typing');
+
+      socket.emit('stopped_typing', chat.id);
     }
   };
 

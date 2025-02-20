@@ -60,9 +60,8 @@ export default function ChatContent() {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const messages = [...(chatMessages?.pages.flatMap(page => page.data.list) ?? [])];
-  console.log(chatMessages);
-  console.log(messages);
+  const initialMessages = chatMessages?.pages.flatMap(page => page.data.list) ?? [];
+  const messages = [...initialMessages].reverse();
 
   return (
     <div className="flex flex-col h-screen">
