@@ -6,16 +6,16 @@ import signInReducer from './slices/SignInSlice';
 import chatReducer from './slices/chatSlice';
 import driversReducer from './slices/driversSlice';
 import movesReducer from './slices/movesSlice';
-import myQuotationReducer from './slices/myQuotationSlice';
+import reviewReducer from './slices/reviewAnalysisSlice';
 
 const rootReducer = combineReducers({
   drivers: driversReducer,
   signIn: signInReducer,
   moves: movesReducer,
-  myQuotation: myQuotationReducer,
   profile: profileReducer,
   info: infoReducer,
   chat: chatReducer,
+  review: reviewReducer,
 });
 
 function createNoopStorage() {
@@ -42,7 +42,7 @@ if (typeof window !== 'undefined') {
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['signIn', 'myQuotation', 'profile', 'info'],
+  whitelist: ['signIn', 'profile', 'info'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,5 +1,5 @@
-export interface EstimationInformationCard {
-  data: {
+export interface EstimationInformationCardProps {
+  data?: {
     id?: string;
     createdAt: string;
     serviceType?: 'SMALL' | 'HOME' | 'OFFICE';

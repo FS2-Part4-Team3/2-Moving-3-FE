@@ -13,7 +13,6 @@ export default function Notification({ notifications, onClose, onNotificationCli
   // TODO: 기사님 이름 수정 필요
   // TODO: 이사 종류 수정 필요
   // TODO: 어디에서 어디로 이사하는지 수정 필요
-  // TODO: 알림 다크모드 색상 추가 필요
 
   const queryClient = useQueryClient();
   const [moveInfo, setMoveInfo] = useState<{ fromAddress?: string; toAddress?: string }>({});
@@ -153,11 +152,11 @@ export default function Notification({ notifications, onClose, onNotificationCli
                 <div
                   key={notification.id}
                   className={`flex flex-col py-[1.6rem] px-[2.4rem] gap-[0.2rem] cursor-pointer 
-                  ${notification.isRead ? 'bg-background-300' : 'bg-white'} 
+                  ${notification.isRead ? 'bg-background-300 dark:bg-dark-bg' : 'bg-white dark:bg-dark-p'} 
                   ${index !== notifications.length - 1 ? 'border-b border-line-200' : ''}`}
                   onClick={() => handleClick(notification.id, notification.isRead)}
                 >
-                  <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400">
+                  <p className="font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
                     {fir_message}
                     <span className="text-blue-300">{blue_message}</span>
                     {sec_message}
@@ -169,7 +168,7 @@ export default function Notification({ notifications, onClose, onNotificationCli
               );
             })}
             <ButtonWrapper id="notification-page-load" onClick={onMorePage}>
-              <ButtonWrapper.Button className="bg-white rounded-[0.8rem] gap-[0.4rem] flex w-fit mt-[1rem] p-[1rem] font-semibold text-[1.8rem] leading-[2.6rem] border border-line-200">
+              <ButtonWrapper.Button className="bg-white dark:bg-dark-p rounded-[0.8rem] gap-[0.4rem] flex w-fit mt-[1rem] p-[1rem] font-semibold text-[1.8rem] leading-[2.6rem] border border-line-200">
                 더보기
                 {loading && <Image src={loading_img} alt="loading" width={24} height={24} />}
               </ButtonWrapper.Button>

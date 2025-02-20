@@ -6,11 +6,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
+import { getUserMoveInfoId } from '@/api/MovesService';
 import { postSignInData } from '@/api/UserService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import { setProfile } from '@/store/slices/ProfileSlice';
-import { setUserSign } from '@/store/slices/SignInSlice';
+import { setMoveInfoId, setUserSign } from '@/store/slices/SignInSlice';
 
 export default function SignInClient() {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ export default function SignInClient() {
           areas: userType === 'user' ? res.person.areas : undefined,
           type: res.person.type,
           startAt: userType === 'driver' ? res.person.startAt : '',
+          moveInfoId: '',
         }),
       );
       dispatch(
@@ -86,6 +88,20 @@ export default function SignInClient() {
           areas: res.person.areas,
         }),
       );
+
+      if (userType === 'user') {
+        try {
+          const moveInfoRes = await getUserMoveInfoId();
+          const moveInfoId = moveInfoRes?.id;
+
+          if (moveInfoId) {
+            dispatch(setMoveInfoId(moveInfoId));
+          }
+        } catch (error) {
+          console.error('moveInfoId 가져오기 실패:', error);
+        }
+      }
+
       if (userType === 'user' && res.person.areas?.length && res.person.serviceType?.length) {
         router.push('/normal/match-driver');
       } else if (userType === 'user' && res.person.areas && res.person.serviceType) {

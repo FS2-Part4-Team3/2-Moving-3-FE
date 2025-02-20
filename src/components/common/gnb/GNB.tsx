@@ -56,28 +56,30 @@ export default function GNB() {
   };
 
   useEffect(() => {
-    fetchNotifications(page);
+    if (user.id) {
+      fetchNotifications(page);
 
-    const newSocket = io(`${BASE_URL}`, {
-      transports: ['websocket'],
-    });
+      const newSocket = io(`${BASE_URL}`, {
+        transports: ['websocket'],
+      });
 
-    newSocket.on('connect', () => {
-      newSocket.emit('subscribe');
-    });
+      newSocket.on('connect', () => {
+        newSocket.emit('subscribe');
+      });
 
-    newSocket.on('notification', (data: NotificationDataStructure) => {
-      if (data.type === 'NOTIFICATIONS_READ') {
-        return;
-      } else if (data.type === 'NEW_NOTIFICATION') {
-        setNotifications(prev => [data.data, ...prev]);
-      }
-    });
+      newSocket.on('notification', (data: NotificationDataStructure) => {
+        if (data.type === 'NOTIFICATIONS_READ') {
+          return;
+        } else if (data.type === 'NEW_NOTIFICATION') {
+          setNotifications(prev => [data.data, ...prev]);
+        }
+      });
 
-    return () => {
-      newSocket.disconnect();
-    };
-  }, [page]);
+      return () => {
+        newSocket.disconnect();
+      };
+    }
+  }, [page, user.id]);
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -269,10 +271,16 @@ export default function GNB() {
                         alt="profile"
                         width={36}
                         height={36}
-                        className="lg:block sm:hidden"
+                        className="lg:block sm:hidden cursor-pointer rounded-full"
                       />
                     ) : (
-                      <Image src={profile} alt="profile" width={36} height={36} className="lg:block sm:hidden" />
+                      <Image
+                        src={profile}
+                        alt="profile"
+                        width={36}
+                        height={36}
+                        className="lg:block sm:hidden cursor-pointer rounded-full"
+                      />
                     )}
                     <p className="font-medium text-[1.8rem] leading-[2.6rem] text-black-400 dark:text-dark-t lg:block sm: hidden">
                       {user_info.name || user.name}
