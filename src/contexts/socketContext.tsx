@@ -15,6 +15,8 @@ interface SocketContextType {
 }
 
 interface Chat {
+  id: string;
+  createdAt: string;
   userId: string;
   driverId: string;
   direction: Direction;
@@ -39,14 +41,26 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
   useEffect(() => {
+    if (!BASE_URL) return;
+
     const newSocket = io(`${BASE_URL}`, {
       transports: ['websocket'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
     });
+
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
-      newSocket.emit('subscribe', { userId: user.id, chatId: chat.id });
       console.log('Socket connected');
+      if (user.id && chat.id) {
+        newSocket.emit('subscribe', { userId: user.id, chatId: chat.id });
+      }
+    });
+
+    newSocket.on('disconnect', () => {
+      console.log('Socket disconnected');
     });
 
     newSocket.on('typing', (data: { id: string }) => {
@@ -60,32 +74,49 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     newSocket.on('chat', (data: Chat) => {
-      queryClient.setQueryData<{ pages: { messages: any[] }[]; pageParams: any[] }>(['chatMessages'], oldData => {
-        if (!oldData) return oldData;
+      queryClient.setQueryData<{ pages: { data: { list: Chat[] } }[]; pageParams: any[] }>(
+        ['chatMessages', chat.id],
+        oldData => {
+          if (!oldData) {
+            return {
+              pages: [
+                {
+                  data: {
+                    list: [data],
+                  },
+                  nextPage: undefined,
+                },
+              ],
+              pageParams: [1],
+            };
+          }
 
-        const newPages = [...oldData.pages];
-        const lastPage = newPages[newPages.length - 1];
+          const newPages = oldData.pages.map((page, index) => {
+            if (index === oldData.pages.length - 1) {
+              return {
+                ...page,
+                data: {
+                  ...page.data,
+                  list: [...page.data.list, data],
+                },
+              };
+            }
+            return page;
+          });
 
-        lastPage.messages = [
-          ...lastPage.messages,
-          {
-            message: data.message,
-            direction: data.direction,
-            isRead: data.isRead,
-            userId: data.userId,
-            driverId: data.driverId,
-            image: data.image,
-          },
-        ];
-
-        return { ...oldData, pages: newPages };
-      });
+          return {
+            ...oldData,
+            pages: newPages,
+          };
+        },
+        { updatedAt: new Date().getTime() },
+      );
     });
 
     return () => {
-      newSocket.close();
+      newSocket.disconnect();
     };
-  }, [user.id, chat.id, queryClient]);
+  }, [BASE_URL, user.id, chat.id, queryClient]);
 
   return <SocketContext.Provider value={{ socket, isTyping, typingUser }}>{children}</SocketContext.Provider>;
 };

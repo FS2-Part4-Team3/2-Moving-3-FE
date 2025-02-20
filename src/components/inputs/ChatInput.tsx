@@ -36,26 +36,46 @@ export default function ChatInput() {
       const direction: Direction = user.type === 'user' ? 'USER_TO_DRIVER' : 'DRIVER_TO_USER';
 
       const newMessage = {
+        id: Date.now().toString(),
         userId: user.type === 'user' ? user.id : chat.id,
         driverId: user.type === 'driver' ? user.id : chat.id,
         message: message.trim(),
         direction: direction,
+        createdAt: new Date().toISOString(),
       };
 
       queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {
-        if (!oldData) return oldData;
+        if (!oldData) {
+          return {
+            pages: [
+              {
+                data: {
+                  list: [newMessage],
+                },
+                nextPage: undefined,
+              },
+            ],
+            pageParams: [1],
+          };
+        }
 
         const newPages = [...oldData.pages];
-        const lastPage = newPages[newPages.length - 1];
+        const lastPageIndex = newPages.length - 1;
 
-        lastPage.data.list = [...lastPage.data.list, newMessage];
+        newPages[lastPageIndex] = {
+          ...newPages[lastPageIndex],
+          data: {
+            ...newPages[lastPageIndex].data,
+            list: [...(newPages[lastPageIndex].data.list || []), newMessage],
+          },
+        };
 
         return {
           ...oldData,
           pages: newPages,
         };
       });
-
+      console.log(newMessage);
       socket.emit('chat', newMessage);
       setMessage('');
       socket.emit('stopped_typing');

@@ -1,35 +1,26 @@
 'use client';
 
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
 import { getChatData } from '@/api/ChatsService';
 import { useSocket } from '@/contexts/socketContext';
-import { Chat, ChatData } from '@/interfaces/Card/ChatCardInterface';
+import { Chat } from '@/interfaces/Card/ChatCardInterface';
 import { RootState } from '@/store/store';
 import ChatTab from '../Tabs/ChatTab';
 import ChatInput from '../inputs/ChatInput';
 
 export default function ChatContent() {
-  const { socket, isTyping, typingUser } = useSocket();
+  const { isTyping, typingUser } = useSocket();
   const { ref, inView } = useInView();
   const chat = useSelector((state: RootState) => state.chat);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [initialPage, setInitialPage] = useState<number | null>(null);
-  const queryClient = useQueryClient();
   const PAGE_SIZE = 12;
-
-  useEffect(() => {
-    const fetchTotalPages = async () => {
-      const response = await getChatData(chat.id, 1, PAGE_SIZE);
-      const totalPages = Math.ceil(response.totalCount / PAGE_SIZE);
-      setInitialPage(totalPages);
-    };
-
-    fetchTotalPages();
-  }, [chat.id]);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const {
     data: chatMessages,
@@ -39,56 +30,29 @@ export default function ChatContent() {
     refetch,
   } = useInfiniteQuery({
     queryKey: ['chatMessages', chat.id],
-    queryFn: async ({ pageParam = initialPage ?? 1 }: { pageParam: number }) => {
+    queryFn: async ({ pageParam = 1 }: { pageParam: number }) => {
       const response = await getChatData(chat.id, pageParam, PAGE_SIZE);
 
       return {
-        data: response,
-        nextPage: pageParam > 1 ? pageParam - 1 : null,
+        data: {
+          list: response.list ?? [],
+          totalCount: response.totalCount,
+        },
+        nextPage: pageParam < Math.ceil(response.totalCount / PAGE_SIZE) ? pageParam + 1 : undefined,
       };
     },
     getNextPageParam: lastPage => lastPage.nextPage,
-    initialPageParam: initialPage ?? 1,
-    enabled: initialPage !== null,
+    initialPageParam: 1,
+    staleTime: 0,
   });
 
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ['chatMessages', chat.id] });
     refetch();
-  }, [chat.id, queryClient, refetch]);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
-  };
+  }, [chat.id, refetch]);
 
   useEffect(() => {
-    if (chatMessages?.pages.length === 1) {
-      scrollToBottom();
-    }
-  }, [chatMessages?.pages.length]);
-
-  useEffect(() => {
-    if (!socket) return;
-
-    const handleNewMessage = (data: Chat) => {
-      queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {
-        if (!oldData) return oldData;
-
-        const newPages = [...oldData.pages];
-        const lastPage = newPages[newPages.length - 1];
-
-        lastPage.data.list = [...lastPage.data.list, data];
-
-        setTimeout(scrollToBottom, 100);
-        return { ...oldData, pages: newPages };
-      });
-    };
-
-    socket.on('chat', handleNewMessage);
-    return () => {
-      socket.off('chat', handleNewMessage);
-    };
-  }, [socket, chat.id, queryClient]);
+    scrollToBottom();
+  }, [chatMessages?.pages[chatMessages.pages.length - 1]?.data.list.length]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -96,7 +60,9 @@ export default function ChatContent() {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const messages = chatMessages?.pages.flatMap(page => page.data.list) ?? [];
+  const messages = [...(chatMessages?.pages.flatMap(page => page.data.list) ?? [])];
+  console.log(chatMessages);
+  console.log(messages);
 
   return (
     <div className="flex flex-col h-screen">
