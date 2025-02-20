@@ -78,6 +78,7 @@ export default function SignInClient() {
           areas: userType === 'user' ? res.person.areas : undefined,
           type: res.person.type,
           startAt: userType === 'driver' ? res.person.startAt : '',
+          moveInfoId: '',
         }),
       );
       dispatch(
