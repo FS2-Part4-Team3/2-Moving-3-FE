@@ -11,6 +11,7 @@ import ReviewSummaryCard from '@/components/cards/ReviewSummaryCard';
 import Empty from '@/components/common/Empty/Empty';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import Pagination from '@/components/common/pagination/pagination';
+import DriverReviewCardSkeleton from '@/components/skeleton/DriverReviewCardSkeleton';
 import type { DriverReviewData, ReviewClientProps } from '@/interfaces/Page/DriverDetailInterface';
 
 export default function ReviewClient({ id }: ReviewClientProps) {
@@ -78,7 +79,7 @@ export default function ReviewClient({ id }: ReviewClientProps) {
     <div className="flex flex-col lg:py-0 sm:py-[1rem] lg:gap-[4rem] sm:gap-[4.3rem]">
       <div className="flex flex-col gap-[3.2rem]">
         <div className="flex justify-between items-center">
-        <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400 dark:text-dark-t">
+          <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400 dark:text-dark-t">
             리뷰 ({reviewData?.totalCount})
           </p>
           {pathname === '/driver/my-page' && (
@@ -105,7 +106,9 @@ export default function ReviewClient({ id }: ReviewClientProps) {
 
       {reviewData?.totalCount ? (
         <div className="flex flex-col w-full">
-          {reviewData?.list && reviewData.list.map((review, index) => <DriverReviewCard key={index} review={review} />)}
+          {reviewData?.list
+            ? reviewData.list.map((review, index) => <DriverReviewCard key={index} review={review} />)
+            : Array.from({ length: 3 }).map((_, index) => <DriverReviewCardSkeleton key={index} />)}
           <div className="flex justify-center lg:pt-[21.4rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
           </div>
