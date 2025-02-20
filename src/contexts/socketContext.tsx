@@ -15,15 +15,12 @@ interface SocketContextType {
 }
 
 interface Chat {
-  type: 'NEW_CHAT' | 'CHATS_READ';
-  data: {
-    userId: string;
-    driverId: string;
-    direction: Direction;
-    message: string;
-    image: string;
-    isRead: boolean;
-  };
+  userId: string;
+  driverId: string;
+  direction: Direction;
+  message: string;
+  image?: string;
+  isRead?: boolean;
 }
 
 const SocketContext = createContext<SocketContextType>({
@@ -42,10 +39,15 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
   useEffect(() => {
-    const newSocket = io(`${BASE_URL}`);
+    const newSocket = io(`${BASE_URL}`, {
+      transports: ['websocket'],
+    });
     setSocket(newSocket);
 
-    newSocket.emit('subscribe', { userId: user.id, chatId: chat.id });
+    newSocket.on('connect', () => {
+      newSocket.emit('subscribe', { userId: user.id, chatId: chat.id });
+      console.log('Socket connected');
+    });
 
     newSocket.on('typing', (data: { id: string }) => {
       setIsTyping(true);
@@ -58,49 +60,26 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     newSocket.on('chat', (data: Chat) => {
-      if (data.type === 'NEW_CHAT') {
-        queryClient.setQueryData<{ pages: { messages: any[] }[]; pageParams: any[] }>(['chatMessages'], oldData => {
-          if (!oldData) return oldData;
+      queryClient.setQueryData<{ pages: { messages: any[] }[]; pageParams: any[] }>(['chatMessages'], oldData => {
+        if (!oldData) return oldData;
 
-          const newPages = [...oldData.pages];
-          const lastPage = newPages[newPages.length - 1];
+        const newPages = [...oldData.pages];
+        const lastPage = newPages[newPages.length - 1];
 
-          lastPage.messages = [
-            ...lastPage.messages,
-            {
-              message: data.data.message,
-              direction: data.data.direction,
-              isRead: data.data.isRead,
-              userId: data.data.userId,
-              driverId: data.data.driverId,
-              image: data.data.image,
-            },
-          ];
+        lastPage.messages = [
+          ...lastPage.messages,
+          {
+            message: data.message,
+            direction: data.direction,
+            isRead: data.isRead,
+            userId: data.userId,
+            driverId: data.driverId,
+            image: data.image,
+          },
+        ];
 
-          return { ...oldData, pages: newPages };
-        });
-
-        queryClient.invalidateQueries({ queryKey: ['unreadCount'] });
-      } else if (data.type === 'CHATS_READ') {
-        queryClient.setQueryData<{ pages: { messages: any[] }[]; pageParams: any[] }>(['chatMessages'], oldData => {
-          if (!oldData) return oldData;
-
-          const newPages = oldData.pages.map(page => ({
-            ...page,
-            messages: page.messages.map(message => ({
-              ...message,
-              isRead: true,
-            })),
-          }));
-
-          return {
-            ...oldData,
-            pages: newPages,
-          };
-        });
-
-        queryClient.setQueryData(['unreadCount'], 0);
-      }
+        return { ...oldData, pages: newPages };
+      });
     });
 
     return () => {
