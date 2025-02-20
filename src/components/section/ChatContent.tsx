@@ -68,34 +68,41 @@ export default function ChatContent() {
       <div className="w-[calc(100vw-45rem)]">
         <ChatTab />
       </div>
-      <div className="bg-background-200 w-[calc(100vw-45rem)] h-screen lg:px-[2.4rem]">
-        <div className="flex-1 overflow-y-auto py-[2rem] space-y-[1.6rem] ">
-          {hasNextPage && (
-            <div ref={ref} className="text-center text-gray-500 text-[1.4rem]">
-              이전 메세지 불러오는 중...
-            </div>
-          )}
-          {messages.map((message: Chat, index: number) => (
-            <div
-              key={`${message.id || ''}-${index}`}
-              className={`flex ${message.direction === 'USER_TO_DRIVER' ? 'justify-end' : 'justify-start'}`}
-            >
-              <div
-                className={`max-w-[60%] rounded-[1.6rem] px-[1.6rem] py-[1.2rem] ${
-                  message.direction === 'USER_TO_DRIVER' ? 'bg-blue-200 text-white' : 'bg-white text-black-400'
-                }`}
-              >
-                <p className="text-[1.6rem] break-words">{message.message}</p>
-                {message.image && <Image src={message.image} alt="첨부된 이미지" width={200} height={200} />}
+      <div className="flex flex-col bg-background-200 w-[calc(100vw-45rem)] h-[calc(100vh-6rem)]">
+        <div className="flex-1 overflow-y-auto px-[2.4rem]">
+          <div className="py-[2rem] space-y-[1.6rem]">
+            {hasNextPage && (
+              <div ref={ref} className="text-center text-gray-500 text-[1.4rem]">
+                이전 메세지 불러오는 중...
               </div>
-            </div>
-          ))}
-
-          <div ref={messagesEndRef} />
+            )}
+            {messages.map((message: Chat, index: number) => (
+              <div
+                key={`${message.id || ''}-${index}`}
+                className={`flex ${message.direction === 'USER_TO_DRIVER' ? 'flex-row-reverse' : 'flex-row'} items-end gap-[1rem]`}
+              >
+                <div className={`max-w-[50%]`}>
+                  <div
+                    className={`inline-block rounded-[1.6rem] px-[1.6rem] py-[1.2rem] ${
+                      message.direction === 'USER_TO_DRIVER'
+                        ? 'bg-blue-200 text-white rounded-tr-none'
+                        : 'bg-white text-black-400 rounded-tl-none'
+                    }`}
+                  >
+                    <p className="text-[1.6rem] break-words">{message.message}</p>
+                    {message.image && <Image src={message.image} alt="첨부된 이미지" width={200} height={200} />}
+                  </div>
+                </div>
+                <p className="text-[1.2rem] text-gray-500">{message.isRead ? '읽음' : '안읽음'}</p>
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
         </div>
-        <div className="absolute bottom-0 w-[calc(100vw-50rem)] mb-[2rem]">
+
+        <div className="flex-shrink-0 px-[2.4rem] py-[2rem] bg-background-200">
           <ChatInput />
-          {isTyping && <div>{typingUser}님이 입력중입니다...</div>}
+          {isTyping && <p className="text-[1.6rem] font-medium text-gray-500">{typingUser}님이 입력중입니다...</p>}
         </div>
       </div>
     </div>

@@ -97,8 +97,9 @@ export default function ChatInput() {
   return (
     <div className="flex w-full relative">
       <input
-        className="lg:w-full lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] text-[1.8rem] font-medium text-black-400 focus:outline-none "
+        className="lg:w-full md:w-full sm:w-full lg:h-[6.4rem] rounded-[1.6rem] p-[1.4rem] text-[1.8rem] font-medium text-black-400 focus:outline-none "
         type="text"
+        placeholder="메세지 입력"
         value={message}
         onChange={e => {
           setMessage(e.target.value);
