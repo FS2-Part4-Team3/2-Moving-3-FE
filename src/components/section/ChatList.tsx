@@ -8,12 +8,22 @@ import { getChatListData } from '@/api/ChatsService';
 import { ChatListData } from '@/interfaces/Section/ChatListInterface';
 import { setChat, setMoves } from '@/store/slices/chatSlice';
 import { RootState } from '@/store/store';
+import { formatDateTime } from '@/utils/Format';
 import ChatCard from '../cards/ChatCard';
 
 export default function ChatList() {
   const { ref, inView } = useInView();
   const chat = useSelector((state: RootState) => state.chat);
   const dispatch = useDispatch();
+  const krType = (serviceType: string) => {
+    if (chat.serviceType === 'HOME') {
+      return '가정이사';
+    } else if (chat.serviceType === 'SMALL') {
+      return '소형이사';
+    } else {
+      return '사무실이사';
+    }
+  };
 
   const {
     data: chatList,
@@ -39,14 +49,12 @@ export default function ChatList() {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
 
-  useEffect(() => {
-    if (chatList?.pages.length) {
-      const lastId = chatList.pages.flatMap(page => page.list).shift();
-      if (lastId) {
-        dispatch(setChat({ id: lastId }));
-      }
+  if (chatList?.pages.length) {
+    const lastId = chatList.pages.flatMap(page => page.list).shift();
+    if (lastId) {
+      dispatch(setChat({ id: lastId }));
     }
-  });
+  }
 
   useEffect(() => {
     chatList?.pages.map(chats => {
@@ -55,10 +63,9 @@ export default function ChatList() {
           if (move.ownerId === chat.id) {
             dispatch(
               setMoves({
-                id: chat.id,
                 moveId: move.moveId,
-                serviceType: move.serviceType,
-                date: move.date,
+                serviceType: krType(move.serviceType),
+                date: formatDateTime(move.date),
                 fromAddress: move.fromAddress,
                 toAddress: move.toAddress,
                 ownerId: move.ownerId,
@@ -77,9 +84,7 @@ export default function ChatList() {
   if (error) {
     console.error(error);
   }
-
-  console.log(chatList);
-
+  console.log(chat.id);
   return (
     <div className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] h-screen flex flex-col border-r-[0.3rem] border-line-100">
       <p className="lg:block md:hidden sm:hidden text-[2.4rem] font-semibold ml-[2rem] mt-[2rem]">메세지 목록</p>

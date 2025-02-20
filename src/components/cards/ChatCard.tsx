@@ -90,7 +90,6 @@ export default function ChatCard({ id }: { id: string }) {
       queryClient.invalidateQueries({ queryKey: ['chatData', id, lastPage] });
     }
   }, [chatData, queryClient, id, lastPage]);
-
   return (
     <>
       {id && (

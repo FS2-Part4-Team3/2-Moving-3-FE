@@ -20,19 +20,19 @@ export default function ChatTab() {
 
   const { data: driverInforData } = useQuery<DriverDetailData>({
     queryKey: ['driverInfoData', chat.id],
-    queryFn: () => getDriverDetailData(chat.id),
+    queryFn: () => getDriverDetailData(chat.id || ''),
     enabled: user.type === 'user',
   });
 
   const { data: userInforData } = useQuery<InfoData>({
     queryKey: ['userInfoData', chat.id],
-    queryFn: () => getUserDetailData(chat.id),
+    queryFn: () => getUserDetailData(chat.id || ''),
     enabled: user.type === 'driver',
   });
 
   const { data: onlineStatus } = useQuery<Online>({
     queryKey: ['onlineStatus', chat.id],
-    queryFn: () => getOnlineStatus(chat.id),
+    queryFn: () => getOnlineStatus(chat.id || ''),
   });
 
   return (
@@ -48,7 +48,7 @@ export default function ChatTab() {
             fill
           />
         </div>
-        <div className="flex lg:flex-row md:flex-row sm:flex-col">
+        <div className="flex lg:flex-row md:flex-row sm:flex-col gap-[1rem]">
           <p className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 text-nowrap ">
             {driverInforData?.name || userInforData?.name} {driverInforData ? '기사님' : userInforData ? '고객님' : ''}
           </p>

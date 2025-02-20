@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface ChatType {
-  id: string;
+  id?: string;
   moveId?: string;
   serviceType?: string;
   date?: string;

@@ -32,7 +32,7 @@ export default function ChatContent() {
   } = useInfiniteQuery({
     queryKey: ['chatMessages', chat.id],
     queryFn: async ({ pageParam = 1 }: { pageParam: number }) => {
-      const response = await getChatData(chat.id, pageParam, PAGE_SIZE);
+      const response = await getChatData(chat.id || '', pageParam, PAGE_SIZE);
 
       return {
         data: {
