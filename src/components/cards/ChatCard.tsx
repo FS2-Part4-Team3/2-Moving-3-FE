@@ -57,14 +57,14 @@ export default function ChatCard({ id }: { id: string }) {
     if (error) return { message: '', error };
 
     const unReadMessgeCount = lastChatData?.list?.filter(chat => !chat.isRead).length || 0;
-    const lastMessageObj = lastChatData?.list?.[lastChatData.list.length - 1];
+    const lastMessageObj = lastChatData?.list?.[0];
     const isRead = lastMessageObj?.isRead;
     const lastMessage = lastMessageObj?.message || '';
 
-    return { message: lastMessage, isRead, unReadCount: unReadMessgeCount, chatData };
+    return { message: lastMessage, isRead, unReadCount: unReadMessgeCount, chatData, lastPage };
   };
 
-  const { message, isRead, unReadCount, chatData } = lastChatMessage(id, 10);
+  const { message, isRead, unReadCount, chatData, lastPage } = lastChatMessage(id, 10);
   const ids: string[] = chatData?.list.map(chat => chat.id) || [];
   const chatRead: ChatRead = { ids };
 
@@ -75,6 +75,9 @@ export default function ChatCard({ id }: { id: string }) {
       }
       return Promise.resolve();
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chatData', id] });
+    },
   });
 
   const handleReadClick = (id: string) => {
@@ -83,8 +86,10 @@ export default function ChatCard({ id }: { id: string }) {
   };
 
   useEffect(() => {
-    chatData;
-  }, [chatData]);
+    if (chatData) {
+      queryClient.invalidateQueries({ queryKey: ['chatData', id, lastPage] });
+    }
+  }, [chatData, queryClient, id, lastPage]);
 
   return (
     <>

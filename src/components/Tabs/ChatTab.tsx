@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
+import calendar from '@/../public/assets/chat/ic_calendar.svg';
 import dropdown from '@/../public/assets/chat/ic_dropdown.svg';
 import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
 import heart from '@/../public/assets/driver/ic_like.svg';
@@ -51,22 +52,40 @@ export default function ChatTab() {
           <p className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 text-nowrap ">
             {driverInforData?.name || userInforData?.name} {driverInforData ? '기사님' : userInforData ? '고객님' : ''}
           </p>
-          <div className="flex items-center gap-[0.3rem] text-nowrap">
-            <Image src={heart} alt="좋아요" width={24} height={24} />
-            <p className="text-[1.8rem] font-medium text-black-300">{driverInforData?.likeCount}</p>
-            <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
-            <Image src={star} alt="별" width={20} height={20} />
-            <p className="text-[1.6rem] font-medium text-black-300">{driverInforData?.rating}</p>
-            <p className="text-[1.6rem] font-medium text-gray-300">({driverInforData?.reviewCount})</p>
-            <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
-            <p className="text-[1.6rem] font-medium text-gray-300">
-              경력 <span className="text-[1.6rem] font-medium text-black-300">{driverInforData?.career}년</span>
-            </p>
-            <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
-            <p className="text-[1.6rem] font-medium text-black-300">
-              {driverInforData?.applyCount}건 <span className="text-[1.6rem] font-medium text-gray-300">확정</span>
-            </p>
-          </div>
+          {user.type === 'driver' && (
+            <div className="flex items-center gap-[0.3rem] text-nowrap">
+              <Image src={calendar} alt="달력" width={24} height={24} />
+              <p className="text-[1.8rem] font-medium text-black-300">{chat.date}</p>
+              <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
+              <p className="text-[1.6rem] font-medium text-black-300">{chat.serviceType}</p>
+              <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
+              <p className="text-[1.6rem] font-medium text-gray-300">
+                출발 <span className="text-[1.6rem] font-medium text-black-300">{chat.fromAddress}년</span>
+              </p>
+              <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
+              <p className="text-[1.6rem] font-medium text-gray-300">
+                도착 <span className="text-[1.6rem] font-medium text-black-300">{chat.toAddress}년</span>
+              </p>
+            </div>
+          )}
+          {user.type === 'user' && (
+            <div className="flex items-center gap-[0.3rem] text-nowrap">
+              <Image src={heart} alt="좋아요" width={24} height={24} />
+              <p className="text-[1.8rem] font-medium text-black-300">{driverInforData?.likeCount}</p>
+              <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
+              <Image src={star} alt="별" width={20} height={20} />
+              <p className="text-[1.6rem] font-medium text-black-300">{driverInforData?.rating}</p>
+              <p className="text-[1.6rem] font-medium text-gray-300">({driverInforData?.reviewCount})</p>
+              <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
+              <p className="text-[1.6rem] font-medium text-gray-300">
+                경력 <span className="text-[1.6rem] font-medium text-black-300">{driverInforData?.career}년</span>
+              </p>
+              <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
+              <p className="text-[1.6rem] font-medium text-black-300">
+                {driverInforData?.applyCount}건 <span className="text-[1.6rem] font-medium text-gray-300">확정</span>
+              </p>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex items-center gap-x-[0.9rem] text-nowrap">

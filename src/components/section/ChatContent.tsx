@@ -63,7 +63,7 @@ export default function ChatContent() {
 
   const initialMessages = chatMessages?.pages.flatMap(page => page.data.list) ?? [];
   const messages = [...initialMessages].reverse();
-  console.log(messages);
+
   return (
     <div className="flex flex-col h-screen">
       <div className="w-[calc(100vw-45rem)]">

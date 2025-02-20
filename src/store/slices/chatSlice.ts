@@ -2,10 +2,22 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface ChatType {
   id: string;
+  moveId?: string;
+  serviceType?: string;
+  date?: string;
+  fromAddress?: string;
+  toAddress?: string;
+  ownerId?: string;
 }
 
 const initialState: ChatType = {
   id: '',
+  moveId: '',
+  serviceType: '',
+  date: '',
+  fromAddress: '',
+  toAddress: '',
+  ownerId: '',
 };
 
 const chatSlice = createSlice({
@@ -17,8 +29,18 @@ const chatSlice = createSlice({
 
       state.id = id;
     },
+    setMoves(state, action: PayloadAction<ChatType>) {
+      const { moveId, serviceType, date, fromAddress, toAddress, ownerId } = action.payload;
+
+      state.moveId = moveId;
+      state.serviceType = serviceType;
+      state.date = date;
+      state.fromAddress = fromAddress;
+      state.toAddress = toAddress;
+      state.ownerId = ownerId;
+    },
   },
 });
 
-export const { setChat } = chatSlice.actions;
+export const { setChat, setMoves } = chatSlice.actions;
 export default chatSlice.reducer;
