@@ -13,7 +13,6 @@ export const Default = Template.bind({});
 Default.args = {
   data: {
     driver: {
-      id: 'driver-1',
       name: '김철수',
       image: 'https://example.com/driver1.jpg',
       applyCount: 10,
@@ -22,15 +21,16 @@ Default.args = {
       career: 9,
       reviewCount: 200,
     },
-    estimationInfo: {
-      estimationId: 'estimation-1',
-      price: 200000,
-    },
     moveInfo: {
-      serviceType: 'HOME',
+      moveInfoId: 'estimation-1',
       date: '2025-02-01T12:00:00Z',
+      serviceType: 'HOME',
       fromAddress: '서울 중구 삼일대로 343',
       toAddress: '서울 중구 청계천로 100',
+    },
+    estimationInfo: {
+      estimationId: '1',
+      price: 200000,
     },
     designatedRequest: 'Active',
   },

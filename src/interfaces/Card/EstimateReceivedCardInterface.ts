@@ -1,4 +1,4 @@
-export interface EstimationInformationCard {
+export interface EstimationInformationCardProps {
   data?: {
     id?: string;
     createdAt: string;
