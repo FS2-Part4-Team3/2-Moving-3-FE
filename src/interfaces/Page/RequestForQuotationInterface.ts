@@ -7,4 +7,4 @@ export interface MoveItem {
   confirmedEstimationId: string;
 }
 
-export type MoveData = MoveItem[];
+export type MoveData = MoveItem;
