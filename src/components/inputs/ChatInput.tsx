@@ -76,7 +76,12 @@ export default function ChatInput() {
         };
       });
       console.log(newMessage);
-      socket.emit('chat', newMessage);
+      socket.emit('chat', newMessage, (error: any) => {
+        if (error) {
+          console.error('메세지 전송 실패', error);
+          return;
+        }
+      });
       setMessage('');
       socket.emit('stopped_typing');
     }
