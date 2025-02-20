@@ -20,13 +20,19 @@ export default function ChatTab() {
 
   const { data: driverInforData } = useQuery<DriverDetailData>({
     queryKey: ['driverInfoData', chat.id],
-    queryFn: () => getDriverDetailData(chat.id || ''),
+    queryFn: async () => {
+      if (!chat.id) return;
+      return await getDriverDetailData(chat.id);
+    },
     enabled: user.type === 'user',
   });
 
   const { data: userInforData } = useQuery<InfoData>({
     queryKey: ['userInfoData', chat.id],
-    queryFn: () => getUserDetailData(chat.id || ''),
+    queryFn: async () => {
+      if (!chat.id) return;
+      return await getUserDetailData(chat.id);
+    },
     enabled: user.type === 'driver',
   });
 
@@ -34,7 +40,7 @@ export default function ChatTab() {
     queryKey: ['onlineStatus', chat.id],
     queryFn: () => getOnlineStatus(chat.id || ''),
   });
-
+  console.log(chat);
   return (
     <div className="flex items-center justify-between h-[6.9rem] lg:w-full md:w-full sm:w-full lg:px-[1.9rem] md:px-[1.6rem] sm:px-[1.6rem] border-b-[0.3rem] border-line-100 ">
       <div className="flex items-center gap-[1.8rem]">

@@ -137,6 +137,7 @@ export function getDaysInMonth(date: Date): Day[] {
   return [...prevDays, ...currentDays, ...nextDays];
 }
 
+//Ex: 02/20 06:58
 export function formatDateTime(dateString: string) {
   const date = new Date(dateString);
 

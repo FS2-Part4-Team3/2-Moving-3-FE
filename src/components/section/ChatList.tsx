@@ -16,12 +16,13 @@ export default function ChatList() {
   const chat = useSelector((state: RootState) => state.chat);
   const dispatch = useDispatch();
   const krType = (serviceType: string) => {
-    if (chat.serviceType === 'HOME') {
-      return '가정이사';
-    } else if (chat.serviceType === 'SMALL') {
-      return '소형이사';
-    } else {
-      return '사무실이사';
+    switch (serviceType) {
+      case 'HOME':
+        return '가정이사';
+      case 'SMALL':
+        return '소형이사';
+      default:
+        return '사무실이사';
     }
   };
 
@@ -77,7 +78,7 @@ export default function ChatList() {
         });
       }
     });
-  }, []);
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
