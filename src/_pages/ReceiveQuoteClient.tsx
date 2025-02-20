@@ -57,14 +57,6 @@ export default function ReceiveQuoteClient() {
     return <div>Error</div>;
   }
 
-  if (!moves || moves.pages[0].list.length === 0) {
-    return (
-      <div className="w-full h-[56rem] flex items-center justify-center">
-        <Empty type="ReceiveQuote" />
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
