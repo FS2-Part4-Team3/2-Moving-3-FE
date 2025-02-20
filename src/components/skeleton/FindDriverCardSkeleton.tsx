@@ -9,11 +9,11 @@ export default function FindDriverCardSkeleton() {
         shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.3)] dark:bg-dark-p dark:shadow"
       >
         <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
-          <div className="w-[6rem] h-[2.4rem] rounded-[0.4rem] bg-gray-200" />
-          <div className="w-[6rem] h-[2.4rem] rounded-[0.4rem] bg-gray-200" />
-          <div className="w-[6rem] h-[2.4rem] rounded-[0.4rem] bg-gray-200" />
+          <div className="w-[6rem] h-[2.4rem] rounded-[0.4rem] bg-gray-200 shimmer" />
+          <div className="w-[6rem] h-[2.4rem] rounded-[0.4rem] bg-gray-200 shimmer" />
+          <div className="w-[6rem] h-[2.4rem] rounded-[0.4rem] bg-gray-200 shimmer" />
         </div>
-        <div className="h-[3.2rem] w-full bg-gray-200 rounded-[0.4rem]" />
+        <div className="h-[3.2rem] w-full bg-gray-200 rounded-[0.4rem] shimmer" />
         <div className="flex items-start w-full rounded-[0.6rem] border border-line-100 lg:py-[1.6rem] lg:px-[1.8rem] lg:gap-[2.4rem] sm:p-[1rem] sm:gap-[1.2rem]">
           <div className="relative w-[5.6rem] h-[5.6rem] lg:block sm:hidden">
             <Image
@@ -37,15 +37,15 @@ export default function FindDriverCardSkeleton() {
           </div>
           <div className="flex flex-col w-full lg:gap-[0.8rem] sm:gap-[1rem]">
             <div className="flex w-full justify-between">
-              <div className="w-[8rem] h-[2.6rem] bg-gray-200 rounded-[0.4rem]" />
+              <div className="w-[8rem] h-[2.6rem] bg-gray-200 rounded-[0.4rem] shimmer" />
               <div className="flex gap-[0.4rem] justify-center items-center"></div>
             </div>
             <div className="flex items-center w-full md:gap-[1.6rem] sm:justify-between md:justify-start">
-              <div className="w-[5rem] h-[2rem] bg-gray-200" />
-              <div className="h-[1.4rem] border border-line-200" />
-              <div className="w-[5rem] h-[2rem] bg-gray-200" />
-              <div className="h-[1.4rem] border border-line-200" />
-              <div className="w-[5rem] h-[2rem] bg-gray-200" />
+              <div className="w-[5rem] h-[2rem] bg-gray-200 shimmer" />
+              <div className="h-[1.4rem] border border-line-200 shimmer" />
+              <div className="w-[5rem] h-[2rem] bg-gray-200 shimmer" />
+              <div className="h-[1.4rem] border border-line-200 shimmer" />
+              <div className="w-[5rem] h-[2rem] bg-gray-200 shimmer" />
             </div>
           </div>
         </div>
