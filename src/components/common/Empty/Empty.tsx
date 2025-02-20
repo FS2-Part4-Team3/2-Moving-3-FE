@@ -23,9 +23,15 @@ export default function Empty({ type }: EmptyProps) {
       text2 = '프로필을 등록하고 요청을 받아보세요';
       buttonText = '프로필 등록하기';
       break;
-    case 'ReceiveQuote':
+    case 'WaitingQuote':
       image = folder;
       text = '아직 받은 요청이 없어요!';
+      text2 = '';
+      buttonText = '';
+      break;
+    case 'ReceivedQuote':
+      image = folder;
+      text = '완료된 견적이 없어요!';
       text2 = '';
       buttonText = '';
       break;

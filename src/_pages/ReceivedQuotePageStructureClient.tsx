@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getMovesEstimationsData } from '@/api/MovesService';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
+import Empty from '@/components/common/Empty/Empty';
 import EstimationSortDropdown from '@/components/dropdown/EstimationSortDropdown';
 import { QuotesFilterMap, ReceivedQuoteResponse } from '@/interfaces/Page/ReceiveQuoteInterface';
 import ReceivedQuotePageClient from './ReceivedQuotePageClient';
@@ -56,7 +57,11 @@ export default function ReceivedQuotePageStructureClient() {
   }
 
   if (!receiveQuoteData || !receiveQuoteData.pages[0].list.length) {
-    return <div>Empty</div>;
+    return (
+      <div className="mt-[5rem]">
+        <Empty type="ReceivedQuote" />;
+      </div>
+    );
   }
 
   const updateQuoteFilter = (quoteId: string, newFilter: 'all' | 'confirmed') => {

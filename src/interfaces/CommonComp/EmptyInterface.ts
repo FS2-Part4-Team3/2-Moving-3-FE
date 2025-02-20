@@ -2,7 +2,8 @@ export interface EmptyProps {
   type:
     | 'Review'
     | 'Profile'
-    | 'ReceiveQuote'
+    | 'WaitingQuote'
+    | 'ReceivedQuote'
     | 'Driver'
     | 'RequestQuote'
     | 'ReviewAble'
