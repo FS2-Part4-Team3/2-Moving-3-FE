@@ -3,23 +3,28 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getAuthIsLoggedIn, getUserData } from '@/api/UserService';
+import { getUserData } from '@/api/UserService';
 import { setUserSign } from '@/store/slices/SignInSlice';
 
 export default function CallBackGoogle() {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const queryParams = new URLSearchParams(location.search);
+  const getQueryAccessToken = queryParams.get('accessToken');
+
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        // const loggedInUser = await getAuthIsLoggedIn();
-
-        // if (loggedInUser.isAccessTokenValid) {
-        //   return;
-        // }
-
         const res = await getUserData();
+        console.log(res);
+
+        const accessToken = getQueryAccessToken;
+        await fetch('/api/auth/sync-cookie', {
+          method: 'POST',
+          body: JSON.stringify({ cookie: accessToken }),
+        });
+
         dispatch(
           setUserSign({
             id: res.id,
