@@ -2,6 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
@@ -15,6 +16,7 @@ import { ModalWrapper } from '../common/headless/Modal';
 export default function WritingReviewModal({ estimation, setIsModalOpen }: WritingReviewModalProps) {
   const [selectedStars, setSelectedStars] = useState(0);
   const [reviewText, setReviewText] = useState('');
+  const router = useRouter();
 
   const postReviwMutaion = useMutation({
     mutationFn: async () => {
@@ -31,6 +33,11 @@ export default function WritingReviewModal({ estimation, setIsModalOpen }: Writi
 
   const handleStarClick = (index: number) => {
     setSelectedStars(index + 1);
+  };
+
+  const handleReviewSubmit = () => {
+    postReviwMutaion.mutate();
+    router.push('/normal/my-page/written-review');
   };
 
   const renderStars = () => {
@@ -107,7 +114,7 @@ export default function WritingReviewModal({ estimation, setIsModalOpen }: Writi
             </div>
           </div>
         </ModalWrapper.Content>
-        <ModalWrapper.Footer isDisabled={selectedStars === 0 || reviewText.length < 10} onClick={() => postReviwMutaion.mutate()}>
+        <ModalWrapper.Footer isDisabled={selectedStars === 0 || reviewText.length < 10} onClick={handleReviewSubmit}>
           리뷰 등록
         </ModalWrapper.Footer>
       </ModalWrapper>
