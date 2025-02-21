@@ -59,6 +59,10 @@ export default function WritableReviewClient() {
     }
   }, [currentPage, hasMore, isPlaceholderData, itemsPerPage]);
 
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['reviewable-estimations'] });
+  }, []);
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -87,11 +91,11 @@ export default function WritableReviewClient() {
               (style, page) =>
                 page === currentPage && (
                   <animated.div style={style}>
-                                {reviewableEstimations?.estimations.map(estimation => (
-              <div key={estimation.estimationInfo.estimationId}>
-                <WritableReviewCard estimation={estimation} />
-              </div>
-            ))}
+                    {reviewableEstimations?.estimations.map(estimation => (
+                      <div key={estimation.estimationInfo.estimationId}>
+                        <WritableReviewCard estimation={estimation} />
+                      </div>
+                    ))}
                   </animated.div>
                 ),
             )}

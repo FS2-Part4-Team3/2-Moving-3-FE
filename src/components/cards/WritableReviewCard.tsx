@@ -57,7 +57,11 @@ export default function WritableReviewCard({ estimation }: ReviewCardEstimations
           </ButtonWrapper.Button>
         </ButtonWrapper>
 
-        {isModalOpen && <WritingReviewModal estimation={estimation} setIsModalOpen={setIsModalOpen} />}
+        {isModalOpen && (
+          <div className="z-50">
+            <WritingReviewModal estimation={estimation} setIsModalOpen={setIsModalOpen} />
+          </div>
+        )}
       </div>
     </>
   );

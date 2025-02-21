@@ -2,6 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
 import star_gray from '@/../public/assets/driver/ic_star_gray.svg';
@@ -15,6 +16,7 @@ import { ModalWrapper } from '../common/headless/Modal';
 export default function WritingReviewModal({ estimation, setIsModalOpen }: WritingReviewModalProps) {
   const [selectedStars, setSelectedStars] = useState(0);
   const [reviewText, setReviewText] = useState('');
+  const router = useRouter();
 
   const postReviwMutaion = useMutation({
     mutationFn: async () => {
@@ -31,6 +33,11 @@ export default function WritingReviewModal({ estimation, setIsModalOpen }: Writi
 
   const handleStarClick = (index: number) => {
     setSelectedStars(index + 1);
+  };
+
+  const handleReviewSubmit = () => {
+    postReviwMutaion.mutate();
+    router.push('/normal/my-page/written-review');
   };
 
   const renderStars = () => {
@@ -99,7 +106,7 @@ export default function WritingReviewModal({ estimation, setIsModalOpen }: Writi
                 상세 후기를 작성해 주세요
               </span>
               <textarea
-                className="resize-none lg:w-[56rem] lg:h-[16rem] md:w-[32.7rem] md:h-[16rem] sm:w-[32.7rem] sm:h-[16rem] rounded-[1.6rem] lg:px-[2.4rem] lg:py-[1.4rem] md:px-[1.6rem] md:py-[1.4rem] bg-background-200 focus:outline-none placeholder:text-[2rem] placeholder:text-gray-300 text-[2rem] font-normal"
+                className="p-[1rem] resize-none lg:w-[56rem] lg:h-[16rem] md:w-[32.7rem] md:h-[16rem] sm:w-[32.7rem] sm:h-[16rem] rounded-[1.6rem] lg:px-[2.4rem] lg:py-[1.4rem] md:px-[1.6rem] md:py-[1.4rem] bg-background-200 focus:outline-none placeholder:lg:text-[2rem] placeholder:md:text-[1.6rem] placeholder:sm:text-[1.6rem] placeholder:text-gray-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal"
                 placeholder="최소 10자 이상 입력해주세요"
                 value={reviewText}
                 onChange={e => setReviewText(e.target.value)}
@@ -107,7 +114,7 @@ export default function WritingReviewModal({ estimation, setIsModalOpen }: Writi
             </div>
           </div>
         </ModalWrapper.Content>
-        <ModalWrapper.Footer isDisabled={selectedStars === 0 || reviewText.length < 10} onClick={() => postReviwMutaion.mutate()}>
+        <ModalWrapper.Footer isDisabled={selectedStars === 0 || reviewText.length < 10} onClick={handleReviewSubmit}>
           리뷰 등록
         </ModalWrapper.Footer>
       </ModalWrapper>
