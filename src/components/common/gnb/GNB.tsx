@@ -51,7 +51,7 @@ export default function GNB() {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [chatRead, setChatRead] = useState<Chat>();
+  const [chatRead, setChatRead] = useState<Chat | null>(null);
 
   const fetchNotifications = async (pageNumber: number) => {
     setLoading(true);
@@ -65,17 +65,13 @@ export default function GNB() {
     }
   };
 
-  const fetchChat = async (pageNumber: number) => {
-    try {
-    } catch (err) {}
-  };
-
   useEffect(() => {
     if (user.id) {
       fetchNotifications(page);
 
       const newSocket = io(`${BASE_URL}`, {
         transports: ['websocket'],
+        withCredentials: true,
       });
 
       newSocket.on('connect', () => {
@@ -90,12 +86,8 @@ export default function GNB() {
         }
       });
 
-      newSocket.on('chat', (data: Chat) => {
-        if (data.isRead === false) {
-          setChatRead(data);
-        } else {
-          return;
-        }
+      newSocket.on('chat', data => {
+        setChatRead(data);
       });
 
       return () => {

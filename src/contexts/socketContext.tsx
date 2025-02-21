@@ -51,9 +51,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
-      if (user.id && chat.id) {
-        newSocket.emit('subscribe');
-      }
+      newSocket.emit('subscribe');
     });
 
     newSocket.on('disconnect', () => {});
