@@ -28,7 +28,7 @@ export default function DibsDriverPageCardSkeleton() {
             <div className="w-[10rem] h-[2rem] rounded-[0.4rem] bg-gray-200 shimmer"></div>
             <div className="flex lg:gap-[0.4rem] sm:gap-[0.2rem] items-center">
               <Image src={redHeart} alt="heart" width={24} height={24} />
-              <p className="w-[3rem] h-[2rem] rounded-[0.4rem] bg-gray-200 shimmer"></p>
+              <div className="w-[3rem] h-[2rem] rounded-[0.4rem] bg-gray-200 shimmer"></div>
             </div>
           </div>
           <div className="flex items-center w-full md:gap-[1.6rem] sm:justify-between md:justify-start">
