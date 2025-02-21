@@ -1,8 +1,9 @@
 'use client';
 
+import { animated, useSpring } from '@react-spring/web';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import clicked_arrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
 import arrow_down from '@/../public/assets/common/dropdown/chevron-down.svg';
@@ -15,12 +16,30 @@ export default function RegionServiceDropdown() {
   const dispatch = useDispatch();
 
   const [regionDropdownOpen, setRegionDropdownOpen] = useState<boolean>(false);
+  const [isRegionVisible, setIsRegionVisible] = useState(false);
   const [serviceDropdownOpen, setServiceDropdownOpen] = useState<boolean>(false);
+  const [isServiceVisible, setServiceIsVisible] = useState(false);
 
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<string | null>(null);
 
   const { theme } = useTheme();
+
+  useEffect(() => {
+    if (regionDropdownOpen) {
+      setIsRegionVisible(true);
+    } else {
+      setTimeout(() => setIsRegionVisible(false), 300);
+    }
+  }, [regionDropdownOpen]);
+
+  useEffect(() => {
+    if (serviceDropdownOpen) {
+      setServiceIsVisible(true);
+    } else {
+      setTimeout(() => setServiceIsVisible(false), 300);
+    }
+  }, [serviceDropdownOpen]);
 
   const handleResetClick = () => {
     dispatch(resetSelection());
@@ -46,6 +65,20 @@ export default function RegionServiceDropdown() {
     }
     setServiceDropdownOpen(false);
   };
+
+  const regionDropdownAnimation = useSpring({
+    opacity: regionDropdownOpen ? 1 : 0,
+    transform: regionDropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
+    height: 'auto',
+    config: { tension: 170, friction: 30 },
+  });
+
+  const serviceDropdownAnimation = useSpring({
+    opacity: serviceDropdownOpen ? 1 : 0,
+    transform: serviceDropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
+    height: 'auto',
+    config: { tension: 170, friction: 30 },
+  });
 
   return (
     <div className="lg:w-[32.8rem] flex lg:flex-col lg:gap-[3.2rem] sm:gap-[1.2rem]">
@@ -93,8 +126,11 @@ export default function RegionServiceDropdown() {
             className="lg:hidden sm:block"
           />
         </div>
-        {regionDropdownOpen && (
-          <div className="absolute w-auto border bg-white dark:bg-dark-p border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] z-[2]">
+        {isRegionVisible && (
+          <animated.div
+            style={regionDropdownAnimation}
+            className="absolute w-auto border bg-white dark:bg-dark-p border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] z-[2]"
+          >
             <div className="grid grid-cols-2 lg:h-[32rem] sm:h-[18rem] lg:w-auto sm:w-[15rem] overflow-y-auto overflow-x-hidden">
               {regionsDropdown.map((region, index) => (
                 <div
@@ -108,7 +144,7 @@ export default function RegionServiceDropdown() {
                 </div>
               ))}
             </div>
-          </div>
+          </animated.div>
         )}
       </div>
       <div className="flex flex-col gap-[1.6rem] relative">
@@ -147,8 +183,11 @@ export default function RegionServiceDropdown() {
             className="lg:hidden sm:block"
           />
         </div>
-        {serviceDropdownOpen && (
-          <div className="absolute lg:w-full sm:w-[9rem] bg-white dark:bg-dark-p border border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] flex z-[1]">
+        {isServiceVisible && (
+          <animated.div
+            style={serviceDropdownAnimation}
+            className="absolute lg:w-full sm:w-[9rem] bg-white dark:bg-dark-p border border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] flex z-[1]"
+          >
             <div className="flex flex-col lg:w-[16.4rem] sm:w-auto">
               {movingTypeDropdown.map((movingType, index) => (
                 <div
@@ -160,7 +199,7 @@ export default function RegionServiceDropdown() {
                 </div>
               ))}
             </div>
-          </div>
+          </animated.div>
         )}
       </div>
     </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { animated, useSpring } from '@react-spring/web';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -31,7 +32,10 @@ export default function ProfileRegisterDriver() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid;
+
   const [isCareer, setIsCareer] = useState(false);
+  const [isCareerVisible, setIsCareerVisible] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -117,6 +121,21 @@ export default function ProfileRegisterDriver() {
     },
   });
 
+  useEffect(() => {
+    if (isCareer) {
+      setIsCareerVisible(true);
+    } else {
+      setTimeout(() => setIsCareerVisible(false), 300);
+    }
+  }, [isCareer]);
+
+  const careerDropdownAnimation = useSpring({
+    opacity: isCareer ? 1 : 0,
+    transform: 'translateY(10px)',
+    height: 'auto',
+    config: { tension: 250, friction: 30 },
+  });
+
   const handleUserDataSubmit = () => {
     userDataMutation.mutate();
   };
@@ -182,12 +201,14 @@ export default function ProfileRegisterDriver() {
                   onClick={() => setIsCareer(prev => !prev)}
                 />
               </div>
-              {isCareer && (
-                <CareerCalendarCard
-                  setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
-                  setIsCareerOpen={setIsCareer}
-                  initialCareerDate={values.career}
-                />
+              {isCareerVisible && (
+                <animated.div style={careerDropdownAnimation}>
+                  <CareerCalendarCard
+                    setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
+                    setIsCareerOpen={setIsCareer}
+                    initialCareerDate={values.career}
+                  />
+                </animated.div>
               )}
               {errors.career && isTouched.career && (
                 <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">

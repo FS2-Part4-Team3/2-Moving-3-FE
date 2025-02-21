@@ -35,10 +35,20 @@ export default function ReceiveQuoteMovingTypeClient() {
         className="lg:hidden sm:block cursor-pointer"
       />
       {isModalOpen && (
-        <MovingTypeFilterDropdown onClick={handleClick} filterState={filterState} onFilterChange={handleFilterChange} />
+        <MovingTypeFilterDropdown
+          isOpen={isModalOpen}
+          onClick={handleClick}
+          filterState={filterState}
+          onFilterChange={handleFilterChange}
+        />
       )}
       <div className="lg:block sm:hidden">
-        <MovingTypeFilterDropdown onClick={handleClick} filterState={filterState} onFilterChange={handleFilterChange} />
+        <MovingTypeFilterDropdown
+          isOpen={isModalOpen}
+          onClick={handleClick}
+          filterState={filterState}
+          onFilterChange={handleFilterChange}
+        />
       </div>
     </div>
   );

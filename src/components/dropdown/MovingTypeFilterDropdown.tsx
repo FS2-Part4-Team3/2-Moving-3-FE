@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,11 +12,21 @@ import { setDesignatedRequest, setServiceArea, setServiceType } from '@/store/sl
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../common/headless/Button';
 
-export default function MovingTypeFilterDropdown({ onClick, filterState, onFilterChange }: MediaTypeFilterDropdownProps) {
+export default function MovingTypeFilterDropdown({ isOpen, onClick, filterState, onFilterChange }: MediaTypeFilterDropdownProps) {
   const dispatch = useDispatch();
   const { movesList } = useSelector((state: RootState) => state.moves);
 
   const [isMenuClick, setIsMenuClick] = useState<'mov' | 'filter'>('mov');
+
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClick();
+    }, 400);
+  };
 
   const handleClickMovType = (movType: string) => {
     const updatedTypes = filterState.types.includes(movType)
@@ -72,6 +83,12 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
     onFilterChange(newState);
     dispatch(setServiceArea(!allSelected ? 'Active' : 'Inactive'));
     dispatch(setDesignatedRequest(!allSelected ? 'Active' : 'Inactive'));
+  };
+
+  const modalVariants = {
+    hidden: { y: '100%', opacity: 0 },
+    visible: { y: '0%', opacity: 1, transition: { type: 'tween', duration: 0.4 } },
+    exit: { y: '100%', opacity: 0, transition: { type: 'tween', duration: 0.4 } },
   };
 
   return (
@@ -195,147 +212,161 @@ export default function MovingTypeFilterDropdown({ onClick, filterState, onFilte
         </div>
       </div>
       <div className="w-full min-h-screen flex md:items-center md:justify-center sm:items-end bg-black bg-opacity-50 lg:hidden">
-        <div className="bg-white dark:bg-dark-p md:w-[37.5rem] sm:w-full md:rounded-[3.2rem] sm:rounded-tr-[3.2rem] sm:rounded-tl-[3.2rem] pt-[1.6rem] pb-[3.2rem] px-[2.4rem] flex flex-col gap-[2.4rem]">
-          <div className="flex flex-col gap-[1.2rem]">
-            <div className="flex w-full justify-between p-[0.8rem]">
-              <div className="flex gap-[2.4rem]">
-                <p
-                  className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
-                    isMenuClick === 'mov' ? 'text-black-400 dark:text-dark-t' : 'text-gray-300'
-                  }`}
-                  onClick={() => setIsMenuClick('mov')}
-                >
-                  이사 유형
-                </p>
-                <p
-                  className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
-                    isMenuClick === 'filter' ? 'text-black-400 dark:text-dark-t' : 'text-gray-300'
-                  }`}
-                  onClick={() => setIsMenuClick('filter')}
-                >
-                  필터
-                </p>
-              </div>
-              <Image src={x} alt="x" width={24} height={24} onClick={onClick} className="cursor-pointer" />
-            </div>
-            {isMenuClick === 'mov' && (
-              <div className="flex flex-col gap-[0.8rem]">
-                <div className="flex gap-[1rem] items-center py-[0.8rem] px-[1rem] border-b border-line-100 justify-between">
-                  <div className="flex">
-                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 ({movesList?.totalCount})</p>
-                  </div>
-                  <Image
-                    src={filterState.smallMov && filterState.homeMov && filterState.officeMov ? checkbox_blue : checkbox}
-                    alt="checkbox"
-                    width={36}
-                    height={36}
-                    onClick={handleSelectMovAll}
-                    className="cursor-pointer"
-                  />
-                </div>
-                <div>
-                  <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
-                      <p>소형이사</p>
-                      <p>({movesList?.counts.serviceTypeCounts[0].count})</p>
-                    </div>
-                    <Image
-                      src={filterState.smallMov ? checkbox_blue : checkbox}
-                      alt="checkbox"
-                      width={36}
-                      height={36}
-                      onClick={() => handleClickMovType('SMALL')}
-                      className="cursor-pointer"
-                    />
-                  </div>
-                  <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
-                      <p>가정이사</p>
-                      <p>({movesList?.counts.serviceTypeCounts[1].count})</p>
-                    </div>
-                    <Image
-                      src={filterState.homeMov ? checkbox_blue : checkbox}
-                      alt="checkbox"
-                      width={36}
-                      height={36}
-                      onClick={() => handleClickMovType('HOME')}
-                      className="cursor-pointer"
-                    />
-                  </div>
-                  <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
-                      <p>사무실이사</p>
-                      <p>({movesList?.counts.serviceTypeCounts[2].count})</p>
-                    </div>
-                    <Image
-                      src={filterState.officeMov ? checkbox_blue : checkbox}
-                      alt="checkbox"
-                      width={36}
-                      height={36}
-                      onClick={() => handleClickMovType('OFFICE')}
-                      className="cursor-pointer"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-            {isMenuClick === 'filter' && (
-              <div className="flex flex-col gap-[0.8rem]">
-                <div className="flex gap-[1rem] items-center py-[0.8rem] px-[1rem] border-b border-line-100 justify-between">
-                  <div className="flex">
-                    <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">전체선택 ({movesList?.totalCount})</p>
-                  </div>
-                  <Image
-                    src={filterState.serviceable && filterState.appointRequest ? checkbox_blue : checkbox}
-                    alt="checkbox"
-                    width={36}
-                    height={36}
-                    onClick={handleSelectFilterAll}
-                    className="cursor-pointer"
-                  />
-                </div>
-                <div>
-                  <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
-                      <p>서비스 가능 지역</p>
-                      <p>({movesList?.counts.serviceAreaCount})</p>
-                    </div>
-                    <Image
-                      src={filterState.serviceable ? checkbox_blue : checkbox}
-                      alt="checkbox"
-                      width={36}
-                      height={36}
-                      onClick={() => handleClickFilter('area')}
-                      className="cursor-pointer"
-                    />
-                  </div>
-                  <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
-                    <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
-                      <p>지정 견적 요청</p>
-                      <p>({movesList?.counts.designatedRequestCount})</p>
-                    </div>
-                    <Image
-                      src={filterState.appointRequest ? checkbox_blue : checkbox}
-                      alt="checkbox"
-                      width={36}
-                      height={36}
-                      onClick={() => handleClickFilter('appointment')}
-                      className="cursor-pointer"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-          <ButtonWrapper id="inquiry-driver">
-            <ButtonWrapper.Button
-              className="w-full h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold text-[1.6rem] leading-[2.6rem] text-white"
-              onClick={onClick}
+        <AnimatePresence>
+          {isOpen && !isClosing && (
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={modalVariants}
+              className="bg-white dark:bg-dark-p md:w-[37.5rem] sm:w-full md:rounded-[3.2rem] sm:rounded-tr-[3.2rem] sm:rounded-tl-[3.2rem] pt-[1.6rem] pb-[3.2rem] px-[2.4rem] flex flex-col gap-[2.4rem]"
             >
-              조회하기
-            </ButtonWrapper.Button>
-          </ButtonWrapper>
-        </div>
+              <div className="flex flex-col gap-[1.2rem]">
+                <div className="flex w-full justify-between p-[0.8rem]">
+                  <div className="flex gap-[2.4rem]">
+                    <p
+                      className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
+                        isMenuClick === 'mov' ? 'text-black-400 dark:text-dark-t' : 'text-gray-300'
+                      }`}
+                      onClick={() => setIsMenuClick('mov')}
+                    >
+                      이사 유형
+                    </p>
+                    <p
+                      className={`font-bold text-[1.8rem] leading-[2.6rem] cursor-pointer ${
+                        isMenuClick === 'filter' ? 'text-black-400 dark:text-dark-t' : 'text-gray-300'
+                      }`}
+                      onClick={() => setIsMenuClick('filter')}
+                    >
+                      필터
+                    </p>
+                  </div>
+                  <Image src={x} alt="x" width={24} height={24} onClick={handleClose} className="cursor-pointer" />
+                </div>
+                {isMenuClick === 'mov' && (
+                  <div className="flex flex-col gap-[0.8rem]">
+                    <div className="flex gap-[1rem] items-center py-[0.8rem] px-[1rem] border-b border-line-100 justify-between">
+                      <div className="flex">
+                        <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">
+                          전체선택 ({movesList?.totalCount})
+                        </p>
+                      </div>
+                      <Image
+                        src={filterState.smallMov && filterState.homeMov && filterState.officeMov ? checkbox_blue : checkbox}
+                        alt="checkbox"
+                        width={36}
+                        height={36}
+                        onClick={handleSelectMovAll}
+                        className="cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
+                        <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
+                          <p>소형이사</p>
+                          <p>({movesList?.counts.serviceTypeCounts[0].count})</p>
+                        </div>
+                        <Image
+                          src={filterState.smallMov ? checkbox_blue : checkbox}
+                          alt="checkbox"
+                          width={36}
+                          height={36}
+                          onClick={() => handleClickMovType('SMALL')}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                      <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
+                        <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
+                          <p>가정이사</p>
+                          <p>({movesList?.counts.serviceTypeCounts[1].count})</p>
+                        </div>
+                        <Image
+                          src={filterState.homeMov ? checkbox_blue : checkbox}
+                          alt="checkbox"
+                          width={36}
+                          height={36}
+                          onClick={() => handleClickMovType('HOME')}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                      <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
+                        <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
+                          <p>사무실이사</p>
+                          <p>({movesList?.counts.serviceTypeCounts[2].count})</p>
+                        </div>
+                        <Image
+                          src={filterState.officeMov ? checkbox_blue : checkbox}
+                          alt="checkbox"
+                          width={36}
+                          height={36}
+                          onClick={() => handleClickMovType('OFFICE')}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {isMenuClick === 'filter' && (
+                  <div className="flex flex-col gap-[0.8rem]">
+                    <div className="flex gap-[1rem] items-center py-[0.8rem] px-[1rem] border-b border-line-100 justify-between">
+                      <div className="flex">
+                        <p className="font-normal text-[1.6rem] leading-[2.6rem] text-gray-300">
+                          전체선택 ({movesList?.totalCount})
+                        </p>
+                      </div>
+                      <Image
+                        src={filterState.serviceable && filterState.appointRequest ? checkbox_blue : checkbox}
+                        alt="checkbox"
+                        width={36}
+                        height={36}
+                        onClick={handleSelectFilterAll}
+                        className="cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
+                        <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
+                          <p>서비스 가능 지역</p>
+                          <p>({movesList?.counts.serviceAreaCount})</p>
+                        </div>
+                        <Image
+                          src={filterState.serviceable ? checkbox_blue : checkbox}
+                          alt="checkbox"
+                          width={36}
+                          height={36}
+                          onClick={() => handleClickFilter('area')}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                      <div className="flex justify-between border-b border-line-100 p-[1.6rem]">
+                        <div className="flex gap-[0.4rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
+                          <p>지정 견적 요청</p>
+                          <p>({movesList?.counts.designatedRequestCount})</p>
+                        </div>
+                        <Image
+                          src={filterState.appointRequest ? checkbox_blue : checkbox}
+                          alt="checkbox"
+                          width={36}
+                          height={36}
+                          onClick={() => handleClickFilter('appointment')}
+                          className="cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <ButtonWrapper id="inquiry-driver">
+                <ButtonWrapper.Button
+                  className="w-full h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold text-[1.6rem] leading-[2.6rem] text-white"
+                  onClick={onClick}
+                >
+                  조회하기
+                </ButtonWrapper.Button>
+              </ButtonWrapper>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 'use client';
 
+import { animated, useSpring } from '@react-spring/web';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import clicked_arrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
 import arrow_down from '@/../public/assets/common/dropdown/chevron-down.svg';
@@ -12,7 +13,23 @@ export default function ReviewAnalysisDropdown() {
   const dispatch = useDispatch();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setIsDropdownVisible(true);
+    } else {
+      setTimeout(() => setIsDropdownVisible(false), 300);
+    }
+  }, [isDropdownOpen]);
+
+  const sortDropdownAnimation = useSpring({
+    opacity: isDropdownOpen ? 1 : 0,
+    transform: isDropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
+    height: 'auto',
+    config: { tension: 170, friction: 30 },
+  });
 
   const handleMenuClick = (menu: string) => {
     setSelectedMenu(menu);
@@ -70,8 +87,11 @@ export default function ReviewAnalysisDropdown() {
             className="lg:hidden sm:block"
           />
         </div>
-        {isDropdownOpen && (
-          <div className="absolute w-auto border bg-white border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] z-[2]">
+        {isDropdownVisible && (
+          <animated.div
+            style={sortDropdownAnimation}
+            className="absolute w-auto border bg-white border-line-200 top-full lg:rounded-[1.6rem] sm:rounded-[0.8rem] pr-[0.5rem] py-[0.6rem] z-[2]"
+          >
             <div className="h-fit lg:w-[32.8rem] sm:w-[15rem]">
               {reviewAnalysisTypes.map((region, index) => (
                 <div
@@ -83,7 +103,7 @@ export default function ReviewAnalysisDropdown() {
                 </div>
               ))}
             </div>
-          </div>
+          </animated.div>
         )}
       </div>
     </div>

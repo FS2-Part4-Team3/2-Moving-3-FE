@@ -1,6 +1,7 @@
 'use client';
 
-import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
+import { animated, useTransition } from '@react-spring/web';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -67,6 +68,13 @@ export default function ReviewClient({ id }: ReviewClientProps) {
     setCurrentPage(page);
   };
 
+  const transitions = useTransition(currentPage, {
+    from: { opacity: 0, transform: 'translateX(100%)' },
+    enter: { opacity: 1, transform: 'translateX(0%)' },
+    leave: { opacity: 0, transform: 'translateX(-100%)' },
+    config: { tension: 150, friction: 25 },
+  });
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -106,10 +114,17 @@ export default function ReviewClient({ id }: ReviewClientProps) {
 
       {reviewData?.totalCount ? (
         <div className="flex flex-col w-full">
-          {reviewData?.list
+          {transitions(
+            (style, page) =>
+              page === currentPage && (
+                <animated.div style={style}>
+                  {reviewData?.list
             ? reviewData.list.map((review, index) => <DriverReviewCard key={index} review={review} />)
             : Array.from({ length: 3 }).map((_, index) => <DriverReviewCardSkeleton key={index} />)}
-          <div className="flex justify-center lg:pt-[21.4rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
+                </animated.div>
+              ),
+          )}
+          <div className="flex justify-center lg:pt-[6rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
           </div>
         </div>

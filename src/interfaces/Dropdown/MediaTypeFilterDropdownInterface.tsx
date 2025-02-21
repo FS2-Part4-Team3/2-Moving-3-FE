@@ -1,4 +1,5 @@
 export interface MediaTypeFilterDropdownProps {
+  isOpen: boolean;
   onClick: () => void;
   filterState: FilterState;
   onFilterChange: (newState: FilterState) => void;
