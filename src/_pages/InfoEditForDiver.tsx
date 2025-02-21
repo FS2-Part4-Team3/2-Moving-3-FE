@@ -362,7 +362,7 @@ export default function InfoEditForDriver() {
               <ButtonWrapper
                 id="cancel-btn"
                 onClick={() => {
-                  router.back();
+                  router.push('/driver/my-page');
                 }}
               >
                 <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[30rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[15rem] md:mb-[2.4rem] sm:mb-[2.4rem] dark:shadow">

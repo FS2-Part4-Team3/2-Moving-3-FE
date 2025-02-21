@@ -319,7 +319,7 @@ export default function ProfileEditDriver() {
           />
         </div>
       </div>
-      <ButtonWrapper id="profile-register-driver" type="submit" onClick={() => router.back()}>
+      <ButtonWrapper id="profile-register-driver" type="submit" onClick={() => router.push('/driver/my-page')}>
         <ButtonWrapper.Button className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]">
           취소
         </ButtonWrapper.Button>
