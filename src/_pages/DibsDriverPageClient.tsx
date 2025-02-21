@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer';
 import { getDibsDriverListData } from '@/api/DriverService';
 import DibsDriverPageCard from '@/components/cards/DibsDriverPageCard';
 import Empty from '@/components/common/Empty/Empty';
+import DibsDriverPageCardSkeleton from '@/components/skeleton/DibsDriverPageCardSkeleton';
 import { DibsDriverListResponse } from '@/interfaces/API/DriverServiceInterface';
 
 export default function DibsDriverPageClient() {
@@ -57,9 +58,10 @@ export default function DibsDriverPageClient() {
       {dibsDrivers
         ? dibsDrivers.pages.flatMap(page =>
             page.list.map(driver => (
-              <Link key={driver.id} href={`/match-driver/${driver.id}`}>
+              <Link key={driver.id} href={`/normal/match-driver/${driver.id}`}>
                 <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
-                  <DibsDriverPageCard data={driver} />
+                  {/* <DibsDriverPageCard data={driver} /> */}
+                  <DibsDriverPageCardSkeleton />
                 </div>
               </Link>
             )),
