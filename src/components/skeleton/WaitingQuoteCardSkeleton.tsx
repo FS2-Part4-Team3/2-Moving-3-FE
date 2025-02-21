@@ -13,7 +13,7 @@ export default function WaitingQuoteCardSkeleton() {
           <div className="w-[8rem] h-[3rem] rounded-[0.4rem] bg-gray-200 shimmer"></div>
         </div>
         <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[1.4rem]">
-          <div className="flex w-full lg:gap-[2.4rem] sm:gap-[1.2rem] py-[1.6rem] lg:px-[1.8rem] sm:px-[1rem] border border-line-100 rounded-[0.6rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
+          <div className="flex w-full lg:gap-[2.4rem] sm:gap-[1.2rem] py-[1.6rem] lg:px-[1.8rem] sm:px-[1rem] border border-line-100 rounded-[0.6rem] shadow-[-0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)] items-center">
             <>
               <div className="w-[5.6rem] h-[5.6rem] lg:block sm:hidden">
                 <Image
@@ -51,13 +51,13 @@ export default function WaitingQuoteCardSkeleton() {
               </div>
             </div>
           </div>
-          <div className="flex lg:flex-row sm:flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] items-center">
-            <div className="w-[12rem] h-[2rem] rounded-[0.4rem] bg-gray-200 shimmer" />
+          <div className="flex lg:flex-row sm:flex-col lg:gap-[1.6rem] sm:gap-[1.4rem] lg:items-center sm:items-start">
+            <div className="w-[12rem] h-[3rem] rounded-[0.4rem] bg-gray-200 shimmer" />
             <div className="h-[1.6rem] border border-line-200 sm:hidden lg:block" />
             <div className="flex sm:flex-row lg:gap-[1.6rem] sm:gap-[1.4rem] sm:justify-start sm:w-full lg:w-auto items-center">
-              <div className="w-[12rem] h-[2rem] rounded-[0.4rem] bg-gray-200 shimmer" />
+              <div className="w-[12rem] h-[3rem] rounded-[0.4rem] bg-gray-200 shimmer" />
               <div className="h-[1.6rem] border border-line-200" />
-              <div className="w-[12rem] h-[2rem] rounded-[0.4rem] bg-gray-200 shimmer" />
+              <div className="w-[12rem] h-[3rem] rounded-[0.4rem] bg-gray-200 shimmer" />
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function WaitingQuoteCardSkeleton() {
       <div className="w-full flex justify-end items-center lg:gap-[1.6rem] sm:gap-[0.8rem]">
         <div className="w-[18rem] h-[3.5rem] rounded-[0.4rem] bg-gray-200 shimmer" />
       </div>
-      <div className="flex flex-row justify-between gap-[0.5rem]">
+      <div className="flex md:flex-row sm:flex-col justify-between gap-[0.5rem]">
         <div className="w-full h-[5rem] rounded-[0.8rem] bg-gray-200 shimmer" />
         <div className="w-full h-[5rem] rounded-[0.8rem] bg-gray-200 shimmer" />
       </div>
