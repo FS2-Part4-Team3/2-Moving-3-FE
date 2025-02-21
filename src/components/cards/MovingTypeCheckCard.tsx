@@ -24,12 +24,11 @@ export default function MovingTypeCheckCard({
       const matchingType = movingTypesCheck.find(movingType => movingType.code === initialMovingType);
       if (matchingType) {
         setViewMovingType(matchingType.type);
+        setIsMovingType(prev => !prev);
       }
-
-      setIsMovingType(prev => !prev);
     }
     console.log('a', initialMovingType);
-  }, [initialMovingType]);
+  }, [initialMovingType, setViewMovingType, setIsMovingType]);
 
   const handleCheckClick = (movingType: string) => {
     setSelectedMovingType(movingType);

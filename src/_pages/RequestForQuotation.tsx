@@ -60,15 +60,14 @@ export default function RequestForQuotation() {
       }
     };
     fetchCheckAPi();
-  }, [moveInfoId]);
-
-  useEffect(() => {});
+  }, [moveInfoId, edit]);
 
   useEffect(() => {
-    if (type) {
+    if (type && !movingType) {
       setMovingType(type);
+      setIsMovingType(true);
     }
-  }, [edit, moveData]);
+  }, [type]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
