@@ -1,11 +1,13 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import add_file from '@/../public/assets/chat/ic_add-file.svg';
 import send_btn from '@/../public/assets/chat/send_btn.svg';
+import { postImage } from '@/api/ChatsService';
+import { putImage } from '@/api/UserService';
 import { useSocket } from '@/contexts/socketContext';
 import type { Direction } from '@/interfaces/Input/ChatInputInterface';
 import { RootState } from '@/store/store';
@@ -38,6 +40,19 @@ export default function ChatInput() {
     setPreviewUrl('');
   };
 
+  const imageMutation = useMutation({
+    mutationFn: async () => {
+      if (selectedImg === null) return;
+
+      const smapleImage = selectedImg.name;
+      const response = await postImage(smapleImage);
+      const { uploadUrl } = response;
+      const image = await putImage(uploadUrl, selectedImg);
+      await postImage(image);
+      return response.uniqueFileName;
+    },
+  });
+
   const handleTyping = useCallback(() => {
     if (socket) {
       socket.emit('typing', chat.id);
@@ -52,15 +67,25 @@ export default function ChatInput() {
     }
   }, [socket, user.id]);
 
-  const handleSubmit = () => {
-    if (message.trim() && socket) {
-      const direction: Direction = user.type === 'user' ? 'USER_TO_DRIVER' : 'DRIVER_TO_USER';
+  const handleSubmit = async () => {
+    if ((message.trim() || selectedImg) && socket) {
+      let imageUrl = '';
+      if (selectedImg) {
+        try {
+          imageUrl = await imageMutation.mutateAsync();
+        } catch (err) {
+          console.error('이미지 업로드 실패', err);
+          return;
+        }
+      }
 
+      const direction: Direction = user.type === 'user' ? 'USER_TO_DRIVER' : 'DRIVER_TO_USER';
       const newMessage = {
         userId: user.type === 'user' ? user.id : chat.id,
         driverId: user.type === 'driver' ? user.id : chat.id,
         message: message.trim(),
         direction: direction,
+        image: imageUrl,
       };
 
       queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {
@@ -131,10 +156,7 @@ export default function ChatInput() {
           </div>
         )}
         <input
-          className={`w-full flex-grow text-[1.8rem] font-medium text-black-400 focus:outline-none bg-transparent resize-none ${!previewUrl && 'pl-[4rem]'}`}
-          style={{
-            minHeight: previewUrl ? '120px' : '40px',
-          }}
+          className={`w-full ${previewUrl ? 'min-h-[12rem]' : 'min-h-[4rem] pl-[4rem]'} flex-grow text-[1.8rem] font-medium text-black-400 focus:outline-none bg-transparent resize-none`}
           type="text"
           value={message}
           onChange={e => {
