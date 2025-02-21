@@ -1,6 +1,7 @@
 'use client';
 
 import { animated, useSpring } from '@react-spring/web';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -16,9 +17,10 @@ import logo_sm from '@/../public/assets/common/gnb/logo-sm.svg';
 import menu from '@/../public/assets/common/gnb/menu.svg';
 import red_alarm from '@/../public/assets/common/gnb/red_alarm.svg';
 import close from '@/../public/assets/common/icon_X.svg';
+import { getChatData } from '@/api/ChatsService';
 import { getNotification } from '@/api/NotificationService';
 import { ModeToggle } from '@/components/common/gnb/ModeToggle';
-import { Chat } from '@/interfaces/Card/ChatCardInterface';
+import { ChatData } from '@/interfaces/Card/ChatCardInterface';
 import { NotificationData, NotificationDataStructure, NotificationResponse } from '@/interfaces/CommonComp/GnbInterface';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
@@ -51,7 +53,8 @@ export default function GNB() {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [chatRead, setChatRead] = useState<Chat | null>(null);
+  const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
+  const queryClient = useQueryClient();
 
   const fetchNotifications = async (pageNumber: number) => {
     setLoading(true);
@@ -64,6 +67,19 @@ export default function GNB() {
       setLoading(false);
     }
   };
+
+  const { data: unreadChatData } = useQuery<ChatData>({
+    queryKey: ['unreadChat'],
+    queryFn: async () => {
+      const response = await getChatData('', 1, 10);
+      return response;
+    },
+    enabled: !!user.id,
+  });
+
+  useEffect(() => {
+    setHasUnreadMessages(unreadChatData?.list?.some(message => !message.isRead) || false);
+  }, [unreadChatData]);
 
   useEffect(() => {
     if (user.id) {
@@ -87,7 +103,13 @@ export default function GNB() {
       });
 
       newSocket.on('chat', data => {
-        setChatRead(data);
+        if (!data.isRead) {
+          setHasUnreadMessages(true);
+          queryClient.setQueryData(['unreadChat'], (oldData: any) => ({
+            ...oldData,
+            list: oldData?.list ? [data, ...oldData.list] : [data],
+          }));
+        }
       });
 
       return () => {
@@ -95,6 +117,11 @@ export default function GNB() {
       };
     }
   }, [page, user.id]);
+
+  const handleChatIconClick = () => {
+    setHasUnreadMessages(false);
+    router.push('/chat');
+  };
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -266,20 +293,20 @@ export default function GNB() {
             {status !== 'LogOut' && (
               <div className="flex gap-[3.2rem] items-center justify-end w-full">
                 <Image
-                  src={chatRead ? chatIconOn : chatIcon}
+                  src={hasUnreadMessages ? chatIconOn : chatIcon}
                   alt="chat"
                   width={48}
                   height={48}
                   className="lg:block sm:hidden cursor-pointer"
-                  onClick={() => router.push('/chat')}
+                  onClick={handleChatIconClick}
                 />
                 <Image
-                  src={chatRead ? chatIconOn : chatIcon}
+                  src={hasUnreadMessages ? chatIconOn : chatIcon}
                   alt="chat"
                   width={36}
                   height={36}
                   className="lg:hidden sm:block cursor-pointer"
-                  onClick={() => router.push('/chat')}
+                  onClick={handleChatIconClick}
                 />
                 <Image
                   src={notifications.some(n => !n.isRead) ? red_alarm : alarm}
