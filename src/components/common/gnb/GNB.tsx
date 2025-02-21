@@ -7,6 +7,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
+import chatIcon from '@/../public/assets/chat/icon_chat.svg';
+import chatIconOn from '@/../public/assets/chat/icon_chat_alam.svg';
 import alarm from '@/../public/assets/common/gnb/alarm.svg';
 import profile from '@/../public/assets/common/gnb/default_profile.svg';
 import logo from '@/../public/assets/common/gnb/logo-icon-text.svg';
@@ -16,6 +18,7 @@ import red_alarm from '@/../public/assets/common/gnb/red_alarm.svg';
 import close from '@/../public/assets/common/icon_X.svg';
 import { getNotification } from '@/api/NotificationService';
 import { ModeToggle } from '@/components/common/gnb/ModeToggle';
+import { Chat } from '@/interfaces/Card/ChatCardInterface';
 import { NotificationData, NotificationDataStructure, NotificationResponse } from '@/interfaces/CommonComp/GnbInterface';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
@@ -48,6 +51,8 @@ export default function GNB() {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [chatRead, setChatRead] = useState<Chat>();
+
   const fetchNotifications = async (pageNumber: number) => {
     setLoading(true);
     try {
@@ -58,6 +63,11 @@ export default function GNB() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const fetchChat = async (pageNumber: number) => {
+    try {
+    } catch (err) {}
   };
 
   useEffect(() => {
@@ -77,6 +87,14 @@ export default function GNB() {
           return;
         } else if (data.type === 'NEW_NOTIFICATION') {
           setNotifications(prev => [data.data, ...prev]);
+        }
+      });
+
+      newSocket.on('chat', (data: Chat) => {
+        if (data.isRead === false) {
+          setChatRead(data);
+        } else {
+          return;
         }
       });
 
@@ -255,6 +273,22 @@ export default function GNB() {
 
             {status !== 'LogOut' && (
               <div className="flex gap-[3.2rem] items-center justify-end w-full">
+                <Image
+                  src={chatRead ? chatIconOn : chatIcon}
+                  alt="chat"
+                  width={48}
+                  height={48}
+                  className="lg:block sm:hidden cursor-pointer"
+                  onClick={() => router.push('/chat')}
+                />
+                <Image
+                  src={chatRead ? chatIconOn : chatIcon}
+                  alt="chat"
+                  width={36}
+                  height={36}
+                  className="lg:hidden sm:block cursor-pointer"
+                  onClick={() => router.push('/chat')}
+                />
                 <Image
                   src={notifications.some(n => !n.isRead) ? red_alarm : alarm}
                   alt="alarm"
