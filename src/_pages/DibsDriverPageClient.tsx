@@ -38,7 +38,17 @@ export default function DibsDriverPageClient() {
   }, [inView]);
 
   if (dibsDriversLoading) {
-    return <div>Loading</div>;
+    return (
+      <div>
+        <div className="pt-[2.4rem] lg:grid grid-cols-2 sm:flex flex-col gap-[3.2rem] w-full lg:px-[0rem] md:px-[7.2rem] sm:px-[3rem]">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
+              <DibsDriverPageCardSkeleton key={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (dibsDriversError) {
@@ -60,8 +70,7 @@ export default function DibsDriverPageClient() {
             page.list.map(driver => (
               <Link key={driver.id} href={`/normal/match-driver/${driver.id}`}>
                 <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
-                  {/* <DibsDriverPageCard data={driver} /> */}
-                  <DibsDriverPageCardSkeleton />
+                  <DibsDriverPageCard data={driver} />
                 </div>
               </Link>
             )),
