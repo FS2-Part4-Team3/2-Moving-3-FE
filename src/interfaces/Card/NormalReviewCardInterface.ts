@@ -43,15 +43,15 @@ export interface MyReviewItem {
   score: number;
   estimation: {
     price: number;
-    driver: {
-      name: string;
-      image: string;
-    };
     moveInfo: {
       serviceType: 'SMALL' | 'HOME' | 'OFFICE';
       date: string;
-      isSpecificRequest: boolean;
     };
+    isSpecificRequest: boolean;
+  };
+  driver: {
+    name: string;
+    image: string;
   };
 }
 
