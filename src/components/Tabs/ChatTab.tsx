@@ -40,7 +40,7 @@ export default function ChatTab() {
     queryKey: ['onlineStatus', chat.id],
     queryFn: () => getOnlineStatus(chat.id || ''),
   });
-  console.log(chat);
+
   return (
     <div className="flex items-center justify-between h-[6.9rem] lg:w-full md:w-full sm:w-full lg:px-[1.9rem] md:px-[1.6rem] sm:px-[1.6rem] border-b-[0.3rem] border-line-100 ">
       <div className="flex items-center gap-[1.8rem]">
