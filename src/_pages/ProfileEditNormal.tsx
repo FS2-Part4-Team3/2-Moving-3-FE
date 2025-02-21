@@ -42,7 +42,6 @@ export default function ProfileEditNormal() {
   const user_info = useSelector((state: RootState) => state.info);
   const isDisabled = values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions;
   const dispatch = useDispatch();
-  console.log(user);
 
   useEffect(() => {
     setValues(prev => ({

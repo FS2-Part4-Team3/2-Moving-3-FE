@@ -63,8 +63,6 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
-      console.log(res);
-      console.log(res.person.provier);
       dispatch(
         setUserSign({
           id: res.person.id,
