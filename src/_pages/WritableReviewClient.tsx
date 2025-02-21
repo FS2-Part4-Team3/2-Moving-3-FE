@@ -87,7 +87,11 @@ export default function WritableReviewClient() {
               (style, page) =>
                 page === currentPage && (
                   <animated.div style={style}>
-                    {reviewableEstimations?.estimations.map(estimation => <WritableReviewCard estimation={estimation} />)}
+                                {reviewableEstimations?.estimations.map(estimation => (
+              <div key={estimation.estimationInfo.estimationId}>
+                <WritableReviewCard estimation={estimation} />
+              </div>
+            ))}
                   </animated.div>
                 ),
             )}

@@ -3,15 +3,28 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useDispatch } from 'react-redux';
-import { getChatListData } from '@/api/chatService';
+import { useDispatch, useSelector } from 'react-redux';
+import { getChatListData } from '@/api/ChatsService';
 import { ChatListData } from '@/interfaces/Section/ChatListInterface';
-import { setChat } from '@/store/slices/chatSlice';
+import { setChat, setMoves } from '@/store/slices/chatSlice';
+import { RootState } from '@/store/store';
+import { formatDateTime } from '@/utils/Format';
 import ChatCard from '../cards/ChatCard';
 
 export default function ChatList() {
   const { ref, inView } = useInView();
+  const chat = useSelector((state: RootState) => state.chat);
   const dispatch = useDispatch();
+  const krType = (serviceType: string) => {
+    switch (serviceType) {
+      case 'HOME':
+        return '가정이사';
+      case 'SMALL':
+        return '소형이사';
+      default:
+        return '사무실이사';
+    }
+  };
 
   const {
     data: chatList,
@@ -44,6 +57,27 @@ export default function ChatList() {
         dispatch(setChat({ id: lastId }));
       }
     }
+  }, [chatList?.pages]);
+
+  useEffect(() => {
+    chatList?.pages.map(chats => {
+      if (chats.moves) {
+        chats.moves.map(move => {
+          if (move.ownerId === chat.id) {
+            dispatch(
+              setMoves({
+                moveId: move.moveId,
+                serviceType: krType(move.serviceType),
+                date: formatDateTime(move.date),
+                fromAddress: move.fromAddress,
+                toAddress: move.toAddress,
+                ownerId: move.ownerId,
+              }),
+            );
+          }
+        });
+      }
+    });
   });
 
   if (isLoading) {

@@ -47,6 +47,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
             <Image
               src={myReview.estimation.driver.image || profile_default}
               alt={myReview.estimation.driver.name || '기본 이미지'}
+              className="rounded-full"
               fill
             />
           </div>
