@@ -75,7 +75,11 @@ export default function WritableReviewClient() {
       {reviewableEstimations?.estimations?.length ? (
         <>
           <div className="lg:grid lg:grid-cols-2 lg:gap-y-[4.8rem] lg:gap-x-[4rem] md:flex md:flex-col sm:flex sm:flex-col md:gap-y-[3.2rem] sm:gap-y-[3.2rem]">
-            {reviewableEstimations?.estimations.map(estimation => <WritableReviewCard estimation={estimation} />)}
+            {reviewableEstimations?.estimations.map(estimation => (
+              <div key={estimation.estimationInfo.estimationId}>
+                <WritableReviewCard estimation={estimation} />
+              </div>
+            ))}
           </div>
           <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </>
