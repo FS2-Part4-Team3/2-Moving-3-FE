@@ -106,7 +106,7 @@ export default function WritingReviewModal({ estimation, setIsModalOpen }: Writi
                 상세 후기를 작성해 주세요
               </span>
               <textarea
-                className="resize-none lg:w-[56rem] lg:h-[16rem] md:w-[32.7rem] md:h-[16rem] sm:w-[32.7rem] sm:h-[16rem] rounded-[1.6rem] lg:px-[2.4rem] lg:py-[1.4rem] md:px-[1.6rem] md:py-[1.4rem] bg-background-200 focus:outline-none placeholder:text-[2rem] placeholder:text-gray-300 text-[2rem] font-normal"
+                className="p-[1rem] resize-none lg:w-[56rem] lg:h-[16rem] md:w-[32.7rem] md:h-[16rem] sm:w-[32.7rem] sm:h-[16rem] rounded-[1.6rem] lg:px-[2.4rem] lg:py-[1.4rem] md:px-[1.6rem] md:py-[1.4rem] bg-background-200 focus:outline-none placeholder:lg:text-[2rem] placeholder:md:text-[1.6rem] placeholder:sm:text-[1.6rem] placeholder:text-gray-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal"
                 placeholder="최소 10자 이상 입력해주세요"
                 value={reviewText}
                 onChange={e => setReviewText(e.target.value)}
