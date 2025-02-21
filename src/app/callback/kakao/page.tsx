@@ -39,6 +39,7 @@ export default function CallBackKakao() {
             availableAreas: res.type === 'driver' ? res.availableAreas : undefined,
             areas: res.type === 'user' ? res.areas : undefined,
             type: res.type,
+            provider: res.provider,
             moveInfoId: '',
           }),
         );

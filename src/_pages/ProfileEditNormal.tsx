@@ -37,6 +37,7 @@ export default function ProfileEditNormal() {
   const isDisabled = values.name && values.number && values.nowPassword && values.selectedMovingType && values.selectedRegions;
   const dispatch = useDispatch();
   console.log(user);
+
   useEffect(() => {
     setValues(prev => ({
       ...prev,
@@ -47,7 +48,7 @@ export default function ProfileEditNormal() {
       selectedMovingType: user_profile.serviceType || [],
     }));
     setPreviewUrl(user_profile.image || (user.image ?? ''));
-  }, []);
+  }, [user, user_info, user_profile]);
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -163,6 +164,7 @@ export default function ProfileEditNormal() {
   const handlePasswordCheck = () => {
     checkPasswordMutation.mutate();
   };
+
   return (
     <>
       {isPasswordCheck ? (
@@ -219,7 +221,7 @@ export default function ProfileEditNormal() {
             </div>
           </div>
         </div>
-      ) : user.provider !== 'google' && user.provider !== 'naver' && user.provider !== 'kakao' ? (
+      ) : user.provider === null ? (
         <div className="flex flex-col items-center lg:gap-[4rem] md:gap-[2rem] sm:gap-[2rem] lg:mt-[3.2rem] md:mt-[1.6rem] sm:mt-[1.6rem]">
           <div className="flex justify-center lg:w-[120rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[3.2rem] lg:text-[3.2rem] md:text-[1.8rem] sm:text-[1.8rem] lg:mb-0 md:mb-[1.2rem] sm:mb-[1.2rem] font-semibold text-black-400 dark:text-dark-t">
             비밀번호 재확인
@@ -286,7 +288,7 @@ export default function ProfileEditNormal() {
           </div>
         </div>
       ) : (
-        <div></div>
+        <div>소셜</div>
       )}
     </>
   );

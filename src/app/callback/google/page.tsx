@@ -19,7 +19,6 @@ export default function CallBackGoogle() {
       try {
         const res = await getUserData();
         console.log(res);
-
         const accessToken = getQueryAccessToken;
         await fetch('/api/auth/sync-cookie', {
           method: 'POST',
@@ -40,6 +39,7 @@ export default function CallBackGoogle() {
             availableAreas: res.type === 'driver' ? res.availableAreas : undefined,
             areas: res.type === 'user' ? res.areas : undefined,
             type: res.type,
+            provider: res.provider,
             moveInfoId: '',
           }),
         );

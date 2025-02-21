@@ -63,6 +63,8 @@ export default function SignInClient() {
   const handleSubmit = async () => {
     try {
       const res = await postSignInData(userType, email, password);
+      console.log(res);
+      console.log(res.person.provier);
       dispatch(
         setUserSign({
           id: res.person.id,
@@ -77,8 +79,8 @@ export default function SignInClient() {
           availableAreas: userType === 'driver' ? res.person.availableAreas : undefined,
           areas: userType === 'user' ? res.person.areas : undefined,
           type: res.person.type,
-          startAt: userType === 'driver' ? res.person.startAt : '',
           provider: res.person.provider,
+          startAt: userType === 'driver' ? res.person.startAt : '',
           moveInfoId: '',
         }),
       );
