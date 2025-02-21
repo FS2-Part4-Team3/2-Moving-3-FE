@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import edit_white from '@/../../public/assets/common/ic_writing.svg';
 import edit_gray from '@/../../public/assets/common/ic_writing_gray.svg';
 import heart_black from '@/../../public/assets/driver/ic_like.svg';
@@ -13,7 +13,9 @@ import { delDibDriver, getDibDriver, postDibDriver } from '@/api/DriverService';
 import { getCheckRequestDriver, getUserMoveInfoId, postMovesConfirm, postRequestDriver } from '@/api/MovesService';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import SpecifiedQuotationFailureModal from '@/components/modal/SpecifiedQuotationFailureModal';
+import { useSocket } from '@/contexts/socketContext';
 import type { DetailButtonClientProps } from '@/interfaces/Page/DriverDetailInterface';
+import { setChat } from '@/store/slices/chatSlice';
 import { RootState } from '@/store/store';
 
 export default function DetailButtonClient({ type, id, estimationId }: DetailButtonClientProps) {
@@ -21,11 +23,24 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const [isCompleted, setIsCompleted] = useState(false);
   const [isCheckDib, setIsCheckDib] = useState(false);
   const isMoveId = useSelector((state: RootState) => state.signIn.moveInfoId);
+  const userId = useSelector((state: RootState) => state.signIn.id);
+  const chatId = useSelector((state: RootState) => state.chat.id);
+  const { socket } = useSocket();
+  const dispatch = useDispatch();
+
   // const [isMoveId, setIsMoveId] = useState('');
 
   const userType = useSelector((state: RootState) => state.signIn.type);
 
   const router = useRouter();
+
+  useEffect(() => {
+    dispatch(
+      setChat({
+        id: id,
+      }),
+    );
+  });
 
   useEffect(() => {
     if (userType === 'user') {
@@ -55,6 +70,16 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
       }
     }
   }, [id]);
+
+  const handleChat = () => {
+    socket?.emit('chat', {
+      userId: userId,
+      driverId: chatId,
+      message: '',
+      image: '',
+    });
+    router.push('/chat');
+  };
 
   const toggleFavoriteMutation = useMutation({
     mutationFn: async (isAdding: boolean) => {
@@ -136,6 +161,16 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
 
   return (
     <>
+      {(type === 'quoteWaiting' || type === undefined) && (
+        <ButtonWrapper id="driver-chat" onClick={handleChat}>
+          <ButtonWrapper.Button
+            className="w-full bg-blue-400 lg:h-[6.4rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] flex items-center justify-center text-white"
+            disabled={isCompleted}
+          >
+            기사님과 채팅하기
+          </ButtonWrapper.Button>
+        </ButtonWrapper>
+      )}
       {(type === 'quoteWaiting' || type === undefined) && (
         <ButtonWrapper id="favorite-driver" onClick={handleFavorite}>
           <ButtonWrapper.Button className="lg:w-full h-[5.4rem] sm:w-[5.4rem] rounded-[1.6rem] p-[1rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] text-black bg-white border border-line-200">

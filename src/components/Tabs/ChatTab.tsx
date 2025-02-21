@@ -24,7 +24,7 @@ export default function ChatTab() {
       if (!chat.id) return;
       return await getDriverDetailData(chat.id);
     },
-    enabled: user.type === 'user',
+    enabled: user.type === 'user' && !!chat.id,
   });
 
   const { data: userInforData } = useQuery<InfoData>({
@@ -33,12 +33,16 @@ export default function ChatTab() {
       if (!chat.id) return;
       return await getUserDetailData(chat.id);
     },
-    enabled: user.type === 'driver',
+    enabled: user.type === 'driver' && !!chat.id,
   });
 
   const { data: onlineStatus } = useQuery<Online>({
     queryKey: ['onlineStatus', chat.id],
-    queryFn: () => getOnlineStatus(chat.id || ''),
+    queryFn: async () => {
+      if (!chat.id) return;
+      return await getOnlineStatus(chat.id);
+    },
+    enabled: !!chat.id,
   });
 
   return (

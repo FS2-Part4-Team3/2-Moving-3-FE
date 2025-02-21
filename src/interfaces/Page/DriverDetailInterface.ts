@@ -46,3 +46,9 @@ export interface DetailButtonClientProps {
   type?: 'quoteWaiting' | 'quoteReceived' | 'infoEditDriver';
   estimationId?: string;
 }
+
+export interface ChatRoom {
+  id: string;
+  userId: string;
+  driverId: string;
+}
