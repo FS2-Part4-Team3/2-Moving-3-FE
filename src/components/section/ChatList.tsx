@@ -1,6 +1,6 @@
 'use client';
 
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ export default function ChatList() {
   const { ref, inView } = useInView();
   const chat = useSelector((state: RootState) => state.chat);
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const krType = (serviceType: string) => {
     switch (serviceType) {
       case 'HOME':
@@ -79,6 +80,10 @@ export default function ChatList() {
       }
     });
   });
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['chatList'] });
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;

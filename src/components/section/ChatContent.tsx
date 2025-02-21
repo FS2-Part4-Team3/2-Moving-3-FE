@@ -1,13 +1,13 @@
 'use client';
 
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
-import { getChatData } from '@/api/ChatsService';
+import { getChatData, postRead } from '@/api/ChatsService';
 import { useSocket } from '@/contexts/socketContext';
-import { Chat } from '@/interfaces/Card/ChatCardInterface';
+import { Chat, ChatRead } from '@/interfaces/Card/ChatCardInterface';
 import { RootState } from '@/store/store';
 import ChatTab from '../Tabs/ChatTab';
 import ChatInput from '../inputs/ChatInput';
@@ -22,13 +22,13 @@ export default function ChatContent() {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+  const queryClient = useQueryClient();
 
   const {
     data: chatMessages,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    refetch,
   } = useInfiniteQuery({
     queryKey: ['chatMessages', chat.id],
     queryFn: async ({ pageParam = 1 }: { pageParam: number }) => {
@@ -47,9 +47,29 @@ export default function ChatContent() {
     staleTime: 0,
   });
 
+  const initialMessages = chatMessages?.pages.flatMap(page => page.data.list) ?? [];
+  const messages = [...initialMessages].reverse();
+  const unreadMessageIds = messages
+    .filter(message => !message.isRead)
+    .map(message => message.id)
+    .filter(Boolean) as string[];
+
+  const readMutation = useMutation({
+    mutationFn: () => {
+      if (unreadMessageIds.length > 0) {
+        const chatRead: ChatRead = { ids: unreadMessageIds };
+        return postRead(chat.id || '', chatRead);
+      }
+      return Promise.resolve();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chatMessages', chat.id] });
+    },
+  });
+
   useEffect(() => {
-    refetch();
-  }, [chat.id, refetch]);
+    queryClient.invalidateQueries({ queryKey: ['chatMessages', chat.id] });
+  }, [chat.id, queryClient]);
 
   useEffect(() => {
     scrollToBottom();
@@ -61,8 +81,11 @@ export default function ChatContent() {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const initialMessages = chatMessages?.pages.flatMap(page => page.data.list) ?? [];
-  const messages = [...initialMessages].reverse();
+  useEffect(() => {
+    if (unreadMessageIds.length > 0) {
+      readMutation.mutate();
+    }
+  }, [unreadMessageIds.length]);
 
   return (
     <div className="flex flex-col h-screen">

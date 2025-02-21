@@ -90,6 +90,12 @@ export default function ChatCard({ id }: { id: string }) {
       queryClient.invalidateQueries({ queryKey: ['chatData', id, lastPage] });
     }
   }, [chatData, queryClient, id, lastPage]);
+
+  useEffect(() => {
+    if (chatRead.ids.length > 0) {
+      readMutation.mutate();
+    }
+  }, [chatRead.ids.length]);
   return (
     <>
       {id && (
