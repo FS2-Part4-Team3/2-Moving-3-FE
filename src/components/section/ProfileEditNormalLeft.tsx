@@ -13,6 +13,7 @@ export default function ProfileEditNormalLeft({
   isTouched,
   handleChange,
   handleInputBlur,
+  isPasswordCheck,
 }: ProfileEditNormlLeftProps) {
   const [isViewNow, setIsViewNow] = useState(false);
   const [isViewNew, setIsViewNew] = useState(false);
@@ -92,8 +93,9 @@ export default function ProfileEditNormalLeft({
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
                   errors.nowPassword && isTouched.nowPassword ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder="현재 비밀번호를 입력해 주세요"
+                placeholder={isPasswordCheck ? '소셜로그인 유저는 비밀번호가 없습니다.' : '현재 비밀번호를 입력해 주세요'}
                 onBlur={() => handleInputBlur('nowPassword')}
+                disabled={isPasswordCheck}
               />
               <Image
                 src={isViewNow ? visibility_on : visibility_off}
@@ -125,8 +127,9 @@ export default function ProfileEditNormalLeft({
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
                   errors.newPassword && isTouched.newPassword ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder="새 비밀번호를 입력해 주세요"
+                placeholder={isPasswordCheck ? '소셜로그인 유저는 비밀번호 변경이 불가합니다.' : '새 비밀번호를 입력해 주세요'}
                 onBlur={() => handleInputBlur('newPassword')}
+                disabled={isPasswordCheck}
               />
               <Image
                 src={isViewNew ? visibility_on : visibility_off}
@@ -163,8 +166,9 @@ export default function ProfileEditNormalLeft({
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
                   errors.newPasswordChk && isTouched.newPasswordChk ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder="새 비밀번호를 다시 한번 입력해 주세요"
-                onBlur={() => handleInputBlur('newPasswordChk')}
+                placeholder={isPasswordCheck ? '소셜로그인 유저는 비밀번호 변경이 불가합니다.' : '새 비밀번호를 입력해 주세요'}
+                onBlur={() => handleInputBlur('newPassword')}
+                disabled={isPasswordCheck}
               />
               <Image
                 src={isViewNewChk ? visibility_on : visibility_off}

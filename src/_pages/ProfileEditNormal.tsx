@@ -188,6 +188,7 @@ export default function ProfileEditNormal() {
                   isTouched={isTouched}
                   handleChange={handleChange}
                   handleInputBlur={handleInputBlur}
+                  isPasswordCheck={isPasswordCheck}
                 />
               </div>
               <div>
@@ -330,7 +331,7 @@ export default function ProfileEditNormal() {
                 </ButtonWrapper>
               </div>
               <div className="lg:block sm:hidden">
-                <div className="flex lg:gap-[3.2rem]">
+                <div className="flex lg:gap-[3.2rem]" onClick={() => setIsPasswordCheck(prev => !prev)}>
                   <a href={`${BASE_URL}/auth/google/user/verify/${user.id}`} rel="noopener noreferrer">
                     <Image src={google} alt="google" width={72} height={72} />
                   </a>
@@ -342,7 +343,7 @@ export default function ProfileEditNormal() {
                   </a>
                 </div>
               </div>
-              <div className="lg:hidden sm:block">
+              <div className="lg:hidden sm:block" onClick={() => setIsPasswordCheck(prev => !prev)}>
                 <div className="flex sm:gap-[2.4rem] justify-center">
                   <a href={`${BASE_URL}/auth/google/user/verify/${user.id}`} rel="noopener noreferrer">
                     <Image src={google} alt="google" width={54} height={54} />
