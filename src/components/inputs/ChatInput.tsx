@@ -143,7 +143,7 @@ export default function ChatInput() {
   return (
     <div className="flex w-full relative items-center">
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImgChange} />
-      <div className="relative w-full flex items-center border rounded-[1.6rem] p-[1.4rem] bg-white">
+      <div className="relative w-full flex items-center rounded-[1.6rem] p-[1.4rem] bg-white">
         {previewUrl && (
           <div className="relative w-auto h-auto max-w-[120px] max-h-[120px] mr-3">
             <Image src={previewUrl} alt="추가된 이미지" width={100} height={100} className="rounded-lg" />
@@ -156,7 +156,7 @@ export default function ChatInput() {
           </div>
         )}
         <input
-          className={`w-full ${previewUrl ? 'min-h-[12rem]' : 'min-h-[4rem] pl-[4rem]'} flex-grow text-[1.8rem] font-medium text-black-400 focus:outline-none bg-transparent resize-none`}
+          className={`w-full ${previewUrl ? 'min-h-[12rem]' : 'min-h-[4rem] pl-[4rem]'} flex-grow text-[1.8rem] font-medium text-black-400 border-none focus:outline-none bg-transparent resize-none`}
           type="text"
           value={message}
           onChange={e => {
