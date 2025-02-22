@@ -1,6 +1,4 @@
-'use client';
-
-export default function ManageQuotationCardSkeleton() {
+export default function ManageQuotationCardSentSkeleton() {
   return (
     <>
       <div className="relative w-full rounded-[1.6rem] bg-white dark:bg-dark-p border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
