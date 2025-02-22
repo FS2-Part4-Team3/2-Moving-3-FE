@@ -1,10 +1,10 @@
 'use client';
 
+import { animated, useTransition } from '@react-spring/web';
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getMyReviewData } from '@/api/ReviewService';
-import NormalReviewCard from '@/components/cards/NormalReviewCard';
+import WrittenReviewCard from '@/components/cards/WrittenReviewCard';
 import Empty from '@/components/common/Empty/Empty';
 import Pagination from '@/components/common/pagination/pagination';
 import { MyReviews } from '@/interfaces/Card/NormalReviewCardInterface';
@@ -13,7 +13,6 @@ export default function WrittenReviewClient() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -64,21 +63,42 @@ export default function WrittenReviewClient() {
     setCurrentPage(page);
   };
 
+  const transitions = useTransition(currentPage, {
+    from: { opacity: 0, transform: 'translateX(100%)' },
+    enter: { opacity: 1, transform: 'translateX(0%)' },
+    leave: { opacity: 0, transform: 'translateX(-100%)' },
+    config: { tension: 150, friction: 25 },
+  });
+
   if (isLoading) {
     return <div>Loading</div>;
   }
 
   if (isError) {
-    router.push('/not-found');
+    alert('에러가 발생했습니다. 다시 한 번 시도해주세요!');
   }
 
   return (
-    <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 ">
+    <div className="flex min-h-screen flex-col items-center gap-[4rem] bg-background-100 pt-[4rem] dark:bg-dark-bg">
       {myReviews?.list.length ? (
-        <div className="lg:grid lg:grid-cols-2 lg:gap-y-12 lg:gap-x-6 md:flex md:flex-col sm:flex sm:flex-col md:gap-y-8 sm:gap-y-8">
-          {myReviews?.list.map(myReview => <NormalReviewCard type="MY" myReview={myReview} />)}
+        <>
+          {transitions(
+            (style, page) =>
+              page === currentPage && (
+                <animated.div
+                  style={style}
+                  className="lg:grid lg:grid-cols-2 lg:gap-y-[4.8rem] lg:gap-x-[4rem] md:flex md:flex-col sm:flex sm:flex-col md:gap-y-[3.2rem] sm:gap-y-[3.2rem] "
+                >
+                  {myReviews?.list.map(myReview => (
+                    <div key={myReview.id}>
+                      <WrittenReviewCard myReview={myReview} />
+                    </div>
+                  ))}
+                </animated.div>
+              ),
+          )}
           <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-        </div>
+        </>
       ) : (
         <div className="lg:pt-[30rem] md:pt-[19.4rem] sm:pt-[19.4rem]">
           <Empty type="Review" />

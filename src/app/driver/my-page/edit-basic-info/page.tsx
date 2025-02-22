@@ -1,6 +1,6 @@
 import InfoEditForDriver from '@/_pages/InfoEditForDiver';
 
-export default function InfoEditForDriverPage() {
+export default async function InfoEditForDriverPage() {
   return (
     <div>
       <InfoEditForDriver />

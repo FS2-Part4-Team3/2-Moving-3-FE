@@ -16,7 +16,7 @@ export default function SignUp() {
           <Image src={logo} alt="logo" width={140} height={80} className="p-[1rem] lg:block sm:hidden" />
           <Image src={logo} alt="logo" width={112} height={64} className="p-[1rem] lg:hidden sm:block" />
           <div className="flex gap-[0.8rem] items-center">
-            <p className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.2rem] sm:leading-[1.8rem] text-black-200">
+            <p className="font-normal lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.2rem] sm:leading-[1.8rem] text-black-200 dark:text-dark-t">
               기사님이신가요?
             </p>
             <Link href="/driver/sign-in">
@@ -31,7 +31,7 @@ export default function SignUp() {
             <SignUpClient />
           </div>
           <div className="flex lg:gap-[0.8rem] sm:gap-[0.4rem] items-center justify-center">
-            <p className="font-normal lg:text-[2rem] sm:text-[1.2rem] lg:leading-[3.2rem] sm:leading-[1.8rem] lg:text-black-200 sm:text-black-100">
+            <p className="font-normal lg:text-[2rem] sm:text-[1.2rem] lg:leading-[3.2rem] sm:leading-[1.8rem] lg:text-black-200 sm:text-black-100 dark:text-dark-t">
               이미 무빙 회원이신가요?
             </p>
             <Link href="/normal/sign-in">
@@ -42,7 +42,7 @@ export default function SignUp() {
           </div>
         </div>
         <div className="flex flex-col lg:gap-[3.2rem] sm:gap-[2.4rem] items-center justify-center">
-          <p className="font-normal lg:text-[2rem] sm:text-[1.2rem] lg:leading-[3.2rem] sm:leading-[1.8rem] lg:text-black-200 sm:text-black-100">
+          <p className="font-normal lg:text-[2rem] sm:text-[1.2rem] lg:leading-[3.2rem] sm:leading-[1.8rem] lg:text-black-200 sm:text-black-100 dark:text-dark-t">
             SNS 계정으로 간편 가입하기
           </p>
           <div className="lg:block sm:hidden">
@@ -50,15 +50,25 @@ export default function SignUp() {
               <a href={`${BASE_URL}/auth/google/user`} rel="noopener noreferrer">
                 <Image src={google} alt="google" width={72} height={72} />
               </a>
-              <Image src={kakao} alt="kakao" width={72} height={72} />
-              <Image src={naver} alt="naver" width={72} height={72} />
+              <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
+                <Image src={kakao} alt="kakao" width={72} height={72} />
+              </a>
+              <a href={`${BASE_URL}/auth/naver/user`} rel="noopener noreferrer">
+                <Image src={naver} alt="naver" width={72} height={72} />
+              </a>
             </div>
           </div>
           <div className="lg:hidden sm:block">
             <div className="flex sm:gap-[2.4rem]">
-              <Image src={google} alt="google" width={54} height={54} />
-              <Image src={kakao} alt="kakao" width={54} height={54} />
-              <Image src={naver} alt="naver" width={54} height={54} />
+              <a href={`${BASE_URL}/auth/google/user`} rel="noopener noreferrer">
+                <Image src={google} alt="google" width={54} height={54} />
+              </a>
+              <a href={`${BASE_URL}/auth/kakao/user`} rel="noopener noreferrer">
+                <Image src={kakao} alt="kakao" width={54} height={54} />
+              </a>
+              <a href={`${BASE_URL}/auth/naver/user`} rel="noopener noreferrer">
+                <Image src={naver} alt="naver" width={54} height={54} />
+              </a>
             </div>
           </div>
         </div>

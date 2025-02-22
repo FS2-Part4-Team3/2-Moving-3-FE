@@ -12,24 +12,26 @@ const Template: StoryFn<WaitingQuoteCardProps> = args => <WaitingQuoteCard {...a
 export const Default = Template.bind({});
 Default.args = {
   data: {
-    id: 'estimation-1',
-    price: 200000,
-    moveInfo: {
-      id: 'moveinfo-1',
-      type: 'HOME',
-      date: '2025-02-01T12:00:00Z',
-      fromAddress: '서울 중구 삼일대로 343',
-      toAddress: '서울 중구 청계천로 100',
-    },
     driver: {
-      id: 'driver-1',
       name: '김철수',
       image: 'https://example.com/driver1.jpg',
       applyCount: 10,
-      favoriteCount: 5,
-      score: 4.8,
+      likeCount: 5,
+      rating: 4.8,
       career: 9,
       reviewCount: 200,
     },
+    moveInfo: {
+      moveInfoId: 'estimation-1',
+      date: '2025-02-01T12:00:00Z',
+      serviceType: 'HOME',
+      fromAddress: '서울 중구 삼일대로 343',
+      toAddress: '서울 중구 청계천로 100',
+    },
+    estimationInfo: {
+      estimationId: '1',
+      price: 200000,
+    },
+    designatedRequest: 'Active',
   },
 };

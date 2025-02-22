@@ -6,13 +6,14 @@ import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
 import kakao from '@/../../public/assets/driver/ic_kakao.svg';
 import share from '@/../../public/assets/driver/ic_share.svg';
+import { SharingPageClientProps } from '@/interfaces/Page/SharingPageClientInterface';
 
-export default function SharingPageClient() {
+export default function SharingPageClient({ type }: SharingPageClientProps) {
   const [imageSize, setImageSize] = useState(64);
 
   useEffect(() => {
     const updateImageSize = () => {
-      if (window.innerWidth <= 1200) {
+      if (window.innerWidth < 1200) {
         setImageSize(40);
       } else {
         setImageSize(64);
@@ -34,6 +35,25 @@ export default function SharingPageClient() {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
   }, []);
+
+  const messages = {
+    driver: {
+      Title: 'Moving 업체 기사님 공유',
+      Description: '이 기사님 정말 추천드려요! 지금 확인해 보세요!',
+    },
+    quoteWaiting: {
+      Title: '대기 중인 견적 공유',
+      Description: '확정하지 않은 견적을 확인해보세요. 기사님이 기다리고 있어요!',
+    },
+    quoteRecieved: {
+      Title: '받았던 견적 공유',
+      Description: '지난번 받은 이사 견적을 다시 확인해보세요.',
+    },
+    quoteSent: {
+      Title: '보낸 견적 공유',
+      Description: '고객님께 보냈던 견적을 확인해보세요!',
+    },
+  };
 
   const handleCopyToClipboard = () => {
     navigator.clipboard
@@ -67,8 +87,8 @@ export default function SharingPageClient() {
       window.Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
-          title: 'Moving 업체 기사님 공유',
-          description: '이 기사님 정말 추천드려요 !',
+          title: messages[type].Title,
+          description: messages[type].Description,
           imageUrl: '공유 이미지 URL',
           link: {
             mobileWebUrl: window.location.href,
@@ -77,7 +97,7 @@ export default function SharingPageClient() {
         },
         buttons: [
           {
-            title: '기사님 보러가기',
+            title: '확인하러 가기',
             link: {
               mobileWebUrl: window.location.href,
               webUrl: window.location.href,
@@ -96,8 +116,8 @@ export default function SharingPageClient() {
   };
 
   const handleGeneralShare = () => {
-    const title = '이사 소비자와 이사 전문가 매칭 서비스';
-    const text = '이사 전문가를 추천합니다. 지금 확인해 보세요 !';
+    const title = messages[type].Title;
+    const text = messages[type].Description;
 
     if (navigator.share) {
       navigator
@@ -149,7 +169,7 @@ export default function SharingPageClient() {
         width={imageSize}
         height={imageSize}
         onClick={handleGeneralShare}
-        className="lg:p-[1rem] sm:p-[0.7rem] cursor-pointer border border-gray-100 lg:rounded-[1.6rem] sm:rounded-[1.1rem]"
+        className="lg:p-[1rem] sm:p-[0.7rem] cursor-pointer border border-gray-100 bg-white lg:rounded-[1.6rem] sm:rounded-[1.1rem]"
       />
     </>
   );

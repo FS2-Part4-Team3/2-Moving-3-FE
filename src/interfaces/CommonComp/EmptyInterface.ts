@@ -1,3 +1,14 @@
 export interface EmptyProps {
-  type: "Review" | "Profile" | "ReceiveQuote" | "Driver" | "RequestQuote";
+  type:
+    | 'Review'
+    | 'Profile'
+    | 'WaitingQuote'
+    | 'ReceivedQuote'
+    | 'Driver'
+    | 'RequestQuote'
+    | 'ReviewAble'
+    | 'RequestEmpty'
+    | 'SendQuote'
+    | 'RejectQuote'
+    | 'DibsDriver';
 }

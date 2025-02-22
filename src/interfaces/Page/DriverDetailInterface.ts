@@ -43,5 +43,12 @@ export interface ReviewClientProps {
 
 export interface DetailButtonClientProps {
   id: string;
-  type?: 'quoteWaiting' | 'quoteReceived' | 'InfoEditDriver';
+  type?: 'quoteWaiting' | 'quoteReceived' | 'infoEditDriver';
+  estimationId?: string;
+}
+
+export interface ChatRoom {
+  id: string;
+  userId: string;
+  driverId: string;
 }

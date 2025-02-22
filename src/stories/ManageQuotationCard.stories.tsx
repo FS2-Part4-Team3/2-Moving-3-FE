@@ -12,18 +12,21 @@ const Template: StoryFn<ManageQuotationCardProps> = args => <ManageQuotationCard
 export const Default = Template.bind({});
 Default.args = {
   data: {
-    id: 'estimation-1',
-    updatedAt: '2025-01-01T12:00:00Z',
-    price: 200000,
+    estimationInfo: {
+      createdAt: '2025-01-01T12:00:00Z',
+      estimationId: '1',
+      price: 200000,
+    },
     moveInfo: {
-      id: 'moveinfo-1',
-      updatedAt: '2025-01-01T12:00:00Z',
-      type: 'HOME',
       date: '2025-02-01T12:00:00Z',
+      serviceType: 'SMALL',
       fromAddress: '서울 중구 삼일대로 343',
       toAddress: '서울 중구 청계천로 100',
-      progress: 'PENDING',
-      owner: '김재원',
     },
+    user: {
+      name: '1',
+    },
+    designatedRequest: 'Active',
+    progress: 'OPEN',
   },
 };

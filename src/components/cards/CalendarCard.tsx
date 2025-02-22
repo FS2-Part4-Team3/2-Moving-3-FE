@@ -56,7 +56,7 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
   const daysInMonth = getDaysInMonth(currentMonth);
 
   return (
-    <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] flex flex-col items-center lg:rounded-[3.2rem] md:rounded-[1.6rem] sm:rounded-[1.6rem] lg:py-[2.4rem] md:py-[1.4rem] sm:py-[1.4rem] lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.6rem] bg-white border-none shadow-custom4">
+    <div className="lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] flex flex-col items-center lg:rounded-[3.2rem] md:rounded-[1.6rem] sm:rounded-[1.6rem] lg:py-[2.4rem] md:py-[1.4rem] sm:py-[1.4rem] lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[0.8rem] bg-white dark:bg-dark-p border-none shadow-custom4 dark:shadow">
       <div className="flex lg:w-[64rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[6rem] md:h-[4.8rem] sm:h-[4.8rem] justify-between items-center px-[1.4rem] lg:py-[1.2rem] md:py-[1rem] sm:py-[1rem]">
         <div
           className="relative lg:w-[3.6rem] lg:h-[3.6rem] md:w-[2.4rem] md:h-[2.4rem] sm:w-[2.4rem] sm:h-[2.4rem] cursor-pointer"
@@ -64,7 +64,7 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
         >
           <Image src={left} alt="이전 달" fill />
         </div>
-        <p className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-black-400 font-semibold ">
+        <p className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-black-400 dark:text-dark-t font-semibold ">
           {currentMonth.getFullYear()}.{String(currentMonth.getMonth() + 1).padStart(2, '0')}
         </p>
         <div
@@ -96,7 +96,7 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
               key={index}
               onClick={() => handleDateClick(day)}
               className={`lg:w-[4rem] lg:h-[4rem] md:w-[2.6rem] md:h-[2.6rem] sm:w-[2.6rem] sm:h-[2.6rem] lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] cursor-pointer flex justify-center items-center 
-             ${isDisabled ? 'cursor-not-allowed text-gray-200' : 'cursor-pointer text-black-400'}
+             ${isDisabled ? 'cursor-not-allowed text-gray-200' : 'cursor-pointer text-black-400 dark:text-dark-t'}
         ${
           day.isCurrentMonth &&
           selectedDate &&
@@ -111,9 +111,9 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
           );
         })}
       </div>
-      <div className="flex items-center justify-center gap-[7rem] mt-4 ">
+      <div className="flex items-center justify-center gap-[7rem] mt-4">
         <select
-          className="w-[8rem] h-[3rem] text-[1.6rem] cursor-pointer font-medium"
+          className="w-[8rem] h-[3rem] text-[1.6rem] sm:text-[1.2rem] cursor-pointer font-medium dark:bg-dark-p"
           value={selectedTime.hours}
           onChange={e => setSelectedTime({ ...selectedTime, hours: Number(e.target.value) })}
         >
@@ -124,7 +124,7 @@ export default function CalendarCard({ setMovingDate, setIsMovingDate, initialMo
           ))}
         </select>
         <select
-          className="w-[8rem] h-[3rem] text-[1.6rem] cursor-pointer font-medium"
+          className="w-[8rem] h-[3rem] text-[1.6rem] sm:text-[1.2rem] cursor-pointer font-medium dark:bg-dark-p"
           value={selectedTime.minutes}
           onChange={e => setSelectedTime({ ...selectedTime, minutes: Number(e.target.value) })}
         >

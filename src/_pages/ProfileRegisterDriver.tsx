@@ -1,5 +1,6 @@
 'use client';
 
+import { animated, useSpring } from '@react-spring/web';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -15,7 +16,7 @@ import { InputWrapper } from '@/components/common/headless/Input';
 import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
-import { setProfile, setProfileNoImg, setUserSign } from '@/store/slices/SignInSlice';
+import { setProfile, setProfileNoImg } from '@/store/slices/ProfileSlice';
 import { DateFormatToYYYYMMDD } from '@/utils/Format';
 
 export default function ProfileRegisterDriver() {
@@ -31,7 +32,10 @@ export default function ProfileRegisterDriver() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid;
-  const [isCareerOpen, setIsCareerOpen] = useState(false);
+
+  const [isCareer, setIsCareer] = useState(false);
+  const [isCareerVisible, setIsCareerVisible] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -55,7 +59,7 @@ export default function ProfileRegisterDriver() {
     setIsTouched(prev => ({ ...prev, [field]: true }));
   };
 
-  const userMutation = useMutation({
+  const userDataMutation = useMutation({
     mutationFn: async () => {
       let sampleImage = '';
       if (selectedImg) {
@@ -70,7 +74,6 @@ export default function ProfileRegisterDriver() {
         values.selectedMovingType,
         values.selectedRegions,
       );
-      const { uploadUrl } = response;
 
       dispatch(
         setProfileNoImg({
@@ -84,6 +87,7 @@ export default function ProfileRegisterDriver() {
       );
 
       if (selectedImg === null) return;
+      const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
       const res = await patchDriverData(
         image,
@@ -112,19 +116,35 @@ export default function ProfileRegisterDriver() {
       router.push('/driver/receive-quote');
     },
     onError: () => {
+      alert('프로필 등록에 실패했습니다. 다시 한 번 시도해주세요!');
       router.push('/not-found');
     },
   });
 
-  const handleValuesSubmit = () => {
-    userMutation.mutate();
+  useEffect(() => {
+    if (isCareer) {
+      setIsCareerVisible(true);
+    } else {
+      setTimeout(() => setIsCareerVisible(false), 300);
+    }
+  }, [isCareer]);
+
+  const careerDropdownAnimation = useSpring({
+    opacity: isCareer ? 1 : 0,
+    transform: 'translateY(10px)',
+    height: 'auto',
+    config: { tension: 250, friction: 30 },
+  });
+
+  const handleUserDataSubmit = () => {
+    userDataMutation.mutate();
   };
 
   return (
     <div className="lg:w-[120rem] lg:grid lg:grid-cols-2 lg:gap-[7.2rem] md:flex md:flex-col sm:flex sm:flex-col lg:ml-[2rem]">
       <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] border-line-100 lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem]">
-          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
             프로필 이미지
           </h3>
           <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImgChange} />
@@ -137,7 +157,7 @@ export default function ProfileRegisterDriver() {
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper id="nickname" type="text" value={values.nickname} onChange={handleChange}>
             <div className="flex flex-col">
-              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                 별명 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <InputWrapper.Input
@@ -159,7 +179,7 @@ export default function ProfileRegisterDriver() {
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <InputWrapper id="career" type="text" value={DateFormatToYYYYMMDD(values.career.toISOString())} onChange={handleChange}>
             <div className="flex flex-col">
-              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                 경력 시작일 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <div className="lg:w-[54rem] lg:h-[6.4rem] flex relative">
@@ -178,15 +198,17 @@ export default function ProfileRegisterDriver() {
                   width={40}
                   height={40}
                   className="cursor-pointer absolute top-1/2 right-[1.5rem] transform -translate-y-1/2"
-                  onClick={() => setIsCareerOpen(prev => !prev)}
+                  onClick={() => setIsCareer(prev => !prev)}
                 />
               </div>
-              {isCareerOpen && (
-                <CareerCalendarCard
-                  setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
-                  setIsCareerOpen={setIsCareerOpen}
-                  initialCareerDate={values.career}
-                />
+              {isCareerVisible && (
+                <animated.div style={careerDropdownAnimation}>
+                  <CareerCalendarCard
+                    setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
+                    setIsCareerOpen={setIsCareer}
+                    initialCareerDate={values.career}
+                  />
+                </animated.div>
               )}
               {errors.career && isTouched.career && (
                 <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
@@ -199,7 +221,7 @@ export default function ProfileRegisterDriver() {
         <div className="lg:border-none md:border-b sm:border-b md:border-line-100 sm:border-line-100 lg:pb-0 md:pb-[2rem] sm:pb-[2rem]">
           <InputWrapper id="shortBio" type="text" value={values.shortBio} onChange={handleChange}>
             <div className="flex flex-col">
-              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+              <InputWrapper.Label className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
                 한 줄 소개 <span className="text-blue-300">*</span>
               </InputWrapper.Label>
               <InputWrapper.Input
@@ -221,7 +243,7 @@ export default function ProfileRegisterDriver() {
       </div>
       <div className="lg:mt-[4.8rem] md:mt-[2rem] sm:mt-[2rem] lg:w-full md:w-[32.7rem] sm:w-[32.7rem]">
         <div className="flex flex-col border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
-          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 mb-[1.6rem]">
+          <h3 className="lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t mb-[1.6rem]">
             상세 설명 <span className="text-blue-300">*</span>
           </h3>
           <textarea
@@ -242,7 +264,7 @@ export default function ProfileRegisterDriver() {
         </div>
         <div className="border-b lg:pb-[3.2rem] md:pb-[2rem] sm:pb-[2rem] lg:mb-[3.2rem] md:mb-[2rem] sm:mb-[2rem] border-line-100">
           <h3
-            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 ${
+            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t ${
               !errors.selectedMovingType ? 'mb-[1.6rem]' : ''
             }`}
           >
@@ -261,7 +283,7 @@ export default function ProfileRegisterDriver() {
         </div>
         <div className="lg:mb-[6.8rem] md:mb-[2.4rem] sm:mb-[2.4rem]">
           <h3
-            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 ${
+            className={`lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold lg:text-black-300 dark:text-dark-t ${
               !errors.selectedRegion ? 'mb-[1.6rem]' : ''
             }`}
           >
@@ -278,7 +300,7 @@ export default function ProfileRegisterDriver() {
             setSelectedRegions={value => setValues(prev => ({ ...prev, selectedRegions: value }))}
           />
         </div>
-        <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleValuesSubmit}>
+        <ButtonWrapper id="profile-register-driver" type="submit" onClick={handleUserDataSubmit}>
           <ButtonWrapper.Button
             disabled={!isDisabled}
             className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center text-white font-semibold lg:mb-[10.4rem] md:mb-[4rem] sm:mb-[4rem]"

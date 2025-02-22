@@ -13,6 +13,16 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const maxVisiblePages = windowWidth >= 1200 ? 5 : 3;
@@ -31,24 +41,14 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
 
   return (
     <div className="flex items-center lg:gap-[1rem] sm:gap-[0.8rem]">
-      <div className={currentPage !== 1 ? 'cursor-pointer' : ''}>
-        <Image
-          onClick={handlePrevious}
-          src={currentPage === 1 ? left : left_active}
-          alt="left_arrow"
-          width={48}
-          height={48}
-          className="lg:block sm:hidden"
-        />
-        <Image
-          onClick={handlePrevious}
-          src={currentPage === 1 ? left : left_active}
-          alt="left_arrow"
-          width={34}
-          height={34}
-          className="lg:hidden sm:block"
-        />
-      </div>
+      <Image
+        onClick={handlePrevious}
+        src={currentPage === 1 ? left : left_active}
+        alt="left_arrow"
+        width={windowWidth >= 1200 ? 48 : 34}
+        height={windowWidth >= 1200 ? 48 : 34}
+        className={currentPage !== 1 ? 'cursor-pointer' : ''}
+      />
 
       <div className="font-normal lg:text-[1.8rem] sm:text-[1.6rem] leading-[2.6rem] text-gray-200 gap-[0.4rem]">
         {adjustedStartPage > 1 && (
@@ -65,7 +65,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
           return (
             <button
               key={pageNumber}
-              className={`${currentPage === pageNumber ? 'font-semibold text-black-400' : ''} w-[4.8rem] h-[4.8rem]`}
+              className={`${currentPage === pageNumber ? 'font-semibold text-black-400 dark:text-dark-t' : ''} w-[4.8rem] h-[4.8rem]`}
               onClick={() => onPageChange(pageNumber)}
             >
               {pageNumber}
@@ -83,24 +83,14 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         )}
       </div>
 
-      <div className={currentPage !== totalPages ? 'cursor-pointer' : ''}>
-        <Image
-          onClick={handleNext}
-          src={currentPage === totalPages ? right : right_active}
-          alt="right_arrow"
-          width={48}
-          height={48}
-          className="lg:block sm:hidden"
-        />
-        <Image
-          onClick={handleNext}
-          src={currentPage === totalPages ? right : right_active}
-          alt="right_arrow"
-          width={34}
-          height={34}
-          className="lg:hidden sm:block"
-        />
-      </div>
+      <Image
+        onClick={handleNext}
+        src={currentPage === totalPages ? right : right_active}
+        alt="right_arrow"
+        width={windowWidth >= 1200 ? 48 : 34}
+        height={windowWidth >= 1200 ? 48 : 34}
+        className={currentPage !== totalPages ? 'cursor-pointer' : ''}
+      />
     </div>
   );
 }

@@ -15,7 +15,6 @@ import { RootState } from '@/store/store';
 
 export default function LandingClient() {
   const userType = useSelector((state: RootState) => state.signIn.type);
-
   const router = useRouter();
 
   const handleSignInNavigation = () => {
@@ -41,9 +40,9 @@ export default function LandingClient() {
     <>
       <div className="flex lg:flex-row sm:flex-col lg:py-[4.8rem] sm:py-[4.4rem] lg:gap-[2.4rem] sm:gap-[3.6rem]">
         <Link href={`/normal/request-quote?type=SMALL`} onClick={e => handleLinkClick(e)}>
-          <div className="lg:w-[43.2rem] lg:h-[59.8rem] sm:w-[32.7rem] sm:h-[24rem] shadow-customBoth rounded-[2.4rem] bg-blue-100 overflow-hidden relative">
+          <div className="lg:w-[43.2rem] lg:h-[59.8rem] sm:w-[32.7rem] sm:h-[24rem] shadow-customBoth rounded-[2.4rem] bg-blue-100 dark:bg-dark-p overflow-hidden relative dark:shadow">
             <div className="pl-[3rem] pt-[2.4rem] lg:gap-[0.8rem] sm:gap-[0.4rem]">
-              <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black">
+              <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black dark:text-dark-t">
                 소형이사
               </p>
               <p className="lg:text-[2rem] sm:text-[1.4rem] lg:leading-[3.4rem] sm:leading-[2.4rem] font-normal text-gray-400">
@@ -68,9 +67,9 @@ export default function LandingClient() {
         </Link>
         <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[3.6rem]">
           <Link href={`/normal/request-quote?type=HOME`} onClick={e => handleLinkClick(e)}>
-            <div className="lg:w-[76.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-custom1 rounded-[2.4rem] bg-white overflow-hidden relative">
+            <div className="lg:w-[66.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-custom1 rounded-[2.4rem] bg-white dark:bg-dark-p overflow-hidden relative dark:shadow">
               <div className="pl-[3rem] pt-[2.4rem] lg:gap-[0.8rem] sm:gap-[0.4rem]">
-                <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black">
+                <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black dark:text-dark-t">
                   가정이사
                 </p>
                 <p className="lg:text-[2rem] sm:text-[1.4rem] lg:leading-[3.4rem] sm:leading-[2.4rem] font-normal text-gray-400">
@@ -94,9 +93,9 @@ export default function LandingClient() {
             </div>
           </Link>
           <Link href={`/normal/request-quote?type=OFFICE`} onClick={e => handleLinkClick(e)}>
-            <div className="lg:w-[76.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-customBoth rounded-[2.4rem] bg-white overflow-hidden relative">
+            <div className="lg:w-[66.4rem] lg:h-[28.7rem] sm:w-[32.7rem] sm:h-[24rem] shadow-customBoth rounded-[2.4rem] bg-white dark:bg-dark-p overflow-hidden relative dark:shadow">
               <div className="pl-[3rem] pt-[2.4rem] lg:gap-[0.8rem] sm:gap-[0.4rem]">
-                <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black">
+                <p className="lg:text-[2.8rem] sm:text-[2rem] lg:leading-[4rem] sm:leading-[3rem] font-semibold text-black dark:text-dark-t">
                   기업, 사무실 이사
                 </p>
                 <p className="lg:text-[2rem] sm:text-[1.4rem] lg:leading-[3.4rem] sm:leading-[2.4rem] font-normal text-gray-400">

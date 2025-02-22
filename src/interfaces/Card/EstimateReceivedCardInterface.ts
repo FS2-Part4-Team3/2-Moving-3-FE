@@ -1,21 +1,33 @@
+export interface EstimationInformationCardProps {
+  data?: {
+    id?: string;
+    createdAt: string;
+    serviceType?: 'SMALL' | 'HOME' | 'OFFICE';
+    date: string;
+    fromAddress: string;
+    toAddress: string;
+    progress?: 'OPEN' | 'EXPIRED' | 'CONFIRMED' | 'CANCELED' | 'COMPLETE';
+  };
+}
+
+interface Driver {
+  name: string;
+  image: string;
+  applyCount: number;
+  likeCount: number;
+  rating: number;
+  reviewCount: number;
+  career: number;
+  isliked: boolean;
+}
+
 export interface EstimateReceivedCardProps {
   data: {
-    id: string;
-    price: number;
+    isSpecificRequest: boolean;
     comment: string;
-    moveInfo: {
-      id: string;
-      type: 'SMALL' | 'HOME' | 'OFFICE' | 'APPOINTMENT' | 'WAITING';
-    };
-    driver: {
-      id: string;
-      name: string;
-      image: string;
-      applyCount: number;
-      favoriteCount: number;
-      score: number;
-      career: number;
-      reviewCount: number;
-    };
+    driver: Driver;
+    price: number;
   };
+  isConfirmed: boolean;
+  serviceType: 'SMALL' | 'HOME' | 'OFFICE';
 }

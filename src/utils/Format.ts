@@ -6,6 +6,27 @@ export default function AddressFormat(address: string) {
   return result;
 }
 
+export function NotificationAddressFormat(address: string) {
+  const addressParts = address.split(' ');
+
+  let city = addressParts[0];
+  let district = '';
+
+  if (addressParts.length > 1) {
+    if (addressParts[1].includes('구')) {
+      district = addressParts[1].replace('구', '');
+    } else if (addressParts[1].includes('시')) {
+      district = addressParts[1].replace('시', '');
+    } else if (addressParts[1].includes('군')) {
+      district = addressParts[1].replace('군', '');
+    } else {
+      district = addressParts[1];
+    }
+  }
+
+  return `${city}(${district})`;
+}
+
 export function DateFormat(isoDate: string): string {
   const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
   const date = new Date(isoDate);
@@ -114,4 +135,12 @@ export function getDaysInMonth(date: Date): Day[] {
   }));
 
   return [...prevDays, ...currentDays, ...nextDays];
+}
+
+//Ex: 02/20 06:58
+export function formatDateTime(dateString: string) {
+  const date = new Date(dateString);
+
+  const formattedDate = `${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  return formattedDate;
 }
