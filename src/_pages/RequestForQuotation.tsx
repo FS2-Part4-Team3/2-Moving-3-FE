@@ -138,12 +138,14 @@ export default function RequestForQuotation() {
     editQuotationMutation.mutate();
   };
 
+  console.log(moveData);
+
   return (
     <>
-      {moveData && !edit ? (
+      {Object.keys(moveData).length > 0 && !edit ? (
         <div className="w-full h-screen flex flex-col bg-background-200">
           <div className="bg-white dark:bg-dark-p lg:px-[26rem] lg:py-[3.2rem] md:px-[7.2rem] md:py-[2.4rem] sm:px-[2.4rem] sm:py-[2.4rem] flex flex-col gap-[2.4rem] ">
-            <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B] dark:text-dark-t">견적수정</h1>
+            <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B] dark:text-dark-t">견적요청</h1>
           </div>
           <div className="w-full h-full bg-background-200 dark:bg-dark-bg lg:pt-[19.4rem] md:pt-[12.7rem] sm:pt-[12.7rem] flex justify-center">
             <Empty type="RequestQuote" />

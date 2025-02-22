@@ -1,12 +1,15 @@
 'use client';
 
 import { animated, useSpring } from '@react-spring/web';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
+import chatIcon from '@/../public/assets/chat/icon_chat.svg';
+import chatIconOn from '@/../public/assets/chat/icon_chat_alam.svg';
 import alarm from '@/../public/assets/common/gnb/alarm.svg';
 import profile from '@/../public/assets/common/gnb/default_profile.svg';
 import logo from '@/../public/assets/common/gnb/logo-icon-text.svg';
@@ -14,8 +17,10 @@ import logo_sm from '@/../public/assets/common/gnb/logo-sm.svg';
 import menu from '@/../public/assets/common/gnb/menu.svg';
 import red_alarm from '@/../public/assets/common/gnb/red_alarm.svg';
 import close from '@/../public/assets/common/icon_X.svg';
+import { getChatData } from '@/api/ChatsService';
 import { getNotification } from '@/api/NotificationService';
 import { ModeToggle } from '@/components/common/gnb/ModeToggle';
+import { ChatData } from '@/interfaces/Card/ChatCardInterface';
 import { NotificationData, NotificationDataStructure, NotificationResponse } from '@/interfaces/CommonComp/GnbInterface';
 import { RootState } from '@/store/store';
 import { ButtonWrapper } from '../headless/Button';
@@ -48,6 +53,9 @@ export default function GNB() {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
+  const queryClient = useQueryClient();
+
   const fetchNotifications = async (pageNumber: number) => {
     setLoading(true);
     try {
@@ -60,12 +68,26 @@ export default function GNB() {
     }
   };
 
+  const { data: unreadChatData } = useQuery<ChatData>({
+    queryKey: ['unreadChat'],
+    queryFn: async () => {
+      const response = await getChatData('', 1, 10);
+      return response;
+    },
+    enabled: !!user.id,
+  });
+
+  useEffect(() => {
+    setHasUnreadMessages(unreadChatData?.list?.some(message => !message.isRead) || false);
+  }, [unreadChatData]);
+
   useEffect(() => {
     if (user.id) {
       fetchNotifications(page);
 
       const newSocket = io(`${BASE_URL}`, {
         transports: ['websocket'],
+        withCredentials: true,
       });
 
       newSocket.on('connect', () => {
@@ -80,11 +102,26 @@ export default function GNB() {
         }
       });
 
+      newSocket.on('chat', data => {
+        if (!data.isRead) {
+          setHasUnreadMessages(true);
+          queryClient.setQueryData(['unreadChat'], (oldData: any) => ({
+            ...oldData,
+            list: oldData?.list ? [data, ...oldData.list] : [data],
+          }));
+        }
+      });
+
       return () => {
         newSocket.disconnect();
       };
     }
   }, [page, user.id]);
+
+  const handleChatIconClick = () => {
+    setHasUnreadMessages(false);
+    router.push('/chat');
+  };
 
   const handleRouteLanding = () => {
     router.push('/');
@@ -255,6 +292,22 @@ export default function GNB() {
 
             {status !== 'LogOut' && (
               <div className="flex gap-[3.2rem] items-center justify-end w-full">
+                <Image
+                  src={hasUnreadMessages ? chatIconOn : chatIcon}
+                  alt="chat"
+                  width={48}
+                  height={48}
+                  className="lg:block sm:hidden cursor-pointer"
+                  onClick={handleChatIconClick}
+                />
+                <Image
+                  src={hasUnreadMessages ? chatIconOn : chatIcon}
+                  alt="chat"
+                  width={36}
+                  height={36}
+                  className="lg:hidden sm:block cursor-pointer"
+                  onClick={handleChatIconClick}
+                />
                 <Image
                   src={notifications.some(n => !n.isRead) ? red_alarm : alarm}
                   alt="alarm"
