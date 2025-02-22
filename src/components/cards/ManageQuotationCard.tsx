@@ -102,7 +102,7 @@ export default function ManageQuotationCard({ data, isRejected }: ManageQuotatio
             </div>
           </div>
         </div>
-        {isRejected && (
+        {!isRejected && (
           <div className="flex lg:gap-[1.6rem] sm:gap-[0.8rem] items-center justify-end">
             <p className="font-medium lg:text-[1.8rem] sm:text-[1.4rem] lg:leading-[2.6rem] sm:leading-[2.4rem] text-black-400 dark:text-dark-t">
               견적 금액
