@@ -187,7 +187,6 @@ export default function ProfileEditNormal() {
                   isTouched={isTouched}
                   handleChange={handleChange}
                   handleInputBlur={handleInputBlur}
-                  isPasswordCheck={isPasswordCheck}
                 />
               </div>
               <div>

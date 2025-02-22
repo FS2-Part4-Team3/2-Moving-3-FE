@@ -14,7 +14,6 @@ export interface ProfileEditNormlLeftProps {
   isTouched: IsTouched;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleInputBlur: (field: keyof IsTouched) => void;
-  isPasswordCheck: boolean;
 }
 
 export interface ProfileEditNormlRightProps {

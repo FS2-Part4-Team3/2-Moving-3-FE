@@ -2,10 +2,12 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
 import { InputWrapper } from '@/components/common/headless/Input';
 import type { ProfileEditNormlLeftProps } from '@/interfaces/Page/ProfileEditNormal';
+import { RootState } from '@/store/store';
 
 export default function ProfileEditNormalLeft({
   values,
@@ -13,11 +15,11 @@ export default function ProfileEditNormalLeft({
   isTouched,
   handleChange,
   handleInputBlur,
-  isPasswordCheck,
 }: ProfileEditNormlLeftProps) {
   const [isViewNow, setIsViewNow] = useState(false);
   const [isViewNew, setIsViewNew] = useState(false);
   const [isViewNewChk, setIsViewNewChk] = useState(false);
+  const user = useSelector((state: RootState) => state.signIn);
 
   return (
     <div>
@@ -93,9 +95,9 @@ export default function ProfileEditNormalLeft({
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
                   errors.nowPassword && isTouched.nowPassword ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder={isPasswordCheck ? '소셜로그인 유저는 비밀번호가 없습니다.' : '현재 비밀번호를 입력해 주세요'}
+                placeholder={user.provider !== null ? '소셜로그인 유저는 비밀번호가 없습니다.' : '현재 비밀번호를 입력해 주세요'}
                 onBlur={() => handleInputBlur('nowPassword')}
-                disabled={isPasswordCheck}
+                disabled={user.provider !== null}
               />
               <Image
                 src={isViewNow ? visibility_on : visibility_off}
@@ -127,9 +129,11 @@ export default function ProfileEditNormalLeft({
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
                   errors.newPassword && isTouched.newPassword ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder={isPasswordCheck ? '소셜로그인 유저는 비밀번호 변경이 불가합니다.' : '새 비밀번호를 입력해 주세요'}
+                placeholder={
+                  user.provider !== null ? '소셜로그인 유저는 비밀번호 변경이 불가합니다.' : '새 비밀번호를 입력해 주세요'
+                }
                 onBlur={() => handleInputBlur('newPassword')}
-                disabled={isPasswordCheck}
+                disabled={user.provider !== null}
               />
               <Image
                 src={isViewNew ? visibility_on : visibility_off}
@@ -166,9 +170,11 @@ export default function ProfileEditNormalLeft({
                 className={`w-full rounded-[1.6rem] p-[1.4rem] ${
                   errors.newPasswordChk && isTouched.newPasswordChk ? 'bg-white border-red-200 border' : 'bg-background-200'
                 } lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-normal text-black-400 placeholder-gray-300 focus:outline-none`}
-                placeholder={isPasswordCheck ? '소셜로그인 유저는 비밀번호 변경이 불가합니다.' : '새 비밀번호를 입력해 주세요'}
+                placeholder={
+                  user.provider !== null ? '소셜로그인 유저는 비밀번호 변경이 불가합니다.' : '새 비밀번호를 입력해 주세요'
+                }
                 onBlur={() => handleInputBlur('newPassword')}
-                disabled={isPasswordCheck}
+                disabled={user.provider !== null}
               />
               <Image
                 src={isViewNewChk ? visibility_on : visibility_off}
