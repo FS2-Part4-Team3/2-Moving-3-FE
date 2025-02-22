@@ -58,8 +58,8 @@ export default function ReceivedQuotePageStructureClient() {
             <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] text-black-400 sm:text-[1.6rem] sm:leading-[2.6rem] dark:text-dark-t">
               견적서 목록
             </p>
-            {/* <EstimationSortDropdown onChange={newFilter => updateQuoteFilter(quote.id, newFilter)} />
-            <ReceivedQuotePageClient data={quote} filter={quotesFilterMap[quote.id]} /> */}
+            <div className="lg:w-[19rem] lg:h-[6.4rem] sm:h-[3.6rem] sm:w-[12.7rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] mb-[0.8rem] bg-gray-200 shimmer"></div>
+            {/* <ReceivedQuotePageClient data={quote} filter={quotesFilterMap[quote.id]} /> */}
           </div>
         </div>
       </div>
