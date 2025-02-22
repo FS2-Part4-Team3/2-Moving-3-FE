@@ -9,7 +9,7 @@ export default function EstimateReceivedCardSkeleton() {
         <div className="w-[8rem] h-[3rem] rounded-[0.4rem] bg-gray-200 shimmer"></div>
         <div className="w-[8rem] h-[3rem] rounded-[0.4rem] bg-gray-200 shimmer"></div>
       </div>
-      <div className="w-[25rem] h-[3rem] rounded-[0.4rem] bg-gray-200 shimmer"></div>
+      <div className="w-[25rem] h-[2.5rem] rounded-[0.4rem] bg-gray-200 shimmer"></div>
       <div className="rounded-[0.6rem] border border-line-100 lg:p-[1.6rem] sm:p-[1rem] lg:gap-[2.4rem] sm:gap-[1.2rem] flex shadow-[0.4rem_0.4rem_1rem_rgba(220,220,220,0.14)]">
         <Image
           src={standardProfile}
