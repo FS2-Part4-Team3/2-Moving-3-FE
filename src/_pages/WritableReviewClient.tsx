@@ -83,23 +83,24 @@ export default function WritableReviewClient() {
   }
 
   return (
-    <div className="h-screen flex flex-col items-center gap-[4rem] bg-background-100 pt-[4rem] dark:bg-dark-bg">
+    <div className="flex min-h-screen flex-col items-center gap-[4rem] bg-background-100 pt-[4rem] dark:bg-dark-bg">
       {reviewableEstimations?.estimations?.length ? (
         <>
-          <div className="lg:grid lg:grid-cols-2 lg:gap-y-[4.8rem] lg:gap-x-[4rem] md:flex md:flex-col sm:flex sm:flex-col md:gap-y-[3.2rem] sm:gap-y-[3.2rem]">
-            {transitions(
-              (style, page) =>
-                page === currentPage && (
-                  <animated.div style={style}>
-                    {reviewableEstimations?.estimations.map(estimation => (
-                      <div key={estimation.estimationInfo.estimationId}>
-                        <WritableReviewCard estimation={estimation} />
-                      </div>
-                    ))}
-                  </animated.div>
-                ),
-            )}
-          </div>
+          {transitions(
+            (style, page) =>
+              page === currentPage && (
+                <animated.div
+                  style={style}
+                  className="lg:grid lg:grid-cols-2 lg:gap-y-[4.8rem] lg:gap-x-[4rem] md:flex md:flex-col sm:flex sm:flex-col md:gap-y-[3.2rem] sm:gap-y-[3.2rem]"
+                >
+                  {reviewableEstimations?.estimations.map(estimation => (
+                    <div key={estimation.estimationInfo.estimationId}>
+                      <WritableReviewCard estimation={estimation} />
+                    </div>
+                  ))}
+                </animated.div>
+              ),
+          )}
           <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </>
       ) : (
