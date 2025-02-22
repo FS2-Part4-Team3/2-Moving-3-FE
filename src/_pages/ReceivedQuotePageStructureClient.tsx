@@ -8,6 +8,7 @@ import EstimationInformationCard from '@/components/cards/EstimateInformationCar
 import Empty from '@/components/common/Empty/Empty';
 import EstimationSortDropdown from '@/components/dropdown/EstimationSortDropdown';
 import EstimationInformationCardSkeleton from '@/components/skeleton/EstimateInformationCardSkeleton';
+import EstimateReceivedCardSkeleton from '@/components/skeleton/EstimateReceivedCardSkeleton';
 import { QuotesFilterMap, ReceivedQuoteResponse } from '@/interfaces/Page/ReceiveQuoteInterface';
 import ReceivedQuotePageClient from './ReceivedQuotePageClient';
 
@@ -59,7 +60,11 @@ export default function ReceivedQuotePageStructureClient() {
               견적서 목록
             </p>
             <div className="lg:w-[19rem] lg:h-[6.4rem] sm:h-[3.6rem] sm:w-[12.7rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] mb-[0.8rem] bg-gray-200 shimmer"></div>
-            {/* <ReceivedQuotePageClient data={quote} filter={quotesFilterMap[quote.id]} /> */}
+            <div className="flex flex-col lg:gap-[5.4rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <EstimateReceivedCardSkeleton key={index} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
