@@ -77,6 +77,7 @@ export default function SignInClient() {
           availableAreas: userType === 'driver' ? res.person.availableAreas : undefined,
           areas: userType === 'user' ? res.person.areas : undefined,
           type: res.person.type,
+          provider: res.person.provider,
           startAt: userType === 'driver' ? res.person.startAt : '',
           moveInfoId: '',
         }),

@@ -15,7 +15,6 @@ import { RootState } from '@/store/store';
 
 export default function LandingClient() {
   const userType = useSelector((state: RootState) => state.signIn.type);
-
   const router = useRouter();
 
   const handleSignInNavigation = () => {
