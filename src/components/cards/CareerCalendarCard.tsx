@@ -104,9 +104,9 @@ export default function CareerCalendarCard({ setCareerDate, setIsCareerOpen, ini
             <select
               onChange={handleYearChange}
               value={currentMonth.getFullYear()}
-              className="w-[10rem] p-2 border-none bg-blue-200 rounded-md text-white text-[2rem] text-center "
+              className="w-[10rem] p-2 border-none bg-blue-200 rounded-md text-white text-[2rem] text-center overflow-y-auto "
             >
-              {Array.from({ length: 10 }, (_, i) => currentMonth.getFullYear() - i).map(year => (
+              {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(year => (
                 <option key={year} value={year}>
                   {year}
                 </option>

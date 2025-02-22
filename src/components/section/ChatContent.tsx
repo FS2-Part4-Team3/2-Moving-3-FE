@@ -8,11 +8,12 @@ import { useSelector } from 'react-redux';
 import { getChatData, postRead } from '@/api/ChatsService';
 import { useSocket } from '@/contexts/socketContext';
 import { Chat, ChatRead } from '@/interfaces/Card/ChatCardInterface';
+import { ChatProps } from '@/interfaces/Section/ChatListInterface';
 import { RootState } from '@/store/store';
 import ChatTab from '../Tabs/ChatTab';
 import ChatInput from '../inputs/ChatInput';
 
-export default function ChatContent() {
+export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
   const { isTyping, typingUser } = useSocket();
   const { ref, inView } = useInView();
   const chat = useSelector((state: RootState) => state.chat);
@@ -88,11 +89,11 @@ export default function ChatContent() {
   }, [unreadMessageIds.length]);
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="w-[calc(100vw-45rem)]">
-        <ChatTab />
+    <div className={`flex flex-col h-screen lg:block ${isChatList ? 'md:hidden sm:hidden' : 'md:block sm:block'}`}>
+      <div className="lg:w-[calc(100vw-45rem)] md:w-screen sm:w-full">
+        <ChatTab isChatList={isChatList} setIsChatList={setIsChatList} />
       </div>
-      <div className="flex flex-col bg-background-200 w-[calc(100vw-45rem)] h-[calc(100vh-6rem)]">
+      <div className="flex flex-col bg-background-200 lg:w-[calc(100vw-45rem)] md:w-screen sm:w-screen h-[calc(100vh-6rem)]">
         <div className="flex-1 overflow-y-auto px-[2.4rem]">
           <div className="py-[2rem] space-y-[1.6rem]">
             {hasNextPage && (

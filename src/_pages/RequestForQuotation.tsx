@@ -15,6 +15,7 @@ import { RootState } from '@/store/store';
 import { formatDate } from '@/utils/Format';
 
 export default function RequestForQuotation() {
+  const [moveData, setMoveData] = useState<MoveData>({} as MoveData);
   const [movingType, setMovingType] = useState('');
   const [viewMovingType, setViewMovingType] = useState('');
   const [isMovingType, setIsMovingType] = useState(false);
@@ -28,7 +29,6 @@ export default function RequestForQuotation() {
     arrival: '',
   });
   const [windowWidth, setWindowWidth] = useState<number>(0);
-  const [moveData, setMoveData] = useState<MoveData>({} as MoveData);
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
@@ -60,13 +60,14 @@ export default function RequestForQuotation() {
       }
     };
     fetchCheckAPi();
-  }, [moveInfoId]);
+  }, [moveInfoId, edit]);
 
   useEffect(() => {
-    if (type) {
+    if (type && !movingType) {
       setMovingType(type);
+      setIsMovingType(true);
     }
-  }, [edit, moveData]);
+  }, [type]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -138,8 +139,6 @@ export default function RequestForQuotation() {
     editQuotationMutation.mutate();
   };
 
-  console.log(moveData);
-
   return (
     <>
       {Object.keys(moveData).length > 0 && !edit ? (
@@ -155,7 +154,9 @@ export default function RequestForQuotation() {
         <div className="flex flex-col items-center ">
           <div className="bg-white dark:bg-dark-p w-full md:px-[5rem] sm:px-[2rem] lg:py-[3.2rem] md:py-[2.4rem] sm:py-[2.4rem] flex flex-col items-center gap-[2.4rem] ">
             <div className="lg:w-[120rem] md:w-full sm:w-full">
-              <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B] dark:text-dark-t">견적요청</h1>
+              <h1 className="text-[2.4rem] font-semibold text-[#2B2B2B] dark:text-dark-t">
+                {edit ? '이사정보 수정' : '이사정보 등록'}
+              </h1>
             </div>
             <div className="lg:w-[120rem] md:w-full sm:w-full lg:h-[0.8rem] md:h-[0.6rem] sm:h-[0.6rem] rounded-[3rem] bg-line-200">
               <div

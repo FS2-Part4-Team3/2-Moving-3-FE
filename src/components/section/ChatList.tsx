@@ -5,13 +5,13 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatListData } from '@/api/ChatsService';
-import { ChatListData } from '@/interfaces/Section/ChatListInterface';
+import { ChatListData, ChatProps } from '@/interfaces/Section/ChatListInterface';
 import { setChat, setMoves } from '@/store/slices/chatSlice';
 import { RootState } from '@/store/store';
 import { formatDateTime } from '@/utils/Format';
 import ChatCard from '../cards/ChatCard';
 
-export default function ChatList() {
+export default function ChatList({ isChatList, setIsChatList }: ChatProps) {
   const { ref, inView } = useInView();
   const chat = useSelector((state: RootState) => state.chat);
   const dispatch = useDispatch();
@@ -83,7 +83,7 @@ export default function ChatList() {
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['chatList'] });
-  }, []);
+  }, [queryClient]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -94,13 +94,15 @@ export default function ChatList() {
   }
 
   return (
-    <div className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] h-screen flex flex-col border-r-[0.3rem] border-line-100">
+    <div
+      className={`lg:block ${isChatList ? 'md:block sm:block' : 'md:hidden sm:hidden'} overflow-y-auto overflow-x-hidden lg:w-[45rem] md:w-screen sm:w-screen h-screen flex flex-col border-r-[0.3rem] border-line-100`}
+    >
       <p className="lg:block md:hidden sm:hidden text-[2.4rem] font-semibold ml-[2rem] mt-[2rem]">메세지 목록</p>
       {chatList
         ? chatList.pages.flatMap(page =>
             page.list.map(id => (
               <div key={id}>
-                <ChatCard id={id} />
+                <ChatCard isChatList={isChatList} setIsChatList={setIsChatList} id={id} />
               </div>
             )),
           )
