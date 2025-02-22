@@ -1,7 +1,8 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import calendar from '@/../public/assets/chat/ic_calendar.svg';
 import dropdown from '@/../public/assets/chat/ic_dropdown.svg';
@@ -12,11 +13,13 @@ import { getDriverDetailData } from '@/api/DriverService';
 import { getOnlineStatus, getUserDetailData } from '@/api/UserService';
 import { InfoData, Online } from '@/interfaces/Card/ChatCardInterface';
 import { DriverDetailData } from '@/interfaces/Page/DriverDetailInterface';
+import { ChatProps } from '@/interfaces/Section/ChatListInterface';
 import { RootState } from '@/store/store';
 
-export default function ChatTab() {
+export default function ChatTab({ isChatList, setIsChatList }: ChatProps) {
   const user = useSelector((state: RootState) => state.signIn);
   const chat = useSelector((state: RootState) => state.chat);
+  const queryClient = useQueryClient();
 
   const { data: driverInforData } = useQuery<DriverDetailData>({
     queryKey: ['driverInfoData', chat.id],
@@ -45,10 +48,14 @@ export default function ChatTab() {
     enabled: !!chat.id,
   });
 
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['onlineStatus', chat.id] });
+  }, [chat.id, queryClient]);
+
   return (
     <div className="flex items-center justify-between h-[6.9rem] lg:w-full md:w-full sm:w-full lg:px-[1.9rem] md:px-[1.6rem] sm:px-[1.6rem] border-b-[0.3rem] border-line-100 ">
       <div className="flex items-center gap-[1.8rem]">
-        <div className="lg:hidden md:block sm:block cursor-pointer">
+        <div className="lg:hidden md:block sm:block cursor-pointer" onClick={() => setIsChatList(prev => !prev)}>
           <Image src={dropdown} alt="드롭다운" width={32} height={32} />
         </div>
         <div className="lg:w-[4.6rem] lg:h-[4.1rem] md:w-[4.6rem] md:h-[4.1rem] sm:w-[4.6rem] sm:h-[4.1rem] relative">
@@ -58,7 +65,7 @@ export default function ChatTab() {
             fill
           />
         </div>
-        <div className="flex lg:flex-row md:flex-row sm:flex-col gap-[1rem]">
+        <div className="flex lg:flex-row md:flex-row sm:flex-col lg:gap-[1rem] md:gap-[1rem] sm:gap-[0.1rem]">
           <p className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 text-nowrap ">
             {driverInforData?.name || userInforData?.name} {driverInforData ? '기사님' : userInforData ? '고객님' : ''}
           </p>
@@ -98,7 +105,7 @@ export default function ChatTab() {
           )}
         </div>
       </div>
-      <div className="flex items-center gap-x-[0.9rem] text-nowrap">
+      <div className="flex items-center gap-x-[0.9rem] text-nowrap lg:self-center md:self-center sm:self-start lg:pt-0 md:pt-0 sm:pt-[1rem]">
         <div className={`w-[1.4rem] h-[1.4rem] rounded-full ${onlineStatus?.isOnline ? 'bg-[#32CD32]' : 'bg-gray-300'}`}></div>
         <p className="lg:text-[1.6rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 ">
           {onlineStatus?.isOnline ? '온라인' : '오프라인'}
