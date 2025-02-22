@@ -139,8 +139,6 @@ export default function RequestForQuotation() {
     editQuotationMutation.mutate();
   };
 
-  console.log(movingType);
-
   return (
     <>
       {Object.keys(moveData).length > 0 && !edit ? (

@@ -17,7 +17,6 @@ export default function MovingTypeCheckCard({
   const [selectedMovingType, setSelectedMovingType] = useState<string>(initialMovingType);
 
   useEffect(() => {
-    console.log('b', initialMovingType);
     if (initialMovingType) {
       setSelectedMovingType(initialMovingType);
 
@@ -27,7 +26,6 @@ export default function MovingTypeCheckCard({
         setIsMovingType(prev => !prev);
       }
     }
-    console.log('a', initialMovingType);
   }, [initialMovingType, setViewMovingType, setIsMovingType]);
 
   const handleCheckClick = (movingType: string) => {
