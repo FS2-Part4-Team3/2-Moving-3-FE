@@ -7,6 +7,7 @@ import { getMovesEstimationsData } from '@/api/MovesService';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
 import Empty from '@/components/common/Empty/Empty';
 import EstimationSortDropdown from '@/components/dropdown/EstimationSortDropdown';
+import EstimationInformationCardSkeleton from '@/components/skeleton/EstimateInformationCardSkeleton';
 import { QuotesFilterMap, ReceivedQuoteResponse } from '@/interfaces/Page/ReceiveQuoteInterface';
 import ReceivedQuotePageClient from './ReceivedQuotePageClient';
 
@@ -49,7 +50,20 @@ export default function ReceivedQuotePageStructureClient() {
   }, [receiveQuoteData]);
 
   if (receiveQuoteDataLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col lg:gap-[5.4rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
+        <div className="flex flex-col lg:gap-[4.8rem] sm:gap-[3.2rem]">
+          <EstimationInformationCardSkeleton />
+          <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
+            <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] text-black-400 sm:text-[1.6rem] sm:leading-[2.6rem] dark:text-dark-t">
+              견적서 목록
+            </p>
+            {/* <EstimationSortDropdown onChange={newFilter => updateQuoteFilter(quote.id, newFilter)} />
+            <ReceivedQuotePageClient data={quote} filter={quotesFilterMap[quote.id]} /> */}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (receiveQuoteDataError) {
