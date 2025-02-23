@@ -176,7 +176,7 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
           <div className="lg:w-[calc(100vw-45rem)] md:w-screen sm:w-screen">
             <ChatTab isChatList={isChatList} setIsChatList={setIsChatList} />
           </div>
-          <div className="flex justify-center items-center lg:w-[calc(100vw-45rem)] h-full">
+          <div className="flex justify-center items-center lg:w-[calc(100vw-45rem)] h-full dark:bg-dark-bg">
             <Empty type="Chat" />
           </div>
         </>
