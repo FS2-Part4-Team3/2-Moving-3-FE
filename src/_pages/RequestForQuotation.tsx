@@ -47,7 +47,7 @@ export default function RequestForQuotation() {
             setMovingType(res.serviceType);
             setMovingDate(new Date(res.date));
             setIsMovingDate(!!new Date(res.date));
-            setIsMovingType(!!res.serviceType);
+            setIsMovingType(!res.serviceType);
             setRegions({
               start: res.fromAddress,
               arrival: res.toAddress,
