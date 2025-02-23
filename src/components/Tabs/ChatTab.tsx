@@ -1,12 +1,14 @@
 'use client';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import calendar from '@/../public/assets/chat/ic_calendar.svg';
 import dropdown from '@/../public/assets/chat/ic_dropdown.svg';
 import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
+import like_white from '@/../public/assets/driver/ic_empty_like.svg';
 import heart from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';
 import { getDriverDetailData } from '@/api/DriverService';
@@ -20,6 +22,8 @@ export default function ChatTab({ isChatList, setIsChatList }: ChatProps) {
   const user = useSelector((state: RootState) => state.signIn);
   const chat = useSelector((state: RootState) => state.chat);
   const queryClient = useQueryClient();
+
+  const { theme } = useTheme();
 
   const { data: driverInforData } = useQuery<DriverDetailData>({
     queryKey: ['driverInfoData', chat.id],
@@ -66,39 +70,40 @@ export default function ChatTab({ isChatList, setIsChatList }: ChatProps) {
           />
         </div>
         <div className="flex lg:flex-row md:flex-row sm:flex-col lg:gap-[1rem] md:gap-[1rem] sm:gap-[0.1rem]">
-          <p className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 text-nowrap ">
+          <p className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 text-nowrap dark:text-dark-t">
             {driverInforData?.name || userInforData?.name} {driverInforData ? '기사님' : userInforData ? '고객님' : ''}
           </p>
           {user.type === 'driver' && (
             <div className="flex items-center gap-[0.3rem] text-nowrap">
               <Image src={calendar} alt="달력" width={24} height={24} />
-              <p className="text-[1.8rem] font-medium text-black-300">{chat.date}</p>
+              <p className="text-[1.8rem] font-medium text-black-300 dark:text-dark-t">{chat.date}</p>
               <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
-              <p className="text-[1.6rem] font-medium text-black-300">{chat.serviceType}</p>
+              <p className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">{chat.serviceType}</p>
               <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
               <p className="text-[1.6rem] font-medium text-gray-300">
-                출발 <span className="text-[1.6rem] font-medium text-black-300">{chat.fromAddress}년</span>
+                출발 <span className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">{chat.fromAddress}년</span>
               </p>
               <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
               <p className="text-[1.6rem] font-medium text-gray-300">
-                도착 <span className="text-[1.6rem] font-medium text-black-300">{chat.toAddress}년</span>
+                도착 <span className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">{chat.toAddress}년</span>
               </p>
             </div>
           )}
           {user.type === 'user' && (
             <div className="flex items-center gap-[0.3rem] text-nowrap">
-              <Image src={heart} alt="좋아요" width={24} height={24} />
-              <p className="text-[1.8rem] font-medium text-black-300">{driverInforData?.likeCount}</p>
+              <Image src={theme === 'dark' ? like_white : heart} alt="좋아요" width={24} height={24} />
+              <p className="text-[1.8rem] font-medium text-black-300 dark:text-dark-t">{driverInforData?.likeCount}</p>
               <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
               <Image src={star} alt="별" width={20} height={20} />
-              <p className="text-[1.6rem] font-medium text-black-300">{driverInforData?.rating}</p>
+              <p className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">{driverInforData?.rating}</p>
               <p className="text-[1.6rem] font-medium text-gray-300">({driverInforData?.reviewCount})</p>
               <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
               <p className="text-[1.6rem] font-medium text-gray-300">
-                경력 <span className="text-[1.6rem] font-medium text-black-300">{driverInforData?.career}년</span>
+                경력{' '}
+                <span className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">{driverInforData?.career}년</span>
               </p>
               <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
-              <p className="text-[1.6rem] font-medium text-black-300">
+              <p className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">
                 {driverInforData?.applyCount}건 <span className="text-[1.6rem] font-medium text-gray-300">확정</span>
               </p>
             </div>
@@ -107,7 +112,7 @@ export default function ChatTab({ isChatList, setIsChatList }: ChatProps) {
       </div>
       <div className="flex items-center gap-x-[0.9rem] text-nowrap lg:self-center md:self-center sm:self-start lg:pt-0 md:pt-0 sm:pt-[1rem]">
         <div className={`w-[1.4rem] h-[1.4rem] rounded-full ${onlineStatus?.isOnline ? 'bg-[#32CD32]' : 'bg-gray-300'}`}></div>
-        <p className="lg:text-[1.6rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 ">
+        <p className="lg:text-[1.6rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 dark:text-dark-t">
           {onlineStatus?.isOnline ? '온라인' : '오프라인'}
         </p>
       </div>
