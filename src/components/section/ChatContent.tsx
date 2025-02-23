@@ -22,10 +22,7 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
   const chat = useSelector((state: RootState) => state.chat);
   const user = useSelector((state: RootState) => state.signIn);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const PAGE_SIZE = 12;
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const PAGE_SIZE = 10;
   const queryClient = useQueryClient();
 
   const {
@@ -51,8 +48,7 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
     staleTime: 0,
   });
 
-  const initialMessages = chatMessages?.pages.flatMap(page => page.data.list) ?? [];
-  const messages = [...initialMessages].reverse();
+  const messages = chatMessages?.pages.flatMap(page => page.data.list).reverse() ?? [];
   const unreadMessageIds = messages
     .filter(message => !message.isRead)
     .map(message => message.id)
@@ -96,10 +92,6 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
   }, [chat.id, queryClient]);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [chatMessages?.pages[chatMessages.pages.length - 1]?.data.list.length]);
-
-  useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
@@ -112,14 +104,14 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
   }, [unreadMessageIds.length]);
 
   return (
-    <div className={`flex flex-col h-screen lg:block ${isChatList ? 'md:hidden sm:hidden' : 'md:block sm:block'}`}>
+    <div className={`flex flex-col  lg:block ${isChatList ? 'md:hidden sm:hidden' : 'md:block sm:block'}`}>
       {chat.id ? (
         <>
           <div className="lg:w-[calc(100vw-45rem)] md:w-screen sm:w-full">
             <ChatTab isChatList={isChatList} setIsChatList={setIsChatList} />
           </div>
           <div className="flex flex-col bg-background-200 dark:bg-dark-p lg:w-[calc(100vw-45rem)] md:w-screen sm:w-screen h-[calc(100vh-6rem)]">
-            <div className="flex-1 overflow-y-auto px-[2.4rem]">
+            <div className="flex-1 px-[2.4rem] overflow-y-auto">
               <div className="py-[2rem] space-y-[1.6rem]">
                 {hasNextPage && (
                   <div ref={ref} className="text-center text-gray-500 dark:text-dark-t text-[1.4rem]">
