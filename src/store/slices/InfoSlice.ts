@@ -21,8 +21,11 @@ const InfoSlice = createSlice({
       state.name = name;
       state.phoneNumber = phoneNumber;
     },
+    setInfoSignOut(state) {
+      Object.assign(state, initialState);
+    },
   },
 });
 
-export const { setInfo } = InfoSlice.actions;
+export const { setInfo, setInfoSignOut } = InfoSlice.actions;
 export default InfoSlice.reducer;
