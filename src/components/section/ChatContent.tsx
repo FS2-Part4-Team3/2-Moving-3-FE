@@ -104,7 +104,7 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
   }, [unreadMessageIds.length]);
 
   return (
-    <div className={`flex flex-col h-screen lg:block ${isChatList ? 'md:hidden sm:hidden' : 'md:block sm:block'}`}>
+    <div className={`flex flex-col  lg:block ${isChatList ? 'md:hidden sm:hidden' : 'md:block sm:block'}`}>
       {chat.id ? (
         <>
           <div className="lg:w-[calc(100vw-45rem)] md:w-screen sm:w-full">
