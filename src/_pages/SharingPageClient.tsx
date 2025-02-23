@@ -128,12 +128,7 @@ export default function SharingPageClient({ type }: SharingPageClientProps) {
           text: text,
           url: currentUrl,
         })
-        .then(() => alert('공유가 완료되었습니다!'))
-        .catch(err => {
-          if (err.name !== 'AbortError') {
-            alert('공유에 실패했습니다. 다시 시도해주세요.');
-          }
-        });
+        .catch(() => {});
     } else {
       alert('이 브라우저에서는 기본 공유 기능을 지원하지 않습니다.');
     }
