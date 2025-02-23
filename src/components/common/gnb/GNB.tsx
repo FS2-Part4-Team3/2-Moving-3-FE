@@ -36,10 +36,6 @@ export default function GNB() {
   const user_profile = useSelector((state: RootState) => state.profile);
   const user_info = useSelector((state: RootState) => state.info);
 
-  console.log('USERUSERUSR', user);
-  console.log('PROFILE', user_profile);
-  console.log('INFO', user_info);
-
   const isRequestQuote = pathname?.includes('request-quote'); // 견적 요청
   const isMatchDriver = pathname?.includes('match-driver'); // 기사님 찾기
   const isMyQuotes = pathname?.includes('my-quote'); // 내 견적 관리
