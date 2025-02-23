@@ -1,13 +1,15 @@
 'use client';
 
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from 'react-redux';
 import { getChatData, postRead } from '@/api/ChatsService';
+import { getDriverDetailData } from '@/api/DriverService';
+import { getUserDetailData } from '@/api/UserService';
 import { useSocket } from '@/contexts/socketContext';
-import { Chat, ChatRead } from '@/interfaces/Card/ChatCardInterface';
+import { Chat, ChatRead, InfoData } from '@/interfaces/Card/ChatCardInterface';
 import { ChatProps } from '@/interfaces/Section/ChatListInterface';
 import { RootState } from '@/store/store';
 import ChatTab from '../Tabs/ChatTab';
@@ -68,6 +70,26 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
     },
   });
 
+  const { data: driverInforData } = useQuery<InfoData>({
+    queryKey: ['driverInfoData', typingUser],
+    queryFn: async () => {
+      if (typingUser) {
+        return await getDriverDetailData(typingUser);
+      }
+    },
+    enabled: user.type === 'user',
+  });
+
+  const { data: userInforData } = useQuery<InfoData>({
+    queryKey: ['userInfoData', typingUser],
+    queryFn: async () => {
+      if (typingUser) {
+        return await getUserDetailData(typingUser);
+      }
+    },
+    enabled: user.type === 'driver',
+  });
+
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['chatMessages', chat.id] });
   }, [chat.id, queryClient]);
@@ -87,6 +109,8 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
       readMutation.mutate();
     }
   }, [unreadMessageIds.length]);
+
+  console.log('chatContent', chat.id);
 
   return (
     <div className={`flex flex-col h-screen lg:block ${isChatList ? 'md:hidden sm:hidden' : 'md:block sm:block'}`}>
@@ -139,7 +163,11 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
 
         <div className="flex-shrink-0 px-[2.4rem] py-[2rem] bg-background-200">
           <ChatInput />
-          {isTyping && <p className="text-[1.6rem] font-medium text-gray-500">{typingUser}님이 입력중입니다...</p>}
+          {isTyping && (
+            <p className="text-[1.6rem] font-medium text-gray-500">
+              {userInforData?.name || driverInforData?.name}님이 입력중입니다...
+            </p>
+          )}
         </div>
       </div>
     </div>

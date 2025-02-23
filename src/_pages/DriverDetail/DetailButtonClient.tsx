@@ -35,14 +35,6 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(
-      setChat({
-        id: id,
-      }),
-    );
-  });
-
-  useEffect(() => {
     if (userType === 'user') {
       const fetchDibStatus = async () => {
         try {
@@ -74,10 +66,15 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const handleChat = () => {
     socket?.emit('chat', {
       userId: userId,
-      driverId: chatId,
-      message: '',
+      driverId: id,
+      message: '시작',
       image: '',
     });
+    dispatch(
+      setChat({
+        id: id,
+      }),
+    );
     router.push('/chat');
   };
 
@@ -158,6 +155,8 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const handleEditBasicInfo = () => {
     router.push('/driver/my-page/edit-basic-info');
   };
+
+  console.log('driver', chatId);
 
   return (
     <>
