@@ -6,6 +6,7 @@ export async function POST(request: Request) {
   cookies().set({
     name: 'local-access-token',
     value: cookie,
+    maxAge: 3600,
   });
 
   return Response.json({ success: true });
