@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -27,6 +27,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const chatId = useSelector((state: RootState) => state.chat.id);
   const { socket } = useSocket();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   // const [isMoveId, setIsMoveId] = useState('');
 
@@ -75,6 +76,8 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
         id: id,
       }),
     );
+
+    queryClient.invalidateQueries({ queryKey: ['chatList'] });
     router.push('/chat');
   };
 
@@ -162,10 +165,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
     <>
       {(type === 'quoteWaiting' || type === undefined) && (
         <ButtonWrapper id="driver-chat" onClick={handleChat}>
-          <ButtonWrapper.Button
-            className="w-full bg-blue-400 lg:h-[6.4rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] flex items-center justify-center text-white"
-            disabled={isCompleted}
-          >
+          <ButtonWrapper.Button className="w-full bg-blue-400 lg:h-[6.4rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] flex items-center justify-center text-white">
             기사님과 채팅하기
           </ButtonWrapper.Button>
         </ButtonWrapper>
