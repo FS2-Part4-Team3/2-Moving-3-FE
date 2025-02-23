@@ -20,12 +20,13 @@ export default function RejectQuotationModal({ onClose, data }: RejectQuotationM
 
   const rejectQuoteMutation = useMutation({
     mutationFn: async () => {
-      try {
-        const res = await postDetailEstimationData(data.id, true, reason, null);
-        alert('반려 되었습니다.');
-      } catch (error: any) {
-        alert(error.data.message || '반려에 실패했습니다. 다시 시도해주세요.');
-      }
+      await postDetailEstimationData(data.id, true, reason, '0');
+    },
+    onSuccess: () => {
+      alert('반려 되었습니다.');
+    },
+    onError: (error: any) => {
+      alert(error.data.message || '반려에 실패했습니다. 다시 시도해주세요.');
     },
   });
 
@@ -42,8 +43,10 @@ export default function RejectQuotationModal({ onClose, data }: RejectQuotationM
           <ModalWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
               <div className="flex flex-col lg:gap-[2.4rem] sm:gap-[2rem]">
-                <MovingTypeChips type={data.serviceType} />
-                {data.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
+                <div className="flex lg:gap-[1.2rem] sm:gap-[0.8rem]">
+                  <MovingTypeChips type={data.serviceType} />
+                  {data.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
+                </div>
                 <div className="flex flex-col rounded-[0.8rem] lg:border border-line-100 lg:py-[2.4rem] lg:px-[1.8rem] sm:py-[1rem] lg:gap-[1.6rem] sm:gap-[1.2rem]">
                   <p className="font-semibold lg:text-[2.4rem] sm:text-[1.4rem] lg:leading-[3.2rem] sm:leading-[2.4rem] text-black-300 dark:text-dark-t">
                     {data.owner.name} 고객님
@@ -108,8 +111,10 @@ export default function RejectQuotationModal({ onClose, data }: RejectQuotationM
           <ModalSmallWrapper.Content>
             <div className="flex flex-col gap-[3.2rem]">
               <div className="flex flex-col gap-[2rem]">
-                <MovingTypeChips type={data.serviceType} />
-                {data.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
+                <div className="flex gap-[0.8rem]">
+                  <MovingTypeChips type={data.serviceType} />
+                  {data.isSpecificRequest && <MovingTypeChips type="APPOINTMENT" />}
+                </div>
                 <div className="flex flex-col rounded-[0.8rem] py-[1rem] gap-[1.2rem]">
                   <p className="font-semibold text-[1.4rem] leading-[2.4rem] text-black-300 dark:text-dark-t">
                     {data.owner.name} 고객님
