@@ -1,15 +1,32 @@
+import { animated, useSpring } from '@react-spring/web';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import arrow from '@/../public/assets/common/dropdown/chevron-down.svg';
 import { MapDropdownProps } from '@/interfaces/Dropdown/MapInterface';
 
 export default function MapDropdown({ selectedMenu, setSelectedMenu }: MapDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const handleMenuClick = (menu: string) => {
     setSelectedMenu(menu);
     setIsDropdownOpen(false);
   };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setIsDropdownVisible(true);
+    } else {
+      setTimeout(() => setIsDropdownVisible(false), 300);
+    }
+  }, [isDropdownOpen]);
+
+  const mapDropdownAnimation = useSpring({
+    opacity: isDropdownOpen ? 1 : 0,
+    transform: isDropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
+    height: 'auto',
+    config: { tension: 170, friction: 30 },
+  });
 
   return (
     <div className="w-[13rem]">
@@ -24,8 +41,11 @@ export default function MapDropdown({ selectedMenu, setSelectedMenu }: MapDropdo
         </p>
         <Image src={arrow} alt="arrow" width={20} height={20} />
       </div>
-      {isDropdownOpen && (
-        <div className="absolute flex flex-col items-start justify-center w-[11.5rem] bg-white dark:bg-dark-p rounded-[0.8rem] border border-line-200 mt-[0.8rem]">
+      {isDropdownVisible && (
+        <animated.div
+          style={mapDropdownAnimation}
+          className="absolute flex flex-col items-start justify-center w-[11.5rem] bg-white dark:bg-dark-p rounded-[0.8rem] border border-line-200 mt-[0.8rem]"
+        >
           <p
             className="font-medium text-[1.8rem] leading-[2.4rem] py-[0.6rem] px-[1.4rem] cursor-pointer"
             onClick={() => handleMenuClick('출발지')}
@@ -38,7 +58,7 @@ export default function MapDropdown({ selectedMenu, setSelectedMenu }: MapDropdo
           >
             도착지
           </p>
-        </div>
+        </animated.div>
       )}
     </div>
   );

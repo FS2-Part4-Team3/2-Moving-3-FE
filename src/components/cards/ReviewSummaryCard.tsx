@@ -27,7 +27,7 @@ export default function ReviewSummaryCard({ driverId }: ReviewSummaryCardProps) 
           리뷰 요약
         </p>
         <p className="md:leading-[3.2rem] sm:leading-[2.6rem] md:font-semibold sm:font-bold md:text-[2rem] sm:text-[1.6rem] text-black-400 dark:text-dark-t">
-          {reviewSummaryData?.summaryReview || '생성된 리뷰가 존재하지 않습니다.'}
+          {reviewSummaryData?.summary || '생성된 리뷰가 존재하지 않습니다.'}
         </p>
       </div>
       <p className="md:font-semibold md:text-[1.8rem] sm:font-bold sm:text-[1.6rem] text-red-200">

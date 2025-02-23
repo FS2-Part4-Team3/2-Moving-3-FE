@@ -1,5 +1,6 @@
 'use client';
 
+import { animated, useSpring } from '@react-spring/web';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -32,7 +33,10 @@ export default function ProfileEditDriver() {
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const isDisabled = isFormValid;
+
   const [isCareerOpen, setIsCareerOpen] = useState(false);
+  const [isCareerVisible, setIsCareerVisible] = useState(false);
+
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
   const user_profile = useSelector((state: RootState) => state.profile);
@@ -135,6 +139,21 @@ export default function ProfileEditDriver() {
     },
   });
 
+  useEffect(() => {
+    if (isCareerOpen) {
+      setIsCareerVisible(true);
+    } else {
+      setTimeout(() => setIsCareerVisible(false), 300);
+    }
+  }, [isCareerOpen]);
+
+  const careerDropdownAnimation = useSpring({
+    opacity: isCareerOpen ? 1 : 0,
+    transform: 'translateY(10px)',
+    height: 'auto',
+    config: { tension: 250, friction: 30 },
+  });
+
   const handleUserDataSubmit = () => {
     userDataMutation.mutate();
   };
@@ -200,12 +219,14 @@ export default function ProfileEditDriver() {
                   onClick={() => setIsCareerOpen(prev => !prev)}
                 />
               </div>
-              {isCareerOpen && (
-                <CareerCalendarCard
-                  setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
-                  setIsCareerOpen={setIsCareerOpen}
-                  initialCareerDate={values.career}
-                />
+              {isCareerVisible && (
+                <animated.div style={careerDropdownAnimation}>
+                  <CareerCalendarCard
+                    setCareerDate={value => setValues(prev => ({ ...prev, career: value }))}
+                    setIsCareerOpen={setIsCareerOpen}
+                    initialCareerDate={values.career}
+                  />
+                </animated.div>
               )}
               {errors.career && isTouched.career && (
                 <span className="lg:text-[1.6rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-red-200 mt-[0.8rem] self-end">
@@ -298,7 +319,7 @@ export default function ProfileEditDriver() {
           />
         </div>
       </div>
-      <ButtonWrapper id="profile-register-driver" type="submit" onClick={() => router.back()}>
+      <ButtonWrapper id="profile-register-driver" type="submit" onClick={() => router.push('/driver/my-page')}>
         <ButtonWrapper.Button className="lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] text-center border border-gray-200 bg-white shadow-custom6 text-gray-300 font-semibold lg:mb-[10.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]">
           취소
         </ButtonWrapper.Button>

@@ -1,6 +1,7 @@
 'use client';
 
-import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
+import { animated, useTransition } from '@react-spring/web';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ import ReviewSummaryCard from '@/components/cards/ReviewSummaryCard';
 import Empty from '@/components/common/Empty/Empty';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import Pagination from '@/components/common/pagination/pagination';
+import DriverReviewCardSkeleton from '@/components/skeleton/DriverReviewCardSkeleton';
 import type { DriverReviewData, ReviewClientProps } from '@/interfaces/Page/DriverDetailInterface';
 
 export default function ReviewClient({ id }: ReviewClientProps) {
@@ -66,6 +68,13 @@ export default function ReviewClient({ id }: ReviewClientProps) {
     setCurrentPage(page);
   };
 
+  const transitions = useTransition(currentPage, {
+    from: { opacity: 0, transform: 'translateX(100%)' },
+    enter: { opacity: 1, transform: 'translateX(0%)' },
+    leave: { opacity: 0, transform: 'translateX(-100%)' },
+    config: { tension: 150, friction: 25 },
+  });
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -78,7 +87,7 @@ export default function ReviewClient({ id }: ReviewClientProps) {
     <div className="flex flex-col lg:py-0 sm:py-[1rem] lg:gap-[4rem] sm:gap-[4.3rem]">
       <div className="flex flex-col gap-[3.2rem]">
         <div className="flex justify-between items-center">
-        <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400 dark:text-dark-t">
+          <p className="lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] font-bold text-black-400 dark:text-dark-t">
             리뷰 ({reviewData?.totalCount})
           </p>
           {pathname === '/driver/my-page' && (
@@ -105,8 +114,17 @@ export default function ReviewClient({ id }: ReviewClientProps) {
 
       {reviewData?.totalCount ? (
         <div className="flex flex-col w-full">
-          {reviewData?.list && reviewData.list.map((review, index) => <DriverReviewCard key={index} review={review} />)}
-          <div className="flex justify-center lg:pt-[21.4rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
+          {transitions(
+            (style, page) =>
+              page === currentPage && (
+                <animated.div style={style}>
+                  {reviewData?.list
+            ? reviewData.list.map((review, index) => <DriverReviewCard key={index} review={review} />)
+            : Array.from({ length: 3 }).map((_, index) => <DriverReviewCardSkeleton key={index} />)}
+                </animated.div>
+              ),
+          )}
+          <div className="flex justify-center lg:pt-[6rem] md:pt-[7.8rem] sm:pt-[9rem] lg:pb-[6.5rem] md:pb-[4.5rem] sm:pb-[3.4rem]">
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
           </div>
         </div>

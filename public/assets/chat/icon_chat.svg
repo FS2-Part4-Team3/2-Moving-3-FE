@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g fill="#DEDEDE" stroke="none">
+    <path d="M12 22 C12 16 16 12 22 12 H42 C48 12 52 16 52 22 V30 C52 36 48 40 42 40 H22 C16 40 12 36 12 30 Z"/>
+    <path d="M18 38 L10 46 L26 46" transform="rotate(-40 18 38)"/>
+  </g>
+</svg>

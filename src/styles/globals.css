@@ -23,3 +23,18 @@ html {
   background: #c4c4c4;
   border-radius: 10px;
 }
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(135deg, #c4c4c4 0%, #ababab 50%, #c4c4c4 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}

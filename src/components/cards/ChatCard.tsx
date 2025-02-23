@@ -5,14 +5,15 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import profile_default from '@/../public/assets/common/gnb/default_profile.svg';
+import { getChatData, postRead } from '@/api/ChatsService';
 import { getDriverDetailData } from '@/api/DriverService';
 import { getOnlineStatus, getUserDetailData } from '@/api/UserService';
-import { getChatData, postRead } from '@/api/chatService';
 import { ChatData, ChatRead, InfoData, Online } from '@/interfaces/Card/ChatCardInterface';
+import { ChatProps } from '@/interfaces/Section/ChatListInterface';
 import { setChat } from '@/store/slices/chatSlice';
 import { RootState } from '@/store/store';
 
-export default function ChatCard({ id }: { id: string }) {
+export default function ChatCard({ id, isChatList, setIsChatList }: { id: string } & ChatProps) {
   const user = useSelector((state: RootState) => state.signIn);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -57,14 +58,14 @@ export default function ChatCard({ id }: { id: string }) {
     if (error) return { message: '', error };
 
     const unReadMessgeCount = lastChatData?.list?.filter(chat => !chat.isRead).length || 0;
-    const lastMessageObj = lastChatData?.list?.[lastChatData.list.length - 1];
+    const lastMessageObj = lastChatData?.list?.[0];
     const isRead = lastMessageObj?.isRead;
     const lastMessage = lastMessageObj?.message || '';
 
-    return { message: lastMessage, isRead, unReadCount: unReadMessgeCount, chatData };
+    return { message: lastMessage, isRead, unReadCount: unReadMessgeCount, chatData, lastPage };
   };
 
-  const { message, isRead, unReadCount, chatData } = lastChatMessage(id, 10);
+  const { message, isRead, unReadCount, chatData, lastPage } = lastChatMessage(id, 10);
   const ids: string[] = chatData?.list.map(chat => chat.id) || [];
   const chatRead: ChatRead = { ids };
 
@@ -75,6 +76,9 @@ export default function ChatCard({ id }: { id: string }) {
       }
       return Promise.resolve();
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chatData', id] });
+    },
   });
 
   const handleReadClick = (id: string) => {
@@ -83,14 +87,25 @@ export default function ChatCard({ id }: { id: string }) {
   };
 
   useEffect(() => {
-    chatData;
-  }, [chatData]);
+    queryClient.invalidateQueries({ queryKey: ['onlineStatus', id] });
+    if (chatData) {
+      queryClient.invalidateQueries({ queryKey: ['chatData', id, lastPage] });
+    }
+  }, [chatData, queryClient, id, lastPage]);
 
+  useEffect(() => {
+    if (chatRead.ids.length > 0) {
+      readMutation.mutate();
+    }
+  }, [chatRead.ids.length]);
   return (
     <>
       {id && (
         <div
-          onClick={() => handleReadClick(id)}
+          onClick={() => {
+            handleReadClick(id);
+            setIsChatList(prev => !prev);
+          }}
           className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] flex items-center lg:gap-x-[1rem] md:gap-x-[0.8rem] sm:gap-x-[0.8rem] lg:px-[2rem] md:px-[1.4rem] sm:px-[1.4rem] lg:py-[2rem] md:py-[1.5rem] sm:py-[1.5rem] border-b-[0.1rem] border-line-100 cursor-pointer "
         >
           <div className="lg:w-[7.9rem] lg:h-[7.3rem] md:w-[6rem] md:h-[5.5rem] sm:w-[6rem] sm:h-[5.5rem] relative">

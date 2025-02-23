@@ -15,6 +15,7 @@ interface SignInState {
   areas?: string[]; // 일반 유저의 경우 내가 사는 지역
   type?: string;
   startAt?: string;
+  provider?: string;
   moveInfoId: string;
 }
 
@@ -32,6 +33,7 @@ const initialState: SignInState = {
   areas: [],
   type: '',
   startAt: '',
+  provider: '',
   moveInfoId: '',
 };
 
@@ -40,7 +42,7 @@ const signInSlice = createSlice({
   initialState,
   reducers: {
     setUserSign(state, action: PayloadAction<SignInState>) {
-      const { id, name, email, image, phoneNumber, serviceType, type } = action.payload;
+      const { id, name, email, image, phoneNumber, serviceType, type, provider } = action.payload;
 
       state.id = id;
       state.name = name;
@@ -49,6 +51,7 @@ const signInSlice = createSlice({
       state.phoneNumber = phoneNumber;
       state.serviceType = serviceType;
       state.type = type;
+      state.provider = provider;
 
       if (type === 'driver') {
         state.nickname = action.payload.nickname;

@@ -1,7 +1,8 @@
 'use client';
 
+import { animated, useSpring } from '@react-spring/web';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import arrow from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
 import sortMenu from '@/constants/sortMenu';
@@ -11,6 +12,7 @@ export default function SortDropdown() {
   const dispatch = useDispatch();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
 
   const handleMenuClick = (menu: string) => {
@@ -21,6 +23,21 @@ export default function SortDropdown() {
     }
     setIsDropdownOpen(false);
   };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setIsDropdownVisible(true);
+    } else {
+      setTimeout(() => setIsDropdownVisible(false), 300);
+    }
+  }, [isDropdownOpen]);
+
+  const sortDropdownAnimation = useSpring({
+    opacity: isDropdownOpen ? 1 : 0,
+    transform: isDropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
+    height: 'auto',
+    config: { tension: 170, friction: 30 },
+  });
 
   return (
     <div>
@@ -33,8 +50,11 @@ export default function SortDropdown() {
         </p>
         <Image src={arrow} alt="arrow" width={20} height={20} />
       </div>
-      {isDropdownOpen && (
-        <div className="absolute bg-white dark:bg-dark-p rounded-[0.8rem] border border-line-100 w-[9.1rem]">
+      {isDropdownVisible && (
+        <animated.div
+          style={sortDropdownAnimation}
+          className="absolute bg-white dark:bg-dark-p rounded-[0.8rem] border border-line-100 w-[9.1rem]"
+        >
           {sortMenu.map((item, index) => (
             <div
               key={index}
@@ -44,7 +64,7 @@ export default function SortDropdown() {
               <p className="font-medium text-[1.2rem] leading-[1.8rem] text-black-400 dark:text-dark-t ">{item.name}</p>
             </div>
           ))}
-        </div>
+        </animated.div>
       )}
     </div>
   );

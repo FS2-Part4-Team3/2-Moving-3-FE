@@ -1,8 +1,9 @@
 'use client';
 
+import { animated, useSpring } from '@react-spring/web';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import blueArrow from '@/../public/assets/common/dropdown/chevron-down-clicked.svg';
 import arrow from '@/../public/assets/common/dropdown/chevron-down.svg';
 import arrow_gray from '@/../public/assets/common/dropdown/chevron-down_gray.svg';
@@ -10,6 +11,7 @@ import { EstimationSortDropdownProps } from '@/interfaces/Dropdown/SortMenuInter
 
 export default function EstimationSortDropdown({ onChange }: EstimationSortDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState<'all' | 'confirmed'>('all');
 
   const { theme } = useTheme();
@@ -19,6 +21,21 @@ export default function EstimationSortDropdown({ onChange }: EstimationSortDropd
     onChange(option);
     setIsDropdownOpen(false);
   };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setIsDropdownVisible(true);
+    } else {
+      setTimeout(() => setIsDropdownVisible(false), 300);
+    }
+  }, [isDropdownOpen]);
+
+  const sortDropdownAnimation = useSpring({
+    opacity: isDropdownOpen ? 1 : 0,
+    transform: isDropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
+    height: 'auto',
+    config: { tension: 170, friction: 30 },
+  });
 
   const optionInKo = selectedOption === 'all' ? '전체' : '확정한 견적서';
 
@@ -48,8 +65,11 @@ export default function EstimationSortDropdown({ onChange }: EstimationSortDropd
           className="lg:hidden sm:block"
         />
       </div>
-      {isDropdownOpen && (
-        <div className="absolute bg-white dark:bg-dark-p rounded-[1.6rem] border border-line-200 shadow-[0.4rem_0.4rem_1rem_rgba(220,220,220,0.25)] dark:shadow lg:w-[32.8rem] sm:w-[12.7rem]">
+      {isDropdownVisible && (
+        <animated.div
+          style={sortDropdownAnimation}
+          className="absolute bg-white dark:bg-dark-p rounded-[1.6rem] border border-line-200 shadow-[0.4rem_0.4rem_1rem_rgba(220,220,220,0.25)] dark:shadow lg:w-[32.8rem] sm:w-[12.7rem]"
+        >
           <p
             className="lg:py-[1.6rem] sm:py-[0.6rem] lg:px-[2.4rem] sm:px-[1.4rem] font-medium lg:text-[1.8rem] lg:leading-[2.6rem] sm:text-[1.4rem] sm:leading-[2.4rem] cursor-pointer"
             onClick={() => {
@@ -66,7 +86,7 @@ export default function EstimationSortDropdown({ onChange }: EstimationSortDropd
           >
             확정한 견적서
           </p>
-        </div>
+        </animated.div>
       )}
     </div>
   );

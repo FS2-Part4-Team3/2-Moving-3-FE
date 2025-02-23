@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getDibsDriverListData } from '@/api/DriverService';
 import DibsDriverPageCard from '@/components/cards/DibsDriverPageCard';
+import Empty from '@/components/common/Empty/Empty';
+import DibsDriverPageCardSkeleton from '@/components/skeleton/DibsDriverPageCardSkeleton';
 import { DibsDriverListResponse } from '@/interfaces/API/DriverServiceInterface';
 
 export default function DibsDriverPageClient() {
@@ -36,7 +38,17 @@ export default function DibsDriverPageClient() {
   }, [inView]);
 
   if (dibsDriversLoading) {
-    return <div>Loading</div>;
+    return (
+      <div>
+        <div className="pt-[2.4rem] lg:grid grid-cols-2 sm:flex flex-col gap-[3.2rem] w-full lg:px-[0rem] md:px-[7.2rem] sm:px-[3rem]">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
+              <DibsDriverPageCardSkeleton key={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (dibsDriversError) {
@@ -44,7 +56,11 @@ export default function DibsDriverPageClient() {
   }
 
   if (!dibsDrivers || dibsDrivers.pages[0].list.length === 0) {
-    return <div className="w-full h-[56rem] flex items-center justify-center">EMPTY</div>;
+    return (
+      <div className="w-full h-[56rem] flex items-center justify-center">
+        <Empty type="DibsDriver" />
+      </div>
+    );
   }
 
   return (
@@ -52,7 +68,7 @@ export default function DibsDriverPageClient() {
       {dibsDrivers
         ? dibsDrivers.pages.flatMap(page =>
             page.list.map(driver => (
-              <Link key={driver.id} href={`/match-driver/${driver.id}`}>
+              <Link key={driver.id} href={`/normal/match-driver/${driver.id}`}>
                 <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
                   <DibsDriverPageCard data={driver} />
                 </div>

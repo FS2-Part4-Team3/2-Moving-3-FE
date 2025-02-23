@@ -33,7 +33,6 @@ export default function SendQuotationModal({ onClose, data }: SendQuotationModal
 
   const handleSubmit = () => {
     sendQuoteMutation.mutate();
-    onClose();
   };
 
   return (

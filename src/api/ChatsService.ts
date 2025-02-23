@@ -40,3 +40,14 @@ export const postRead = async (targetId: string, ids: ChatRead) => {
     throw err;
   }
 };
+
+export const postImage = async (image: string) => {
+  try {
+    const requestBody = { image };
+    const res = await postRequest('/chats/image', requestBody);
+    return res;
+  } catch (err) {
+    console.error('Post image error', err);
+    throw err;
+  }
+};

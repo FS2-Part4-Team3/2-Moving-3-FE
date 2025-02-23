@@ -14,19 +14,19 @@ export default function MovingTypeCheckCard({
   initialMovingType,
   setViewMovingType,
 }: MovingTypeCheckCardProps) {
-  const [selectedMovingType, setSelectedMovingType] = useState<string | null>(initialMovingType);
+  const [selectedMovingType, setSelectedMovingType] = useState<string>(initialMovingType);
 
   useEffect(() => {
     if (initialMovingType) {
       setSelectedMovingType(initialMovingType);
-      const matchingType = movingTypesCheck.find(movingType => movingType.code === initialMovingType);
 
+      const matchingType = movingTypesCheck.find(movingType => movingType.code === initialMovingType);
       if (matchingType) {
         setViewMovingType(matchingType.type);
+        setIsMovingType(prev => !prev);
       }
-      setIsMovingType(prev => !prev);
     }
-  }, [initialMovingType, setViewMovingType]);
+  }, [initialMovingType, setViewMovingType, setIsMovingType]);
 
   const handleCheckClick = (movingType: string) => {
     setSelectedMovingType(movingType);
@@ -38,6 +38,7 @@ export default function MovingTypeCheckCard({
       setIsMovingType(true);
     }
   };
+
   return (
     <div className="lg:w-[64rem] lg:h-[45.2rem] md:w-[31.2rem] md:h-[27.4rem] sm:w-[31.2rem] sm:h-[27.4rem] rounded-[2.4rem] rounded-tr-[0.4rem] border-none lg:p-[4rem] md:p-[1.6rem] sm:p-[1.6rem] cursor-pointer bg-white dark:bg-dark-p shadow-custom5 dark:shadow">
       {movingTypesCheck.map(movingType => (

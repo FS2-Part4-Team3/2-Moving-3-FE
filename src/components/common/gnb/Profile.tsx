@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteRefresh } from '@/api/UserService';
 import { ProfileProps } from '@/interfaces/CommonComp/GnbInterface';
+import { setInfoSignOut } from '@/store/slices/InfoSlice';
+import { setProfileSignOut } from '@/store/slices/ProfileSlice';
 import { setSignOut } from '@/store/slices/SignInSlice';
 import { setDriverDataInitialization } from '@/store/slices/driversSlice';
 import { setMovesDataInitialization } from '@/store/slices/movesSlice';
@@ -22,6 +24,8 @@ export default function Profile({ closeModal }: ProfileProps) {
     mutationFn: async () => {
       await deleteRefresh();
       dispatch(setSignOut());
+      dispatch(setInfoSignOut());
+      dispatch(setProfileSignOut());
       dispatch(setMovesDataInitialization());
       dispatch(setDriverDataInitialization());
       closeModal();

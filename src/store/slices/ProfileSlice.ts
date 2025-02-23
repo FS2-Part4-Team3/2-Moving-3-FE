@@ -52,8 +52,11 @@ const profileSlice = createSlice({
       state.startAt = startAt;
       state.availableAreas = availableAreas;
     },
+    setProfileSignOut(state) {
+      Object.assign(state, initialState);
+    },
   },
 });
 
-export const { setProfile, setProfileNoImg } = profileSlice.actions;
+export const { setProfile, setProfileNoImg, setProfileSignOut } = profileSlice.actions;
 export default profileSlice.reducer;

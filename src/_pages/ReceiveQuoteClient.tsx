@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMovesListData } from '@/api/MovesService';
 import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
 import Empty from '@/components/common/Empty/Empty';
+import ReceiveQuoteCardSkeleton from '@/components/skeleton/ReceiveQuoteCardSkeleton';
 import { MovesListResponse } from '@/interfaces/API/MovesServiceInterface';
 import { setMovesList } from '@/store/slices/movesSlice';
 import { RootState } from '@/store/store';
@@ -50,19 +51,17 @@ export default function ReceiveQuoteClient() {
   }, [moves, dispatch]);
 
   if (movesLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col lg:gap-[4.8rem] md:gap-[3.2rem] sm:gap-[2.4rem]">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <ReceiveQuoteCardSkeleton key={index} />
+        ))}
+      </div>
+    );
   }
 
   if (movesError) {
     return <div>Error</div>;
-  }
-
-  if (!moves || moves.pages[0].list.length === 0) {
-    return (
-      <div className="w-full h-[56rem] flex items-center justify-center">
-        <Empty type="ReceiveQuote" />
-      </div>
-    );
   }
 
   return (
