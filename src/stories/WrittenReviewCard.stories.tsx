@@ -19,15 +19,15 @@ const mockReviewData: MyReviewItem = {
   score: 4,
   estimation: {
     price: 150000,
-    driver: {
-      name: '김코드',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhNJEXqIaNHfAlHrN588FXk4quCwsg0mz19g&s',
-    },
     moveInfo: {
       serviceType: 'SMALL',
       date: '2025-01-20',
-      isSpecificRequest: true,
     },
+    isSpecificRequest: true,
+  },
+  driver: {
+    name: '김코드',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhNJEXqIaNHfAlHrN588FXk4quCwsg0mz19g&s',
   },
 };
 
