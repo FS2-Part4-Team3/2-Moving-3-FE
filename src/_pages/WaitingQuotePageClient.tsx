@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { getUserEstimationData } from '@/api/EstimationService';
 import WaitingQuoteCard from '@/components/cards/WaitingQuoteCard';
 import Empty from '@/components/common/Empty/Empty';
+import WaitingQuoteCardSkeleton from '@/components/skeleton/WaitingQuoteCardSkeleton';
 import { WaitingQuoteListResponse } from '@/interfaces/Page/WaitingQuoteClientInterface';
 
 export default function WaitingQuotePageClient() {
@@ -36,7 +37,17 @@ export default function WaitingQuotePageClient() {
   }, [inView]);
 
   if (waitingQuoteLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <div className="lg:grid lg:grid-cols-2 lg:gap-[2.4rem] sm:flex flex-col md:gap-[3.2rem] md:px-[7.2rem] sm:gap-[2.4rem] sm:px-[2.4rem]">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div className="w-full lg:px-0 sm:px-[1rem] sm:gap-[2.4rem] md:gap-[3.2rem] lg:gap-[4.8rem] flex flex-col">
+              <WaitingQuoteCardSkeleton key={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (waitingQuoteError) {
