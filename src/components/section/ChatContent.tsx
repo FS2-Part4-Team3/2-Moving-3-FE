@@ -111,8 +111,6 @@ export default function ChatContent({ isChatList, setIsChatList }: ChatProps) {
     }
   }, [unreadMessageIds.length]);
 
-  console.log('chatContent', chat.id);
-
   return (
     <div className={`flex flex-col h-screen lg:block ${isChatList ? 'md:hidden sm:hidden' : 'md:block sm:block'}`}>
       {chat.id ? (

@@ -159,8 +159,6 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
     router.push('/driver/my-page/edit-basic-info');
   };
 
-  console.log('driver', chatId);
-
   return (
     <>
       {(type === 'quoteWaiting' || type === undefined) && (

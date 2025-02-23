@@ -54,8 +54,6 @@ export default function ChatTab({ isChatList, setIsChatList }: ChatProps) {
     queryClient.invalidateQueries({ queryKey: ['userInforData', chat.id] });
   }, [chat.id, queryClient]);
 
-  console.log('chatTab', chat.id);
-
   return (
     <div className="flex items-center justify-between h-[6.9rem] lg:w-full md:w-full sm:w-full lg:px-[1.9rem] md:px-[1.6rem] sm:px-[1.6rem] border-b-[0.3rem] border-line-100 ">
       <div className="flex items-center gap-[1.8rem]">

@@ -51,15 +51,6 @@ export default function ChatList({ isChatList, setIsChatList }: ChatProps) {
     if (inView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [inView]);
 
-  // useEffect(() => {
-  //   if (chatList?.pages.length) {
-  //     const lastId = chatList.pages.flatMap(page => page.list).shift();
-  //     if (lastId) {
-  //       dispatch(setChat({ id: lastId }));
-  //     }
-  //   }
-  // }, [chatList?.pages]);
-
   useEffect(() => {
     chatList?.pages.map(chats => {
       if (chats.moves) {
