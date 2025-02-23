@@ -23,21 +23,17 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith('/driver')) {
     if (!loggedInUser) {
-      // alert('잘못된 접근입니다.');
       url.pathname = '/normal/sign-in';
       return NextResponse.redirect(url);
     } else if (loggedInUser.userType === 'user') {
-      // alert('잘못된 접근입니다.');
       url.pathname = '/normal/match-driver';
       return NextResponse.redirect(url);
     }
   } else if (req.nextUrl.pathname.startsWith('/normal')) {
     if (!loggedInUser) {
-      // alert('잘못된 접근입니다.');
       url.pathname = '/normal/sign-in';
       return NextResponse.redirect(url);
     } else if (loggedInUser.userType === 'driver') {
-      // alert('잘못된 접근입니다.');
       url.pathname = '/driver/receive-quote';
       return NextResponse.redirect(url);
     }
