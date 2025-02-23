@@ -21,7 +21,7 @@ export default function RejectQuotationModal({ onClose, data }: RejectQuotationM
   const rejectQuoteMutation = useMutation({
     mutationFn: async () => {
       try {
-        const res = await postDetailEstimationData(data.id, true, reason, '0');
+        const res = await postDetailEstimationData(data.id, true, reason, null);
         alert('반려 되었습니다.');
       } catch (error: any) {
         alert(error.data.message || '반려에 실패했습니다. 다시 시도해주세요.');
