@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import clip from '@/../../public/assets/driver/ic_clip.svg';
 import facebook from '@/../../public/assets/driver/ic_facebook.svg';
@@ -28,7 +29,8 @@ export default function SharingPageClient({ type }: SharingPageClientProps) {
     };
   }, []);
 
-  const currentUrl = window.location.href;
+  const pathname = usePathname();
+  const currentUrl = typeof window !== 'undefined' ? `${window.location.origin}${pathname}` : '';
 
   useEffect(() => {
     if (!window.Kakao?.isInitialized()) {
