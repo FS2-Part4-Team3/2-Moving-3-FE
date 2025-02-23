@@ -126,6 +126,8 @@ export default function ChatInput() {
         }
       });
 
+      queryClient.invalidateQueries({ queryKey: ['chatList'] });
+
       setMessage('');
 
       socket.emit('stopped_typing', chat.id);
