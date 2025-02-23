@@ -1,6 +1,6 @@
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
-import DriverDetailButtonClient from '@/_pages/DriverDetail/DetailButtonClient';
+import DetailButtonClient from '@/_pages/DriverDetail/DetailButtonClient';
 import ReviewClient from '@/_pages/DriverDetail/ReviewClient';
 import SharingPageClient from '@/_pages/SharingPageClient';
 import { getDriverDetailData, getDriverReviewData } from '@/api/DriverService';
@@ -27,7 +27,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
   return (
     <HydrationBoundary state={dehydratedState}>
       <div className="flex flex-row gap-[5.7rem] lg:pt-[5.6rem] sm:pt-[2.4rem] justify-center">
-        <div className="flex flex-col lg:w-[77.5rem] md:w-[60rem] sm:w-[32.7rem]">
+        <div className="flex flex-col lg:w-[77.5rem] md:w-[60rem] sm:w-[32.7rem] mb-[5rem]">
           <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
             <FindDriverCard key={driverData.id} data={driverData} />
             <div className="lg:hidden sm:block">
@@ -69,11 +69,6 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
             <div className="border border-line-100 w-full"></div>
             <ReviewClient id={id} />
           </div>
-          <div className="lg:hidden sm:block">
-            <div className="flex flex-row gap-[0.8rem] py-[1rem] md:w-[60rem] sm:w-[32.7rem] justify-center">
-              <DriverDetailButtonClient id={id} />
-            </div>
-          </div>
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-[35.4rem] gap-[4rem]">
@@ -81,7 +76,7 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
               <p className="text-[2rem] leading-[3.2rem] text-black-400 font-semibold dark:text-dark-t">
                 {driverData.name} 기사님에게 지정 견적을 요청해보세요!
               </p>
-              <DriverDetailButtonClient id={id} />
+              <DetailButtonClient id={id} />
             </div>
             <div className="border border-line-100 w-[32.8rem]"></div>
             <div className="flex flex-col gap-[2.2rem]">
@@ -92,6 +87,13 @@ export default async function DriverDetailPage({ params }: { params: { id: strin
                 <SharingPageClient type="driver" />
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="lg:hidden sm:block">
+        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white dark:bg-dark-p flex items-center justify-center z-10">
+          <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-full sm:px-[2rem] md:px-0">
+            <DetailButtonClient id={id} />
           </div>
         </div>
       </div>
