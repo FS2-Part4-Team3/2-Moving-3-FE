@@ -39,8 +39,11 @@ const chatSlice = createSlice({
       state.toAddress = toAddress;
       state.ownerId = ownerId;
     },
+    setChatSignOut(state) {
+      Object.assign(state, initialState);
+    },
   },
 });
 
-export const { setChat, setMoves } = chatSlice.actions;
+export const { setChat, setMoves, setChatSignOut } = chatSlice.actions;
 export default chatSlice.reducer;
