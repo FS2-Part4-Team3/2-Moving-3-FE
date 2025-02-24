@@ -25,12 +25,9 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const [isReason, setIsReason] = useState('');
   const isMoveId = useSelector((state: RootState) => state.signIn.moveInfoId);
   const userId = useSelector((state: RootState) => state.signIn.id);
-  const chatId = useSelector((state: RootState) => state.chat.id);
   const { socket } = useSocket();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-
-  // const [isMoveId, setIsMoveId] = useState('');
 
   const userType = useSelector((state: RootState) => state.signIn.type);
 

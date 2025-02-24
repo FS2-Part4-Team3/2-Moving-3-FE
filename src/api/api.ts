@@ -1,4 +1,3 @@
-// const BASE_URL = 'http://localhost:3000';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export class CustomError extends Error {
@@ -14,8 +13,6 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
     'Cache-Control': 'no-cache',
     ...options.headers,
   };
-
-  const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
 
   try {
     const response = await fetch(`${BASE_URL}${url}`, {
@@ -95,8 +92,6 @@ export async function fetchWrapperSSR(url: string, options: RequestInit = {}, ac
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
   }
-
-  const urlWithCacheBusting = `${BASE_URL}${url}?t=${new Date().getTime()}`;
 
   try {
     const response = await fetch(`${BASE_URL}${url}`, {

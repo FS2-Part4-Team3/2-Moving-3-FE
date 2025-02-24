@@ -2,11 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getUserMoveInfoId } from '@/api/MovesService';
 import { getUserData } from '@/api/UserService';
 import { setMoveInfoId, setUserSign } from '@/store/slices/SignInSlice';
-import { RootState } from '@/store/store';
 
 export default function CallBackGoogle() {
   const router = useRouter();

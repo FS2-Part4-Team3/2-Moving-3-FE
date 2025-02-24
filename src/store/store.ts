@@ -62,6 +62,5 @@ export const store = configureStore({
 
 export const persistor = typeof window !== 'undefined' ? persistStore(store) : null;
 
-// RootState 및 AppDispatch 타입 설정
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
