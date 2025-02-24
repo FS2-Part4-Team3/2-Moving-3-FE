@@ -55,9 +55,11 @@ export default function WaitingQuotePageClient() {
   }
 
   if (!waitingQuote || waitingQuote.pages[0].totalCount === 0) {
-    <div className="mt-[5rem]">
-      <Empty type="WaitingQuote" />;
-    </div>;
+    return (
+      <div className="mt-[5rem]">
+        <Empty type="WaitingQuote" />;
+      </div>
+    );
   }
 
   return (

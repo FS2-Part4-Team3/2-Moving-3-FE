@@ -1,6 +1,6 @@
 import { getRequest, postRequest } from '@/utils/requestFunctions';
 
-export const postDetailEstimationData = async (movesId: string, reject: boolean, comment: string, price: string | null) => {
+export const postDetailEstimationData = async (movesId: string, reject: boolean, comment: string, price?: string) => {
   const params = {
     reject: reject,
     comment: comment,
@@ -89,6 +89,16 @@ export const getEstimationsRejected = async (page: number, pageSize: number) => 
     return res;
   } catch (error) {
     console.error('Get Estimation Rejected Fetch Error', error);
+    throw error;
+  }
+};
+
+export const getEstimationConfirmedDetail = async (estimationId: string) => {
+  try {
+    const res = await getRequest(`/estimations/confirmed/${estimationId}`);
+    return res;
+  } catch (error) {
+    console.error('Get Estimation Confirmed Detail Fetch Error', error);
     throw error;
   }
 };
