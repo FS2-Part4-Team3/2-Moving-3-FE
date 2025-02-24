@@ -40,6 +40,7 @@
 2. [기술 스택](#-기술-스택)
 3. [R&R](#rr)
 4. [팀원별 구현 기능 상세](#-팀원별-구현-기능-상세)
+5. [프로젝트 환경 변수 설정](#-프로젝트-환경-변수-설정)
 
 ---
 
@@ -343,5 +344,16 @@
 
 ---
 
+## 🔑 프로젝트 환경 변수 설정
 
+프로젝트의 루트 디렉토리에 **`.env`** 파일을 생성합니다.
+이 파일에 아래와 같은 환경 변수 항목을 추가해주세요.
+(실제 값은 여러분의 환경에 맞게 입력해야 합니다.) 
 
+```env
+NEXT_PUBLIC_BASE_URL=<your-backend-api-url>
+NEXT_PUBLIC_KAKAO_API_KEY=<your-kakao-api-key>
+NEXT_PUBLIC_KAKAO_MAP_KEY=<your-kakao-map-api-key>
+NEXT_PUBLIC_KAKAO_REST_KEY=<your-kakao-rest-api-key>
+
+---
