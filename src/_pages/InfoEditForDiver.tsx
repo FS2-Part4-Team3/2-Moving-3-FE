@@ -329,7 +329,7 @@ export default function InfoEditForDriver() {
               </ButtonWrapper>
               <ButtonWrapper id="fix-btn" onClick={handleSubmit}>
                 <ButtonWrapper.Button
-                  disabled={!isDisabled}
+                  disabled={user.provider ? !values.name : !isDisabled}
                   className="lg:order-2 md:order-1 sm:order-1 lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] bg-blue-300 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem] font-semibold text-center text-white lg:mb-[6.4rem] md:mb-[0.8rem] sm:mb-[0.8rem]"
                 >
                   수정하기
