@@ -28,7 +28,7 @@
 ## 🔗 관련 링크
 
 🌐 <b>[Moving 홈페이지 바로가기](https://www.moving.wiki/)</b></br>
-📄 <b>[API 명세서서 바로가기](https://backend.moving.wiki/api-docs)</b></br>
+📄 <b>[API 명세서 바로가기](https://backend.moving.wiki/api-docs)</b></br>
 📂 <b>[Back-End Repository](https://github.com/FS2-Part4-Team3/2-Moving-3-BE)</b></br>
 📘 <b>[Moving team 협업 문서](https://pleasant-fireplant-a76.notion.site/TEAM-3-168070c8d1ed8087ac90e2bb7c77af8d?pvs=4)</b></br>
 
