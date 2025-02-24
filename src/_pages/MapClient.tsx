@@ -10,7 +10,6 @@ import { MapClientProps } from '@/interfaces/Page/MapInterface';
 
 export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   const { curLocation } = useGeoLocation();
-  console.log(curLocation);
 
   const [activeTab, setActiveTab] = useState<'tab1' | 'tab2' | 'tab3'>('tab1');
   const [fromCoordinate, setFromCoordinate] = useState<{ La: number; Ma: number } | null>(null);

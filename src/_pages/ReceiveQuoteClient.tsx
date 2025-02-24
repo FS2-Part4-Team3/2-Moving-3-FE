@@ -6,7 +6,6 @@ import { useInView } from 'react-intersection-observer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovesListData } from '@/api/MovesService';
 import ReceiveQuoteCard from '@/components/cards/ReceiveQuoteCard';
-import Empty from '@/components/common/Empty/Empty';
 import ReceiveQuoteCardSkeleton from '@/components/skeleton/ReceiveQuoteCardSkeleton';
 import { MovesListResponse } from '@/interfaces/API/MovesServiceInterface';
 import { setMovesList } from '@/store/slices/movesSlice';

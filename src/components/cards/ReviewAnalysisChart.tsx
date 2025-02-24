@@ -53,7 +53,6 @@ export default function ReviewAnalysisChart() {
   let type = filter;
 
   if (type === 'ALL') {
-    // TODO: 백엔드 측에서 수정되면 slice 로직 삭제하기
     const positiveData = reviewAnalysisData.positive.slice(0, 5);
     const negativeData = reviewAnalysisData.negative.slice(0, 5);
 
