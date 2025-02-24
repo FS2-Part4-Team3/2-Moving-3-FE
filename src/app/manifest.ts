@@ -11,8 +11,8 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#ffffff',
     icons: [
       {
-        src: '/favicon.ico',
-        sizes: '192x192',
+        src: 'https://www.moving.wiki/favicon.ico ',
+        sizes: '32x32',
         type: 'image/png',
       },
     ],
