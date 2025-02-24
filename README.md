@@ -2,7 +2,7 @@
 # 3팀-Moving-FE</br>
 📅 2025.01.06 ~ 2025.02.25 </br>
 
-## 🥢 Overview
+## 📣 Overview
 
 ### 📖 소개 (Introduction)
 
@@ -34,6 +34,97 @@
 
 ---
 
-## 목차
+## 🔎 목차
 
+1. [팀원 구성](#-팀원-구성)
+2. [기술 스택](#-기술-스택)
+3. [R&R](#rr)
+4. [팀원별 구현 기능 상세](#팀원별-구현-기능-상세)
+
+---
+
+### 👨‍👨‍👧 팀원 구성
+
+<div align=center>
+<table>
+  <tr>
+    <td align="center" width="200">
+      <a href="https://github.com/hyobiin9">
+        <img src="https://avatars.githubusercontent.com/u/176696485?v=4" alt="박효빈" width="100" />
+        <br />
+        <b>박효빈</b>  
+      </a>
+      <br />
+      Frontend
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/galaxy-78">
+        <img src="https://avatars.githubusercontent.com/u/81586230?v=4" alt="김재원" width="100" />
+        <br />
+        <b>김재원</b>
+      </a>
+      <br />
+      Frontend
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/LDY981212">
+        <img src="https://avatars.githubusercontent.com/u/134135615?v=4" alt="이도엽" width="100" />
+        <br />
+        <b>이도엽</b>
+      </a>
+      <br />
+      Frontend
+    </td>
+  </tr>
+</table>
+</div>
+
+---
+### 📚 기술 스택
+
+<div align=center>
+
+**FrontEnd** <br>
+![Node.js](https://img.shields.io/badge/Node.js-68A063?style=flat&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/React-087EA4?style=flat&logo=react&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
+![App Router](https://img.shields.io/badge/App%20Router-5A67D8?style=flat&logo=architect&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-0F172A?style=flat&logo=TailwindCSS&logoColor=06B6D4)
+![PostCSS](https://img.shields.io/badge/PostCSS-DD3A0A?style=flat&logo=postcss&logoColor=white)
+![Storybook](https://img.shields.io/badge/Storybook-FF4785?style=flat&logo=Storybook&logoColor=white) <br>
+![Jest](https://img.shields.io/badge/Jest-C21325?style=flat&logo=jest&logoColor=white)
+![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-764ABC?style=flat&logo=redux&logoColor=white)
+![React Query](https://img.shields.io/badge/React%20Query-FF4154?style=flat&logo=reactquery&logoColor=white)
+![React Chart.js](https://img.shields.io/badge/React%20Chart.js-FF6384?style=flat&logo=chartdotjs&logoColor=white)
+![React Kakao Maps](https://img.shields.io/badge/React%20Kakao%20Maps-FFCD00?style=flat&logo=kakaotalk&logoColor=black)
+![React Daum Postcode](https://img.shields.io/badge/React%20Daum%20Postcode-0052CC?style=flat&logo=googlemaps&logoColor=white) <br>
+![Redux Persist](https://img.shields.io/badge/Redux%20Persist-764ABC?style=flat&logo=redux&logoColor=white)
+![React Swiper](https://img.shields.io/badge/React%20Swiper-6332F6?style=flat&logo=swiper&logoColor=white)
+![Datepicker](https://img.shields.io/badge/Datepicker-4CAF50?style=flat&logo=architect&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer%20Motion-0055FF?style=flat&logo=framer&logoColor=white)
+![React Spring](https://img.shields.io/badge/React%20Spring-F26B00?style=flat&logo=reactspring&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-4E4E4E?style=flat&logo=Socket.io&logoColor=white)
+
+
+**Infrastructure** <br>
+![AWS Route 53](https://img.shields.io/badge/AWS%20Route%2053-232F3E?style=flat&logo=amazonaws&logoColor=FF9900)
+![AWS Amplify](https://img.shields.io/badge/AWS%20Amplify-FF9900?style=flat&logo=awsamplify&logoColor=white)
+
+**Tools** <br>
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=flat&logo=slack&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=flat&logo=notion&logoColor=white)
+![Gather](https://img.shields.io/badge/Gather-3A2EDE?style=flat&logo=gather&logoColor=white)
+![Zoom](https://img.shields.io/badge/Zoom-0B5CFF?style=flat&logo=Zoom&logoColor=white)
+
+**Etc** <br>
+![npm](https://img.shields.io/badge/npm-CB3837?style=flat&logo=npm&logoColor=black)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=Prettier&logoColor=black)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=ESLint&logoColor=white)
+![FSD Architecture](https://img.shields.io/badge/FSD%20Architecture-white?style=flat&logo=architect&logoColor=black)
+
+</div>
 
