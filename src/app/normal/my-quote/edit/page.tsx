@@ -20,7 +20,7 @@ export default async function MyQuoteEdit() {
           </div>
           <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
             <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-black-400 dark:text-dark-t">
-              견적서 수정하기
+              이사 정보 수정하기
             </p>
             <MyQuoteEditClient />
           </div>

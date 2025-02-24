@@ -79,7 +79,7 @@ export default function MyQuoteEditClient() {
             className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] p-[1.6rem] flex items-center justify-center font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-white"
             disabled={!moveInfoId}
           >
-            견적서 수정하기
+            이사 정보 수정하기
           </ButtonWrapper.Button>
         </ButtonWrapper>
         <ButtonWrapper id="delete-quotation" onClick={handleShowModal}>
@@ -87,7 +87,7 @@ export default function MyQuoteEditClient() {
             className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] py-[1.6rem] px-[2.4rem] flex items-center justify-center border border-blue-300 bg-white font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-blue-300"
             disabled={!moveInfoId || !!estimationId}
           >
-            견적서 삭제하기
+            이사 정보 삭제하기
           </ButtonWrapper.Button>
         </ButtonWrapper>
       </div>
@@ -96,14 +96,14 @@ export default function MyQuoteEditClient() {
         <div>
           <div>
             <ModalWrapper onClose={handleCloseModal}>
-              <ModalWrapper.Header>견적 삭제하기</ModalWrapper.Header>
+              <ModalWrapper.Header>이사 정보 삭제하기</ModalWrapper.Header>
               <ModalWrapper.Content>
                 <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-black-300 flex items-center justify-center">
                   정말 삭제하시겠습니까?
                 </p>
               </ModalWrapper.Content>
               <ModalWrapper.Footer isDisabled={false} onClick={deleteData}>
-                견적 삭제하기
+                이사 정보 삭제하기
               </ModalWrapper.Footer>
             </ModalWrapper>
           </div>
