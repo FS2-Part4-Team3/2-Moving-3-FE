@@ -7,7 +7,6 @@ export async function POST(request: Request) {
     name: 'local-access-token',
     value: cookie,
     path: '/',
-    domain: 'localhost',
   });
 
   return Response.json({ success: true });
