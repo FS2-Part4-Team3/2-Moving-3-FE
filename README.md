@@ -323,8 +323,6 @@
 - Headless 컴포넌트 제작 
 - Nav ui
 - Empty ui 
-- Abort Reason API 연결
-- 반응형 제작
 - access token middleware 작성
 
 </details>
@@ -338,6 +336,8 @@
 - PWA 기능 제작
 - 음성인식 기능 제작
 - Skeleton UI 기능
+- 리뷰 요약 API 연결 및 ui 추가
+- 키워드 분석 API 연결 및 ui 추가
 
 </details>
 
