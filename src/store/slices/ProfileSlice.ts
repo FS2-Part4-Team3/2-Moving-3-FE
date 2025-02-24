@@ -11,6 +11,7 @@ interface ProfileType {
   areas?: string[];
   type?: string;
   startAt?: string;
+  socialEdit?: boolean;
 }
 
 const initialState: ProfileType = {
@@ -24,6 +25,7 @@ const initialState: ProfileType = {
   areas: [],
   type: '',
   startAt: '',
+  socialEdit: false,
 };
 
 const profileSlice = createSlice({
@@ -52,11 +54,15 @@ const profileSlice = createSlice({
       state.startAt = startAt;
       state.availableAreas = availableAreas;
     },
+    setSocialEdit(state, action: PayloadAction<ProfileType>) {
+      const { socialEdit } = action.payload;
+      state.socialEdit = socialEdit;
+    },
     setProfileSignOut(state) {
       Object.assign(state, initialState);
     },
   },
 });
 
-export const { setProfile, setProfileNoImg, setProfileSignOut } = profileSlice.actions;
+export const { setProfile, setProfileNoImg, setProfileSignOut, setSocialEdit } = profileSlice.actions;
 export default profileSlice.reducer;
