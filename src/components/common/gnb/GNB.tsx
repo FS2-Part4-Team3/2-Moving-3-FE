@@ -231,7 +231,7 @@ export default function GNB() {
                   <p
                     className={`font-bold text-[1.8rem] leading-[2.6rem] ${isRequestQuote ? 'text-black-400 dark:text-dark-t' : 'text-gray-400 dark:text-gray-100'}`}
                   >
-                    견적 요청
+                    이사 정보 등록
                   </p>
                 </Link>
               )}
@@ -430,7 +430,7 @@ export default function GNB() {
               {status === 'General' && (
                 <Link href="/normal/request-quote" className="cursor-pointer" onClick={() => isModalOpen(false)}>
                   <p className="w-full py-[2.4rem] px-[2rem] gap-1rem] font-medium text-[1.6rem] leading-[2.6rem] text-black-400 dark:text-dark-t">
-                    견적 요청
+                    이사 정보 등록
                   </p>
                 </Link>
               )}
