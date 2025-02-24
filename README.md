@@ -4,7 +4,7 @@
 
 ## 📣 Overview
 
-### 📖 소개 (Introduction)
+## 📖 소개 (Introduction)
 
 **Moving**은 사용자들이 다양한 이사 서비스를 편리하게 요청하고, 이사 업체로부터 견적을 받을 수 있도록 돕는 온라인 플랫폼입니다. 
 - 사용자는 자신의 이사 유형(소형 이사, 가정 이사, 기업·사무실 이사 등)에 맞는 서비스를 선택한 후, 간편하게 **견적 요청**을할 수 있습니다.
@@ -15,7 +15,7 @@
 
 ---
 
-### 🚚 배경 (Background)
+## 🚚 배경 (Background)
 
 이사 서비스 시장은 기존에 오프라인 중심으로 운영되었으며, 고객들은 여러 업체에 일일이 연락하여 견적을 비교하는 불편함을 겪었습니다. **Moving**은 이러한 문제를 해결하기 위해 온라인에서 손쉽게 이사 견적을 비교하고, 신뢰할 수 있는 이사 업체를 찾을 수 있도록 지원하는 플랫폼으로 등장하였습니다.</br>
 
@@ -25,10 +25,10 @@
 
 ---
 
-### 🔗 관련 링크
+## 🔗 관련 링크
 
 🌐 <b>[Moving 홈페이지 바로가기](https://www.moving.wiki/)</b></br>
-📄 <b>[API 명세서서 바로가기](https://backend.moving.wiki/api-docs)</b></br>
+📄 <b>[API 명세서 바로가기](https://backend.moving.wiki/api-docs)</b></br>
 📂 <b>[Back-End Repository](https://github.com/FS2-Part4-Team3/2-Moving-3-BE)</b></br>
 📘 <b>[Moving team 협업 문서](https://pleasant-fireplant-a76.notion.site/TEAM-3-168070c8d1ed8087ac90e2bb7c77af8d?pvs=4)</b></br>
 
@@ -39,11 +39,11 @@
 1. [팀원 구성](#-팀원-구성)
 2. [기술 스택](#-기술-스택)
 3. [R&R](#rr)
-4. [팀원별 구현 기능 상세](#팀원별-구현-기능-상세)
+4. [팀원별 구현 기능 상세](#-팀원별-구현-기능-상세)
 
 ---
 
-### 👨‍👨‍👧 팀원 구성
+## 👨‍👨‍👧 팀원 구성
 
 <div align=center>
 <table>
@@ -80,7 +80,7 @@
 </div>
 
 ---
-### 📚 기술 스택
+## 📚 기술 스택
 
 <div align=center>
 
@@ -127,4 +127,221 @@
 ![FSD Architecture](https://img.shields.io/badge/FSD%20Architecture-white?style=flat&logo=architect&logoColor=black)
 
 </div>
+
+---
+
+## <h2 id="rr">🙋‍♂️ R&R</h2>
+
+**김재원**
+
+- 프론트엔드 회의 정리
+- 총괄
+
+**이도엽**
+
+- 노션 프론트엔드 페이지 정리
+- 프론트엔드 일정 관리
+- 프론트엔드 깃허브 README.md
+
+**박효빈**
+
+- PPT 제작
+- 발표
+- 피그마 제작 및 수정
+- 초기 세팅 & 배포 자동화
+
+---
+
+## 🖥 팀원별 구현 기능 상세
+
+### 김재원
+
+<details>
+<summary>랜딩 페이지</summary>
+
+- 비회원
+- 일반 유저
+- 기사님
+  
+</details>
+
+<details>
+<summary>기사님 상세 페이지</summary>
+
+- 비회원
+- 일반 유저
+- 기사님
+
+</details>
+
+<details>
+<summary>내 견적 관리 페이지</summary>
+
+- 대기 중인 견적 상세 페이지 (일반유저)
+- 받았던 견적 상세 페이지 (일반 유저)
+- 확정 견적 상세 페이지 (드라이버)
+
+</details>
+
+<details>
+<summary>마이 페이지</summary></summary>
+
+- 기사님
+
+</details>
+
+<details>
+<summary>페이지 외 고도화</summary>
+
+- ReactQuery hook
+- Storybook 작성
+- Jest 유닛 테스트 코드 작성
+- web share api 공유하기 기능 추가
+- 랜딩 페이지 권한 설정(비회원, 일반유저, 기사님) 및 이사 정보 생성 UX
+- 라이트/다크 모드 기능
+- Framer-Motion + React-Spring 기능
+- Skeleton UI 기능
+
+</details>
+
+---
+
+### 이도엽
+
+<details>
+<summary>프로필 등록 & 수정 페이지</summary>
+
+- 일반 유저
+- 기사님
+
+</details>
+
+<details>
+<summary>기본 정보 수정 페이지</summary>
+
+- 기사님 
+
+</details>
+
+<details>
+<summary>견적 요청 & 수정 페이지</summary>
+
+- 일반 유저
+  
+</details>
+
+<details>
+<summary>리뷰 페이지</summary>
+
+- 작성 가능한 리뷰 페이지 (일반유저)
+- 내가 작성한 리뷰 페이지 (일반유저)
+
+</details>
+
+<details>
+<summary>실시간 채팅 페이지</summary>
+
+- 일반 유저
+- 기사님
+
+</details>
+
+<details>
+<summary>페이지 외 고도화</summary>
+
+- Storybook 작성
+- Jest 유닛 테스트 코드 작성
+- 프로필 수정 페이지 비밀번호 확인 ui & 기능 구현 (일반유저 || 소셜로그인 유저)
+- 프로필 등록 페이지 경력 시작 calendar ui & 기능 구현
+- 견적 요청 페이지 시간 선택 ui & 기능 구현
+- 견적 요청 페이지 랜딩 페이지 이사 유형 연결
+- 채팅 페이지 온라인 유무 & 작성중 유무 & 사진 삽입 ui & 기능 구현
+
+</details>
+
+---
+
+### 박효빈
+
+<details>
+<summary>로그인 & 회원가입 페이지</summary>
+
+- 일반 유저
+- 기사님
+
+</details>
+
+<details>
+<summary>기사님 찾기 페이지</summary>
+
+- 비회원
+- 일반 유저
+
+</details>
+
+<details>
+<summary>받은 요청 페이지</summary>
+
+- 기사님
+
+</details>
+
+<details>
+<summary>내 견적 관리 페이지</summary>
+
+- 대기중인 견적 페이지 (일반 유저)
+- 견적 요청 수정 및 취소 페이지 (일반 유저) 
+- 받았던 견적 페이지 (일반 유저)
+- 확정 견적 페이지 (드라이버)
+- 내 견적 관리 - 반려 견적 요청 페이지 (드라이버)
+
+</details>
+
+<details>
+<summary>찜한 기사님 페이지</summary>
+
+- 일반 유저
+
+</details>
+
+<details>
+<summary>소셜로그인 콜백 페이지</summary>
+
+- naver
+- google
+- kakao
+
+</details>
+
+<details>
+<summary>NotFound 페이지</summary>
+</details>
+
+<details>
+<summary>공통</summary>
+
+- Headless 컴포넌트 제작 
+- Nav ui
+- Empty ui 
+- access token middleware 작성
+
+</details>
+
+<details>
+<summary>페이지 외 고도화</summary>
+
+- Storybook 작성
+- Jest 유닛 테스트 코드 작성
+- 카카오맵 API & ui
+- PWA 기능 제작
+- 음성인식 기능 제작
+- Skeleton UI 기능
+- 리뷰 요약 API 연결 및 ui 추가
+- 키워드 분석 API 연결 및 ui 추가
+
+</details>
+
+---
+
+
 
