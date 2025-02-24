@@ -26,7 +26,6 @@ export default function DriverMyPageClient() {
 
   if (isError || !driverData || driverData.id !== id) {
     notFound();
-    return null;
   }
 
   return (

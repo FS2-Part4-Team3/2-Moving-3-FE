@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import standardProfile from '@/../public/assets/common/gnb/standard_profile.svg';
 import like from '@/../public/assets/driver/ic_like.svg';
 import star from '@/../public/assets/driver/ic_star_yellow.svg';

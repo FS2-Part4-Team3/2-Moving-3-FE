@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import visibility_off from '@/../public/assets/sign/visibility_off.svg';
 import visibility_on from '@/../public/assets/sign/visibility_on.svg';
 import { postSignUpData } from '@/api/UserService';
-import { CustomError } from '@/api/api';
 import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 

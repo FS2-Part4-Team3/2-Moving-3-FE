@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import loading_img from '@/../public/assets/common/gnb/notification-loading.gif';
 import xIcon from '@/../public/assets/common/icon_X.svg';
+import { getDriverDetailData } from '@/api/DriverService';
+import { getUserEstimationDetailData } from '@/api/EstimationService';
 import { getMovesDetailData } from '@/api/MovesService';
 import { postNotificationSingleRead } from '@/api/NotificationService';
 import { NotificationProps } from '@/interfaces/CommonComp/GnbInterface';
@@ -16,6 +18,8 @@ export default function Notification({ notifications, onClose, onNotificationCli
 
   const queryClient = useQueryClient();
   const [moveInfo, setMoveInfo] = useState<{ fromAddress?: string; toAddress?: string }>({});
+  const [driverName, setDriverName] = useState<string | undefined>('');
+  const [serviceType, setServiceType] = useState<string | undefined>('');
 
   const singleReadMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -50,12 +54,29 @@ export default function Notification({ notifications, onClose, onNotificationCli
     },
   });
 
+  const getEstimationInfoMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await getUserEstimationDetailData(id);
+      const driverDetailRes = await getDriverDetailData(res.driverId);
+      return { res, driverDetailRes };
+    },
+    onSuccess: data => {
+      setDriverName(data.driverDetailRes.driverId);
+      setServiceType(data.res.serviceType);
+    },
+  });
+
   useEffect(() => {
     notifications.forEach(notification => {
       if (['D_7', 'D_1', 'D_DAY'].includes(notification.type)) {
         const dataId = notification.moveInfoId;
         if (dataId) {
           getMovesInfoMutation.mutate(dataId);
+        }
+      } else if (['NEW_ESTIMATION'].includes(notification.type)) {
+        const dataId = notification.estimationId;
+        if (dataId) {
+          getEstimationInfoMutation.mutate(dataId);
         }
       }
     });
@@ -97,8 +118,8 @@ export default function Notification({ notifications, onClose, onNotificationCli
                   sec_message = '이 도착했어요.';
                   break;
                 case 'NEW_ESTIMATION':
-                  fir_message = '김코드 기사님의 ';
-                  blue_message = '소형이사 견적';
+                  fir_message = `${driverName} 기사님의 `;
+                  blue_message = `${serviceType} 견적`;
                   sec_message = '이 도착했어요.';
                   break;
                 case 'REQUEST_REJECTED':
