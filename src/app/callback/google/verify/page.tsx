@@ -59,9 +59,9 @@ export default function CallBackGoogleVerify() {
           }
         }
 
-        if (res.type === 'user' && res.areas && res.serviceTypes && social.socialEdit) {
+        if (res.type === 'user' && social.socialEdit) {
           router.push('/normal/my-page/edit-profile');
-        } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas && social.socialEdit) {
+        } else if (res.type === 'driver' && social.socialEdit) {
           router.push('/driver/my-page/edit-basic-info');
         }
       } catch (error) {
