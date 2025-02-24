@@ -86,7 +86,7 @@ export default function MyQuoteReceivedDetailClient({ id }: MyQuoteDetailClientP
           </div>
         </div>
         <div className="lg:block sm:hidden">
-          <div className="flex flex-col w-[32.8rem] gap-[4rem]">
+          <div className="flex flex-col w-full gap-[4rem]">
             <div className="flex flex-col gap-[3.2rem]">
               <DetailButtonClient type="quoteReceived" id={id} />
             </div>
