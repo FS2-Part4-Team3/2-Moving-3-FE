@@ -50,7 +50,6 @@ export default function ChatInput() {
       setSocketImg(response.uniqueFileName);
       const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
-      await postImage(image);
     },
   });
 
@@ -87,13 +86,21 @@ export default function ChatInput() {
         image: socketImg,
       };
 
+      const visibleMessage = {
+        userId: user.type === 'user' ? user.id : chat.id,
+        driverId: user.type === 'driver' ? user.id : chat.id,
+        message: message.trim(),
+        direction: direction,
+        image: previewUrl,
+      };
+
       queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {
         if (!oldData) {
           return {
             pages: [
               {
                 data: {
-                  list: [newMessage],
+                  list: [visibleMessage],
                 },
                 nextPage: undefined,
               },
@@ -108,7 +115,7 @@ export default function ChatInput() {
           ...newPages[0],
           data: {
             ...newPages[0].data,
-            list: [newMessage, ...(newPages[0].data.list || [])],
+            list: [visibleMessage, ...(newPages[0].data.list || [])],
           },
         };
 
@@ -128,6 +135,8 @@ export default function ChatInput() {
       queryClient.invalidateQueries({ queryKey: ['chatList'] });
 
       setMessage('');
+      setSelectedImg(null);
+      setPreviewUrl('');
 
       socket.emit('stopped_typing', chat.id);
     }
