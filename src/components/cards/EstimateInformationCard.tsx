@@ -2,9 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMovesDetailData } from '@/api/MovesService';
 import { EstimationInformationCardProps } from '@/interfaces/Card/EstimateReceivedCardInterface';
+import { setConfirmedEstimation } from '@/store/slices/estimationSlice';
 import { RootState } from '@/store/store';
 import { DateIncludeTimeFormat, DateWithoutDayWeeKFormat } from '@/utils/Format';
 import Empty from '../common/Empty/Empty';
@@ -16,6 +18,7 @@ enum MoveType {
 }
 
 export default function EstimationInformationCard({ data }: EstimationInformationCardProps) {
+  const dispatch = useDispatch();
   const moveInfoId = useSelector((state: RootState) => state.signIn.moveInfoId);
   const pathname = usePathname();
 
@@ -27,6 +30,12 @@ export default function EstimationInformationCard({ data }: EstimationInformatio
     queryKey: ['moveInfoDetailData', moveInfoId],
     queryFn: () => getMovesDetailData(moveInfoId),
   });
+
+  useEffect(() => {
+    if (moveInfoDetailData) {
+      dispatch(setConfirmedEstimation(moveInfoDetailData.confirmedEstimationId));
+    }
+  }, [moveInfoDetailData, dispatch]);
 
   return (
     <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">

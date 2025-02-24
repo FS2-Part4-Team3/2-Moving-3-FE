@@ -7,7 +7,9 @@ import { ProfileProps } from '@/interfaces/CommonComp/GnbInterface';
 import { setInfoSignOut } from '@/store/slices/InfoSlice';
 import { setProfileSignOut } from '@/store/slices/ProfileSlice';
 import { setSignOut } from '@/store/slices/SignInSlice';
+import { setChatSignOut } from '@/store/slices/chatSlice';
 import { setDriverDataInitialization } from '@/store/slices/driversSlice';
+import { setDeleteEstimationKeys } from '@/store/slices/estimationSlice';
 import { setMovesDataInitialization } from '@/store/slices/movesSlice';
 import { RootState } from '@/store/store';
 
@@ -28,6 +30,8 @@ export default function Profile({ closeModal }: ProfileProps) {
       dispatch(setProfileSignOut());
       dispatch(setMovesDataInitialization());
       dispatch(setDriverDataInitialization());
+      dispatch(setDeleteEstimationKeys());
+      dispatch(setChatSignOut());
       closeModal();
       router.push('/');
     },

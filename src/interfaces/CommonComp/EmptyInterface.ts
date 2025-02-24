@@ -11,5 +11,6 @@ export interface EmptyProps {
     | 'SendQuote'
     | 'RejectQuote'
     | 'DibsDriver'
+    | 'ConfirmedEstimation';
     | 'Chat';
 }
