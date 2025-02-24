@@ -13,6 +13,7 @@ import { RootState } from '@/store/store';
 export default function MyQuoteEditClient() {
   const dispatch = useDispatch();
   const moveInfoId = useSelector((state: RootState) => state.signIn.moveInfoId);
+  const estimationId = useSelector((state: RootState) => state.estimation.confirmedEstimationId);
   const [showToast, setShowToast] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -84,7 +85,7 @@ export default function MyQuoteEditClient() {
         <ButtonWrapper id="delete-quotation" onClick={handleShowModal}>
           <ButtonWrapper.Button
             className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] py-[1.6rem] px-[2.4rem] flex items-center justify-center border border-blue-300 bg-white font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-blue-300"
-            disabled={!moveInfoId}
+            disabled={!moveInfoId || !!estimationId}
           >
             견적서 삭제하기
           </ButtonWrapper.Button>

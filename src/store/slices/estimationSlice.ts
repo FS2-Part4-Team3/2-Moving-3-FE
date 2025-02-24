@@ -1,18 +1,18 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface EstimationState {
-  confirmedEstimationId: string | null;
+  confirmedEstimationId: string | undefined;
 }
 
 const initialState: EstimationState = {
-  confirmedEstimationId: null,
+  confirmedEstimationId: undefined,
 };
 
 const estimationSlice = createSlice({
   name: 'estimation',
   initialState,
   reducers: {
-    setConfirmedEstimation(state, action: PayloadAction<string | null>) {
+    setConfirmedEstimation(state, action: PayloadAction<string | undefined>) {
       state.confirmedEstimationId = action.payload;
     },
     setDeleteEstimationKeys(state) {

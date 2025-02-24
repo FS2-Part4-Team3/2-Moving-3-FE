@@ -10,5 +10,6 @@ export interface EmptyProps {
     | 'RequestEmpty'
     | 'SendQuote'
     | 'RejectQuote'
-    | 'DibsDriver';
+    | 'DibsDriver'
+    | 'ConfirmedEstimation';
 }

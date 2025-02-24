@@ -88,6 +88,11 @@ export default function Empty({ type }: EmptyProps) {
       buttonText = '기사님 보러 가기';
       link = () => router.push('/normal/match-driver');
       break;
+    case 'ConfirmedEstimation':
+      image = folder;
+      text = '확정한 견적이 없어요!';
+      buttonText = '받은 견적 확인하러 가기';
+      link = () => router.push('/normal/my-quote/waiting');
   }
 
   return (
