@@ -51,6 +51,17 @@ export async function fetchWrapper(url: string, options: RequestInit = {}) {
           throw error;
         }
 
+        const { accessToken } = await refreshResponse.json();
+
+        try {
+          await fetch(`/api/auth/sync-cookie`, {
+            method: 'POST',
+            body: JSON.stringify({ cookie: accessToken }),
+          });
+          const redirectUrl = document.referrer;
+          window.location.href = redirectUrl;
+        } catch (error) {}
+
         return retryResponse.json();
       }
 
