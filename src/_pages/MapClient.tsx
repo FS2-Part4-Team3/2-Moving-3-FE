@@ -10,6 +10,7 @@ import { MapClientProps } from '@/interfaces/Page/MapInterface';
 
 export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   const { curLocation } = useGeoLocation();
+  console.log(curLocation);
 
   const [activeTab, setActiveTab] = useState<'tab1' | 'tab2' | 'tab3'>('tab1');
   const [fromCoordinate, setFromCoordinate] = useState<{ La: number; Ma: number } | null>(null);
@@ -30,10 +31,7 @@ export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
 
   const handleClick = async (coordinate: { La: number; Ma: number } | null, address: string) => {
     if (!coordinate || !address || !curLocation) {
-      console.log('CCCCCC', coordinate);
-      console.log('ADADAD', address);
-      console.log('CUURUR', curLocation);
-      alert('fffff 오류가 발생했습니다. 다시 한 번 시도해주세요.');
+      alert('오류가 발생했습니다. 다시 한 번 시도해주세요.');
       return;
     }
 
@@ -56,7 +54,7 @@ export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   };
 
   return (
-    <div className="lg:w-[40.6rem] sm:w-full flex flex-col gap-[2rem]">
+    <div className="sm:w-full flex flex-col gap-[2rem]">
       <MapTab activeTab={activeTab} setActiveTab={setActiveTab} renderContent={renderContent} />
       <MapTextCard
         handleClick={(coordinate, address) => handleClick(coordinate, address)}
