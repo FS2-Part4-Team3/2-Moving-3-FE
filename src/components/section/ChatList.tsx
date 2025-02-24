@@ -70,7 +70,7 @@ export default function ChatList({ isChatList, setIsChatList }: ChatProps) {
         });
       }
     });
-  });
+  }, []);
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['chatList'] });
