@@ -2,16 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserMoveInfoId } from '@/api/MovesService';
+import { useDispatch } from 'react-redux';
 import { getUserData } from '@/api/UserService';
-import { setMoveInfoId, setUserSign } from '@/store/slices/SignInSlice';
-import { RootState } from '@/store/store';
+import { setIsPasswordCheck } from '@/store/slices/ProfileSlice';
 
 export default function CallBackGoogleVerify() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const social = useSelector((state: RootState) => state.profile);
 
   const queryParams = new URLSearchParams(location.search);
   const getQueryAccessToken = queryParams.get('accessToken');
@@ -27,41 +24,11 @@ export default function CallBackGoogleVerify() {
           body: JSON.stringify({ cookie: accessToken }),
         });
 
-        dispatch(
-          setUserSign({
-            id: res.id,
-            name: res.name,
-            nickname: res.type === 'driver' ? res.nickname : undefined,
-            email: res.email,
-            image: res.image,
-            phoneNumber: res.phoneNumber,
-            introduce: res.introduce,
-            description: res.description,
-            serviceType: res.serviceType,
-            availableAreas: res.type === 'driver' ? res.availableAreas : undefined,
-            areas: res.type === 'user' ? res.areas : undefined,
-            type: res.type,
-            provider: res.provider,
-            moveInfoId: '',
-          }),
-        );
+        dispatch(setIsPasswordCheck({ isPasswordCheck: true }));
 
         if (res.type === 'user') {
-          try {
-            const moveInfoRes = await getUserMoveInfoId();
-            const moveInfoId = moveInfoRes?.id;
-
-            if (moveInfoId) {
-              dispatch(setMoveInfoId(moveInfoId));
-            }
-          } catch (error) {
-            console.error('moveInfoId 가져오기 실패:', error);
-          }
-        }
-
-        if (res.type === 'user' && social.socialEdit) {
           router.push('/normal/my-page/edit-profile');
-        } else if (res.type === 'driver' && social.socialEdit) {
+        } else if (res.type === 'driver') {
           router.push('/driver/my-page/edit-basic-info');
         }
       } catch (error) {

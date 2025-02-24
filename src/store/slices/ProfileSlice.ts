@@ -11,7 +11,7 @@ interface ProfileType {
   areas?: string[];
   type?: string;
   startAt?: string;
-  socialEdit?: boolean;
+  isPasswordCheck?: boolean;
 }
 
 const initialState: ProfileType = {
@@ -25,7 +25,7 @@ const initialState: ProfileType = {
   areas: [],
   type: '',
   startAt: '',
-  socialEdit: false,
+  isPasswordCheck: false,
 };
 
 const profileSlice = createSlice({
@@ -54,9 +54,10 @@ const profileSlice = createSlice({
       state.startAt = startAt;
       state.availableAreas = availableAreas;
     },
-    setSocialEdit(state, action: PayloadAction<ProfileType>) {
-      const { socialEdit } = action.payload;
-      state.socialEdit = socialEdit;
+
+    setIsPasswordCheck(state, action: PayloadAction<ProfileType>) {
+      const { isPasswordCheck } = action.payload;
+      state.isPasswordCheck = isPasswordCheck;
     },
     setProfileSignOut(state) {
       Object.assign(state, initialState);
@@ -64,5 +65,5 @@ const profileSlice = createSlice({
   },
 });
 
-export const { setProfile, setProfileNoImg, setProfileSignOut, setSocialEdit } = profileSlice.actions;
+export const { setProfile, setProfileNoImg, setProfileSignOut, setIsPasswordCheck } = profileSlice.actions;
 export default profileSlice.reducer;
