@@ -13,7 +13,7 @@ import { setDeleteEstimationKeys } from '@/store/slices/estimationSlice';
 import { setMovesDataInitialization } from '@/store/slices/movesSlice';
 import { RootState } from '@/store/store';
 
-export default function Profile({ closeModal }: ProfileProps) {
+export default function Profile({ closeModal, setNotifications }: ProfileProps) {
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
@@ -32,6 +32,7 @@ export default function Profile({ closeModal }: ProfileProps) {
       dispatch(setDriverDataInitialization());
       dispatch(setDeleteEstimationKeys());
       dispatch(setChatSignOut());
+      setNotifications([]);
       closeModal();
       router.push('/');
     },

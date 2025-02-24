@@ -78,7 +78,7 @@ export default function ReceivedQuotePageStructureClient() {
   if (!receiveQuoteData || !receiveQuoteData.pages[0].list.length) {
     return (
       <div className="mt-[5rem]">
-        <Empty type="ReceivedQuote" />;
+        <Empty type="ReceivedQuote" />
       </div>
     );
   }

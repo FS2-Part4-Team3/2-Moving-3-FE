@@ -1,5 +1,6 @@
 export interface ProfileProps {
   closeModal: () => void;
+  setNotifications: React.Dispatch<React.SetStateAction<NotificationData[]>>;
 }
 
 export interface NotificationProps {
