@@ -333,7 +333,7 @@ export default function ProfileEditNormal() {
                 <div
                   className="flex lg:gap-[3.2rem]"
                   onClick={() => {
-                    setIsPasswordCheck(prev => !prev);
+                    // setIsPasswordCheck(prev => !prev);
                     dispatch(setSocialEdit({ socialEdit: true }));
                   }}
                 >
