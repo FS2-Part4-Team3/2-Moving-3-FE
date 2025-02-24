@@ -133,5 +133,11 @@ export default function KakaoMap({
     }
   }, [positions]);
 
-  return <div id="map" style={{ height: '361px', width: isTabletScreen ? '100%' : '406px' }} />;
+  return (
+    <>
+      <h1>HIIII</h1>
+      <div id="map" style={{ height: '361px', width: isTabletScreen ? '100%' : '406px' }} />
+      <h1>BYEEE</h1>
+    </>
+  );
 }

@@ -6,8 +6,6 @@ import MovingTypeChips from '../chips/MovingTypeChips';
 import { ButtonWrapper } from '../common/headless/Button';
 
 export default function ManageQuotationCard({ data, isRejected }: ManageQuotationCardProps) {
-  // TODO: EMPTY일 경우 보여질 ui
-
   return (
     <>
       <div className="relative w-full rounded-[1.6rem] bg-white dark:bg-dark-p border border-line-100 lg:pt-[2rem] lg:pb-[1.2rem] lg:px-[2.4rem] sm:py-[1.6rem] sm:px-[1.4rem] flex flex-col lg:gap-[1.6rem] sm:gap-[2.6rem] shadow-[0.2rem_-0.2rem_1rem_rgba(220,220,220,0.14)]">
