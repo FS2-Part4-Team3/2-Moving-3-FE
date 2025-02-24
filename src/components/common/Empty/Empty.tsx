@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import chat from '@/../public/assets/chat/icon_chat.svg';
 import folder from '@/../public/assets/common/empty/empty_folder_img.svg';
 import profile from '@/../public/assets/common/empty/empty_profile_img.svg';
 import truck from '@/../public/assets/common/empty/empty_truck_img.svg';
@@ -79,6 +80,12 @@ export default function Empty({ type }: EmptyProps) {
       image = folder;
       text = '반려한 요청이 없어요!';
       text2 = '지정 견적 요청을 반려한 후에 이용해주세요.';
+      buttonText = '';
+      break;
+    case 'Chat':
+      image = chat;
+      text = '이사 정보에 대해 자세히 소통할 수 있어요.';
+      text2 = '';
       buttonText = '';
       break;
     case 'DibsDriver':

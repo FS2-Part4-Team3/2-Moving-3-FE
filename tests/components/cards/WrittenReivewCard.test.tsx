@@ -35,11 +35,11 @@ const mockReview = {
   },
   estimation: {
     price: 150000,
-    moveInfos: {
+    moveInfo: {
       date: '2024-02-10T09:00:00.000Z',
       serviceType: 'HOME',
-      isSpecificRequest: true,
     },
+    isSpecificRequest: true,
   },
 } as const;
 

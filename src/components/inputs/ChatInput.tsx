@@ -22,6 +22,7 @@ export default function ChatInput() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [socketImg, setSocketImg] = useState('');
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -44,12 +45,12 @@ export default function ChatInput() {
     mutationFn: async () => {
       if (selectedImg === null) return;
 
-      const smapleImage = selectedImg.name;
-      const response = await postImage(smapleImage);
+      const samapleImage = selectedImg.name;
+      const response = await postImage(samapleImage);
+      setSocketImg(response.uniqueFileName);
       const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
       await postImage(image);
-      return response.uniqueFileName;
     },
   });
 
@@ -67,25 +68,23 @@ export default function ChatInput() {
     }
   }, [socket, user.id]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if ((message.trim() || selectedImg) && socket) {
-      let imageUrl = '';
       if (selectedImg) {
         try {
-          imageUrl = await imageMutation.mutateAsync();
+          imageMutation.mutate();
         } catch (err) {
           console.error('이미지 업로드 실패', err);
           return;
         }
       }
-
       const direction: Direction = user.type === 'user' ? 'USER_TO_DRIVER' : 'DRIVER_TO_USER';
       const newMessage = {
         userId: user.type === 'user' ? user.id : chat.id,
         driverId: user.type === 'driver' ? user.id : chat.id,
         message: message.trim(),
         direction: direction,
-        image: imageUrl,
+        image: socketImg,
       };
 
       queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {
@@ -126,6 +125,8 @@ export default function ChatInput() {
         }
       });
 
+      queryClient.invalidateQueries({ queryKey: ['chatList'] });
+
       setMessage('');
 
       socket.emit('stopped_typing', chat.id);
@@ -143,7 +144,7 @@ export default function ChatInput() {
   return (
     <div className="flex w-full relative items-center">
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImgChange} />
-      <div className="relative w-full flex items-center rounded-[1.6rem] p-[1.4rem] bg-white">
+      <div className="relative w-full flex items-center rounded-[1.6rem] p-[1.4rem] bg-white dark:bg-dark-p">
         {previewUrl && (
           <div className="relative w-auto h-auto max-w-[120px] max-h-[120px] mr-3">
             <Image src={previewUrl} alt="추가된 이미지" width={100} height={100} className="rounded-lg" />
@@ -156,7 +157,7 @@ export default function ChatInput() {
           </div>
         )}
         <input
-          className={`w-full ${previewUrl ? 'min-h-[12rem]' : 'min-h-[4rem] pl-[4rem]'} flex-grow text-[1.8rem] font-medium text-black-400 border-none focus:outline-none bg-transparent resize-none`}
+          className={`w-full ${previewUrl ? 'min-h-[12rem]' : 'min-h-[4rem] pl-[4rem]'} flex-grow text-[1.8rem] font-medium text-black-400 dark:text-dark-t dark:bg-dark-p border-none focus:outline-none bg-transparent resize-none`}
           type="text"
           value={message}
           onChange={e => {
