@@ -11,53 +11,29 @@ import { MapClientProps } from '@/interfaces/Page/MapInterface';
 export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
   const { curLocation } = useGeoLocation();
 
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState<'tab1' | 'tab2' | 'tab3'>('tab1');
   const [fromCoordinate, setFromCoordinate] = useState<{ La: number; Ma: number } | null>(null);
   const [toCoordinate, setToCoordinate] = useState<{ La: number; Ma: number } | null>(null);
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'tab1':
-        return (
-          <KakaoMap
-            activeTab={activeTab}
-            fromAddress={fromAddress}
-            toAddress={toAddress}
-            curLocation={curLocation}
-            setFromCoordinate={setFromCoordinate}
-            setToCoordinate={setToCoordinate}
-          />
-        );
-      case 'tab2':
-        return (
-          <KakaoMap
-            activeTab={activeTab}
-            fromAddress={fromAddress}
-            toAddress={toAddress}
-            curLocation={curLocation}
-            setFromCoordinate={setFromCoordinate}
-            setToCoordinate={setToCoordinate}
-          />
-        );
-      case 'tab3':
-        return (
-          <KakaoMap
-            activeTab={activeTab}
-            fromAddress={fromAddress}
-            toAddress={toAddress}
-            curLocation={curLocation}
-            setFromCoordinate={setFromCoordinate}
-            setToCoordinate={setToCoordinate}
-          />
-        );
-      default:
-        return null;
-    }
+  const renderContent: () => JSX.Element | null = () => {
+    return (
+      <KakaoMap
+        activeTab={activeTab}
+        fromAddress={fromAddress}
+        toAddress={toAddress}
+        curLocation={curLocation}
+        setFromCoordinate={setFromCoordinate}
+        setToCoordinate={setToCoordinate}
+      />
+    );
   };
 
   const handleClick = async (coordinate: { La: number; Ma: number } | null, address: string) => {
-    if (!coordinate || !address) {
-      alert('오류가 발생했습니다. 다시 한 번 시도해주세요.');
+    if (!coordinate || !address || !curLocation) {
+      console.log('CCCCCC', coordinate);
+      console.log('ADADAD', address);
+      console.log('CUURUR', curLocation);
+      alert('fffff 오류가 발생했습니다. 다시 한 번 시도해주세요.');
       return;
     }
 

@@ -46,6 +46,14 @@ export default function MyQuoteEditClient() {
 
   const router = useRouter();
 
+  const handleEditClick = () => {
+    if (editStatus) {
+      router.push('/normal/request-quote?edit=true');
+    } else {
+      handleShowToast();
+    }
+  };
+
   const handleShowToast = () => {
     setShowToast(true);
   };
@@ -65,10 +73,7 @@ export default function MyQuoteEditClient() {
   return (
     <>
       <div className="w-full flex items-center lg:gap-[1.1rem] sm:gap-[1.6rem] md:flex-row sm:flex-col">
-        <ButtonWrapper
-          id="edit-quotation"
-          onClick={() => (editStatus ? router.push('/normal/request-quote?edit=true') : handleShowToast)}
-        >
+        <ButtonWrapper id="edit-quotation" onClick={handleEditClick}>
           <ButtonWrapper.Button
             className="w-full lg:h-[6.4rem] sm:h-[4.8rem] lg:rounded-[1.6rem] sm:rounded-[0.8rem] p-[1.6rem] flex items-center justify-center font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-white"
             disabled={!moveInfoId}
