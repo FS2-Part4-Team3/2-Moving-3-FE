@@ -29,6 +29,7 @@ export default function EstimationInformationCard({ data }: EstimationInformatio
   } = useQuery({
     queryKey: ['moveInfoDetailData', moveInfoId],
     queryFn: () => getMovesDetailData(moveInfoId),
+    enabled: !!moveInfoId,
   });
 
   useEffect(() => {
