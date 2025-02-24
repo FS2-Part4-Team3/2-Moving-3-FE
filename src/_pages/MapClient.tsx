@@ -39,7 +39,7 @@ export default function MapClient({ fromAddress, toAddress }: MapClientProps) {
       const myPlaceData = await getKakaoCoordinate(curLocation?.longitude, curLocation?.latitude);
 
       if (placeData && myPlaceData) {
-        const placeName = placeData.documents[0]?.place_name || '';
+        const placeName = placeData.meta.same_name.selected_region || '';
         const myPlaceName = myPlaceData.documents[0]?.place_name || '';
 
         const kakaoMapUrl = `https://map.kakao.com/?sName=${encodeURIComponent(myPlaceName)}&eName=${encodeURIComponent(placeName)}`;

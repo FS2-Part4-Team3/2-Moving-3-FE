@@ -18,7 +18,6 @@ export default function CallBackGoogle() {
     const checkLoginStatus = async () => {
       try {
         const res = await getUserData();
-        console.log(res);
         const accessToken = getQueryAccessToken;
         await fetch('/api/auth/sync-cookie', {
           method: 'POST',
