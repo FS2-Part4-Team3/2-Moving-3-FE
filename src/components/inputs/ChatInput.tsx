@@ -22,6 +22,7 @@ export default function ChatInput() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [socketImg, setSocketImg] = useState('');
 
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -44,12 +45,12 @@ export default function ChatInput() {
     mutationFn: async () => {
       if (selectedImg === null) return;
 
-      const smapleImage = selectedImg.name;
-      const response = await postImage(smapleImage);
+      const samapleImage = selectedImg.name;
+      const response = await postImage(samapleImage);
+      setSocketImg(response.uniqueFileName);
       const { uploadUrl } = response;
       const image = await putImage(uploadUrl, selectedImg);
       await postImage(image);
-      return response.uniqueFileName;
     },
   });
 
@@ -67,25 +68,23 @@ export default function ChatInput() {
     }
   }, [socket, user.id]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if ((message.trim() || selectedImg) && socket) {
-      let imageUrl = '';
       if (selectedImg) {
         try {
-          imageUrl = await imageMutation.mutateAsync();
+          imageMutation.mutate();
         } catch (err) {
           console.error('이미지 업로드 실패', err);
           return;
         }
       }
-
       const direction: Direction = user.type === 'user' ? 'USER_TO_DRIVER' : 'DRIVER_TO_USER';
       const newMessage = {
         userId: user.type === 'user' ? user.id : chat.id,
         driverId: user.type === 'driver' ? user.id : chat.id,
         message: message.trim(),
         direction: direction,
-        image: imageUrl,
+        image: socketImg,
       };
 
       queryClient.setQueryData(['chatMessages', chat.id], (oldData: any) => {

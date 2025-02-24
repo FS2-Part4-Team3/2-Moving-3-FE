@@ -16,9 +16,6 @@ export default function MovingTypeCheckCard({ setMovingType, setIsMovingType, in
       setSelectedMovingType(initialMovingType);
 
       const matchingType = movingTypesCheck.find(movingType => movingType.code === initialMovingType);
-      if (matchingType) {
-        setIsMovingType(prev => !prev);
-      }
     }
   }, [initialMovingType, setIsMovingType]);
 
