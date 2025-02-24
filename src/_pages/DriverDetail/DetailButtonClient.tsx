@@ -22,6 +22,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isCheckDib, setIsCheckDib] = useState(false);
+  const [isReason, setIsReason] = useState('');
   const isMoveId = useSelector((state: RootState) => state.signIn.moveInfoId);
   const userId = useSelector((state: RootState) => state.signIn.id);
   const chatId = useSelector((state: RootState) => state.chat.id);
@@ -50,6 +51,7 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
         try {
           const res = await getCheckRequestDriver(id);
           setIsCompleted(!res.isRequestPossible);
+          setIsReason(res.reason);
         } catch (err) {
           console.error('요청 상태를 가져오는 데 실패했습니다: ', err);
         }
@@ -184,7 +186,13 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
             className="w-full lg:h-[6.4rem] sm:h-[5.4rem] rounded-[1.6rem] p-[1.6rem] font-semibold lg:text-[2rem] sm:text-[1.6rem] lg:leading-[3.2rem] sm:leading-[2.6rem] flex items-center justify-center text-white"
             disabled={isCompleted}
           >
-            {type === 'quoteWaiting' ? '견적 확정하기' : !isCompleted ? '지정 견적 요청하기' : '지정 견적 요청 완료'}
+            {type === 'quoteWaiting'
+              ? '견적 확정하기'
+              : !isCompleted
+                ? '지정 견적 요청하기'
+                : isReason === '이미 해당 기사로부터 견적을 받았습니다.'
+                  ? '지정 견적 요청'
+                  : '지정 견적 요청 완료'}
           </ButtonWrapper.Button>
         </ButtonWrapper>
       )}

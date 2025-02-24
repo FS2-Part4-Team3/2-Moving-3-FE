@@ -256,7 +256,7 @@
 - 프로필 등록 페이지 경력 시작 calendar ui & 기능 구현
 - 견적 요청 페이지 시간 선택 ui & 기능 구현
 - 견적 요청 페이지 랜딩 페이지 이사 유형 연결
-- 채팅 페이지 온라인 유무 & 작성중 유무 & 사진 삽입 ui & 기능 구현
+- 채팅 페이지 실시간 웹소켓 통신 & 온라인 유무 & 작성중 유무 & 사진 삽입 ui & 기능 구현
 
 </details>
 
@@ -324,7 +324,6 @@
 - Headless 컴포넌트 제작 
 - Nav ui
 - Empty ui 
-- access token middleware 작성
 
 </details>
 
@@ -339,6 +338,10 @@
 - Skeleton UI 기능
 - 리뷰 요약 API 연결 및 ui 추가
 - 키워드 분석 API 연결 및 ui 추가
+- access token middleware 작성
+- 알림 & 프로필 모달 ui
+- useGeolocation hook
+- 실시간 알림 웹소켓 통신
 
 </details>
 
