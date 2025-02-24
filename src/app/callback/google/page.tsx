@@ -11,7 +11,6 @@ import { RootState } from '@/store/store';
 export default function CallBackGoogle() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const social = useSelector((state: RootState) => state.profile);
 
   const queryParams = new URLSearchParams(location.search);
   const getQueryAccessToken = queryParams.get('accessToken');

@@ -150,9 +150,6 @@ export default function ProfileEditNormal() {
         await postSignInData(user.type, user.email, values.nowPassword);
       }
     },
-    onSuccess: () => {
-      dispatch(setIsPasswordCheck({ isPasswordCheck: true }));
-    },
     onError: () => {
       alert('비밀번호가 올바르지 않습니다.');
     },
@@ -160,6 +157,7 @@ export default function ProfileEditNormal() {
 
   const handleUserDataSubmit = () => {
     userDataMutation.mutate();
+    dispatch(setIsPasswordCheck({ isPasswordCheck: false }));
     if (values?.newPassword.length) {
       changePasswordMutation.mutate();
     }
@@ -167,6 +165,7 @@ export default function ProfileEditNormal() {
 
   const handlePasswordCheck = () => {
     checkPasswordMutation.mutate();
+    dispatch(setIsPasswordCheck({ isPasswordCheck: true }));
   };
 
   return (
@@ -208,6 +207,7 @@ export default function ProfileEditNormal() {
                 id="cancel-btn"
                 onClick={() => {
                   router.push('/normal/match-driver');
+                  dispatch(setIsPasswordCheck({ isPasswordCheck: false }));
                 }}
               >
                 <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 dark:shadow lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[15rem] md:mb-[2.4rem] sm:mb-[2.4rem] ">
@@ -273,7 +273,8 @@ export default function ProfileEditNormal() {
               <ButtonWrapper
                 id="cancel-btn"
                 onClick={() => {
-                  router.back();
+                  router.push('/normal/match-driver');
+                  dispatch(setIsPasswordCheck({ isPasswordCheck: false }));
                 }}
               >
                 <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[30rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 dark:shadow lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[15rem] md:mb-[2.4rem] sm:mb-[2.4rem] ">

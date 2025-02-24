@@ -15,6 +15,7 @@ import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
 import { setInfo } from '@/store/slices/InfoSlice';
+import { setIsPasswordCheck } from '@/store/slices/ProfileSlice';
 import { RootState } from '@/store/store';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -32,11 +33,11 @@ export default function InfoEditForDriver() {
   const [isViewNow, setIsViewNow] = useState(false);
   const [isViewNew, setIsViewNew] = useState(false);
   const [isViewNewChk, setIsViewNewChk] = useState(false);
-  const [isPasswordCheck, setIsPasswordCheck] = useState(false);
 
   const isDisabled = values.name && values.number && values.nowPassword;
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
+  const user_profile = useSelector((state: RootState) => state.profile);
   const user_info = useSelector((state: RootState) => state.info);
   const dispatch = useDispatch();
 
@@ -85,9 +86,6 @@ export default function InfoEditForDriver() {
         await postSignInData(user.type, user.email, values.nowPassword);
       }
     },
-    onSuccess: () => {
-      setIsPasswordCheck(true);
-    },
     onError: () => {
       alert('비밀번호가 올바르지 않습니다.');
     },
@@ -95,6 +93,7 @@ export default function InfoEditForDriver() {
 
   const handleSubmit = () => {
     userDataMutation.mutate();
+    dispatch(setIsPasswordCheck({ isPasswordCheck: false }));
     if (values?.newPassword.length) {
       changePasswordMutation.mutate();
     }
@@ -102,11 +101,12 @@ export default function InfoEditForDriver() {
 
   const handlePasswordCheck = () => {
     checkPasswordMutation.mutate();
+    dispatch(setIsPasswordCheck({ isPasswordCheck: true }));
   };
 
   return (
     <>
-      {isPasswordCheck ? (
+      {user_profile.isPasswordCheck ? (
         <div className="flex flex-col items-center lg:gap-[4rem] md:gap-[1.6rem] sm:gap-[1.6rem] lg:pt-[7.2rem] md:pt-[1.6rem] sm:pt-[1.6rem]">
           <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[32.7rem]">
             <h1 className="lg:text-[3.2rem] md:text-[1.8rem] sm:text-[1.8rem] font-semibold text-black-400 dark:text-dark-t">
@@ -316,7 +316,13 @@ export default function InfoEditForDriver() {
                   </InputWrapper>
                 </div>
               </div>
-              <ButtonWrapper id="cancel-btn" onClick={() => router.back()}>
+              <ButtonWrapper
+                id="cancel-btn"
+                onClick={() => {
+                  router.push(`/driver/my-page`);
+                  dispatch(setIsPasswordCheck({ isPasswordCheck: false }));
+                }}
+              >
                 <ButtonWrapper.Button className="lg:order-1 md:order-2 sm:order-2 lg:w-[54rem] lg:h-[6.4rem] md:w-[32.7rem] md:h-[5.4rem] sm:w-[32.7rem] sm:h-[5.4rem] rounded-[1.6rem] px-[2.4rem] py-[1.6rem] border border-gray-200 bg-white shadow-custom6 lg:text-[2rem] md:text-[1.6rem] sm:text-[1.6rem]  font-semibold text-center text-gray-300 lg:mb-[6.4rem] md:mb-[4rem] sm:mb-[4rem] dark:shadow">
                   취소
                 </ButtonWrapper.Button>
