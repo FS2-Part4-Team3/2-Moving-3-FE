@@ -8,7 +8,7 @@ import { getUserData } from '@/api/UserService';
 import { setMoveInfoId, setUserSign } from '@/store/slices/SignInSlice';
 import { RootState } from '@/store/store';
 
-export default function CallBackGoogle() {
+export default function CallBackGoogleVerify() {
   const router = useRouter();
   const dispatch = useDispatch();
   const social = useSelector((state: RootState) => state.profile);
@@ -59,18 +59,10 @@ export default function CallBackGoogle() {
           }
         }
 
-        if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
-          router.push('/normal/profile-register');
-        } else if (res.type === 'user' && res.areas && res.serviceTypes && social.socialEdit) {
+        if (res.type === 'user' && res.areas && res.serviceTypes && social.socialEdit) {
           router.push('/normal/my-page/edit-profile');
-        } else if (res.type === 'user' && res.areas && res.serviceTypes) {
-          router.push('/normal/match-driver');
-        } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas && !res.nickname) {
-          router.push('/driver/profile-register');
         } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas && social.socialEdit) {
           router.push('/driver/my-page/edit-basic-info');
-        } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas) {
-          router.push('/driver/receive-quote');
         }
       } catch (error) {
         console.error('로그인 상태 확인 중 오류 발생', error);
