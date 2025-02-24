@@ -92,3 +92,13 @@ export const getEstimationsRejected = async (page: number, pageSize: number) => 
     throw error;
   }
 };
+
+export const getEstimationConfirmedDetail = async (estimationId: string) => {
+  try {
+    const res = await getRequest(`/estimations/confirmed/${estimationId}`);
+    return res;
+  } catch (error) {
+    console.error('Get Estimation Confirmed Detail Fetch Error', error);
+    throw error;
+  }
+};

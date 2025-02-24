@@ -14,8 +14,8 @@ export default async function MyQuoteEdit() {
       <div className="lg:mt-[6.4rem] md:mt-[5.4rem] sm:mt-[2.4rem] md:px-[7.2rem] h-fit sm:w-full flex justify-center">
         <div className="lg:w-[120rem] sm:w-full md:px-[3.2rem] sm:px-[2.4rem] lg:py-[4.8rem] lg:px-[4rem] sm:py-[1.6rem] bg-white dark:bg-dark-p lg:rounded-[4rem] md:rounded-[2.4rem] border border-line-100 md:shadow-custom3 dark:shadow flex flex-col lg:gap-[4.8rem] sm:gap-[3.2rem]">
           <EstimationInformationCard />
-          <div>
-            <p>확정한 견적</p>
+          <div className="flex flex-col gap-[4rem]">
+            <p className="font-semibold text-[2.4rem] leading-[3.2rem] text-black-400">확정한 견적</p>
             <EstimationReceivedCardClient />
           </div>
           <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
