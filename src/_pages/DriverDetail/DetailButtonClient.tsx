@@ -52,6 +52,9 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
           const res = await getCheckRequestDriver(id);
           setIsCompleted(!res.isRequestPossible);
           setIsReason(res.reason);
+          if (res.reason) {
+            showToast(res.reason);
+          }
         } catch (err) {
           console.error('요청 상태를 가져오는 데 실패했습니다: ', err);
         }
@@ -159,6 +162,28 @@ export default function DetailButtonClient({ type, id, estimationId }: DetailBut
 
   const handleEditBasicInfo = () => {
     router.push('/driver/my-page/edit-basic-info');
+  };
+
+  const showToast = (message: string) => {
+    const successMessage = document.createElement('div');
+    successMessage.innerText = message;
+    successMessage.style.position = 'fixed';
+    successMessage.style.bottom = '20px';
+    successMessage.style.left = '50%';
+    successMessage.style.transform = 'translateX(-50%)';
+    successMessage.style.padding = '10px 20px';
+    successMessage.style.backgroundColor = '#1B92FF';
+    successMessage.style.color = 'white';
+    successMessage.style.borderRadius = '10px';
+    successMessage.style.fontSize = '16px';
+    successMessage.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+    successMessage.style.zIndex = '9999';
+
+    document.body.appendChild(successMessage);
+
+    setTimeout(() => {
+      successMessage.remove();
+    }, 3000);
   };
 
   return (
