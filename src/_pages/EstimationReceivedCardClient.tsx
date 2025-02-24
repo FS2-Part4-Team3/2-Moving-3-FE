@@ -32,5 +32,11 @@ export default function EstimationReceivedCardClient() {
     return <Empty type="ConfirmedEstimation" />;
   }
 
-  return <EstimateReceivedCard data={EstimationReceivedCardData} serviceType={EstimationReceivedCardData} isConfirmed={true} />;
+  return (
+    <EstimateReceivedCard
+      data={EstimationReceivedCardData}
+      serviceType={EstimationReceivedCardData.serviceType}
+      isConfirmed={true}
+    />
+  );
 }
