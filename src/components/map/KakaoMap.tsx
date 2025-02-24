@@ -17,12 +17,26 @@ export default function KakaoMap({
   setFromCoordinate,
   setToCoordinate,
 }: KakaoMapProps) {
-  const isTabletScreen = window.innerWidth < 1200;
-  const isMobileScreen = window.innerWidth < 745;
+  const [isTabletScreen, setIsTabletScreen] = useState<boolean>(window.innerWidth < 1200);
+  const [isMobileScreen, setIsMobileScreen] = useState<boolean>(window.innerWidth < 745);
+
   const apiKey: string | undefined = process.env.NEXT_PUBLIC_KAKAOMAP_KEY;
-  const [positions, setPositions] = useState<{ title: string; latlng: any }[]>([]);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsTabletScreen(window.innerWidth < 1200);
+      setIsMobileScreen(window.innerWidth < 745);
+
+      loadKakaoMap();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  });
+
+  const [positions, setPositions] = useState<{ title: string; latlng: any }[]>([]);
+
+  const loadKakaoMap = () => {
     const script: HTMLScriptElement = document.createElement('script');
     script.async = true;
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&libraries=services&autoload=false`;
@@ -95,6 +109,10 @@ export default function KakaoMap({
           });
       });
     });
+  };
+
+  useEffect(() => {
+    loadKakaoMap();
   }, [fromAddress, toAddress, curLocation, activeTab]);
 
   useEffect(() => {
@@ -133,11 +151,5 @@ export default function KakaoMap({
     }
   }, [positions]);
 
-  return (
-    <>
-      <h1>HIIII</h1>
-      <div id="map" style={{ height: '361px', width: isTabletScreen ? '100%' : '406px' }} />
-      <h1>BYEEE</h1>
-    </>
-  );
+  return <div id="map" style={{ height: '361px', width: isTabletScreen ? '100%' : '406px' }} />;
 }
