@@ -95,7 +95,7 @@ export default function ChatTab({ isChatList, setIsChatList }: ChatProps) {
               )}
               {user.type === 'user' && (
                 <div className="flex items-center gap-[0.3rem] text-nowrap">
-                  <Image src={heart} alt="좋아요" width={24} height={24} />
+                  <Image src={theme === 'dark' ? like_white : heart} alt="좋아요" width={24} height={24} />
                   <p className="text-[1.8rem] font-medium text-black-300 dark:text-dark-t">{driverInforData?.likeCount}</p>
                   <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
                   <Image src={star} alt="별" width={20} height={20} />
@@ -103,7 +103,8 @@ export default function ChatTab({ isChatList, setIsChatList }: ChatProps) {
                   <p className="text-[1.6rem] font-medium text-gray-300">({driverInforData?.reviewCount})</p>
                   <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
                   <p className="text-[1.6rem] font-medium text-gray-300">
-                    경력 <span className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">{driverInforData?.career}년</span>
+                    경력{' '}
+                    <span className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">{driverInforData?.career}년</span>
                   </p>
                   <div className="bg-line-200 w-[0.1rem] h-[1.4rem] mx-[1rem]"></div>
                   <p className="text-[1.6rem] font-medium text-black-300 dark:text-dark-t">
@@ -116,9 +117,13 @@ export default function ChatTab({ isChatList, setIsChatList }: ChatProps) {
         ) : (
           <>
             {user.type === 'user' ? (
-              <p className="text-[1.6rem] text-black-300 font-medium dark:text-dark-t">기사님과 실시간 채팅으로 소통할 수 있어요.</p>
+              <p className="text-[1.6rem] text-black-300 font-medium dark:text-dark-t">
+                기사님과 실시간 채팅으로 소통할 수 있어요.
+              </p>
             ) : (
-              <p className="text-[1.6rem] text-black-300 font-medium dark:text-dark-t">유저와 실시간 채팅으로 소통할 수 있어요.</p>
+              <p className="text-[1.6rem] text-black-300 font-medium dark:text-dark-t">
+                유저와 실시간 채팅으로 소통할 수 있어요.
+              </p>
             )}
           </>
         )}
