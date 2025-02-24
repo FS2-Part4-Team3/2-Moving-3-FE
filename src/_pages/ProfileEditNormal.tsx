@@ -48,7 +48,7 @@ export default function ProfileEditNormal() {
       ...prev,
       name: user_info.name || (user.name ?? ''),
       email: user_info.email || (user.email ?? ''),
-      number: user_profile.phoneNumber || (user.phoneNumber ?? ''),
+      number: user_info.phoneNumber || (user.phoneNumber ?? ''),
       selectedRegions: user_profile.areas || [],
       selectedMovingType: user_profile.serviceType || [],
     }));
@@ -120,8 +120,8 @@ export default function ProfileEditNormal() {
       );
       dispatch(
         setInfo({
-          name: response.name,
-          phoneNumber: response.phoneNumber,
+          name: res.name,
+          phoneNumber: res.phoneNumber,
         }),
       );
     },
