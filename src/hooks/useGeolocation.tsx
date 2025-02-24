@@ -1,26 +1,21 @@
-'use client';
-
 import { useCallback, useEffect, useState } from 'react';
 import { LocationType } from '@/interfaces/Hooks/hookInerface';
 
 export const useGeoLocation = () => {
-  const [location, setLocation] = useState<LocationType>();
+  const [location, setLocation] = useState<LocationType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>('');
 
   const setDefaultLocation = () => {
     const defaultLatitude = 37.579293849225756;
     const defaultLongitude = 126.97798076343491;
-    setLocation({
-      latitude: defaultLatitude,
-      longitude: defaultLongitude,
-    });
+    setLocation({ latitude: defaultLatitude, longitude: defaultLongitude });
   };
 
-  const showError = useCallback((error: GeolocationPositionError) => {
+  const showError = useCallback((error: any) => {
     switch (error.code) {
       case error.PERMISSION_DENIED:
-        setErrorMsg('사용자가 위치 정보를 제공허는 것을 거부했습니다. ');
+        setErrorMsg('사용자가 위치 정보를 제공하는 것을 거부했습니다.');
         setDefaultLocation();
         break;
       case error.POSITION_UNAVAILABLE:
@@ -39,17 +34,17 @@ export const useGeoLocation = () => {
   useEffect(() => {
     const { geolocation } = navigator;
 
-    if (!geolocation) return;
+    if (!geolocation) {
+      setErrorMsg('이 브라우저는 위치 서비스를 지원하지 않습니다.');
+      return;
+    }
 
     setIsLoading(true);
 
     geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = position.coords;
-        setLocation({
-          latitude,
-          longitude,
-        });
+        setLocation({ latitude, longitude });
         setIsLoading(false);
       },
       err => showError(err),

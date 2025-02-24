@@ -106,7 +106,7 @@ export default function ChatCard({ id, isChatList, setIsChatList }: { id: string
             handleReadClick(id);
             setIsChatList(prev => !prev);
           }}
-          className="lg:w-[45rem] md:w-[28rem] sm:w-[37rem] flex items-center lg:gap-x-[1rem] md:gap-x-[0.8rem] sm:gap-x-[0.8rem] lg:px-[2rem] md:px-[1.4rem] sm:px-[1.4rem] lg:py-[2rem] md:py-[1.5rem] sm:py-[1.5rem] border-b-[0.1rem] border-line-100 cursor-pointer "
+          className="lg:w-[45rem] md:w-screen sm:w-screen flex items-center lg:gap-x-[1rem] md:gap-x-[0.8rem] sm:gap-x-[0.8rem] lg:px-[2rem] md:px-[1.4rem] sm:px-[1.4rem] lg:py-[2rem] md:py-[1.5rem] sm:py-[1.5rem] border-b-[0.1rem] border-line-100 cursor-pointer dark:bg-dark-p"
         >
           <div className="lg:w-[7.9rem] lg:h-[7.3rem] md:w-[6rem] md:h-[5.5rem] sm:w-[6rem] sm:h-[5.5rem] relative">
             <Image
@@ -118,14 +118,14 @@ export default function ChatCard({ id, isChatList, setIsChatList }: { id: string
           <div className="w-full flex flex-col gap-y-[0.5rem]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-x-[1.6rem]">
-                <p className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 ">
+                <p className="lg:text-[1.8rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 dark:text-dark-t">
                   {driverInforData?.name || userInforData?.name} {driverInforData ? '기사님' : userInforData ? '고객님' : ''}
                 </p>
                 <div className="flex items-center gap-x-[0.9rem]">
                   <div
                     className={`w-[1.4rem] h-[1.4rem] rounded-full ${onlineStatus?.isOnline ? 'bg-[#32CD32]' : 'bg-gray-300'}`}
                   ></div>
-                  <p className="lg:text-[1.6rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 ">
+                  <p className="lg:text-[1.6rem] md:text-[1.4rem] sm:text-[1.4rem] font-medium text-black-400 dark:text-dark-t">
                     {onlineStatus?.isOnline ? '온라인' : '오프라인'}
                   </p>
                 </div>

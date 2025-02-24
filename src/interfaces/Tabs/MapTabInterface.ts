@@ -1,5 +1,5 @@
 export interface MapTabProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+  activeTab: 'tab1' | 'tab2' | 'tab3';
+  setActiveTab: (tab: 'tab1' | 'tab2' | 'tab3') => void;
   renderContent: () => JSX.Element | null;
 }

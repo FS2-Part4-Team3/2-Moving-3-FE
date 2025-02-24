@@ -42,7 +42,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
             작성일 {DateWithoutDayWeeKFormat(myReview.createdAt)}
           </span>
         </div>
-        <div className="flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[64rem] lg:h-[12.8rem] rounded-[0.6rem] border lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.8rem] md:py-[1.3rem] sm:px-0 sm:py-[1.3rem] bg-white border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
+        <div className="lg:flex md:hidden sm:hidden flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[64rem] lg:h-[12.8rem] rounded-[0.6rem] border lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.8rem] md:py-[1.3rem] sm:px-0 sm:py-[1.3rem] bg-white border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
           <div className="lg:w-[9.6rem] lg:h-[9.6rem] md:w-[4.6rem] md:h-[4.6rem] sm:w-[4.6rem] sm:h-[4.6rem] relative ">
             <Image src={myReview.driver.image || profile_default} alt={'기본 이미지'} className="rounded-full" fill />
           </div>
@@ -72,9 +72,44 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
             <div className="lg:flex md:hidden sm:hidden">{renderStars(myReview.score)}</div>
           </div>
         </div>
-
         <div className="flex flex-col">
-          <span className="lg:text-[2rem] font-normal text-gray-500 dark:text-dark-t">{myReview.comment}</span>
+          <span className="lg:block md:hidden sm:hidden lg:text-[2rem] font-normal text-gray-500 dark:text-dark-t">
+            {myReview.comment}
+          </span>
+        </div>
+
+        <div className="lg:hidden md:flex sm:flex md:gap-[1.6rem] sm:gap-[1.2rem] items-center  rounded-[0.6rem] border-b  bg-white border-line-100  ">
+          <div className="lg:w-[9.6rem] lg:h-[9.6rem] md:w-[4.6rem] md:h-[4.6rem] sm:w-[4.6rem] sm:h-[4.6rem] relative ">
+            <Image src={myReview.driver.image || profile_default} alt={'기본 이미지'} className="rounded-full" fill />
+          </div>
+          <div className="flex flex-col py-[2rem] ">
+            <h1
+              className={`lg:text-[2.4rem] md:text-[1.4rem] sm:text-[1.4rem] font-semibold text-black-300 dark:text-dark-t 'lg:mb-[0.8rem] md:mb-[0.6rem] sm:mb-[0.6rem]'`}
+            >
+              {myReview.driver.name} 기사님
+            </h1>
+            <div className={`flex lg:gap-[1.6rem] md:gap-[1.25rem] sm:gap-[1.25rem] md:mb-[0.4rem] sm:mb-[0.4rem]`}>
+              <div className="flex lg:gap-[1.2rem] md:gap-[0.6rem] sm:gap-[0.6rem]">
+                <h2 className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-normal text-gray-500 ">이사일</h2>
+                <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 dark:text-dark-t">
+                  {DateWithoutDayWeeKFormat(myReview.estimation?.moveInfo.date)}
+                </span>
+              </div>
+              <div className="w-[0.1rem] lg:h-[1.6rem] md:h-[1.4rem] sm:h-[1.4rem] rounded-[10rem] bg-line-200 "></div>
+              <div className="flex lg:gap-[1.2rem] md:gap-[0.6rem] sm:gap-[0.6rem]">
+                <h2 className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-normal text-gray-500 ">견적가</h2>
+                <span className="lg:text-[2rem] md:text-[1.3rem] sm:text-[1.3rem] font-medium text-black-400 dark:text-dark-t">
+                  {priceFormat(myReview.estimation?.price)}원
+                </span>
+              </div>
+            </div>
+            <div className="lg:flex md:hidden sm:hidden">{renderStars(myReview.score)}</div>
+          </div>
+        </div>
+        <div className="flex flex-col mt-[0.3rem]">
+          <span className="lg:hidden md:block sm:block lg:text-[2rem] font-normal text-gray-500 dark:text-dark-t">
+            {myReview.comment}
+          </span>
           <span className="lg:hidden md:block sm:block text-[1.2rem] font-normal text-gray-300 dark:text-dark-t self-end">
             작성일 {DateWithoutDayWeeKFormat(myReview.createdAt)}
           </span>
