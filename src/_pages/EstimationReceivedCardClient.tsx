@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { getEstimationConfirmedDetail } from '@/api/EstimationService';
 import EstimateReceivedCard from '@/components/cards/EstimateReceivedCard';
@@ -33,10 +34,12 @@ export default function EstimationReceivedCardClient() {
   }
 
   return (
-    <EstimateReceivedCard
-      data={EstimationReceivedCardData}
-      serviceType={EstimationReceivedCardData.serviceType}
-      isConfirmed={true}
-    />
+    <Link href={`/normal/match-driver/${EstimationReceivedCardData.driver.driverId}`} className="cursor-pointer">
+      <EstimateReceivedCard
+        data={EstimationReceivedCardData}
+        serviceType={EstimationReceivedCardData.serviceType}
+        isConfirmed={true}
+      />
+    </Link>
   );
 }
