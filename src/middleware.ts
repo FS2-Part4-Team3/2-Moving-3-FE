@@ -37,7 +37,7 @@ export async function middleware(req: NextRequest) {
       url.pathname = '/driver/receive-quote';
       return NextResponse.redirect(url);
     }
-  } else if (req.nextUrl.pathname.startsWith('/callback') || req.nextUrl.pathname.startsWith('/match-driver')) {
+  } else if (req.nextUrl.pathname.startsWith('/match-driver')) {
     if (loggedInUser) {
       if (loggedInUser.userType === 'user') {
         url.pathname = '/normal/match-driver';
@@ -53,5 +53,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/driver/:path*', '/normal/:path*', '/callback/:path*', '/match-driver/:path*'],
+  matcher: ['/driver/:path*', '/normal/:path*', '/match-driver/:path*'],
 };
