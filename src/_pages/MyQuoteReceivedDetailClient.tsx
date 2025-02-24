@@ -102,7 +102,7 @@ export default function MyQuoteReceivedDetailClient({ id }: MyQuoteDetailClientP
         </div>
       </div>
       <div className="lg:hidden sm:block">
-        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white dark:bg-dark-p flex items-center justify-center">
+        <div className="fixed py-[1rem] bottom-0 left-0 w-full shadow-custom8 bg-white dark:bg-dark-p flex items-center justify-center z-10">
           <div className="flex flex-row gap-[0.8rem] md:w-[60rem] sm:w-full sm:px-[2rem] md:px-0 justify-center">
             <DetailButtonClient type="quoteReceived" id={driverId} />
           </div>

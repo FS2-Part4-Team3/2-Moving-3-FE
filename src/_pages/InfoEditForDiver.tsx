@@ -15,6 +15,7 @@ import { ButtonWrapper } from '@/components/common/headless/Button';
 import { InputWrapper } from '@/components/common/headless/Input';
 import useProfileValidate from '@/hooks/useProfileValidate';
 import { setInfo } from '@/store/slices/InfoSlice';
+import { setSocialEdit } from '@/store/slices/ProfileSlice';
 import { RootState } from '@/store/store';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -95,6 +96,7 @@ export default function InfoEditForDriver() {
 
   const handleSubmit = () => {
     userDataMutation.mutate();
+    dispatch(setSocialEdit({ socialEdit: false }));
     if (values?.newPassword.length) {
       changePasswordMutation.mutate();
     }
@@ -435,7 +437,13 @@ export default function InfoEditForDriver() {
                 </ButtonWrapper>
               </div>
               <div className="lg:block sm:hidden">
-                <div className="flex lg:gap-[3.2rem]" onClick={() => setIsPasswordCheck(prev => !prev)}>
+                <div
+                  className="flex lg:gap-[3.2rem]"
+                  onClick={() => {
+                    setIsPasswordCheck(prev => !prev);
+                    dispatch(setSocialEdit({ socialEdit: true }));
+                  }}
+                >
                   <a href={`${BASE_URL}/auth/google/driver/verify/${user.id}`} rel="noopener noreferrer">
                     <Image src={google} alt="google" width={72} height={72} />
                   </a>
@@ -447,7 +455,13 @@ export default function InfoEditForDriver() {
                   </a>
                 </div>
               </div>
-              <div className="lg:hidden sm:block" onClick={() => setIsPasswordCheck(prev => !prev)}>
+              <div
+                className="lg:hidden sm:block"
+                onClick={() => {
+                  setIsPasswordCheck(prev => !prev);
+                  dispatch(setSocialEdit({ socialEdit: true }));
+                }}
+              >
                 <div className="flex sm:gap-[2.4rem] justify-center">
                   <a href={`${BASE_URL}/auth/google/driver/verify/${user.id}`} rel="noopener noreferrer">
                     <Image src={google} alt="google" width={54} height={54} />
