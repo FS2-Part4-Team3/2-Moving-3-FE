@@ -41,7 +41,7 @@ export default function EstimationInformationCard({ data }: EstimationInformatio
   return (
     <div className="flex flex-col lg:gap-[4rem] sm:gap-[2.4rem]">
       <p className="font-semibold lg:text-[2.4rem] lg:leading-[3.2rem] sm:text-[1.6rem] sm:leading-[2.6rem] text-black-400 dark:text-dark-t">
-        견적 정보
+        이사 정보
       </p>
       {!(pathname === '/normal/my-quote/edit' && !moveInfoDetailData) ? (
         <div className="rounded-[1.6rem] border border-line-100 md:py-[3.2rem] md:px-[4rem] sm:p-[1.6rem] bg-background-100 dark:bg-dark-p flex lg:gap-[3.2rem] gap-[4rem]">

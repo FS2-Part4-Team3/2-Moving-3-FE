@@ -52,7 +52,7 @@ export default function WaitingQuoteTab() {
           <p
             className={`lg:font-semibold lg:text-[2rem] lg:leading-[3.2rem] sm:font-bold sm:text-[1.4rem] sm:leading-[2.4rem] ${selectTab === 'edit' ? 'text-[#2B2B2B] dark:text-dark-t' : 'text-gray-400'}`}
           >
-            요청 수정/취소
+            이사 정보
           </p>
         </div>
       </Link>

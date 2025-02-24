@@ -66,8 +66,6 @@ export default function Notification({ notifications, onClose, onNotificationCli
     },
   });
 
-  console.log(setDriverName);
-
   useEffect(() => {
     notifications.forEach(notification => {
       if (['D_7', 'D_1', 'D_DAY'].includes(notification.type)) {
