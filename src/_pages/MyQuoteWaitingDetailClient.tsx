@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { getDriverDetailData } from '@/api/DriverService';
 import { getUserEstimationDetailData } from '@/api/EstimationService';
 import EstimationInformationCard from '@/components/cards/EstimateInformationCard';
@@ -13,6 +14,17 @@ import MapClient from './MapClient';
 import SharingPageClient from './SharingPageClient';
 
 export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientProps) {
+  const [isTabletScreen, setIsTabletScreen] = useState<boolean>(window.innerWidth < 1200);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsTabletScreen(window.innerWidth < 1200);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  });
+
   const {
     data: estimationData,
     isLoading: isEstimationLoading,
@@ -77,9 +89,9 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
           </div>
           <div className="border border-line-100 w-full"></div>
           <EstimationInformationCard data={transformedMoveInfo} />
-          <div className="lg:hidden sm:block">
+          {isTabletScreen && (
             <MapClient fromAddress={estimationData.moveInfo.fromAddress} toAddress={estimationData.moveInfo.toAddress} />
-          </div>
+          )}
         </div>
         <div className="lg:block sm:hidden">
           <div className="flex flex-col w-full gap-[4rem]">
@@ -93,7 +105,9 @@ export default function MyQuoteWaitingDetailClient({ id }: MyQuoteDetailClientPr
                 <SharingPageClient type="quoteWaiting" />
               </div>
             </div>
-            <MapClient fromAddress={estimationData.moveInfo.fromAddress} toAddress={estimationData.moveInfo.toAddress} />
+            {!isTabletScreen && (
+              <MapClient fromAddress={estimationData.moveInfo.fromAddress} toAddress={estimationData.moveInfo.toAddress} />
+            )}
           </div>
         </div>
       </div>

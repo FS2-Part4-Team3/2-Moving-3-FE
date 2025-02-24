@@ -361,7 +361,7 @@ export default function GNB() {
                   {isProfileVisible && (
                     <div className="absolute top-[5rem] transform translate-x-[-10rem] z-[10] lg:hidden sm:block">
                       <animated.div style={profileModalAnimation}>
-                        <Profile closeModal={handleCloseProfileModal} />
+                        <Profile closeModal={handleCloseProfileModal} setNotifications={setNotifications} />
                       </animated.div>
                     </div>
                   )}
@@ -395,7 +395,7 @@ export default function GNB() {
                   {isProfileVisible && (
                     <div className="absolute top-[8rem] transform translate-x-[-15rem] z-[10] lg:block sm:hidden">
                       <animated.div style={profileModalAnimation}>
-                        <Profile closeModal={handleCloseProfileModal} />
+                        <Profile closeModal={handleCloseProfileModal} setNotifications={setNotifications} />
                       </animated.div>
                     </div>
                   )}
