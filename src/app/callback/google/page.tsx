@@ -61,14 +61,10 @@ export default function CallBackGoogle() {
 
         if (res.type === 'user' && (!res.areas || !res.serviceTypes)) {
           router.push('/normal/profile-register');
-        } else if (res.type === 'user' && res.areas && res.serviceTypes && social.socialEdit) {
-          router.push('/normal/my-page/edit-profile');
         } else if (res.type === 'user' && res.areas && res.serviceTypes) {
           router.push('/normal/match-driver');
         } else if (res.type === 'driver' && !res.introduce && !res.description && !res.availableAreas && !res.nickname) {
           router.push('/driver/profile-register');
-        } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas && social.socialEdit) {
-          router.push('/driver/my-page/edit-basic-info');
         } else if (res.type === 'driver' && res.introduce && res.description && res.availableAreas) {
           router.push('/driver/receive-quote');
         }

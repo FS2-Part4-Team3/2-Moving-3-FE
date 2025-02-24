@@ -17,7 +17,7 @@ import movingTypes from '@/constants/movingType';
 import regions from '@/constants/regions';
 import useProfileValidate from '@/hooks/useProfileValidate';
 import { setInfo } from '@/store/slices/InfoSlice';
-import { setProfile, setProfileNoImg, setSocialEdit } from '@/store/slices/ProfileSlice';
+import { setIsPasswordCheck, setProfile, setProfileNoImg } from '@/store/slices/ProfileSlice';
 import { RootState } from '@/store/store';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -35,7 +35,6 @@ export default function ProfileEditNormal() {
     newPassword: false,
     newPasswordChk: false,
   });
-  const [isPasswordCheck, setIsPasswordCheck] = useState(false);
   const router = useRouter();
   const user = useSelector((state: RootState) => state.signIn);
   const user_profile = useSelector((state: RootState) => state.profile);
@@ -152,7 +151,7 @@ export default function ProfileEditNormal() {
       }
     },
     onSuccess: () => {
-      setIsPasswordCheck(true);
+      dispatch(setIsPasswordCheck({ isPasswordCheck: true }));
     },
     onError: () => {
       alert('비밀번호가 올바르지 않습니다.');
@@ -161,7 +160,6 @@ export default function ProfileEditNormal() {
 
   const handleUserDataSubmit = () => {
     userDataMutation.mutate();
-    dispatch(setSocialEdit({ socialEdit: false }));
     if (values?.newPassword.length) {
       changePasswordMutation.mutate();
     }
@@ -173,7 +171,7 @@ export default function ProfileEditNormal() {
 
   return (
     <>
-      {isPasswordCheck ? (
+      {user_profile.isPasswordCheck ? (
         <div className="flex flex-col items-center lg:gap-[4rem] md:gap-[2rem] sm:gap-[2rem] lg:mt-[3.2rem] md:mt-[1.6rem] sm:mt-[1.6rem]">
           <div className="lg:w-[120rem] md:w-[32.7rem] sm:w-[32.7rem] lg:h-[3.2rem] lg:text-[3.2rem] md:text-[1.8rem] sm:text-[1.8rem] lg:mb-0 md:mb-[1.2rem] sm:mb-[1.2rem] font-semibold text-black-400 dark:text-dark-t">
             프로필 수정
@@ -330,13 +328,7 @@ export default function ProfileEditNormal() {
                 </ButtonWrapper>
               </div>
               <div className="lg:block sm:hidden">
-                <div
-                  className="flex lg:gap-[3.2rem]"
-                  onClick={() => {
-                    // setIsPasswordCheck(prev => !prev);
-                    dispatch(setSocialEdit({ socialEdit: true }));
-                  }}
-                >
+                <div className="flex lg:gap-[3.2rem]">
                   <a href={`${BASE_URL}/auth/google/user/verify/${user.id}`} rel="noopener noreferrer">
                     <Image src={google} alt="google" width={72} height={72} />
                   </a>
@@ -348,13 +340,7 @@ export default function ProfileEditNormal() {
                   </a>
                 </div>
               </div>
-              <div
-                className="lg:hidden sm:block"
-                onClick={() => {
-                  setIsPasswordCheck(prev => !prev);
-                  dispatch(setSocialEdit({ socialEdit: true }));
-                }}
-              >
+              <div className="lg:hidden sm:block">
                 <div className="flex sm:gap-[2.4rem] justify-center">
                   <a href={`${BASE_URL}/auth/google/user/verify/${user.id}`} rel="noopener noreferrer">
                     <Image src={google} alt="google" width={54} height={54} />
