@@ -19,7 +19,6 @@ export default function DriverMyPageClient() {
   } = useQuery<DriverDetailData>({
     queryKey: id ? ['driverDetail', id] : [],
     queryFn: id ? () => getDriverDetailData(id) : undefined,
-    enabled: !!id,
   });
 
   if (isLoading) return <div>로딩 중...</div>;
