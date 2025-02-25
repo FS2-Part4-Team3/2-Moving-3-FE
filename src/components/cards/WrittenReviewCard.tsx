@@ -32,7 +32,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
     <>
       <div
         key={myReview.id}
-        className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white dark:bg-dark-p border-none flex flex-col shadow-custom3"
+        className="lg:w-[68.6rem] lg:h-[34.6rem] md:w-[60rem] md:h-[20.8rem] sm:w-[32.7rem] sm:h-[20.8rem] rounded-[2.4rem] lg:px-[2.4rem] lg:py-[3.2rem] md:px-[2rem] md:py-[2rem] sm:px-[1.4rem] sm:py-[2rem] bg-white dark:bg-dark-p border-none flex flex-col shadow-custom3 dark:shadow"
       >
         <div className="flex flex-row items-center lg:gap-[1.2rem] md:gap-[0.8rem] sm:gap-[0.8rem] lg:w-[64rem] ">
           <MovingTypeChips type={myReview.estimation.moveInfo.serviceType} />
@@ -42,7 +42,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
             작성일 {DateWithoutDayWeeKFormat(myReview.createdAt)}
           </span>
         </div>
-        <div className="lg:flex md:hidden sm:hidden flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[64rem] lg:h-[12.8rem] rounded-[0.6rem] border lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.8rem] md:py-[1.3rem] sm:px-0 sm:py-[1.3rem] bg-white border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
+        <div className="lg:flex md:hidden sm:hidden flex lg:gap-[2.4rem] md:gap-[1.6rem] sm:gap-[1.2rem] items-center lg:w-[64rem] lg:h-[12.8rem] rounded-[0.6rem] border lg:px-[1.8rem] lg:py-[1.6rem] md:px-[0.8rem] md:py-[1.3rem] sm:px-0 sm:py-[1.3rem] bg-white dark:bg-dark-p border-line-100 lg:mt-[2.4rem] md:mt-[1.4rem] sm:mt-[1.4rem] lg:mb-[3.2rem] md:mb-[1.4rem] sm:mb-[1.4rem] ">
           <div className="lg:w-[9.6rem] lg:h-[9.6rem] md:w-[4.6rem] md:h-[4.6rem] sm:w-[4.6rem] sm:h-[4.6rem] relative ">
             <Image src={myReview.driver.image || profile_default} alt={'기본 이미지'} className="rounded-full" fill />
           </div>
@@ -78,7 +78,7 @@ export default function WrittenReviewCard({ myReview }: ReviewCardProps) {
           </span>
         </div>
 
-        <div className="lg:hidden md:flex sm:flex md:gap-[1.6rem] sm:gap-[1.2rem] items-center  rounded-[0.6rem] border-b  bg-white border-line-100  ">
+        <div className="lg:hidden md:flex sm:flex md:gap-[1.6rem] sm:gap-[1.2rem] items-center border-b bg-white dark:bg-dark-p border-line-100  ">
           <div className="lg:w-[9.6rem] lg:h-[9.6rem] md:w-[4.6rem] md:h-[4.6rem] sm:w-[4.6rem] sm:h-[4.6rem] relative ">
             <Image src={myReview.driver.image || profile_default} alt={'기본 이미지'} className="rounded-full" fill />
           </div>
